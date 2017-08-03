@@ -1,6 +1,6 @@
 ![KAMISHIBAI for Xamarin.Forms](https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/logo_wide.png)
 
-KAMISHIBAI for Xamarin.Formsは、もっとも自由なXamarin.Forms用のMVVM対応画面遷移フレームワークです。  
+KAMISHIBAI for Xamarin.Formsは、もっとも自由なXamarin.Forms用のMVVMをサポートする画面遷移フレームワークです。  
 KAMISHIBAIは、あなたに次のものを提供します。  
 
 * Xamarin.Formsの可能性を一切阻害しない画面遷移アーキテクチャ  
