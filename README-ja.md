@@ -9,6 +9,12 @@ KAMISHIBAIは、あなたに次のものを提供します。
 * 柔軟な拡張性  
 * MVVMのサポート  
 
+# How to install  
+Install from NuGet.
+```txt
+> Install-Package Kamishibai.Xamarin.Forms
+```
+
 # Getting Started with KAMISHIBAI
 
 さて、まずはKAMISHIBAIの最も基本的な画面遷移の実装を見ていただきましょう。  
