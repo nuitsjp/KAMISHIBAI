@@ -15,6 +15,10 @@ Install from NuGet.
 > Install-Package Kamishibai.Xamarin.Forms
 ```
 
+# Documents
+
+1. [Getting Started with KAMISHIBAI](#getting-started-with-kamishibai)
+
 # Getting Started with KAMISHIBAI
 
 さて、まずはKAMISHIBAIの基本的な画面遷移の実装を見ていただきましょう。  
