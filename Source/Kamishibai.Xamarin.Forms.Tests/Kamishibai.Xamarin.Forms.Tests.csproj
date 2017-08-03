@@ -77,6 +77,42 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationServiceFixture.cs" />
+    <Compile Include="BehaviorBaseFixture.cs" />
+    <Compile Include="BehaviorInjectorFixture.cs" />
+    <Compile Include="LifecycleNoticeServiceFixture.cs" />
+    <Compile Include="Lifecycle\OnClosedFixture.cs" />
+    <Compile Include="Lifecycle\OnInitializeFixture.cs" />
+    <Compile Include="Lifecycle\OnLoadedFixture.cs" />
+    <Compile Include="Lifecycle\OnResumeFixture.cs" />
+    <Compile Include="Lifecycle\OnSleepFixture.cs" />
+    <Compile Include="Lifecycle\OnUnloadedFixture.cs" />
+    <Compile Include="Mocks\ApplicationMock.cs" />
+    <Compile Include="Mocks\CarouselPageMock.cs" />
+    <Compile Include="Mocks\ContentPageMock.cs" />
+    <Compile Include="Mocks\EventRecord.cs" />
+    <Compile Include="Mocks\EventRecorder.cs" />
+    <Compile Include="Mocks\MasterDetailPageMock.cs" />
+    <Compile Include="Mocks\NavigationPageMock.cs" />
+    <Compile Include="Mocks\TabbedPageMock.cs" />
+    <Compile Include="Mocks\ViewModelMock.cs" />
+    <Compile Include="MultiPageBehaviorFixture.cs" />
+    <Compile Include="Mvvm\AnimatableNavigationFixture.cs" />
+    <Compile Include="Mvvm\InsertPageBeforeFixture.cs" />
+    <Compile Include="Mvvm\NavigationBehaviorFixture.cs" />
+    <Compile Include="Mvvm\NavigationRequestCommandFixture.cs" />
+    <Compile Include="Mvvm\NavigationRequestCommand{T}Fixture.cs" />
+    <Compile Include="Mvvm\NavigationRequestFixture.cs" />
+    <Compile Include="Mvvm\PopAsyncFixture.cs" />
+    <Compile Include="Mvvm\PopModalAsyncFixture.cs" />
+    <Compile Include="Mvvm\PopToRootAsyncFixture.cs" />
+    <Compile Include="Mvvm\PushAsyncFixture.cs" />
+    <Compile Include="Mvvm\PushModalAsyncFixture.cs" />
+    <Compile Include="Mvvm\RemovePageFixture.cs" />
+    <Compile Include="Mvvm\SetMainPageFixture.cs" />
+    <Compile Include="NavigationPageBehaviorFixture.cs" />
+    <Compile Include="NavigatorFixture.cs" />
+    <Compile Include="PageExtensionsFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
