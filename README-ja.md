@@ -17,9 +17,9 @@ Install from NuGet.
 
 # Getting Started with KAMISHIBAI
 
-さて、まずはKAMISHIBAIの最も基本的な画面遷移の実装を見ていただきましょう。  
+さて、まずはKAMISHIBAIの基本的な画面遷移の実装を見ていただきましょう。  
 
-KAMISHIBAIの最大の特徴は、画面遷移の要求と画面遷移処理の二つが、完全に分離されている点にあります。  
+KAMISHIBAIの最大の特徴は、画面遷移の要求と画面遷移処理の二つが、完全に分離されている点にあります。  
 KAMISHIBAIにおける画面遷移は、つぎの二つのステップにて実現します。  
 
 1. ViewModelからViewへ画面遷移を要求する  
