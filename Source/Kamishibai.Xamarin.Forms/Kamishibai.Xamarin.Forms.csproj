@@ -5,6 +5,21 @@
     <DebugType>full</DebugType>
     <RootNamespace>Kamishibai.Xamarin.Forms</RootNamespace>
     <AssemblyName>Kamishibai.Xamarin.Forms</AssemblyName>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>nuits.jp</Authors>
+    <Company>nuits.jp</Company>
+    <Title>KAMISHIBAI for Xamarin.Forms</Title>
+    <Product>Kamishibai.Xamarin.Forms</Product>
+    <Copyright>Copyright 2017 nuits.jp</Copyright>
+    <PackageLicenseUrl>https://github.com/nuitsjp/KAMISHIBAI/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/nuitsjp/KAMISHIBAI</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/nuitsjp/KAMISHIBAI</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>Xamarin Forms Xamarin.Forms Navigation Xamarin.Forms.Navigation Kamishibai Kamishibai.Xamarin.Forms</PackageTags>
+    <Description>KAMISHIBAI for Xamarin.Forms is the most flexible page navigation framework. KAMISHIBAI for Xamarin.Forms supports MVVM Pattern.</Description>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <Version>0.1.0-pre1</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="2.3.4.247" />
