@@ -46,7 +46,7 @@ Commandが実行されたら、SecondPageへの遷移を要求します。
     </StackLayout>
 </ContentPage>
 ```
-「mvvm:PushAsync」ビヘイビアを注目してください。    
+「mvvm:PushAsync」ビヘイビアを注目してください。  
 RequestSecondPageの遷移要求を受けて、x:TypeArgumentsで指定されたSecondPageへ、INavigation#PushAsync()を利用して画面遷移します。  
 
 KAMISHIBAIではこの他に、つぎのような魅力的な機能を提供しています。  
@@ -58,12 +58,12 @@ KAMISHIBAIに興味をもっていただけましたか？  
 KAMISHIBAIでは、あなたをサポートする次のコンテンツを提供しています。  
 さあ、Xamarin.Formsで最も自由な画面遷移ライブラリを使ってみましょう！  
 
-# Documents
+## Documents
 
 1. [How to install](#how-to-install)
 2. [Getting Started with KAMISHIBAI](#getting-started-with-kamishibai)
 
-# How to install  
+## How to install  
 
 Install from NuGet.
 
@@ -71,7 +71,7 @@ Install from NuGet.
 > Install-Package Kamishibai.Xamarin.Forms
 ```
 
-# Getting Started with KAMISHIBAI
+## Getting Started with KAMISHIBAI
 
 さて、まずはKAMISHIBAIの基本的な画面遷移の実装を見ていただきましょう。  
 
