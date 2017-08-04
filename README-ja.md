@@ -2,13 +2,14 @@
 
 # KAMISHIBAI for Xamarin.Forms
 
-KAMISHIBAI for Xamarin.Formsは、Xamarin.Formsの画面遷移機能を一切制約することなく、つぎの機能拡張を行います。  
+KAMISHIBAI for Xamarin.Formsは、MVVMパターンをサポートする画面遷移ライブラリです。  
+KAMISHIBAIはXamarin.Formsの機能を一切制限せず、つぎの機能拡張を行います。  
 
 * 型安全性の保障された画面遷移時パラメーター  
 * 画面遷移にともなう適切なイベント通知  
 * MVVMのサポート  
 
-Xamarin.Formsで実現可能なあらゆる画面遷移は、KAMISHIBAIを利用することで、より簡単に実現する事が可能となります。  
+Xamarin.Formsで実現可能なあらゆる画面遷移は、KAMISHIBAIを利用することで、より簡単に実現する事ができます。  
 
 # How to install  
 Install from NuGet.
