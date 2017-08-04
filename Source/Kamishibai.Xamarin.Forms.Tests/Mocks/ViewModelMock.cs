@@ -1,6 +1,6 @@
 ﻿namespace Kamishibai.Xamarin.Forms.Tests.Mocks
 {
-    public class ViewModelMock : IPageLifecycleAware, IApplicationLifecycleAware
+    public class ViewModelMock : IPageLifecycleAware, IApplicationLifecycleAware, IPageInitializeAware<string>
     {
         private readonly EventRecorder _eventRecorder = new EventRecorder();
 
@@ -9,9 +9,14 @@
             _eventRecorder = eventRecorder;
         }
 
-        public void OnInitialize(object parameter)
+        public void OnInitialize()
         {
-            _eventRecorder.Record(this, parameter);
+            _eventRecorder.Record(this);
+        }
+
+        public void OnInitialize(string param)
+        {
+            _eventRecorder.Record(this, parameter:param);
         }
 
         public void OnLoaded()

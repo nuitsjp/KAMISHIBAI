@@ -1,12 +1,12 @@
 ﻿namespace Kamishibai.Xamarin.Forms
 {
-    public interface IPageInilializeAware<in TParam>
+    public interface IPageInitializeAware<in TParam>
     {
         void OnInitialize(TParam parameter);
     }
 
-    public interface IPageInitializeAware : IPageInilializeAware<object>
+    public interface IPageInitializeAware
     {
-        
+        void OnInitialize();
     }
 }

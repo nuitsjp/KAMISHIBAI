@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -11,6 +12,9 @@ namespace Kamishibai.Xamarin.Forms
         private INavigation Navigation { get; }
         
         internal IBehaviorInjector BehaviorInjector { get; set; } = new BehaviorInjector();
+
+        public IReadOnlyList<Page> ModalStack => Navigation.ModalStack;
+        public IReadOnlyList<Page> NavigationStack => Navigation.NavigationStack;
 
         public Navigator(Page page) : this(page, page.Navigation)
         {
@@ -58,10 +62,17 @@ namespace Kamishibai.Xamarin.Forms
             }
         }
 
-        public Task PushAsync(Page page, bool animated = true)
+        public async Task PushAsync(Page page, bool animated = true)
         {
-            return PushAsync<object>(page, null, animated);
+            page.OnInitialize();
+
+            BehaviorInjector.Inject(page);
+            await Navigation.PushAsync(page, animated);
+
+            page.OnLoaded();
+            _currentPage.OnUnloaded();
         }
+        
         public async Task PushAsync<TParam>(Page page, TParam parameter = default(TParam), bool animated = true)
         {
             page.OnInitialize(parameter);
@@ -73,9 +84,15 @@ namespace Kamishibai.Xamarin.Forms
             _currentPage.OnUnloaded();
         }
 
-        public Task PushModalAsync(Page page, bool animated = true)
+        public async Task PushModalAsync(Page page, bool animated = true)
         {
-            return PushModalAsync<object>(page, null, animated);
+            page.OnInitialize();
+
+            BehaviorInjector.Inject(page);
+            await Navigation.PushModalAsync(page, animated);
+
+            page.OnLoaded();
+            _currentPage.OnUnloaded();
         }
         public async Task PushModalAsync<TParam>(Page page, TParam parameter = default(TParam), bool animated = true)
         {

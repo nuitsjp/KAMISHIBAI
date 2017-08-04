@@ -2,7 +2,7 @@
 
 namespace Kamishibai.Xamarin.Forms.Tests.Mocks
 {
-    public class NavigationPageMock : NavigationPage, IPageLifecycleAware, IApplicationLifecycleAware
+    public class NavigationPageMock : NavigationPage, IPageLifecycleAware<string>, IApplicationLifecycleAware
     {
         private readonly EventRecorder _eventRecorder;
 
@@ -11,9 +11,9 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mocks
             _eventRecorder = eventRecorder;
         }
 
-        public void OnInitialize(object parameter)
+        public void OnInitialize(string param)
         {
-            _eventRecorder.Record(this, parameter);
+            _eventRecorder.Record(this, parameter: param);
         }
 
         public void OnLoaded()

@@ -72,24 +72,40 @@ namespace Kamishibai.Xamarin.Forms.Mvvm
         }
     }
     
-    public class NavigationRequestCommand : NavigationRequestCommand<object>
+    public class NavigationRequestCommand : NavigationRequest, ICommand
     {
-        public NavigationRequestCommand()
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
+
+        public event EventHandler CanExecuteChanged;
+
+        public NavigationRequestCommand() : this(() => { }, () => true)
         {
         }
 
-        public NavigationRequestCommand(Action execute) : base(_ => execute(), _ => true)
+        public NavigationRequestCommand(Action execute) : this(execute, () => true)
         {
         }
-        public NavigationRequestCommand(Action execute, Func<bool> canExecute) : base(_ => execute?.Invoke(), _ => canExecute?.Invoke() ?? true)
+        public NavigationRequestCommand(Action execute, Func<bool> canExecute)
         {
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
-        public NavigationRequestCommand(Action<object> execute) : base(execute, _ => true)
+        public bool CanExecute(object parameter)
         {
+            return _canExecute?.Invoke() ?? true;
         }
-        public NavigationRequestCommand(Action<object> execute, Func<object, bool> canExecute) : base(execute, canExecute)
+
+        public void Execute(object parameter)
         {
+            _execute?.Invoke();
+            RaiseAsync();
+        }
+
+        public void ChangeCanExecute()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

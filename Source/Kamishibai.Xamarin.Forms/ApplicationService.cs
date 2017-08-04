@@ -22,10 +22,10 @@ namespace Kamishibai.Xamarin.Forms
         }
 
         internal static IBehaviorInjector BehaviorInjector { get; set; } = new BehaviorInjector();
-
-        static ApplicationService()
+        
+        public  static void Initialize(Application application)
         {
-            Current = new ApplicationAdapter(Application.Current);
+            Current = new ApplicationAdapter(application);
         }
 
         public static void SetMainPage(Page page)

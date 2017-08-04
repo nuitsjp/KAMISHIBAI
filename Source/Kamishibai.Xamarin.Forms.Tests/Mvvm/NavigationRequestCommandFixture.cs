@@ -13,15 +13,10 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mvvm
 			var actionMock = new Mock<INavigationAction>();
 			command.NavigationAction = actionMock.Object;
 
-			Assert.True(command.CanExecute());
 			Assert.True(command.CanExecute(new object()));
 
-			command.Execute();
+			command.Execute(new object());
 			actionMock.Verify(m => m.Navigate<object>(null), Times.Once);
-
-			var parameter = new object();
-			command.Execute(parameter);
-			actionMock.Verify(m => m.Navigate(parameter), Times.Once);
 		}
 
 		[Fact]
@@ -32,12 +27,12 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mvvm
 			var actionMock = new Mock<INavigationAction>();
 			command.NavigationAction = actionMock.Object;
 
-			Assert.True(command.CanExecute());
+			Assert.True(command.CanExecute(new object()));
 			
 			var parameter = new object();
 
 			command.Execute(parameter);
-			actionMock.Verify(m => m.Navigate(parameter), Times.Once);
+			actionMock.Verify(m => m.Navigate((object)null), Times.Once);
 			Assert.True(called);
 		}
 
@@ -49,9 +44,9 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mvvm
 			var actionMock = new Mock<INavigationAction>();
 			command.NavigationAction = actionMock.Object;
 
-			Assert.True(command.CanExecute());
+			Assert.True(command.CanExecute(new object()));
 
-			command.Execute();
+			command.Execute(new object());
 			actionMock.Verify(m => m.Navigate((object)null), Times.Once);
 			Assert.True(called);
 		}
@@ -59,33 +54,25 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mvvm
 		[Fact]
 		public void Constructor_WithAction()
 		{
-			object actionParameter = null;
-			var command = new NavigationRequestCommand(args => actionParameter = args);
+			var called = false;
+			var command = new NavigationRequestCommand(() => called = true);
 			var actionMock = new Mock<INavigationAction>();
 			command.NavigationAction = actionMock.Object;
 
-			Assert.True(command.CanExecute());
+			Assert.True(command.CanExecute(new object()));
 
 			var parameter = new object();
 
 			command.Execute(parameter);
-			actionMock.Verify(m => m.Navigate(parameter), Times.Once);
-			Assert.Equal(parameter, actionParameter);
+			actionMock.Verify(m => m.Navigate((object)null), Times.Once);
+			Assert.True(called);
 		}
 
 		[Fact]
 		public void Constructor_WithActionAndFunc()
 		{
-			object funcParameter = null;
-			var command = new NavigationRequestCommand(_ => { }, args =>
-			{
-				funcParameter = args;
-				return false;
-			});
-
-			var parameter = new object();
-			Assert.False(command.CanExecute(parameter));
-			Assert.Equal(parameter, funcParameter);
+		    var command = new NavigationRequestCommand(() => { }, () => false);
+			Assert.False(command.CanExecute(new object()));
 		}
-	}
+    }
 }

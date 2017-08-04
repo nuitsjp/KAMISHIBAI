@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Kamishibai.Xamarin.Forms
 {
     public interface INavigator
     {
+        IReadOnlyList<Page> ModalStack { get; }
+        IReadOnlyList<Page> NavigationStack { get; }
         void InsertPageBefore(Page page, Page before);
         void InsertPageBefore<TParam>(Page page, Page before, TParam parameter = default(TParam));
         Task<Page> PopAsync(bool animated = true);

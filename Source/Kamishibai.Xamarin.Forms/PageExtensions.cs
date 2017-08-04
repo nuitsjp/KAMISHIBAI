@@ -11,7 +11,7 @@ namespace Kamishibai.Xamarin.Forms
 
         public static TPage GetParentPage<TPage>(this Page current, bool incloudCurrent = false) where TPage : Page
         {
-            var element = incloudCurrent ? current : current.Parent;
+            var element = incloudCurrent ? current : current?.Parent;
             do
             {
                 if (element is TPage result) return result;

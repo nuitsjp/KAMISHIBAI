@@ -6,9 +6,13 @@ namespace Kamishibai.Xamarin.Forms
 {
     public static class LifecycleNoticeService
     {
+        public static void OnInitialize(this Page page)
+        {
+            page.Notify<IPageInitializeAware, object>((target, param) => target.OnInitialize());
+        }
         public static void OnInitialize<TParam>(this Page page, TParam parameter)
         {
-            page.Notify<IPageInilializeAware<TParam>, TParam>((target, param) => target.OnInitialize(param), parameter);
+            page.Notify<IPageInitializeAware<TParam>, TParam>((target, param) => target.OnInitialize(param), parameter);
         }
         public static void OnLoaded(this Page page)
         {
