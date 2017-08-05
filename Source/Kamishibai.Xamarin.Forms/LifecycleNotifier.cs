@@ -47,22 +47,14 @@ namespace Kamishibai.Xamarin.Forms
         private void NotifyToViewModel(Page page, TParam param)
         {
             var parent = page.GetParentPage();
-            if (B(page, parent))
+            if (parent?.BindingContext != page.BindingContext)
             {
                 var viewModelAsT = page.BindingContext as TTarget;
                 if (viewModelAsT != null)
                 {
                     _action(viewModelAsT, param);
                 }
-                else
-                {
-                }
             }
-        }
-
-        private static bool B(Page page, Page parent)
-        {
-            return parent?.BindingContext != page.BindingContext;
         }
 
         public void Visit(Page page, TParam param)
