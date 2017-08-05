@@ -22,7 +22,13 @@ namespace Kamishibai.Xamarin.Forms.Tests
 			Assert.Null(contentPage.GetParentPage());
 		}
 
-		[Fact]
+	    [Fact]
+	    public void GetParentPage_WhenPageIsNull()
+	    {
+	        Assert.Null(PageExtensions.GetParentPage(null));
+	    }
+
+        [Fact]
 		public void GetParentPage_WithTypeParameter()
 		{
 			var contentPage = new ContentPage();
@@ -38,6 +44,10 @@ namespace Kamishibai.Xamarin.Forms.Tests
 			var contentPage = new ContentPage();
 
 			Assert.Equal(contentPage, contentPage.GetParentPage<ContentPage>(true));
-		}
-	}
+
+		    var navigationPage = new NavigationPage(contentPage);
+
+		    Assert.Equal(navigationPage, contentPage.GetParentPage<NavigationPage>(true));
+        }
+    }
 }

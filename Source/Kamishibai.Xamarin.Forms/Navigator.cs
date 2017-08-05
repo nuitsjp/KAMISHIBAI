@@ -48,17 +48,20 @@ namespace Kamishibai.Xamarin.Forms
 
         public async Task PopToRootAsync(bool animated = true)
         {
-            var pages = _currentPage.Navigation.NavigationStack.ToList();
             var navigationPage = _currentPage.Parent as NavigationPage;
-            
-            await Navigation.PopToRootAsync(animated);
-            
-            navigationPage?.CurrentPage.OnLoaded();
-            pages.RemoveAt(0);
-            pages.Reverse();
-            foreach (var page in pages)
+            if (navigationPage != null)
             {
-                page.OnClosed();
+                var pages = _currentPage.Navigation.NavigationStack.ToList();
+
+                await Navigation.PopToRootAsync(animated);
+
+                navigationPage.CurrentPage.OnLoaded();
+                pages.RemoveAt(0);
+                pages.Reverse();
+                foreach (var page in pages)
+                {
+                    page.OnClosed();
+                }
             }
         }
 

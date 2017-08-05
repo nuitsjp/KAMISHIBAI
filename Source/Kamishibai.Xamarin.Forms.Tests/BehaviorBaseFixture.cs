@@ -48,7 +48,7 @@ namespace Kamishibai.Xamarin.Forms.Tests
         }
 
         [Fact]
-        public void HasOriginalBindingContedt()
+        public void HasOriginalBindingContext()
         {
             var page = new ContentPage();
             var contextObject = new object();

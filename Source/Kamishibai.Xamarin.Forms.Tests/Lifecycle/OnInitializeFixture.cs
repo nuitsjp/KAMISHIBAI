@@ -76,7 +76,8 @@ namespace Kamishibai.Xamarin.Forms.Tests.Lifecycle
         {
             var eventRecoder = new EventRecorder();
             var contentPageMock1 = new ContentPageMock(eventRecoder);
-            var contentPageMock2 = new ContentPageMock(eventRecoder);
+            var contentPageMock2ViewModel = new ViewModelMock(eventRecoder);
+            var contentPageMock2 = new ContentPageMock(eventRecoder) { BindingContext = contentPageMock2ViewModel };
             var viewModelMock = new ViewModelMock(eventRecoder);
             var navigationPageMock = new NavigationPageMock(contentPageMock1, eventRecoder)
             {
@@ -87,7 +88,7 @@ namespace Kamishibai.Xamarin.Forms.Tests.Lifecycle
 
             LifecycleNoticeService.OnInitialize(navigationPageMock, parameter);
 
-            Assert.Equal(4, eventRecoder.Count);
+            Assert.Equal(5, eventRecoder.Count);
 
             Assert.NotNull(eventRecoder[0]);
             Assert.Equal(navigationPageMock, eventRecoder[0].Sender);
@@ -108,6 +109,11 @@ namespace Kamishibai.Xamarin.Forms.Tests.Lifecycle
             Assert.Equal(contentPageMock2, eventRecoder[3].Sender);
             Assert.Equal("OnInitialize", eventRecoder[3].CallerMemberName);
             Assert.Equal(parameter, eventRecoder[3].Parameter);
+
+            Assert.NotNull(eventRecoder[4]);
+            Assert.Equal(contentPageMock2ViewModel, eventRecoder[4].Sender);
+            Assert.Equal("OnInitialize", eventRecoder[4].CallerMemberName);
+            Assert.Equal(parameter, eventRecoder[4].Parameter);
         }
 
         [Fact]

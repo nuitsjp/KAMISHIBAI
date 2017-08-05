@@ -56,7 +56,25 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mvvm
 	        Assert.Equal(parameter, navigationActionMock.Parameter);
 	    }
 
-	    private class NavigationBehaviorMock<TNavigatePage> : NavigationBehavior<TNavigatePage> where TNavigatePage : Page, new()
+	    [Fact]
+	    public async void NavigationRequestPropertyChanged_ToNull()
+	    {
+	        var navigationRequest = new NavigationRequest();
+	        var navigationActionMock = new NavigationBehaviorMock<ContentPage> { Request = navigationRequest };
+
+	        navigationActionMock.Request = null;
+	        Assert.Null(navigationActionMock.Request);
+
+            await Assert.ThrowsAsync<InvalidOperationException>(() => navigationRequest.RaiseAsync());
+
+
+	        Assert.False(navigationActionMock.Navigated);
+	        Assert.Null(navigationActionMock.ParameterType);
+	        Assert.Null(navigationActionMock.Parameter);
+        }
+
+
+        private class NavigationBehaviorMock<TNavigatePage> : NavigationBehavior<TNavigatePage> where TNavigatePage : Page, new()
 	    {
 	        public bool Navigated { get; set; }
 	        public Type ParameterType { get; set; }

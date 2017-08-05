@@ -18,8 +18,8 @@ namespace Kamishibai.Xamarin.Forms
 
         private void OnPopped(object sender, NavigationEventArgs navigationEventArgs)
         {
-            AssociatedObject.CurrentPage?.OnLoaded();
-            navigationEventArgs.Page?.OnClosed();
+            AssociatedObject.CurrentPage.OnLoaded();
+            navigationEventArgs.Page.OnClosed();
         }
     }
 }

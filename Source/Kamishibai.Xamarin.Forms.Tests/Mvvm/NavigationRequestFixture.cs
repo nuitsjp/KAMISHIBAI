@@ -1,4 +1,5 @@
-﻿using Kamishibai.Xamarin.Forms.Mvvm;
+﻿using System;
+using Kamishibai.Xamarin.Forms.Mvvm;
 using Moq;
 using Xunit;
 
@@ -16,7 +17,14 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mvvm
 			
 			actionMock.Verify(m => m.Navigate<object>(null), Times.Once);
 		}
-		
+
+	    [Fact]
+	    public async void RaiseAsync_WhenNavigationActionIsNull()
+	    {
+	        var navigationRequest = new NavigationRequest();
+	        await Assert.ThrowsAsync<InvalidOperationException>(() => navigationRequest.RaiseAsync());
+	    }
+
 		[Fact]
 		public void RaiseAsync_WithParameter()
 		{
@@ -29,5 +37,22 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mvvm
 			actionMock.Verify(m => m.Navigate(parameter), Times.Once);
 		}
 
+	    [Fact]
+	    public void RaiseAsync_WithNullParameter()
+	    {
+	        var navigationRequest = new NavigationRequest<DateTime>();
+	        var actionMock = new Mock<INavigationAction>();
+	        navigationRequest.NavigationAction = actionMock.Object;
+	        ((INavigationRequest)navigationRequest).RaiseAsync();
+
+	        actionMock.Verify(m => m.Navigate(default(DateTime)), Times.Once);
+	    }
+
+	    [Fact]
+	    public async void RaiseAsync_WithParameter_WhenNavigationActionIsNull()
+	    {
+	        var navigationRequest = new NavigationRequest<string>();
+	        await Assert.ThrowsAsync<InvalidOperationException>(() => navigationRequest.RaiseAsync("Hello, Parameter!"));
+	    }
 	}
 }

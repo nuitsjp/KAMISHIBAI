@@ -31,10 +31,53 @@ namespace Kamishibai.Xamarin.Forms.Tests
 			Assert.Equal(contentPageMock1, eventRecoder[1].Sender);
 			Assert.Equal("OnUnloaded", eventRecoder[1].CallerMemberName);
 			Assert.Null(eventRecoder[1].Parameter);
-
 		}
 
-		[Fact]
+	    [Fact]
+	    public void OnCurrentPageChanged_ToNull()
+	    {
+	        var eventRecoder = new EventRecorder();
+	        var contentPageMock1 = new ContentPageMock(eventRecoder) { Title = "contentPageMock1" };
+	        var tabbedPageMock = new TabbedPageMock(eventRecoder);
+	        tabbedPageMock.Children.Add(contentPageMock1);
+
+	        tabbedPageMock.Behaviors.Add(new MultiPageBehavior<Page>());
+
+            tabbedPageMock.Children.Clear();
+
+	        Assert.Equal(2, eventRecoder.Count);
+
+	        Assert.NotNull(eventRecoder[0]);
+	        Assert.Equal(contentPageMock1, eventRecoder[0].Sender);
+	        Assert.Equal("OnClosed", eventRecoder[0].CallerMemberName);
+	        Assert.Null(eventRecoder[0].Parameter);
+        }
+
+	    [Fact]
+	    public void OnCurrentPageChanged_ToNotNull()
+	    {
+	        var eventRecoder = new EventRecorder();
+	        var tabbedPageMock = new TabbedPageMock(eventRecoder);
+
+	        tabbedPageMock.Behaviors.Add(new MultiPageBehavior<Page>());
+
+	        var contentPageMock1 = new ContentPageMock(eventRecoder) { Title = "contentPageMock1" };
+	        tabbedPageMock.Children.Add(contentPageMock1);
+
+            Assert.Equal(2, eventRecoder.Count);
+
+	        Assert.NotNull(eventRecoder[0]);
+	        Assert.Equal(contentPageMock1, eventRecoder[0].Sender);
+	        Assert.Equal("OnInitialize", eventRecoder[0].CallerMemberName);
+	        Assert.Null(eventRecoder[0].Parameter);
+
+	        Assert.NotNull(eventRecoder[1]);
+	        Assert.Equal(contentPageMock1, eventRecoder[1].Sender);
+	        Assert.Equal("OnLoaded", eventRecoder[1].CallerMemberName);
+	        Assert.Null(eventRecoder[1].Parameter);
+	    }
+
+        [Fact]
 		public void OnPagesChanged_WhenAddChild()
 		{
 			var eventRecoder = new EventRecorder();

@@ -35,14 +35,14 @@ namespace Kamishibai.Xamarin.Forms
 	        {
 		        foreach (var newItem in eventArgs.NewItems)
 		        {
-			        (newItem as Page)?.OnInitialize((object)null);
+			        ((Page)newItem).OnInitialize((object)null);
 		        }
 	        }
             if (eventArgs.OldItems != null)
             {
 	            foreach (var oldItem in eventArgs.OldItems)
 	            {
-		            (oldItem as Page)?.OnClosed();
+		            ((Page)oldItem).OnClosed();
 	            }
             }
         }

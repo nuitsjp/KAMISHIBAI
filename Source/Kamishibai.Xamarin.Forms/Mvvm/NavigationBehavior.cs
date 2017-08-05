@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Kamishibai.Xamarin.Forms.Mvvm
@@ -34,6 +35,10 @@ namespace Kamishibai.Xamarin.Forms.Mvvm
             {
                 var navigationAction = (NavigationBehavior<TPage>)bindable;
                 ((INavigationRequest)newValue).NavigationAction = navigationAction;
+            }
+            if (oldValue != null)
+            {
+                ((INavigationRequest)oldValue).NavigationAction = null;
             }
         }
 

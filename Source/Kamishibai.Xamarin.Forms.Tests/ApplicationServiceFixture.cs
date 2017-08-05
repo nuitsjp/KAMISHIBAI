@@ -10,6 +10,8 @@ namespace Kamishibai.Xamarin.Forms.Tests
         internal static Mock<ApplicationService.IApplication> ApplicationMock = new Mock<ApplicationService.IApplication>();
         static ApplicationServiceFixture()
         {
+            ApplicationService.Initialize(new ApplicationMock());
+            ApplicationService.Current = new Mock<ApplicationService.IApplication>().Object;
             ApplicationService.Current = ApplicationMock.Object;
         }
 
@@ -146,6 +148,22 @@ namespace Kamishibai.Xamarin.Forms.Tests
             page2.Navigation.PopModalAsync();
             
             Assert.True(popped);
+        }
+
+        [Fact]
+        public void ApplicationAdapter_ModalPopped_WhenNotListened()
+        {
+            var mock = new ApplicationMock();
+            var adapter = (ApplicationService.IApplication)new ApplicationService.ApplicationAdapter(mock);
+            var page1 = new ContentPage();
+            adapter.MainPage = page1;
+
+            var page2 = new ContentPage();
+            page1.Navigation.PushModalAsync(page2);
+
+            page2.Navigation.PopModalAsync();
+
+            Assert.True(true);
         }
 
         [Fact]

@@ -8,19 +8,19 @@ namespace Kamishibai.Xamarin.Forms
     {
         public void Inject(Page page)
         {
-            switch (page)
+            if (page is NavigationPage navigationPage)
             {
-                case NavigationPage navigationPage:
-                    InjectionBehavior<NavigationPageBehavior>(page);
-                    Injects(navigationPage.Navigation.NavigationStack);
-                    break;
-                case TabbedPage tabbedPage:
-                    InjectionBehavior<MultiPageBehavior<Page>>(page);
-                    Injects(tabbedPage.Children);
-                    break;
-                case CarouselPage _:
-                    InjectionBehavior<MultiPageBehavior<ContentPage>>(page);
-                    break;
+                InjectionBehavior<NavigationPageBehavior>(page);
+                Injects(navigationPage.Navigation.NavigationStack);
+            }
+            else if (page is TabbedPage tabbedPage)
+            {
+                InjectionBehavior<MultiPageBehavior<Page>>(page);
+                Injects(tabbedPage.Children);
+            }
+            else if (page is CarouselPage)
+            {
+                InjectionBehavior<MultiPageBehavior<ContentPage>>(page);
             }
         }
 

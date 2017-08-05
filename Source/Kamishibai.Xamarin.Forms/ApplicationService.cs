@@ -44,7 +44,7 @@ namespace Kamishibai.Xamarin.Forms
 
         private static void OnModalPopped(object sender, ModalPoppedEventArgs e)
         {
-            var currentPage = Current.MainPage.Navigation.ModalStack.LastOrDefault() ?? Current.MainPage;
+            var currentPage = Current.MainPage.Navigation.ModalStack.Last();
             currentPage.OnLoaded();
             e.Modal.OnClosed();
         }

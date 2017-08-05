@@ -81,6 +81,7 @@
     <Compile Include="BehaviorBaseFixture.cs" />
     <Compile Include="BehaviorInjectorFixture.cs" />
     <Compile Include="LifecycleNoticeServiceFixture.cs" />
+    <Compile Include="Lifecycle\CommonFixture.cs" />
     <Compile Include="Lifecycle\OnClosedFixture.cs" />
     <Compile Include="Lifecycle\OnInitializeFixture.cs" />
     <Compile Include="Lifecycle\OnLoadedFixture.cs" />

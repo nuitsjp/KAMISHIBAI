@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Kamishibai.Xamarin.Forms.Mvvm
 {
@@ -18,6 +19,7 @@ namespace Kamishibai.Xamarin.Forms.Mvvm
 
         public Task RaiseAsync(TParam parameter)
         {
+            if (_navigationAction == null) throw new InvalidOperationException("NavigationAction is null");
             return _navigationAction.Navigate(parameter);
         }
     }
@@ -33,6 +35,7 @@ namespace Kamishibai.Xamarin.Forms.Mvvm
 
         public Task RaiseAsync()
         {
+            if(_navigationAction == null) throw new InvalidOperationException("NavigationAction is null");
             return _navigationAction.Navigate<object>();
         }
     }

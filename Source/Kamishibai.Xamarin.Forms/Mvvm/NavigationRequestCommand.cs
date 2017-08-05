@@ -14,26 +14,36 @@ namespace Kamishibai.Xamarin.Forms.Mvvm
         {
         }
 
-        public NavigationRequestCommand(Action execute) : this(_ => execute(), _ => true)
+        public NavigationRequestCommand(Action execute)
         {
+            if(execute == null) throw new ArgumentNullException(nameof(execute));
+
+            _execute = _ => execute();
+            _canExecute = _ => true;
         }
-	    
-        public NavigationRequestCommand(Action execute, Func<bool> canExecute) : this(_ => execute?.Invoke(), _ => canExecute?.Invoke() ?? true)
+
+        public NavigationRequestCommand(Action execute, Func<bool> canExecute)
         {
+            if (execute == null) throw new ArgumentNullException(nameof(execute));
+            if (canExecute == null) throw new ArgumentNullException(nameof(canExecute));
+
+            _execute = _ => execute();
+            _canExecute = _ => canExecute();
         }
 
         public NavigationRequestCommand(Action<TParam> execute) : this(execute, _ => true)
         {
         }
+
         public NavigationRequestCommand(Action<TParam> execute, Func<TParam, bool> canExecute)
         {
-            _execute = execute;
-            _canExecute = canExecute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute ?? throw new ArgumentNullException(nameof(canExecute));
         }
 
         public bool CanExecute(TParam parameter = default(TParam))
         {
-            return _canExecute?.Invoke(parameter) ?? true;
+            return _canExecute(parameter);
         }
 
         public bool CanExecute(object parameter)
@@ -50,7 +60,7 @@ namespace Kamishibai.Xamarin.Forms.Mvvm
 
         public void Execute(TParam parameter = default(TParam))
         {
-            _execute?.Invoke(parameter);
+            _execute(parameter);
             RaiseAsync(parameter);
         }
 
@@ -88,18 +98,18 @@ namespace Kamishibai.Xamarin.Forms.Mvvm
         }
         public NavigationRequestCommand(Action execute, Func<bool> canExecute)
         {
-            _execute = execute;
-            _canExecute = canExecute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute ?? throw new ArgumentNullException(nameof(canExecute));
         }
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute?.Invoke() ?? true;
+            return _canExecute();
         }
 
         public void Execute(object parameter)
         {
-            _execute?.Invoke();
+            _execute();
             RaiseAsync();
         }
 

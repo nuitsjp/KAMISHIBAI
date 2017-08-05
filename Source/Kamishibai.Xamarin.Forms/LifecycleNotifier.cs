@@ -47,32 +47,41 @@ namespace Kamishibai.Xamarin.Forms
         private void NotifyToViewModel(Page page, TParam param)
         {
             var parent = page.GetParentPage();
-            if (parent?.BindingContext != page.BindingContext)
+            if (B(page, parent))
             {
                 var viewModelAsT = page.BindingContext as TTarget;
                 if (viewModelAsT != null)
                 {
                     _action(viewModelAsT, param);
                 }
+                else
+                {
+                }
             }
+        }
+
+        private static bool B(Page page, Page parent)
+        {
+            return parent?.BindingContext != page.BindingContext;
         }
 
         public void Visit(Page page, TParam param)
         {
-            switch (page)
+            if (page is NavigationPage navigationPage)
             {
-                case NavigationPage navigationPage:
-                    Visit(navigationPage, param);
-                    break;
-                case MasterDetailPage masterDetailPage:
-                    Visit(masterDetailPage, param);
-                    break;
-                case TabbedPage tabbedPage:
-                    Visit(tabbedPage, param);
-                    break;
-                case CarouselPage carouselPage:
-                    Visit(carouselPage, param);
-                    break;
+                Visit(navigationPage, param);
+            }
+            else if (page is MasterDetailPage masterDetailPage)
+            {
+                Visit(masterDetailPage, param);
+            }
+            else if (page is TabbedPage tabbedPage)
+            {
+                Visit(tabbedPage, param);
+            }
+            else if (page is CarouselPage carouselPage)
+            {
+                Visit(carouselPage, param);
             }
         }
 

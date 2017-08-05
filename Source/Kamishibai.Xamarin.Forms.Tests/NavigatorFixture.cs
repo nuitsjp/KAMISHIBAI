@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Kamishibai.Xamarin.Forms.Tests.Mocks;
 using Moq;
 using Xamarin.Forms;
@@ -8,7 +9,33 @@ namespace Kamishibai.Xamarin.Forms.Tests
 {
 	public class NavigatorFixture
 	{
-		[Fact]
+	    [Fact]
+	    public void ModalStack()
+	    {
+	        var contentPage = new ContentPage();
+            var navigationMock = new Mock<INavigation>();
+	        var modalStack = new List<Page>();
+	        navigationMock.SetupGet(m => m.ModalStack).Returns(modalStack);
+
+            var navigator = new Navigator(contentPage, navigationMock.Object);
+
+            Assert.Equal(modalStack, navigator.ModalStack);
+	    }
+
+	    [Fact]
+	    public void NavigationStack()
+	    {
+	        var contentPage = new ContentPage();
+	        var navigationMock = new Mock<INavigation>();
+	        var navigationStack = new List<Page>();
+	        navigationMock.SetupGet(m => m.NavigationStack).Returns(navigationStack);
+
+	        var navigator = new Navigator(contentPage, navigationMock.Object);
+
+	        Assert.Equal(navigationStack, navigator.NavigationStack);
+	    }
+
+        [Fact]
 		public void InsertPageBefore()
 		{
 			var eventRecoder = new EventRecorder();
@@ -74,7 +101,7 @@ namespace Kamishibai.Xamarin.Forms.Tests
 		}
 
 		[Fact]
-		public async void PopToRootAsync()
+		public async Task PopToRootAsync()
 		{
 			var eventRecorder = new EventRecorder();
 			var contentPageMock1 = new ContentPageMock(eventRecorder) { Title = "contentPageMock1" };
@@ -112,8 +139,28 @@ namespace Kamishibai.Xamarin.Forms.Tests
 			Assert.Null(eventRecorder[2].Parameter);
 		}
 
-		[Fact]
-		public async void PushAsync()
+	    [Fact]
+	    public async Task PopToRootAsync_WhenParentIsNotNavigationPage()
+	    {
+	        var eventRecorder = new EventRecorder();
+	        var contentPageMock1 = new ContentPageMock(eventRecorder) { Title = "contentPageMock1" };
+	        var contentPageMock2 = new ContentPageMock(eventRecorder) { Title = "contentPageMock2" };
+	        var contentPageMock3 = new ContentPageMock(eventRecorder) { Title = "contentPageMock3" };
+            var tabbedPage = new TabbedPage();
+            tabbedPage.Children.Add(contentPageMock1);
+	        tabbedPage.Children.Add(contentPageMock2);
+	        tabbedPage.Children.Add(contentPageMock3);
+
+	        var navigationMock = new Mock<INavigation>();
+	        var navigator = new Navigator(contentPageMock3, navigationMock.Object);
+	        await navigator.PopToRootAsync();
+
+            Assert.Equal(0, eventRecorder.Count);
+            navigationMock.Verify(m => m.PopToRootAsync(It.IsAny<bool>()), Times.Never);
+        }
+
+        [Fact]
+		public async Task PushAsync()
 		{
 			var eventRecorder = new EventRecorder();
 			var contentPageMock1 = new ContentPageMock(eventRecorder);
@@ -147,7 +194,7 @@ namespace Kamishibai.Xamarin.Forms.Tests
 		}
 
 		[Fact]
-		public async void PushAsync_WithParameter()
+		public async Task PushAsync_WithParameter()
 		{
 			var eventRecorder = new EventRecorder();
 			var contentPageMock1 = new ContentPageMock(eventRecorder);
@@ -182,7 +229,7 @@ namespace Kamishibai.Xamarin.Forms.Tests
 		}
 
 		[Fact]
-		public async void PushModalAsync()
+		public async Task PushModalAsync()
 		{
 			var eventRecorder = new EventRecorder();
 			var contentPageMock1 = new ContentPageMock(eventRecorder);
@@ -215,7 +262,7 @@ namespace Kamishibai.Xamarin.Forms.Tests
 		}
 
 		[Fact]
-		public async void PushModalAsync_WithParameter()
+		public async Task PushModalAsync_WithParameter()
 		{
 			var eventRecorder = new EventRecorder();
 			var contentPageMock1 = new ContentPageMock(eventRecorder);

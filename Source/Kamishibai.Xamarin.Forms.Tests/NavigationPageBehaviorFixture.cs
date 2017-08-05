@@ -49,5 +49,20 @@ namespace Kamishibai.Xamarin.Forms.Tests
 
             Assert.Equal(0, eventRecoder.Count);
 		}
-	}
+
+        [Fact]
+        public void CanNotPop()
+        {
+            var eventRecoder = new EventRecorder();
+            var contentPageMock1 = new ContentPageMock(eventRecoder) { Title = "contentPageMock1" };
+            var navigationPageMock = new NavigationPageMock(contentPageMock1, eventRecoder);
+
+            navigationPageMock.Behaviors.Add(new NavigationPageBehavior());
+
+            contentPageMock1.Navigation.PopAsync();
+
+            Assert.Equal(0, eventRecoder.Count);
+        }
+
+    }
 }

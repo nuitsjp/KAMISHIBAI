@@ -1,4 +1,5 @@
-﻿using Kamishibai.Xamarin.Forms.Mvvm;
+﻿using System;
+using Kamishibai.Xamarin.Forms.Mvvm;
 using Moq;
 using Xunit;
 
@@ -102,9 +103,36 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mvvm
 		{
 			var command = new NavigationRequestCommand<string>();
 			var called = false;
-			command.CanExecuteChanged += (sender, args) => called = true;
+		    command.ChangeCanExecute(); // Exception does not occur.
+
+            command.CanExecuteChanged += (sender, args) => called = true;
 			command.ChangeCanExecute();
 			Assert.True(called);
 		}
-	}
+
+	    [Fact]
+	    public void Constructor_WhenExecuteIsNull()
+	    {
+	        Assert.Throws<ArgumentNullException>(() => new NavigationRequestCommand<string>((Action)null));
+	        Assert.Throws<ArgumentNullException>(() => new NavigationRequestCommand<string>(null, () => true));
+	    }
+
+        [Fact]
+	    public void Constructor_WhenCanExecuteIsNull()
+	    {
+	        Assert.Throws<ArgumentNullException>(() => new NavigationRequestCommand<string>(() => { }, null));
+	    }
+
+	    [Fact]
+	    public void Constructor_WhenExecuteWithTypeParameterIsNull()
+	    {
+	        Assert.Throws<ArgumentNullException>(() => new NavigationRequestCommand<string>((Action<string>)null));
+	    }
+
+	    [Fact]
+	    public void Constructor_WhenCanExecuteWithTypeParameterIsNull()
+	    {
+	        Assert.Throws<ArgumentNullException>(() => new NavigationRequestCommand<string>(_ => { }, null));
+	    }
+    }
 }
