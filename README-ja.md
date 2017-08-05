@@ -42,20 +42,20 @@ Commandが実行されたら、SecondPageへの遷移を要求します。
     </StackLayout>
 </ContentPage>
 ```
-「mvvm:PushModalAsync」ビヘイビアを注目してください。  
+PushModalAsyncビヘイビアを注目してください。  
 RequestSecondPageの遷移要求を受けて、x:TypeArgumentsで指定されたSecondPageへモーダル遷移します。  
 
-KAMISHIBAIでは、INavigationのメソッド呼び出しを、ViewModelからの要求とINavigationのメソッドに該当するBehaviorで画面遷移を行うため、Xamarin.Formsで可能なあらゆる画面遷移を実現することが可能です。  
+KAMISHIBAIではViewModelからの要求を受けて、Behaviorで該当するINavigationのメソッドを呼び出します。  
+標準で、INavigationのメソッドは全て用意されていますし、Behaviorを自ら作成することも可能です。  
+このためKAMISHIBAIではXamarin.Formsで可能な、あらゆる画面遷移を実現することが可能です。  
 
-さらにKAMISHIBAIではこの他に、つぎのような魅力的な機能を提供しています。  
+さらにKAMISHIBAIでは、つぎのような魅力的な機能を提供しています。  
 
 * 型安全性の保障された画面遷移時パラメーター  
 * 画面遷移にともなう適切なイベント通知  
-* 柔軟な拡張性  
 
 KAMISHIBAIに興味をもっていただけましたか？  
 KAMISHIBAIでは、あなたをサポートする次のコンテンツを提供しています。  
-
 さあ、Xamarin.Formsで最も自由な画面遷移ライブラリを使ってみましょう！  
 
 ## Documents
