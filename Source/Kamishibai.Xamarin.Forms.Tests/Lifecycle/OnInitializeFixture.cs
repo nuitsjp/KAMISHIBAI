@@ -1,4 +1,5 @@
 ﻿using Kamishibai.Xamarin.Forms.Tests.Mocks;
+using Xamarin.Forms;
 using Xunit;
 
 namespace Kamishibai.Xamarin.Forms.Tests.Lifecycle
@@ -194,6 +195,60 @@ namespace Kamishibai.Xamarin.Forms.Tests.Lifecycle
             Assert.Equal(contentPageMock2, eventRecoder[3].Sender);
             Assert.Equal("OnInitialize", eventRecoder[3].CallerMemberName);
             Assert.Equal(parameter, eventRecoder[3].Parameter);
+        }
+
+        [Fact]
+        public void NestedPages()
+        {
+            var tabString = new TabbedPageString();
+            //var tabNoParam = new TabbedPageNotParameter();
+            var tabObject = new TabbedPageObject();
+            var contentString = new ContentPageString();
+            tabString.Children.Add(tabObject);
+            tabObject.Children.Add(contentString);
+
+            var parameter = "Hello, Parameter!";
+            LifecycleNoticeService.OnInitialize(tabString, parameter);
+
+            Assert.Equal(parameter, tabString.Parameter);
+            Assert.Equal(parameter, tabObject.Parameter);
+            Assert.Equal(parameter, contentString.Parameter);
+        }
+
+        private class TabbedPageString : TabbedPage, IPageInitializeAware<string>
+        {
+            public string Parameter { get; private set; }
+            public void OnInitialize(string parameter)
+            {
+                Parameter = parameter;
+            }
+        }
+
+        //private class TabbedPageNotParameter : TabbedPage, IPageInitializeAware
+        //{
+        //    public bool IsCalled { get; private set; }
+        //    public void OnInitialize()
+        //    {
+        //        IsCalled = true;
+        //    }
+        //}
+
+        private class TabbedPageObject : TabbedPage, IPageInitializeAware<object>
+        {
+            public object Parameter { get; private set; }
+            public void OnInitialize(object parameter)
+            {
+                Parameter = parameter;
+            }
+        }
+
+        private class ContentPageString : ContentPage, IPageInitializeAware<string>
+        {
+            public string Parameter { get; private set; }
+            public void OnInitialize(string parameter)
+            {
+                Parameter = parameter;
+            }
         }
     }
 }
