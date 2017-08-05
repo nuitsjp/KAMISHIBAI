@@ -33,7 +33,7 @@ Commandが実行されたら、SecondPageへの遷移を要求します。
 
 ```xaml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage (中略)>
+<ContentPage ...>
     <ContentPage.Behaviors>
         <mvvm:PushModalAsync Request="{Binding RequestSecondPage}" x:TypeArguments="views:SecondPage"/>
     </ContentPage.Behaviors>
