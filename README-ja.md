@@ -33,11 +33,7 @@ Commandが実行されたら、SecondPageへの遷移を要求します。
 
 ```xaml
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:SimplestSample.Views;assembly=SimplestSample"
-             xmlns:mvvm="clr-namespace:Kamishibai.Xamarin.Forms.Mvvm;assembly=Kamishibai.Xamarin.Forms"
-             x:Class="SimplestSample.Views.FirstPage">
+<ContentPage (中略)>
     <ContentPage.Behaviors>
         <mvvm:PushModalAsync Request="{Binding RequestSecondPage}" x:TypeArguments="views:SecondPage"/>
     </ContentPage.Behaviors>
