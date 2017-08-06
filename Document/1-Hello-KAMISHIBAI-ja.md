@@ -51,7 +51,7 @@
 
 作成後、実行すると次のような画面が表示されれば作成成功です。  
 
-<img src="https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Document/1-Hello-KAMISHIBAI/005.jpg" width="100"/>
+<img src="https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Document/1-Hello-KAMISHIBAI/002.png" width="300"/>
 
 ## KAMISHIBAI for Xamarin.FormsをNuGetからインストール  
 
@@ -113,7 +113,7 @@ FruitsListPageはNavigationPageでラップしています。
 さあ、アプリを実行してみましょう。  
 つぎのように表示されるはずです。  
 
-![](1-Hello-KAMISHIBAI/005.jpg)
+<img src="https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Document/1-Hello-KAMISHIBAI/005.jpg" width="300"/>
 
 無事KAMISHIBAIが組み込めましたね。  
 
@@ -201,7 +201,7 @@ BindingContextへ先に作成したFruitsListPageViewModelを設定し、ListVie
 
 これを実行するとつぎのように表示されます。  
 
-![](1-Hello-KAMISHIBAI/006.jpg)
+<img src="https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Document/1-Hello-KAMISHIBAI/006.jpg" width="300"/>
 
 これで一旦FruitsListPageをおえて、つぎの画面を作成しましょう。  
 
