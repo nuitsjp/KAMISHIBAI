@@ -11,8 +11,8 @@ KAMISHIBAIの特に重要な要素に、つぎの三つがある。
 
 # Navigator
 
-NavigatorはXamarin.Formsで画面遷移を支持するXamarin.Forms.INavigationのラッパークラスだ。  
-INavigationをラップすることで、Navigatorは画面遷移時につぎの機能を付与する。  
+NavigatorはXamarin.Formsで画面遷移を指示するXamarin.Forms.INavigationのラッパークラスだ。  
+INavigationをラップすることで、Navigatorは画面遷移にあたり、つぎの機能を付与する。  
 
 * 画面遷移時のイベント通知  
     * OnInitialize
@@ -26,7 +26,12 @@ Navigatorでは子Pageへの浸透性と高い一貫性を持ったイベント�
 
 * [IPageInitializeAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageInitializeAware.cs)  
 * [IPageLoadedAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageLoadedAware.cs)  
-* [IPageUnloadedAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageUnloadedAware.cs)
+* [IPageUnloadedAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageUnloadedAware.cs)  
+
+また厳密には画面遷移とは異なるが、ApplicationのSleepとResumeのイベントも受け取ることが可能だ。  
+
+* [IApplicationOnSleepAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IApplicationOnSleepAware.cs)  
+* [IApplicationOnResumeAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IApplicationOnResumeAware.cs)  
 
 ### 子Pageへのイベントの浸透
 
@@ -40,9 +45,9 @@ KAMISHIBAIでは、例えばMasterDetailPageがTabbedPageを持っているよ�
 
 Navigatorでは、例えばつぎのような解決の難しい画面遷移であっても、一貫性を保ってイベントを通知する（一部はNavigator以外によって実現している）。  
 
-1. NavigationPageのNavigationBar、物理バックボタン（AndroidやWin10m）による戻る処理時  
-2. TabbedPageのタブの切り替えや、CarouselPageのページ切り替え時の処理時  
-3. Modal遷移時の物理バックボタン（AndroidやWin10m）による戻る処理時  
+1. NavigationPageのNavigationBar、物理バックボタン（AndroidやWin10m）によって戻る時  
+2. TabbedPageのタブの切り替えや、CarouselPageのページ切り替え時  
+3. Modal遷移時の物理バックボタン（AndroidやWin10m）によって戻る時  
 
 1.および2.は画面遷移する際に、遷移先のPageに外部からBehaviorをインジェクションすることによって解決している。  
 具体的にはつぎのクラスの実装を参照。  
@@ -70,12 +75,12 @@ INavigationRequestの実装クラスで、ViewModelからViewへ画面遷移要�
 
 # NavigationBehavior  
 
-NavigationRequestをバインドし、NavigationBehaviorからの画面遷移要求を受け取ってNavigatorを呼び出し画面遷移する。NavigationBehaviorは抽象クラスであり、実際にはPushAsyncやPopAsyncなどの具象クラスが存在する。  
+NavigationRequestをバインドし、画面遷移要求を受け取ってNavigatorを呼び出し画面遷移する。NavigationBehaviorは抽象クラスであり、実際にはPushAsyncやPopAsyncなどの具象クラスが存在する。  
 
 画面遷移先をXAML上の型パラメーターで指定するアイディアがほぼすべて。その発想が出てこなければ、そもそもKAMISHIBAI自体が存在しなかった。  
 ただしINavigationを薄くラップして遷移通知と遷移パラメーターに対応するNavigator自体は作っていたと思われる。  
 
-さてKAMISHIBAIとしては以下の通り、INavigationに存在する画面遷移メソッドに対応する全てのメソッドが用意されていると共に、独自にNavigationBehaviorを継承して複雑で固有な画面遷移を実装することが可能となっている。  
+さてKAMISHIBAIとしては以下の通り、INavigationに存在する画面遷移メソッドに対応する全てのメソッドが用意されていると共に、利用者が独自にNavigationBehaviorを継承して、複雑で固有な画面遷移を実装することが可能となっている。  
 
 * [InsertPageBefore](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/InsertPageBefore.cs)  
 * [PopAsync](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/PopAsync.cs)  
