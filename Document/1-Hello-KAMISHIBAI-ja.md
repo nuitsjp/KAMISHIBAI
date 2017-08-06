@@ -51,7 +51,7 @@
 
 作成後、実行すると次のような画面が表示されれば作成成功です。  
 
-![](1-Hello-KAMISHIBAI/002.png width="100")
+<img src="https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Document/1-Hello-KAMISHIBAI/005.jpg" width="100/>
 
 ## KAMISHIBAI for Xamarin.FormsをNuGetからインストール  
 
