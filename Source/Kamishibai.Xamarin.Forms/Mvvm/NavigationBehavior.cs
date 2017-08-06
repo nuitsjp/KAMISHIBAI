@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Kamishibai.Xamarin.Forms.Mvvm
 {
-    public abstract class NavigationBehavior<TPage> : BehaviorBase<Page>, INavigationAction where TPage : Page
+    public abstract class NavigationBehavior<TPage> : BehaviorBase<Page>, INavigationAction where TPage : Page, new ()
     {
         public static readonly BindableProperty RequestProperty =
             BindableProperty.Create(
