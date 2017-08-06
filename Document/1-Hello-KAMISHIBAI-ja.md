@@ -38,7 +38,7 @@
 ここではつぎの手順に従って作成していきます。  
 
 1. [Xamarin.Formsプロジェクトの作成](#xamarinformsプロジェクトの作成)  
-2. [KAMISHIBAI for Xamarin.FormsをNuGetからインストール](#KAMISHIBAI for Xamarin.FormsをNuGetからインストール)  
+2. [KAMISHIBAI for Xamarin.FormsをNuGetからインストール]()  
 3. [フルーツの一覧画面の作成と、初期画面遷移の変更](#フルーツの一覧画面の作成と、初期画面遷移の変更)  
 4. [フルーツ選択後の画面の作成と、画面遷移の実装](#フルーツ選択後の画面の作成と、画面遷移の実装)  
 5. [アプリケーションの微修正](#アプリケーションの微修正)  
@@ -51,7 +51,7 @@
 
 作成後、実行すると次のような画面が表示されれば作成成功です。  
 
-![](1-Hello-KAMISHIBAI/002.png)
+![](1-Hello-KAMISHIBAI/002.png width="100")
 
 ## KAMISHIBAI for Xamarin.FormsをNuGetからインストール  
 
