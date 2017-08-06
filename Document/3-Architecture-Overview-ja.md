@@ -14,7 +14,7 @@ KAMISHIBAIの特に重要な要素に、つぎの三つがあります。
 NavigatorはXamarin.Formsで画面遷移を指示するXamarin.Forms.INavigationのラッパークラスです。  
 INavigationをラップすることで、Navigatorは画面遷移にあたり、つぎの機能を付与します。  
 
-* 画面遷移時のイベント通知  
+* [子Pageへの浸透性](#子Pageへの浸透性をもったイベント通知)と[高い一貫性](一貫性を保ったイベント通知)を保った画面遷移時のイベント通知  
     * OnInitialize
     * OnLoaded
     * OnUnloaded
