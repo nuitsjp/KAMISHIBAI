@@ -11,25 +11,27 @@ KAMISHIBAIはXamarin.Formsの機能を一切制限せず、つぎの機能拡張
 
 Xamarin.Formsで実現可能なあらゆる画面遷移は、KAMISHIBAIを利用することで、より簡単に実現する事ができます。  
 
-## Overview  
+# Overview  
 
-KAMISHIBAIの最も簡単な画面遷移は、二つのステップで実現できます。  
+KAMISHIBAIの最大の特徴は、構造的にモノリシックな一枚岩はなく、つぎの二つに分けて画面遷移を実現していることです。
 
-1. ViewModelから画面遷移を要求する  
-2. 要求に従い、Viewで画面遷移を実行する  
+1. ViewModel層から画面遷移要求を発信する  
+2. 画面遷移要求を受け、View層で画面遷移する  
 
-### ViewModelから画面遷移を要求する  
-ViewModelに、つぎのコードを記載します。  
+それぞれについて概略を順にみていきましょう。
+
+## ViewModel層から画面遷移要求を発信する  
+
+画面遷移要求を発信するには、INavigationRequestを利用します。  
+実行されたCommandから、SecondPageページへの画面遷移を要求する場合、ViewModeに次のように記載します。
 
 ```cs
-public INavigationRequest RequestSecondPage { get; } = new NavigationRequest();
+public ICommand NavigateCommand => new Command(() => RequestSecondPage.RaiseAsync());
 
-public ICommand NavigateCommand => new Command(() => RequestSecondPage.RaiseAsync();
+public INavigationRequest RequestSecondPage { get; } = new NavigationRequest();
 ```
 
-Commandが実行されたら、SecondPageへの遷移を要求します。  
-
-### 要求に従い、Viewで画面遷移を実行する
+## 画面遷移要求を受け、View層で画面遷移する
 
 ```xaml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -45,14 +47,20 @@ Commandが実行されたら、SecondPageへの遷移を要求します。
 PushModalAsyncビヘイビアを注目してください。  
 RequestSecondPageの遷移要求を受けて、x:TypeArgumentsで指定されたSecondPageへモーダル遷移します。  
 
-KAMISHIBAIではViewModelからの要求を受けて、Behaviorで該当するINavigationのメソッドを呼び出します。  
-標準で、INavigationのメソッドは全て用意されていますし、Behaviorを自ら作成することも可能です。  
+KAMISHIBAIではViewModelからの要求を受けて、ビヘイビアで画面処理を行います。  
+もちろんINavigationのメソッドは全て用意されていますし、ビヘイビアを自ら作成することも可能です。  
 このためKAMISHIBAIではXamarin.Formsで可能な、あらゆる画面遷移を実現することが可能です。  
 
 さらにKAMISHIBAIでは、つぎのような魅力的な機能を提供しています。  
 
 * 型安全性の保障された画面遷移時パラメーター  
-* 画面遷移にともなう適切なイベント通知  
+* 画面遷移にともなう適切なイベント通知
+
+イベント通知には以下のものも含まれます。  
+
+* アプリケーションのSleep、Resume  
+* TabbedPageやCarouselPageのタブ（ページ）の切り替え  
+* 物理バックキーの押下やスワイプ
 
 KAMISHIBAIに興味をもっていただけましたか？  
 KAMISHIBAIでは、あなたをサポートする次のコンテンツを提供しています。  
@@ -62,12 +70,14 @@ KAMISHIBAIでは、あなたをサポートする次のコンテンツを提供�
 
 1. [How to install](#how-to-install)
 2. Documents
-    1. [Hello, KAMISHIBAI](Document/1-Hello-KAMISHIBAI-ja.md)
+    1. [KAMISHIBAI入門](Document/1-Hello-KAMISHIBAI-ja.md)  
+    2. [KAMISHIBAI仕様](Document/2-Reference-ja.md)
+    2. [KAMISHIBAIアーキテクチャ概要](Document/3-Architecture-Overview-ja.md)
 3. [Samples](https://github.com/nuitsjp/KAMISHIBAI-Samples)
 
 ## How to install  
 
-Install from NuGet.
+[NuGetから](https://www.nuget.org/packages/Kamishibai.Xamarin.Forms)インストールしてください。
 
 ```txt
 > Install-Package Kamishibai.Xamarin.Forms
