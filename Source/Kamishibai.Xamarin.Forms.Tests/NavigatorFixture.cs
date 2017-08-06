@@ -14,6 +14,7 @@ namespace Kamishibai.Xamarin.Forms.Tests
 	    {
 	        var contentPage = new ContentPage();
             var navigationMock = new Mock<INavigation>();
+	        // ReSharper disable once CollectionNeverUpdated.Local
 	        var modalStack = new List<Page>();
 	        navigationMock.SetupGet(m => m.ModalStack).Returns(modalStack);
 
@@ -27,6 +28,7 @@ namespace Kamishibai.Xamarin.Forms.Tests
 	    {
 	        var contentPage = new ContentPage();
 	        var navigationMock = new Mock<INavigation>();
+	        // ReSharper disable once CollectionNeverUpdated.Local
 	        var navigationStack = new List<Page>();
 	        navigationMock.SetupGet(m => m.NavigationStack).Returns(navigationStack);
 
@@ -83,46 +85,63 @@ namespace Kamishibai.Xamarin.Forms.Tests
 		{
 			var navigationMock = new Mock<INavigation>();
 			var navigator = new Navigator(null, navigationMock.Object);
-			var animated = true;
-			navigator.PopAsync(animated);
+			navigator.PopAsync();
 			
-			navigationMock.Verify(x => x.PopAsync(animated), Times.Once);
+			navigationMock.Verify(x => x.PopAsync(true), Times.Once);
 		}
 
-		[Fact]
+	    [Fact]
+	    public void PopAsync_WhenAnimatedIsFalse()
+	    {
+	        var navigationMock = new Mock<INavigation>();
+	        var navigator = new Navigator(null, navigationMock.Object);
+	        navigator.PopAsync(false);
+
+	        navigationMock.Verify(x => x.PopAsync(false), Times.Once);
+	    }
+
+        [Fact]
 		public void PopModalAsync()
 		{
 			var navigationMock = new Mock<INavigation>();
 			var navigator = new Navigator(null, navigationMock.Object);
-			var animated = true;
-			navigator.PopModalAsync(animated);
+			navigator.PopModalAsync();
 
-			navigationMock.Verify(x => x.PopModalAsync(animated), Times.Once);
+			navigationMock.Verify(x => x.PopModalAsync(true), Times.Once);
 		}
 
-		[Fact]
+	    [Fact]
+	    public void PopModalAsync_WhenAnimatedIsFalse()
+	    {
+	        var navigationMock = new Mock<INavigation>();
+	        var navigator = new Navigator(null, navigationMock.Object);
+	        navigator.PopModalAsync(false);
+
+	        navigationMock.Verify(x => x.PopModalAsync(false), Times.Once);
+	    }
+
+        [Fact]
 		public async Task PopToRootAsync()
 		{
 			var eventRecorder = new EventRecorder();
 			var contentPageMock1 = new ContentPageMock(eventRecorder) { Title = "contentPageMock1" };
 			var contentPageMock2 = new ContentPageMock(eventRecorder) { Title = "contentPageMock2" };
 			var contentPageMock3 = new ContentPageMock(eventRecorder) { Title = "contentPageMock3" };
+		    // ReSharper disable once UnusedVariable
 			var navigationPage = new NavigationPageMock(contentPageMock1, eventRecorder);
 			await contentPageMock1.Navigation.PushAsync(contentPageMock2);
 			await contentPageMock2.Navigation.PushAsync(contentPageMock3);
 
-			var animated = true;
-
 			var navigationMock = new Mock<INavigation>();
 			navigationMock
-				.Setup(m => m.PopToRootAsync(animated))
+				.Setup(m => m.PopToRootAsync(true))
 				.Returns(() => Task.FromResult(true))
-				.Callback(() => contentPageMock3.Navigation.PopToRootAsync(animated).Wait());
+				.Callback(() => contentPageMock3.Navigation.PopToRootAsync(true).Wait());
 
 			var navigator = new Navigator(contentPageMock3, navigationMock.Object);
-			await navigator.PopToRootAsync(animated);
+			await navigator.PopToRootAsync();
 
-			navigationMock.Verify(x => x.PopToRootAsync(animated), Times.Once);
+			navigationMock.Verify(x => x.PopToRootAsync(true), Times.Once);
 			
 			Assert.Equal(3, eventRecorder.Count);
 			
@@ -138,6 +157,30 @@ namespace Kamishibai.Xamarin.Forms.Tests
 			Assert.Equal("OnClosed", eventRecorder[2].CallerMemberName);
 			Assert.Null(eventRecorder[2].Parameter);
 		}
+
+	    [Fact]
+	    public async Task PopToRootAsync_WhenAnimatedIsFalse()
+	    {
+	        var eventRecorder = new EventRecorder();
+	        var contentPageMock1 = new ContentPageMock(eventRecorder) { Title = "contentPageMock1" };
+	        var contentPageMock2 = new ContentPageMock(eventRecorder) { Title = "contentPageMock2" };
+	        var contentPageMock3 = new ContentPageMock(eventRecorder) { Title = "contentPageMock3" };
+	        // ReSharper disable once UnusedVariable
+	        var navigationPage = new NavigationPageMock(contentPageMock1, eventRecorder);
+	        await contentPageMock1.Navigation.PushAsync(contentPageMock2);
+	        await contentPageMock2.Navigation.PushAsync(contentPageMock3);
+
+	        var navigationMock = new Mock<INavigation>();
+	        navigationMock
+	            .Setup(m => m.PopToRootAsync(false))
+	            .Returns(() => Task.FromResult(false))
+	            .Callback(() => contentPageMock3.Navigation.PopToRootAsync(false).Wait());
+
+	        var navigator = new Navigator(contentPageMock3, navigationMock.Object);
+	        await navigator.PopToRootAsync(false);
+
+	        navigationMock.Verify(x => x.PopToRootAsync(false), Times.Once);
+	    }
 
 	    [Fact]
 	    public async Task PopToRootAsync_WhenParentIsNotNavigationPage()
@@ -164,19 +207,19 @@ namespace Kamishibai.Xamarin.Forms.Tests
 		{
 			var eventRecorder = new EventRecorder();
 			var contentPageMock1 = new ContentPageMock(eventRecorder);
+		    // ReSharper disable once UnusedVariable
 			var navigationPageMock = new NavigationPageMock(contentPageMock1, eventRecorder);
 			var navigationMock = new Mock<INavigation>();
 			var navigator = new Navigator(contentPageMock1, navigationMock.Object);
 			var behaviorInjectorMock = new Mock<IBehaviorInjector>();
 			navigator.BehaviorInjector = behaviorInjectorMock.Object;
 
-			var animated = true;
 			var contentPageMock2 = new ContentPageMock(eventRecorder);
-			await navigator.PushAsync(contentPageMock2, animated);
+			await navigator.PushAsync(contentPageMock2);
 			
 			
 			behaviorInjectorMock.Verify(x => x.Inject(contentPageMock2), Times.Once);
-			navigationMock.Verify(x => x.PushAsync(contentPageMock2, animated), Times.Once);
+			navigationMock.Verify(x => x.PushAsync(contentPageMock2, true), Times.Once);
 
 			Assert.Equal(3, eventRecorder.Count);
 
@@ -193,25 +236,45 @@ namespace Kamishibai.Xamarin.Forms.Tests
 			Assert.Null(eventRecorder[2].Parameter);
 		}
 
+	    [Fact]
+	    public async Task PushAsync_WhenAnimatedIsFalse()
+	    {
+	        var eventRecorder = new EventRecorder();
+	        var contentPageMock1 = new ContentPageMock(eventRecorder);
+	        // ReSharper disable once UnusedVariable
+	        var navigationPageMock = new NavigationPageMock(contentPageMock1, eventRecorder);
+	        var navigationMock = new Mock<INavigation>();
+	        var navigator = new Navigator(contentPageMock1, navigationMock.Object);
+	        var behaviorInjectorMock = new Mock<IBehaviorInjector>();
+	        navigator.BehaviorInjector = behaviorInjectorMock.Object;
+
+	        var contentPageMock2 = new ContentPageMock(eventRecorder);
+	        await navigator.PushAsync(contentPageMock2, false);
+
+
+	        behaviorInjectorMock.Verify(x => x.Inject(contentPageMock2), Times.Once);
+	        navigationMock.Verify(x => x.PushAsync(contentPageMock2, false), Times.Once);
+	    }
+
 		[Fact]
 		public async Task PushAsync_WithParameter()
 		{
 			var eventRecorder = new EventRecorder();
 			var contentPageMock1 = new ContentPageMock(eventRecorder);
+		    // ReSharper disable once UnusedVariable
 			var navigationPageMock = new NavigationPageMock(contentPageMock1, eventRecorder);
 			var navigationMock = new Mock<INavigation>();
 			var navigator = new Navigator(contentPageMock1, navigationMock.Object);
 			var behaviorInjectorMock = new Mock<IBehaviorInjector>();
 			navigator.BehaviorInjector = behaviorInjectorMock.Object;
 
-			var animated = true;
 			var contentPageMock2 = new ContentPageMock(eventRecorder);
 			var parameter = new object();
-			await navigator.PushAsync(contentPageMock2, parameter, animated);
+			await navigator.PushAsync(contentPageMock2, parameter);
 
 
 			behaviorInjectorMock.Verify(x => x.Inject(contentPageMock2), Times.Once);
-			navigationMock.Verify(x => x.PushAsync(contentPageMock2, animated), Times.Once);
+			navigationMock.Verify(x => x.PushAsync(contentPageMock2, true), Times.Once);
 
 			Assert.Equal(3, eventRecorder.Count);
 
@@ -238,13 +301,12 @@ namespace Kamishibai.Xamarin.Forms.Tests
 			var behaviorInjectorMock = new Mock<IBehaviorInjector>();
 			navigator.BehaviorInjector = behaviorInjectorMock.Object;
 
-			var animated = true;
 			var contentPageMock2 = new ContentPageMock(eventRecorder);
-			await navigator.PushModalAsync(contentPageMock2, animated);
+			await navigator.PushModalAsync(contentPageMock2);
 
 
 			behaviorInjectorMock.Verify(x => x.Inject(contentPageMock2), Times.Once);
-			navigationMock.Verify(x => x.PushModalAsync(contentPageMock2, animated), Times.Once);
+			navigationMock.Verify(x => x.PushModalAsync(contentPageMock2, true), Times.Once);
 
 			Assert.Equal(3, eventRecorder.Count);
 
@@ -261,6 +323,24 @@ namespace Kamishibai.Xamarin.Forms.Tests
 			Assert.Null(eventRecorder[2].Parameter);
 		}
 
+	    [Fact]
+	    public async Task PushModalAsync_WhenAnimatedIsFalse()
+	    {
+	        var eventRecorder = new EventRecorder();
+	        var contentPageMock1 = new ContentPageMock(eventRecorder);
+	        var navigationMock = new Mock<INavigation>();
+	        var navigator = new Navigator(contentPageMock1, navigationMock.Object);
+	        var behaviorInjectorMock = new Mock<IBehaviorInjector>();
+	        navigator.BehaviorInjector = behaviorInjectorMock.Object;
+
+	        var contentPageMock2 = new ContentPageMock(eventRecorder);
+	        await navigator.PushModalAsync(contentPageMock2, false);
+
+
+	        behaviorInjectorMock.Verify(x => x.Inject(contentPageMock2), Times.Once);
+	        navigationMock.Verify(x => x.PushModalAsync(contentPageMock2, false), Times.Once);
+	    }
+
 		[Fact]
 		public async Task PushModalAsync_WithParameter()
 		{
@@ -271,14 +351,13 @@ namespace Kamishibai.Xamarin.Forms.Tests
 			var behaviorInjectorMock = new Mock<IBehaviorInjector>();
 			navigator.BehaviorInjector = behaviorInjectorMock.Object;
 
-			var animated = true;
 			var contentPageMock2 = new ContentPageMock(eventRecorder);
 			var parameter = new object();
-			await navigator.PushModalAsync(contentPageMock2, parameter, animated);
+			await navigator.PushModalAsync(contentPageMock2, parameter);
 
 
 			behaviorInjectorMock.Verify(x => x.Inject(contentPageMock2), Times.Once);
-			navigationMock.Verify(x => x.PushModalAsync(contentPageMock2, animated), Times.Once);
+			navigationMock.Verify(x => x.PushModalAsync(contentPageMock2, true), Times.Once);
 
 			Assert.Equal(3, eventRecorder.Count);
 

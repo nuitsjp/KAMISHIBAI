@@ -15,13 +15,15 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mocks
             DependencyService.Register<ISystemResourcesProvider, SystemResourcesProvider>();
         }
 
+        // ReSharper disable once ClassNeverInstantiated.Local
         private class SystemResourcesProvider : ISystemResourcesProvider
         {
-	        IList<KeyValuePair<string, object>> KeyValuePairs = new List<KeyValuePair<string, object>>();
+            // ReSharper disable once CollectionNeverUpdated.Local
+            readonly IList<KeyValuePair<string, object>> _keyValuePairs = new List<KeyValuePair<string, object>>();
             public IResourceDictionary GetSystemResources()
             {
                 var resourceDictionaryMock = new Mock<IResourceDictionary>();
-	            resourceDictionaryMock.Setup(m => m.GetEnumerator()).Returns(() => KeyValuePairs.GetEnumerator());
+	            resourceDictionaryMock.Setup(m => m.GetEnumerator()).Returns(() => _keyValuePairs.GetEnumerator());
                 return resourceDictionaryMock.Object;
             }
         }

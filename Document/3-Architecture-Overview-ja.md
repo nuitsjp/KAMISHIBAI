@@ -1,7 +1,7 @@
 [[Home]](../README-ja.md) > アーキテクチャ概要
 
 # アーキテクチャ概要  
-KAMISHIBAIの特に重要な要素に、つぎの三つがある。  
+KAMISHIBAIの特に重要な要素に、つぎの三つがあります。  
 
 * [Navigator](#navigator)
 * [NavigationRequest](#navigationrequest)  
@@ -11,8 +11,8 @@ KAMISHIBAIの特に重要な要素に、つぎの三つがある。
 
 # Navigator
 
-NavigatorはXamarin.Formsで画面遷移を指示するXamarin.Forms.INavigationのラッパークラスだ。  
-INavigationをラップすることで、Navigatorは画面遷移にあたり、つぎの機能を付与する。  
+NavigatorはXamarin.Formsで画面遷移を指示するXamarin.Forms.INavigationのラッパークラスです。  
+INavigationをラップすることで、Navigatorは画面遷移にあたり、つぎの機能を付与します。  
 
 * 画面遷移時のイベント通知  
     * OnInitialize
@@ -21,22 +21,22 @@ INavigationをラップすることで、Navigatorは画面遷移にあたり、
 * 型安全性の保たれた画面遷移パラメーター  
 
 ## 画面遷移時のイベント通知
-Navigatorでは子Pageへの浸透性と高い一貫性を持ったイベントの通知を行う。  
-イベントは３種類あり、それぞれ対応するインターフェースを実装することによってViewModelだけではなく、View（Page）でもイベントを受け取ることが可能だ。  
+Navigatorでは子Pageへの浸透性と高い一貫性を持ったイベントの通知を行います。  
+イベントは３種類あり、それぞれ対応するインターフェースを実装することによってViewModelだけではなく、View（Page）でもイベントを受け取ることが可能です。  
 
 * [IPageInitializeAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageInitializeAware.cs)  
 * [IPageLoadedAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageLoadedAware.cs)  
 * [IPageUnloadedAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageUnloadedAware.cs)  
 
-また厳密には画面遷移とは異なるが、ApplicationのSleepとResumeのイベントも受け取ることが可能だ。  
+また厳密には画面遷移とは異なりますが、ApplicationのSleepとResumeのイベントも受け取ることが可能です。  
 
 * [IApplicationOnSleepAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IApplicationOnSleepAware.cs)  
 * [IApplicationOnResumeAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IApplicationOnResumeAware.cs)  
 
 ### 子Pageへのイベントの浸透
 
-KAMISHIBAIでは、例えばMasterDetailPageがTabbedPageを持っているような場合、TabbedPageのTabに該当するPageのような、末端のPageまで遷移イベントを通知する。  
-イベントの通知そのものはNavigatorからつぎのクラスに移譲して行っており、LifecycleNotifierの中で再帰的にイベント通知を処理している。  
+KAMISHIBAIでは、例えばMasterDetailPageがTabbedPageを持っているような場合、TabbedPageのTabに該当するPageのような、末端のPageまで遷移イベントを通知します。  
+イベントの通知そのものはNavigatorからつぎのクラスに移譲して行っており、LifecycleNotifierの中で再帰的にイベント通知を処理しています。  
 
 * [LifecycleNoticeService](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/LifecycleNoticeService.cs)  
 * [LifecycleNotifier](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/LifecycleNotifier.cs)  

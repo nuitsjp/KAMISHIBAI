@@ -57,21 +57,21 @@ namespace Kamishibai.Xamarin.Forms
 
         internal class ApplicationAdapter : IApplication
         {
-            private readonly Application _current;
+            private readonly Application _currentApplication;
 
             Page IApplication.MainPage
             {
-                get => _current.MainPage;
-                set => _current.MainPage = value;
+                get => _currentApplication.MainPage;
+                set => _currentApplication.MainPage = value;
             }
 
             public event EventHandler<ModalPoppedEventArgs> ModalPopped;
-            public ApplicationAdapter(Application current)
+            public ApplicationAdapter(Application currentApplication)
             {
-                if(current == null) return;
+                if(currentApplication == null) return;
 
-                _current = current;
-                _current.ModalPopped += (sender, args) => ModalPopped?.Invoke(sender, args);
+                _currentApplication = currentApplication;
+                _currentApplication.ModalPopped += (sender, args) => ModalPopped?.Invoke(sender, args);
             }
         }
         

@@ -4,7 +4,7 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mocks
 {
     public class ContentPageMock : ContentPage, IPageLifecycleAware, IApplicationLifecycleAware, IPageInitializeAware<object>
     {
-        public readonly EventRecorder _eventRecorder;
+        private readonly EventRecorder _eventRecorder;
 
         public ContentPageMock(EventRecorder eventRecorder)
         {

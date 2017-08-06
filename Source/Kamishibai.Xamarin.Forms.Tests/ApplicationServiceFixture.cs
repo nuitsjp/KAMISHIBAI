@@ -169,6 +169,7 @@ namespace Kamishibai.Xamarin.Forms.Tests
         [Fact]
         public void ApplicationAdapter_WhenApplicationIsNull()
         {
+            // ReSharper disable once ObjectCreationAsStatement
             new ApplicationService.ApplicationAdapter(null);
         }
     }

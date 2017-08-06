@@ -76,9 +76,9 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mvvm
 
         private class NavigationBehaviorMock<TNavigatePage> : NavigationBehavior<TNavigatePage> where TNavigatePage : Page, new()
 	    {
-	        public bool Navigated { get; set; }
-	        public Type ParameterType { get; set; }
-	        public object Parameter { get; set; }
+	        public bool Navigated { get; private set; }
+	        public Type ParameterType { get; private set; }
+	        public object Parameter { get; private set; }
 	        public override Task Navigate<T>(T parameter = default(T))
 	        {
 	            Navigated = true;

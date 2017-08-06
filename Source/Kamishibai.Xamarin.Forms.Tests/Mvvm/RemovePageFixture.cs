@@ -11,6 +11,7 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mvvm
 		public void Navigate()
 		{
 			var contentPageA = new ContentPageA();
+		    // ReSharper disable once UnusedVariable
 			var navigationPage = new NavigationPage(contentPageA);
 			var contentPageB = new ContentPageB();
 			contentPageA.Navigation.PushAsync(contentPageB);
@@ -32,6 +33,7 @@ namespace Kamishibai.Xamarin.Forms.Tests.Mvvm
 	    public void Navigate_NotExistTarget()
 	    {
 	        var contentPageA = new ContentPageA();
+	        // ReSharper disable once UnusedVariable
 	        var navigationPage = new NavigationPage(contentPageA);
 	        var contentPageB = new ContentPageB();
 	        contentPageA.Navigation.PushAsync(contentPageB);

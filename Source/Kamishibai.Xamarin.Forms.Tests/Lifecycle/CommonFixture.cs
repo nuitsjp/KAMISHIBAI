@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kamishibai.Xamarin.Forms.Tests.Mocks;
-using Xamarin.Forms;
+﻿using Kamishibai.Xamarin.Forms.Tests.Mocks;
 using Xunit;
 
 namespace Kamishibai.Xamarin.Forms.Tests.Lifecycle

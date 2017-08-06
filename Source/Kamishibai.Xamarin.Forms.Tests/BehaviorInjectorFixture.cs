@@ -47,7 +47,7 @@ namespace Kamishibai.Xamarin.Forms.Tests
         public void Inject_WhenOriginallyExisted()
         {
             var navigationPage = new NavigationPage(new ContentPage());
-            var behavior = new NavigationPageBehavior();;
+            var behavior = new NavigationPageBehavior();
             navigationPage.Behaviors.Add(new BehaviorMock());
             navigationPage.Behaviors.Add(behavior);
 

@@ -2,7 +2,7 @@
 {
     public class ViewModelMock : IPageLifecycleAware, IApplicationLifecycleAware, IPageInitializeAware<string>
     {
-        private readonly EventRecorder _eventRecorder = new EventRecorder();
+        private readonly EventRecorder _eventRecorder;
 
         public ViewModelMock(EventRecorder eventRecorder)
         {
