@@ -1,10 +1,89 @@
 [[Home]](../README-ja.md) > アーキテクチャ概要
 
 # アーキテクチャ概要  
-KAMISHIBAIの特に重要な要素に、つぎの三つがあります。  
+KAMISHIBAIの特に重要な要素に、つぎの三つがある。  
 
-* NavigationRequest  
-* NavigationBehavior（PushAsyncやPushModalAsyncの親クラス）
-* Navigator
+* [Navigator](#navigator)
+* [NavigationRequest](#navigationrequest)  
+* [NavigationBehavior（PushAsyncやPushModalAsyncの親クラス）](#navigationbehavior)  
 
 ![](3-Architecture-Overview/KAMISHIBAI.png)
+
+# Navigator
+
+NavigatorはXamarin.Formsで画面遷移を支持するXamarin.Forms.INavigationのラッパークラスだ。  
+INavigationをラップすることで、Navigatorは画面遷移時につぎの機能を付与する。  
+
+* 画面遷移時のイベント通知  
+    * OnInitialize
+    * OnLoaded
+    * OnUnloaded
+* 型安全性の保たれた画面遷移パラメーター  
+
+## 画面遷移時のイベント通知
+Navigatorでは子Pageへの浸透性と高い一貫性を持ったイベントの通知を行う。  
+イベントは３種類あり、それぞれ対応するインターフェースを実装することによってViewModelだけではなく、View（Page）でもイベントを受け取ることが可能だ。  
+
+* [IPageInitializeAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageInitializeAware.cs)  
+* [IPageLoadedAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageLoadedAware.cs)  
+* [IPageUnloadedAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageUnloadedAware.cs)
+
+### 子Pageへのイベントの浸透
+
+KAMISHIBAIでは、例えばMasterDetailPageがTabbedPageを持っているような場合、TabbedPageのTabに該当するPageのような、末端のPageまで遷移イベントを通知する。  
+イベントの通知そのものはNavigatorからつぎのクラスに移譲して行っており、LifecycleNotifierの中で再帰的にイベント通知を処理している。  
+
+* [LifecycleNoticeService](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/LifecycleNoticeService.cs)  
+* [LifecycleNotifier](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/LifecycleNotifier.cs)  
+
+### 一貫性を保ったイベント通知  
+
+Navigatorでは、例えばつぎのような解決の難しい画面遷移であっても、一貫性を保ってイベントを通知する（一部はNavigator以外によって実現している）。  
+
+1. NavigationPageのNavigationBar、物理バックボタン（AndroidやWin10m）による戻る処理時  
+2. TabbedPageのタブの切り替えや、CarouselPageのページ切り替え時の処理時  
+3. Modal遷移時の物理バックボタン（AndroidやWin10m）による戻る処理時  
+
+1.および2.は画面遷移する際に、遷移先のPageに外部からBehaviorをインジェクションすることによって解決している。  
+具体的にはつぎのクラスの実装を参照。  
+
+* [BehaviorInjector](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/BehaviorInjector.cs)
+* [NavigationPageBehavior](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/NavigationPageBehavior.cs)
+* [MultiPageBehavior&lt;TPage>](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/MultiPageBehavior.cs)  
+
+3.のModal遷移時の物理バックボタンについては、つぎのクラスを参照。  
+
+* [ApplicationService](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/ApplicationService.cs)  
+
+正直、Initializeメソッドはなくても動作するようにしたかったが、テスト性を確保しつつ必要な要件を満たす為には、回避策が思い当たらなかった。  
+初期画面から物理Backボタンで戻って、再度アプリケーションアイコンからアプリを起動された場合に、Applicationクラスが再生成されてCurrentが変わるが、それを検知する方法がないと思われる為、AppクラスのコンストラクタでApplicationServiceのInitializeメソッドを呼ばせざるを得ない。  
+
+# NavigationRequest
+
+INavigationRequestの実装クラスで、ViewModelからViewへ画面遷移要求を通知する。  
+通知時に引数を持たない[INavigationRequestインターフェース](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/INavigationRequest.cs#L5)と、引数を持つ[INavigationRequest<TPara>インターフェース](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/INavigationRequest.cs#L12)の２種類がある。  
+
+正直[この通り](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/NavigationRequest.cs)たいした実装を持たないが、画面遷移機能を持ったクラスをViewModelから操作するのではなく、ViewModel層からはあくまで遷移を通知させるだけという設計にこそ価値がある。  
+
+画面遷移の実態をView層へ完全に切り出した（前出の図を参照）ことで、Xamarin.Formsで可能なあらゆる画面遷移を実現可能としている。  
+高レベルな画面遷移サービスを作成した場合、想定外の遷移が必要となった場合の対処が困難だが、このアーキテクチャによってその点が解決されている。  
+
+# NavigationBehavior  
+
+NavigationRequestをバインドし、NavigationBehaviorからの画面遷移要求を受け取ってNavigatorを呼び出し画面遷移する。NavigationBehaviorは抽象クラスであり、実際にはPushAsyncやPopAsyncなどの具象クラスが存在する。  
+
+画面遷移先をXAML上の型パラメーターで指定するアイディアがほぼすべて。その発想が出てこなければ、そもそもKAMISHIBAI自体が存在しなかった。  
+ただしINavigationを薄くラップして遷移通知と遷移パラメーターに対応するNavigator自体は作っていたと思われる。  
+
+さてKAMISHIBAIとしては以下の通り、INavigationに存在する画面遷移メソッドに対応する全てのメソッドが用意されていると共に、独自にNavigationBehaviorを継承して複雑で固有な画面遷移を実装することが可能となっている。  
+
+* [InsertPageBefore](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/InsertPageBefore.cs)  
+* [PopAsync](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/PopAsync.cs)  
+* [PopModalAsync](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/PopModalAsync.cs)  
+* [PopToRootAsync](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/PopToRootAsync.cs)  
+* [PushAsync](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/PushAsync.cs)  
+* [PushModalAsync](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/PushModalAsync.cs)  
+* [RemovePage](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/RemovePage.cs)  
+* [SetMainPage](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Mvvm/SetMainPage.cs)  
+
+SetMainPageだけはINavigationにはメソッドが存在しない。そのため、内部の実装もNavigatorではなくApplicationServiceを呼び出している。  
