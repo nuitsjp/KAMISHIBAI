@@ -71,8 +71,8 @@ KAMISHIBAIでは、あなたをサポートする次のコンテンツを提供�
 1. [How to install](#how-to-install)
 2. Documents
     1. [KAMISHIBAI入門](Document/1-Hello-KAMISHIBAI-ja.md)  
-    2. [KAMISHIBAI仕様](Document/2-Reference-ja.md)
-    2. [KAMISHIBAIアーキテクチャ概要](Document/3-Architecture-Overview-ja.md)
+    2. [詳細仕様](Document/2-Reference-ja.md)
+    2. [アーキテクチャ概要](Document/3-Architecture-Overview-ja.md)
 3. [Samples](https://github.com/nuitsjp/KAMISHIBAI-Samples)
 
 ## How to install  
