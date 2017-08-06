@@ -11,7 +11,7 @@
 
 # 前提条件  
 
-ここでは読者を少なくとも次のレベルは満たしていることを想定しています。  
+ここでは読者が少なくとも次を満たしていることを想定しています。  
 
 * Xamarinの開発環境が構築済みであること  
 * Xamarin.Formsで画面遷移が一つ以上あるアプリケーションを作成したことがあること  
@@ -28,6 +28,8 @@
 
 ここでは、つぎのようはアプリケーションを作成します。  
 
+![](1-Hello-KAMISHIBAI/008.gif)
+
 初期画面では ListViewにフルーツの一覧を表示します。  
 いずれかのフルーツが選択されると、画面遷移して選択されたフルールを表示します。  
 
@@ -35,11 +37,11 @@
 
 ここではつぎの手順に従って作成していきます。  
 
-1. Xamarin.Formsプロジェクトの作成  
-2. KAMISHIBAI for Xamarin.FormsをNuGetからインストール  
-3. フルーツの一覧画面の作成と、初期画面遷移の変更  
-4. フルーツ選択後の画面の作成と、画面遷移の実装  
-5. アプリケーションの微修正  
+1. [Xamarin.Formsプロジェクトの作成](#xamarinformsプロジェクトの作成)  
+2. [KAMISHIBAI for Xamarin.FormsをNuGetからインストール]()  
+3. [フルーツの一覧画面の作成と、初期画面遷移の変更](#フルーツの一覧画面の作成と、初期画面遷移の変更)  
+4. [フルーツ選択後の画面の作成と、画面遷移の実装](#フルーツ選択後の画面の作成と、画面遷移の実装)  
+5. [アプリケーションの微修正](#アプリケーションの微修正)  
 
 ## Xamarin.Formsプロジェクトの作成  
 
@@ -49,7 +51,7 @@
 
 作成後、実行すると次のような画面が表示されれば作成成功です。  
 
-![](1-Hello-KAMISHIBAI/002.png)
+<img src="https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Document/1-Hello-KAMISHIBAI/002.png" width="300"/>
 
 ## KAMISHIBAI for Xamarin.FormsをNuGetからインストール  
 
@@ -111,7 +113,7 @@ FruitsListPageはNavigationPageでラップしています。
 さあ、アプリを実行してみましょう。  
 つぎのように表示されるはずです。  
 
-![](1-Hello-KAMISHIBAI/005.jpg)
+<img src="https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Document/1-Hello-KAMISHIBAI/005.jpg" width="300"/>
 
 無事KAMISHIBAIが組み込めましたね。  
 
@@ -199,7 +201,7 @@ BindingContextへ先に作成したFruitsListPageViewModelを設定し、ListVie
 
 これを実行するとつぎのように表示されます。  
 
-![](1-Hello-KAMISHIBAI/006.jpg)
+<img src="https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Document/1-Hello-KAMISHIBAI/006.jpg" width="300"/>
 
 これで一旦FruitsListPageをおえて、つぎの画面を作成しましょう。  
 
