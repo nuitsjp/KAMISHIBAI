@@ -72,7 +72,7 @@ FruitsListPage.xamlを作成しましょう。
 
 ![](1-Hello-KAMISHIBAI/004.png)
 
-再生後、開かれたXAMLにとりあえずTitle「Fruits List」を追加しておきましょう。  
+作成後、開かれたXAMLにとりあえずTitle「Fruits List」を追加しておきましょう。  
 
 ```xaml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -124,14 +124,13 @@ FruitsListPageはNavigationPageでラップしています。
 2. FruitsListPageViewModel
 3. Fruitクラスを作成します。  
 
-ViewModelBaseばINotifyPropertyChangedを実装した、ViewModelの基底クラスになります。  
+ViewModelBaseはINotifyPropertyChangedを実装した、ViewModelの基底クラスになります。  
 
 ```cs
 public abstract class ViewModelBase : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
-    protected virtual bool SetProperty<T>(
-        ref T field, T value, [CallerMemberName] string propertyName = null)
+    protected virtual bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
     {
         if (Equals(field, value)) return false;
 
