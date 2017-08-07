@@ -14,14 +14,14 @@ KAMISHIBAIの特に重要な要素に、つぎの三つがあります。
 NavigatorはXamarin.Formsで画面遷移を指示するXamarin.Forms.INavigationのラッパークラスです。  
 INavigationをラップすることで、Navigatorは画面遷移にあたり、つぎの機能を付与します。  
 
-* [子Pageへの浸透性](#子pageへの浸透性をもったイベント通知)と[高い一貫性](#一貫性を保ったイベント通知)を保った画面遷移時のイベント通知  
+* [子Pageへの再帰性](#子pageへの再帰性をもったイベント通知)と[高い一貫性](#一貫性を保ったイベント通知)を保った画面遷移時のイベント通知  
     * OnInitialize
     * OnLoaded
     * OnUnloaded
 * 型安全性の保たれた画面遷移パラメーター  
 
 ## 画面遷移時のイベント通知
-Navigatorでは子Pageへの浸透性と高い一貫性を持ったイベントの通知を行います。  
+Navigatorでは子Pageへの再帰性と高い一貫性を持ったイベントの通知を行います。  
 イベントは３種類あり、それぞれ対応するインターフェースを実装することによってViewModelだけではなく、View（Page）でもイベントを受け取ることが可能です。  
 
 * [IPageInitializeAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageInitializeAware.cs)  
@@ -33,7 +33,7 @@ Navigatorでは子Pageへの浸透性と高い一貫性を持ったイベント�
 * [IApplicationOnSleepAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IApplicationOnSleepAware.cs)  
 * [IApplicationOnResumeAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IApplicationOnResumeAware.cs)  
 
-### 子Pageへの浸透性をもったイベント通知
+### 子Pageへの再帰性をもったイベント通知
 
 KAMISHIBAIでは、例えばMasterDetailPageがTabbedPageを持っているような場合、TabbedPageのTabに該当するPageのような、末端のPageまで遷移イベントを通知します。  
 イベントの通知そのものはNavigatorからつぎのクラスに移譲して行っており、LifecycleNotifierの中で再帰的にイベント通知を処理しています。  
