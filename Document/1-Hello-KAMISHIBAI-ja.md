@@ -1,6 +1,6 @@
-[[Home]](../README-ja.md) > KAMISHIBAI入門
+[[Home]](../README-ja.md) > KAMISHIBAIチュートリアル
 
-# KAMISHIBAI入門  
+# KAMISHIBAIチュートリアル  
 
 ここでは、素のXamarin.FormsプロジェクトへKAMISHIBAIを適用して、簡単なサンプルアプリケーションを作成します。  
 
