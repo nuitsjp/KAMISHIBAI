@@ -18,15 +18,17 @@ INavigationをラップすることで、Navigatorは画面遷移にあたり、
     * OnInitialize
     * OnLoaded
     * OnUnloaded
+    * OnClosed
 * 型安全性の保たれた画面遷移パラメーター  
 
 ## 画面遷移時のイベント通知
 Navigatorでは子Pageへの再帰性と高い一貫性を持ったイベントの通知を行います。  
-イベントは３種類あり、それぞれ対応するインターフェースを実装することによってViewModelだけではなく、View（Page）でもイベントを受け取ることが可能です。  
+イベントは4種類あり、それぞれ対応するインターフェースを実装することによってViewModelだけではなく、View（Page）でもイベントを受け取ることが可能です。  
 
 * [IPageInitializeAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageInitializeAware.cs)  
 * [IPageLoadedAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageLoadedAware.cs)  
 * [IPageUnloadedAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageUnloadedAware.cs)  
+* [IPageClosedAware](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/IPageClosedAware.cs)
 
 また厳密には画面遷移とは異なりますが、ApplicationのSleepとResumeのイベントも受け取ることが可能です。  
 
