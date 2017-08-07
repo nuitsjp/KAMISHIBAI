@@ -201,16 +201,18 @@ namespace Kamishibai.Xamarin.Forms.Tests.Lifecycle
         public void NestedPages()
         {
             var tabString = new TabbedPageString();
-            //var tabNoParam = new TabbedPageNotParameter();
+            var tabNoParam = new TabbedPageNotParameter();
             var tabObject = new TabbedPageObject();
             var contentString = new ContentPageString();
-            tabString.Children.Add(tabObject);
+            tabString.Children.Add(tabNoParam);
+            tabNoParam.Children.Add(tabObject);
             tabObject.Children.Add(contentString);
 
             var parameter = "Hello, Parameter!";
             LifecycleNoticeService.OnInitialize(tabString, parameter);
 
             Assert.Equal(parameter, tabString.Parameter);
+            Assert.False(tabNoParam.IsCalled);
             Assert.Equal(parameter, tabObject.Parameter);
             Assert.Equal(parameter, contentString.Parameter);
         }
@@ -224,14 +226,14 @@ namespace Kamishibai.Xamarin.Forms.Tests.Lifecycle
             }
         }
 
-        //private class TabbedPageNotParameter : TabbedPage, IPageInitializeAware
-        //{
-        //    public bool IsCalled { get; private set; }
-        //    public void OnInitialize()
-        //    {
-        //        IsCalled = true;
-        //    }
-        //}
+        private class TabbedPageNotParameter : TabbedPage, IPageInitializeAware
+        {
+            public bool IsCalled { get; private set; }
+            public void OnInitialize()
+            {
+                IsCalled = true;
+            }
+        }
 
         private class TabbedPageObject : TabbedPage, IPageInitializeAware<object>
         {
