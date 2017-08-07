@@ -13,9 +13,9 @@
 
 ここでは読者が少なくとも次を満たしていることを想定しています。  
 
-* Xamarinの開発環境が構築済みであること  
-* Xamarin.Formsで画面遷移が一つ以上あるアプリケーションを作成したことがあること  
-* MVVMについて、ViewとViewModelとModelの事だと理解していること
+* Xamarinの開発環境が構築済みである  
+* Xamarin.Formsで画面遷移が一つ以上あるアプリケーションを作成したことがある  
+* ViewにViewModelのプロパティをバインドしたアプリケーションを作成したことがある
 
 # 目的  
 
@@ -31,7 +31,7 @@
 ![](1-Hello-KAMISHIBAI/008.gif)
 
 初期画面では ListViewにフルーツの一覧を表示します。  
-いずれかのフルーツが選択されると、画面遷移して選択されたフルールを表示します。  
+いずれかのフルーツが選択されると、画面遷移して選択されたフルーツを表示します。  
 
 ここで作成するアプリの完成コードは[こちらのListViewSampleにあります](https://github.com/nuitsjp/KAMISHIBAI-Samples)ので、詰まった場合にはあわせてご覧ください。
 
@@ -124,8 +124,8 @@ FruitsListPageはNavigationPageでラップしています。
 まずはViewModelsフォルダにつぎの３つのクラスを作成してください。  
 
 1. ViewModelBase
-2. FruitsListPageViewModel
-3. Fruitクラスを作成します。  
+2. Fruit
+3. FruitsListPageViewModel
 
 ViewModelBaseはINotifyPropertyChangedを実装した、ViewModelの基底クラスになります。  
 
@@ -244,6 +244,8 @@ public class FruitDetailPageViewModel : ViewModelBase
 </ContentPage>
 ```
 
+BindingContextへFruitDetailPageViewModelがバインドされており、FruitDetailPageViewModelのFruitの各プロパティがBoxViewとLabelにバインドされているのが見て取れます。
+
 さてそれでは、いよいよ画面遷移の実装です。  
 遷移元の画面のViewModelである、FruitsListPageViewModelを修正します。  
 まずは、画面遷移要求を発信するINavigationRequestをプロパティに追加します。  
@@ -299,7 +301,7 @@ FruitsListPage.xamlを開いてください。
         ...
 ```
 
-実際のビヘイビアの部分だけ抜き出したのが、つぎのコードです。  
+PushAsyncを実行するビヘイビアの部分だけ抜き出したのが、つぎのコードです。  
 ```cs
 <mvvm:PushAsync Request="{Binding RequestDetail}" x:TypeArguments="views:FruitDetailPage" />
 ```

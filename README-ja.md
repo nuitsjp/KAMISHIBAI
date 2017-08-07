@@ -11,7 +11,7 @@ KAMISHIBAIはXamarin.Formsの機能を一切制限せず、つぎの機能拡張
 
 Xamarin.Formsで実現可能なあらゆる画面遷移は、KAMISHIBAIを利用することで、より簡単に実現する事ができます。  
 そして既存のあらゆるMVVMフレームワークと同居が可能です。ただしひとつだけ制約が発生します。  
-画面遷移にはKAMISHIBAIを利用していただくという事です。  
+画面遷移にはKAMISHIBAIを利用してください。  
 
 # Overview  
 
@@ -20,7 +20,7 @@ Xamarin.Formsで実現可能なあらゆる画面遷移は、KAMISHIBAIを利用
 1. ViewModel層から画面遷移要求を発信する  
 2. 画面遷移要求を受け、View層で画面遷移する  
 
-それぞれについて概略を順にみていきましょう。
+これらを組み合わせることで画面遷移を実現しています。それぞれについて概略をみていきましょう。
 
 ## ViewModel層から画面遷移要求を発信する  
 
@@ -46,7 +46,11 @@ public INavigationRequest RequestSecondPage { get; } = new NavigationRequest();
     </StackLayout>
 </ContentPage>
 ```
-PushModalAsyncビヘイビアを注目してください。  
+PushModalAsyncビヘイビアに注目してください。  
+
+```xaml
+<mvvm:PushModalAsync Request="{Binding RequestSecondPage}" x:TypeArguments="views:SecondPage"/>
+```
 RequestSecondPageの遷移要求を受けて、x:TypeArgumentsで指定されたSecondPageへモーダル遷移します。  
 
 KAMISHIBAIではViewModelからの要求を受けて、ビヘイビアで画面遷移を行います。  
@@ -60,11 +64,11 @@ KAMISHIBAIではViewModelからの要求を受けて、ビヘイビアで画面�
 
 つぎのようなケースで画面遷移をハンドルすることは、他のケースと比較して困難ですが、KAMISHIBAIであれば一貫性を保った通知を実現します。  
 
-* アプリケーションのSleep、Resume  
-* TabbedPageやCarouselPageのタブ（ページ）の切り替え  
 * 物理バックキーの押下やスワイプ
+* TabbedPageやCarouselPageのタブ（ページ）の切り替え  
+* アプリケーションのSleep、Resume  
 
-また、MasterDetailPageやTabbedPageなどはPageをネストします。それらの多階層化した画面の末端までイベント通知は浸透します。  
+また、MasterDetailPageやTabbedPageなどはPageをネストします。それらの多階層化した画面の末端まで再帰的にイベントを通知します。  
 
 KAMISHIBAIに興味をもっていただけましたか？  
 KAMISHIBAIでは、あなたをサポートする次のコンテンツを提供しています。  
@@ -75,7 +79,7 @@ KAMISHIBAIでは、あなたをサポートする次のコンテンツを提供�
 1. [How to install](#how-to-install)
 2. Documents
     1. [KAMISHIBAI入門](Document/1-Hello-KAMISHIBAI-ja.md)  
-    2. [詳細仕様（準備中）](Document/2-Reference-ja.md)
+    2. [リファレンス](Document/2-Reference-ja.md)
     2. [アーキテクチャ概要](Document/3-Architecture-Overview-ja.md)
 3. [Samples](https://github.com/nuitsjp/KAMISHIBAI-Samples)
 

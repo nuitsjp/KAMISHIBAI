@@ -1,6 +1,6 @@
-[[Home]](../README-ja.md) > 詳細仕様
+[[Home]](../README-ja.md) > リファレンス
 
-# 詳細仕様
+# リファレンス
 
 1. [遷移イベント種別](#遷移イベント種別)  
     1. [OnInitialize](#oninitialize)  
