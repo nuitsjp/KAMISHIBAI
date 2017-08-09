@@ -6,7 +6,7 @@ namespace Kamishibai.Xamarin.Forms.Mvvm
 	/// 
 	/// </summary>
 	/// <typeparam name="TPage"></typeparam>
-	public abstract class AnimatableNavigation<TPage> : NavigationBehavior<TPage> where TPage : Page, new()
+	public abstract class AnimatableNavigation<TPage> : NavigationBehavior<TPage> where TPage : Page
     {
         public static readonly BindableProperty AnimatedProperty =
             BindableProperty.Create(nameof(Animated), typeof(bool), typeof(AnimatableNavigation<TPage>), true);

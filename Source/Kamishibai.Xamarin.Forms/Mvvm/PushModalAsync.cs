@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace Kamishibai.Xamarin.Forms.Mvvm
 {
-    public class PushModalAsync<TPage> : AnimatableNavigation<TPage> where TPage : Page, new()
+    public class PushModalAsync<TPage> : AnimatableNavigation<TPage> where TPage : Page
     {
         public static readonly BindableProperty WithNavigationPageProperty =
             BindableProperty.Create(nameof(WithNavigationPage), typeof(bool), typeof(PushModalAsync<TPage>), false);
@@ -18,11 +18,11 @@ namespace Kamishibai.Xamarin.Forms.Mvvm
         {
             if (WithNavigationPage)
             {
-                return Navigator.PushModalAsync(new NavigationPage(new TPage()), parameter, Animated);
+                return Navigator.PushModalAsync(new NavigationPage(ServiceLocator.GetInstance<TPage>()), parameter, Animated);
             }
             else
             {
-                return Navigator.PushModalAsync(new TPage(), parameter, Animated);
+                return Navigator.PushModalAsync(ServiceLocator.GetInstance<TPage>(), parameter, Animated);
             }
         }
     }

@@ -99,6 +99,7 @@
     <Compile Include="Mocks\ViewModelMock.cs" />
     <Compile Include="MultiPageBehaviorFixture.cs" />
     <Compile Include="Mvvm\AnimatableNavigationFixture.cs" />
+    <Compile Include="Mvvm\ServiceLocatorFixture.cs" />
     <Compile Include="Mvvm\InsertPageBeforeFixture.cs" />
     <Compile Include="Mvvm\NavigationBehaviorFixture.cs" />
     <Compile Include="Mvvm\NavigationRequestCommandFixture.cs" />

@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Kamishibai.Xamarin.Forms.Mvvm
 {
-    public class RemovePage<TPage> : NavigationBehavior<TPage> where TPage : Page, new()
+    public class RemovePage<TPage> : NavigationBehavior<TPage> where TPage : Page
     {
         public override Task Navigate<TParam>(TParam parameter = default(TParam))
         {
