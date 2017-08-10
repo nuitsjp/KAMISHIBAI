@@ -33,8 +33,6 @@ public ICommand NavigateCommand => new Command(() => RequestSecondPage.RaiseAsyn
 public INavigationRequest RequestSecondPage { get; } = new NavigationRequest();
 ```
 
-
-
 ## Based on Page navigation request, navigation Page on the View layer  
 
 ```xaml
@@ -59,7 +57,7 @@ Navigator wraps Xamarin.Forms.INavigation and adds navigation parameter and navi
 
 ## Consistent event notification on Page navigation  
 
-KAMISHIBAI keeps consistency and recursion and notifies the event.
+Using KAMISHIBAI, you can receive events with consistency and recursion.
 
 Look at the following code.
 
@@ -74,37 +72,54 @@ tabbedPage.Children.Add(new NavigationPage(new ContentPage()){ Title = "Tab 3"})
 navigator.PushModalAsync(masterDetailPage);
 ```
 
+Events can be received on all pages of transition source and destination.  
+The number of Page to navigation to... 9？  
+Perhaps I will make a mistake. But KAMISHIBAI makes no mistake.  
 
+## Generic Type Parameters on Page navigation  
 
-さらにKAMISHIBAIでは、つぎのような魅力的な機能を提供しています。  
+KAMISHIBAI, pass the parameters on navigation easily and safely.  
 
-* 型安全性の保障された画面遷移時パラメーター  
-* 画面遷移における、一貫性と再帰性を伴ったイベント通知  
+An example of passing a DateTime as a parameter.  
 
-つぎのようなケースで画面遷移をハンドルすることは、他のケースと比較して困難ですが、KAMISHIBAIであれば一貫性を保った通知を実現します。  
+```cs
+public INavigationRequest<DateTime> RequestSecondPage { get; } = new NavigationRequest<DateTime>();
 
-* 物理バックキーの押下やスワイプ
-* TabbedPageやCarouselPageのタブ（ページ）の切り替え  
-* アプリケーションのSleep、Resume  
+public Task Navigate(DateTime selectedDate)
+{
+    return RequestSecondPage.RaiseAsync(selectedDate);
+}
+```
 
-また、MasterDetailPageやTabbedPageなどはPageをネストします。それらの多階層化した画面の末端まで再帰的にイベントを通知します。  
+And receive the following.  
+Implement IPageInitializeAware and receive it with OnInitialize method.  
 
-KAMISHIBAIに興味をもっていただけましたか？  
-KAMISHIBAIでは、あなたをサポートする次のコンテンツを提供しています。  
-さあ、Xamarin.Formsで最も自由な画面遷移ライブラリを使ってみましょう！  
+```cs
+public class SecondPageViewModel : IPageInitializeAware<DateTime>, INotifyPropertyChanged
+{
+    ...
+    public void OnInitialize(DateTime selectedDate)
+    {
+        SelectedDate = selectedDate;
+    }
+```
+
+Were you interested in KAMISHIBAI?  
+KAMISHIBAI offers the following content to support you.    
+Let's use Xamarin.Forms with the most flexible Page navigation library!  
 
 ## Contents
 
 1. [How to install](#how-to-install)
 2. Documents
-    1. [KAMISHIBAIチュートリアル](Document/1-Hello-KAMISHIBAI-ja.md)  
-    2. [リファレンス](Document/2-Reference-ja.md)
-    2. [アーキテクチャ概要](Document/3-Architecture-Overview-ja.md)
+    1. [Hello, KAMISHIBAI](Document/1-Hello-KAMISHIBAI-ja.md)  
+    2. [Reference](Document/2-Reference-ja.md)
+    2. [Architecture overview](Document/3-Architecture-Overview-ja.md)
 3. [Samples](https://github.com/nuitsjp/KAMISHIBAI-Samples)
 
 ## How to install  
 
-[NuGetから](https://www.nuget.org/packages/Kamishibai.Xamarin.Forms)インストールしてください。
+Install from [NuGet](https://www.nuget.org/packages/Kamishibai.Xamarin.Forms).  
 
 ```txt
 > Install-Package Kamishibai.Xamarin.Forms
