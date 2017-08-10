@@ -1,4 +1,4 @@
-[[Home]](../README-ja.md) > KAMISHIBAIチュートリアル
+[[Home]](../README-ja.md) > Hello, KAMISHIBAI
 
 # Hello, KAMISHIBAI  
 
@@ -7,6 +7,7 @@ Apply KAMISHIBAI to Xamarin.Forms project , create a simple sample application. 
 * How to apply KAMISHIBAI to applications  
 * Implementation of Page navigation with type safe arguments  
    
+# Contents
 
 * [Precondition](#precondition)  
 * [Overview of the application](#overview-of-the-application)  
@@ -14,64 +15,55 @@ Apply KAMISHIBAI to Xamarin.Forms project , create a simple sample application. 
 
 # Precondition  
 
-ここでは読者が少なくとも次を満たしていることを想定しています。  
+Here we assume that you meet the following.  
 
-* Xamarinの開発環境が構築済みである  
-* Xamarin.Formsで画面遷移が一つ以上あるアプリケーションを作成したことがある  
-* ViewにViewModelのプロパティをバインドしたアプリケーションを作成したことがある
+* Xamarin development environment is already built  
+* You have created an application with one or more Page navigation in Xamarin.Forms  
+* You have created an application that binds View Model properties to view
 
 # Overview of the application  
 
-ここでは、つぎのようはアプリケーションを作成します。  
+Create an application as follows.  
 
 ![](1-Hello-KAMISHIBAI/008.gif)
 
-初期画面では ListViewにフルーツの一覧を表示します。  
-いずれかのフルーツが選択されると、画面遷移して選択されたフルーツを表示します。  
+On the initial Page ListView displays the list of Fruit.  
+When the Fruit is selected, Page navigation to show the selected Fruit.  
 
-ここで作成するアプリの完成コードは[こちらのListViewSampleにあります](https://github.com/nuitsjp/KAMISHIBAI-Samples)ので、詰まった場合にはあわせてご覧ください。
+[The completion code is here.](https://github.com/nuitsjp/KAMISHIBAI-Samples)  
+Look at ListViewSample.  
 
 
 # Steps to create  
 
-ここではつぎの手順に従って作成していきます。  
-
-1. [Xamarin.Formsプロジェクトの作成](#xamarinformsプロジェクトの作成)  
-2. [KAMISHIBAI for Xamarin.FormsをNuGetからインストール]()  
+1. [Create Xamarin.Forms project](#create-xamarinforms-project)  
+2. [Install KAMISHIBAI for Xamarin.Forms from NuGet]()  
 3. [フルーツの一覧画面の作成と、初期画面遷移の変更](#フルーツの一覧画面の作成と、初期画面遷移の変更)  
 4. [フルーツ選択後の画面の作成と、画面遷移の実装](#フルーツ選択後の画面の作成と、画面遷移の実装)  
 5. [アプリケーションの微修正](#アプリケーションの微修正)  
 
-## Xamarin.Formsプロジェクトの作成  
+## Create Xamarin.Forms project  
 
-プロジェクトテンプレートの中から、「Cross-Platform」＞「Cross Platform App(Xamarin)」を選択し、名称をここでは「ListViewSample」として作成しましょう。  
+Let's select "Cross-Platform" > "Cross Platform App (Xamarin)" from the project template and create the name as "ListViewSample".  
 
-![](1-Hello-KAMISHIBAI/001.png)
-
-作成後、実行すると次のような画面が表示されれば作成成功です。  
+If you do, it will be successful if the following Page is displayed.  
 
 <img src="https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Document/1-Hello-KAMISHIBAI/002.png" width="300"/>
 
-## KAMISHIBAI for Xamarin.FormsをNuGetからインストール  
+## Install KAMISHIBAI for Xamarin.Forms from NuGet  
 
-つづいて、NuGetからKAMISHIBAIをインストールします。  
-「kamishibai」で検索すると見つかるでしょう。  
+Next, install the KAMISHIBAI from NuGet.  
+KAMISHIBAI is created in .NET Standard. Associated libraries should be installed.  
 
-![](1-Hello-KAMISHIBAI/003.png)
+## Create Fruit list Page and change initial Page navigation  
 
-KAMISHIBAIは、.NET Standardで作成されているため、関連のライブラリインストールする必要がありますので、それらも併せてインストールしましょう。  
+Let's start creating the application.    
+First, create the Views folder and the ViewModels folder under the ListViewSample project.    
 
-## フルーツの一覧画面の作成と、初期画面遷移の変更  
+Then add the first page to the Views folder.  
+Let's create FruitsListPage.xaml.  
 
-それでは、アプリケーションの作成を開始します。  
-まずは、ListViewSampleプロジェクトの下に、ViewsフォルダとViewModelsフォルダを作成してください。  
-
-そしてViewsフォルダに最初のページを追加します。  
-FruitsListPage.xamlを作成しましょう。  
-
-![](1-Hello-KAMISHIBAI/004.png)
-
-作成後、開かれたXAMLにとりあえずTitle「Fruits List」を追加しておきましょう。  
+After creation, let's add the title "Fruits List" to the open XAML.  
 
 ```xaml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -82,9 +74,9 @@ FruitsListPage.xamlを作成しましょう。
     ...
 ```
 
-中身を作りこむ前に、まずはKAMISHIBAIの組込みと、初期画面への遷移を修正しましょう。   
-App.xaml.csファイルを開いてください。
-コンストラクタにつぎのコードが記載されています。
+And let's fix the KAMISHIBAI initialization and initial Page navigation.   
+Please open the App.xaml.cs file.  
+The constructor contains the following code.  
 
 ```cs
 public App()
@@ -95,7 +87,7 @@ public App()
 }
 ```
 
-これを、つぎのように修正します。  
+This is fixed as follows.    
 
 ```cs
 public App()
@@ -107,23 +99,20 @@ public App()
 }
 ```
 
-ライブラリの初期化コードと、初期画面への遷移方法を修正しています。  
-FruitsListPageはNavigationPageでラップしています。  
-さあ、アプリを実行してみましょう。  
-つぎのように表示されるはずです。  
+Now, let's run the app. You should see it as follows.    
 
 <img src="https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Document/1-Hello-KAMISHIBAI/005.jpg" width="300"/>
 
-無事KAMISHIBAIが組み込めましたね。  
+KAMISHIBAI could be incorporated.    
 
-ではFruitsListPageの中身を実装していきます。  
-まずはViewModelsフォルダにつぎの３つのクラスを作成してください。  
+So will implement the contents of the FruitsListPage.  
+First, create the following three classes in the ViewModels folder:    
 
 1. ViewModelBase
 2. Fruit
 3. FruitsListPageViewModel
 
-ViewModelBaseはINotifyPropertyChangedを実装した、ViewModelの基底クラスになります。  
+ViewModelBase will be the base class of ViewModel, which implemented INotifyPropertyChanged.    
 
 ```cs
 public abstract class ViewModelBase : INotifyPropertyChanged
@@ -140,8 +129,8 @@ public abstract class ViewModelBase : INotifyPropertyChanged
 }
 ```
 
-Fruitクラスは一覧に表示するアイテムです。  
-名称と色をプロパティとして保持するように実装します。  
+The Fruit class is the item to display in the list.  
+Implements the name and color as a property.  
 
 ```cs
 public class Fruit
@@ -151,8 +140,8 @@ public class Fruit
 }
 ```
 
-つづいてFruitsListPageViewModelです。  
-今回はListの内容は固定としましょう。  
+It is FruitsListPageViewModel.  
+This time, the contents of the list are fixed.    
 
 ```cs
 public class FruitsListPageViewModel : ViewModelBase
@@ -174,8 +163,8 @@ public class FruitsListPageViewModel : ViewModelBase
 }
 ```
 
-最後にFruitsListPage.xamlを修正し、ListViewにViewModelの内容を表示します。  
-BindingContextへ先に作成したFruitsListPageViewModelを設定し、ListViewにFruitsListPageViewModelのFruitsの内容を表示します。
+Last modified FruitsListPage.xaml. Displays the contents of the ViewModel to ListView.    
+Sets the FruitsListPageViewModel to the BindingContext. And displays the contents of the Fruits of the FruitsListPageViewModel in the ListView.
 
 ```xaml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -197,16 +186,16 @@ BindingContextへ先に作成したFruitsListPageViewModelを設定し、ListVie
 </ContentPage>
 ```
 
-これを実行するとつぎのように表示されます。  
+When you do this, it appears as follows:  
 
 <img src="https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Document/1-Hello-KAMISHIBAI/006.jpg" width="300"/>
 
-これで一旦FruitsListPageをおえて、つぎの画面を作成しましょう。  
+Once Fruitslistpage is finished, let's create the next Page.  
 
-## フルーツ選択後の画面の作成と、画面遷移の実装  
+## Implementation of Page after selecting a Fruit and navigation  
 
-まずはViewModelから作成しましょう。ViewModelsフォルダの下に、FruitDetailPageViewModelクラスを作成します。  
-選択されたものを表示するためのFruitプロパティとそのフィールドを作成します。
+First, let's create from ViewModel. Under the ViewModels folder, create a FruitDetailPageViewModel class.  
+Creates a property to display the selected fruit.  
 
 ```cs
 public class FruitDetailPageViewModel : ViewModelBase
@@ -220,8 +209,7 @@ public class FruitDetailPageViewModel : ViewModelBase
 }
 ```
 
-つづいてViewsフォルダの下に先ほどFruitListPageを作成したのと同様の手順で、FruitDetailPageを作成してください。  
-作成したらFruitDetailPage.xamlを、つぎのように実装します。
+It continues to create an FruitDetailPage.xaml under the Views folder. And be implemented as follows.  
 
 ```xaml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -240,18 +228,18 @@ public class FruitDetailPageViewModel : ViewModelBase
 </ContentPage>
 ```
 
-BindingContextへFruitDetailPageViewModelがバインドされており、FruitDetailPageViewModelのFruitの各プロパティがBoxViewとLabelにバインドされているのが見て取れます。
+FruitDetailPageViewModel is bound to BindingContext. And you can see that the Fruit property is bound to Boxview and label.
 
-さてそれでは、いよいよ画面遷移の実装です。  
-遷移元の画面のViewModelである、FruitsListPageViewModelを修正します。  
-まずは、画面遷移要求を発信するINavigationRequestをプロパティに追加します。  
-今回は、画面遷移時に選択されたFruitをパラメーターとして渡しますので、型パラメーターをFruitで修飾した形で定義します。
+Now let's finally navigation is the implementation.  
+ViewModel the navigation source page, fix the FruitsListPageViewModel.  
+Adds properties to the INavigationRequest make Page navigation request.  
+This time, Pass the Fruit during Page navigation selected as a parameter. Therefore, you define the type parameters in the form of Fruit.
 
 ```cs
 public INavigationRequest<Fruit> RequestDetail { get; } = new NavigationRequest<Fruit>();
 ```
 
-つづいてFruitが選択されたときに、RequestDetailを呼び出すコードを追加します。  
+Add code to call the RequestDetail, when then Fruit has been selected.  
 
 ```cs
 private Fruit _selectedFruit;
@@ -268,14 +256,12 @@ public Fruit SelectedFruit
 }
 ```
 
-このコードでは画面遷移の要求を行うだけで画面遷移はしません。  
-実際の画面遷移処理は、XAML側に記載します。  
-FruitsListPage.xamlを開いてください。  
+Only this code to request navigation. Page navigation are not. Page navigation process is described on the XAML side. Open the FruitsListPage.xaml.  
 
-つぎの二点を変更します。  
+Change the following two points.  
 
-1. 画面遷移の為の、PushAsyncビヘイビアを追加する  
-2. ListViewのSelectedItemにSelectedFruitをバインドする
+1. Adding PushAsync Behaviors for Page Transitions  
+2. Bind SelectedFruit to a ListView SelectedItem
 
 ```cs
 <?xml version="1.0" encoding="utf-8" ?>
@@ -297,16 +283,17 @@ FruitsListPage.xamlを開いてください。
         ...
 ```
 
-PushAsyncを実行するビヘイビアの部分だけ抜き出したのが、つぎのコードです。  
+Following code is extracted only a part of the Behavior to execute PushAsync.  
+
 ```cs
 <mvvm:PushAsync Request="{Binding RequestDetail}" x:TypeArguments="views:FruitDetailPage" />
 ```
 
-RequestDetailから画面遷移要求が発生したら、PushAsyncメソッドを利用してFruitDetailPageへ画面遷移するよう定義されていることが理解できるでしょう。  
+You'll understand that is defined by using the PushAsync method from RequestDetail Page navigation requests as they occur, the navigation to FruitDetailPage.  
 
-これで画面遷移はできますが、遷移した先で選択されたFruitパラメーターを受け取る必要があります。  
-画面遷移時のパラメーターはIPageInitializeAwareインターフェースのOnInitializeメソッドを実装することで受け取ることが可能です。  
-今回はFruitクラスをパラメーターに受け取りたいため、FruitDetailPageViewModelを開きIPageInitializeAware<Fruit>を実装してください。  
+You can now navigation to Page, but you must receive the selected Fruit parameter in the navigation destination.    
+Parameter is possible to receive by implementing the OnInitialize method of the IPageInitializeAware interface.  
+Open FruitDetailPageViewModel and implement IPageInitializeAware&lt;Fruit>. 
 
 ```cs
 public class FruitDetailPageViewModel : ViewModelBase, IPageInitializeAware<Fruit>
@@ -314,17 +301,15 @@ public class FruitDetailPageViewModel : ViewModelBase, IPageInitializeAware<Frui
     public void OnInitialize(Fruit fruit) => Fruit = fruit;
 ```
 
-さぁこれで、FruitListPageでFruitを選択すると、FruitDetailPageへ遷移し選択されたFruitが表示されるようになりました。  
+Now, the Page navigation has been implemented.  
 
-## アプリケーションの微修正  
+## Application Fine Fix  
 
-さて、さきの実装で完成したように見えますが、画面を戻ってみると選択された行が選択状態になったままとなっています。また選択された行を再選択することができません。  
+It looks well, completed in the implementation in the future. But looking back the Page and the selected rows remain selected. Also, the selected row cannot be re-selected.  
 
 ![](1-Hello-KAMISHIBAI/007.gif)
 
-選択状態を解除すれば良いため、今回はFruitsListPageの退場イベントを利用することにしましょう。  
-
-FruitsListPageViewModelにIPageUnloadedAwareを実装します。
+Clear the selection state. Let's use the FruitsListPage exit event this time. FruitsListPageViewModel implements IPageUnloadedAware.
 
 ```cs
 public class FruitsListPageViewModel : ViewModelBase, IPageUnloadedAware
@@ -332,12 +317,12 @@ public class FruitsListPageViewModel : ViewModelBase, IPageUnloadedAware
     public void OnUnloaded() => SelectedFruit = null;
 ```
 
-戻った後非選択状態となっており、連続して同じ行を選択できるようになりました。  
+After becoming a non-selective State continuously, you can select the same row.  
 
 ![](1-Hello-KAMISHIBAI/008.gif)
 
-このようにKAMISHIBAIでは、画面遷移の必要なタイミングでイベントを通知する機能を含んでいます。 
-ここで作成したアプリの完成コードは[こちらのListViewSampleにあります](https://github.com/nuitsjp/KAMISHIBAI-Samples)のでご覧ください。
+In this way, KAMISHIBAI includes a function to notify the event at the necessary timing of the Page navigation.
+[Completed code is available here ListViewSample.](https://github.com/nuitsjp/KAMISHIBAI-Samples)
 
-さぁこれで入門は終了です。  
-あとは[リファレンス](2-Reference-ja.md)を参照しつつ、実際にアプリケーションを作成してみましょう。  
+This is the end of the introductory.  
+Now let's look at the [reference](2-Reference-ja.md) and actually create the application.  
