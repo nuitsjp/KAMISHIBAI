@@ -59,6 +59,20 @@ Navigator wraps Xamarin.Forms.INavigation and adds navigation parameter and navi
 
 ## Consistent event notification on Page navigation  
 
+KAMISHIBAI keeps consistency and recursion and notifies the event.
+
+Look at the following code.
+
+```cs
+var masterDetailPage = new MasterDetailPage();
+masterDetailPage.Master = new ContentPage {Title = "Master"};
+var tabbedPage = new TabbedPage();
+tabbedPage.Children.Add(new NavigationPage(new ContentPage()){ Title = "Tab 1"});
+tabbedPage.Children.Add(new NavigationPage(new ContentPage()){ Title = "Tab 2"});
+tabbedPage.Children.Add(new NavigationPage(new ContentPage()){ Title = "Tab 3"});
+
+navigator.PushModalAsync(masterDetailPage);
+```
 
 
 
