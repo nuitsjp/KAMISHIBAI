@@ -7,31 +7,25 @@
 KAMISHIBAI for Xamarin.Forms is Page navigation library that supports MVVM patterns.  
 KAMISHIBAI will grant the following features to Xamarin.Forms.
 
-* Generic Type Parameters on Page navigation  
 * Consistent event notification on Page navigation  
-* Supports Page navigation from View Model  
+* Generic Type Parameters on Page navigation  
+* Compatibility of MVVM Pattern and direct manipulation feeling against INavigation  
 
-KAMISHIBAI provides Navigator which added these functions to Xamarin.Forms.INavigation. KAMISHIBAI does not limit Xamarin.Forms. And providing a means to use the Navigator from the View Model.  
-Keeping the use of Xamarin.Forms.INavigation. For this reason, offers low-cost learning.  
-
-In other words, KAMISHIBAI does not provide highly abstracted Page navigation services.  
-
-It can be used with any MVVM framework. However, only one constraint will occur.  
-Please use KAMISHIBAI for screen transition.  
+And KAMISHIBAI does not limit Xamarin.Forms. All possible Navigation in Xamarin.Forms is also possible in KAMISHIBAI.
 
 # Overview  
 
-画面遷移を実現するにあたり、KAMISHIBAIの最大の特徴は、利用者から見てモノリシックな一枚岩な構造ではなく、役割を分割して実現していることにあります。  
+The feature of KAMISHIBAI's Navigation Service is that it is not a monolithic structure. Navigation is separated into two roles.
 
-1. ViewModel層から画面遷移要求を発信する  
-2. 画面遷移要求を受け、View層で画面遷移する  
+1. Send Page navigation request from View Model to View  
+2. Based on Page navigation request, navigation Page on the View layer  
 
-これらを組み合わせることで画面遷移を実現しています。それぞれについて概略をみていきましょう。
+Please see specific examples.  
 
-## ViewModel層から画面遷移要求を発信する  
+## Send Page navigation request from View Model to View  
 
-画面遷移要求を発信するには、INavigationRequestを利用します。  
-実行されたCommandから、SecondPageページへの画面遷移を要求する場合、ViewModeに次のように記載します。
+Use INavigationRequest to make Page navigation request.  
+When executing Command, it is sending RequestSecondPage request.  
 
 ```cs
 public ICommand NavigateCommand => new Command(() => RequestSecondPage.RaiseAsync());
@@ -39,7 +33,9 @@ public ICommand NavigateCommand => new Command(() => RequestSecondPage.RaiseAsyn
 public INavigationRequest RequestSecondPage { get; } = new NavigationRequest();
 ```
 
-## 画面遷移要求を受け、View層で画面遷移する
+
+
+## Based on Page navigation request, navigation Page on the View layer  
 
 ```xaml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -52,16 +48,19 @@ public INavigationRequest RequestSecondPage { get; } = new NavigationRequest();
     </StackLayout>
 </ContentPage>
 ```
-PushModalAsyncビヘイビアに注目してください。  
+Notice the PushModalAsync Behavior.  
 
 ```xaml
 <mvvm:PushModalAsync Request="{Binding RequestSecondPage}" x:TypeArguments="views:SecondPage"/>
 ```
-RequestSecondPageの遷移要求を受けて、x:TypeArgumentsで指定されたSecondPageへモーダル遷移します。  
+Based on RequestSecondPage Navigation request, it is defined to make a Modal Navigation to SecondPage.  
+PushModalAsync navigation Page with [Kamisibai.Xamarin.Forms.Navigator](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Source/Kamishibai.Xamarin.Forms/Navigator.cs).  
+Navigator wraps Xamarin.Forms.INavigation and adds navigation parameter and navigation event to INavigation.  
 
-KAMISHIBAIではViewModelからの要求を受けて、ビヘイビアで画面遷移を行います。  
-もちろんINavigationの全てのメソッドに対応するビヘイビアはあらかじめ用意されていますし、自ら作成することも可能です。  
-このためKAMISHIBAIではXamarin.Formsで可能な、あらゆる画面遷移を実現することが可能です。  
+## Consistent event notification on Page navigation  
+
+
+
 
 さらにKAMISHIBAIでは、つぎのような魅力的な機能を提供しています。  
 
