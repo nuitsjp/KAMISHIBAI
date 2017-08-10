@@ -37,10 +37,10 @@ Look at ListViewSample.
 # Steps to create  
 
 1. [Create Xamarin.Forms project](#create-xamarinforms-project)  
-2. [Install KAMISHIBAI for Xamarin.Forms from NuGet]()  
-3. [フルーツの一覧画面の作成と、初期画面遷移の変更](#フルーツの一覧画面の作成と、初期画面遷移の変更)  
-4. [フルーツ選択後の画面の作成と、画面遷移の実装](#フルーツ選択後の画面の作成と、画面遷移の実装)  
-5. [アプリケーションの微修正](#アプリケーションの微修正)  
+2. [Install KAMISHIBAI for Xamarin.Forms from NuGet](#install-kamishibai-for-xamarinforms-from-nuget)  
+3. [Create Fruit list Page and change initial Page navigation](#フルーツの一覧画面の作成と、初期画面遷移の変更)  
+4. [Implementation of Page after selecting a Fruit and navigation](#フルーツ選択後の画面の作成と、画面遷移の実装)  
+5. [Application Fine Fix](#application-fine-fix)  
 
 ## Create Xamarin.Forms project  
 
