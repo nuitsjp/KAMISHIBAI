@@ -7,10 +7,10 @@
     2. [OnLoaded](#onloaded)  
     3. [OnUnloaded](#onunloaded)  
     4. [OnClosed](#onclosed)  
-2. [画面遷移時パラメーター仕様](#画面遷移時パラメーター仕様)  
-3. [Applicationライフサイクルイベント仕様](#applicationライフサイクルイベント仕様)  
+2. [Application life cycle event](#application-life-cycle-event)  
     1. [OnSleep](#onsleep)  
     2. [OnResume](#onresume)
+3. [Page navigation parameter](#page-navigation-parameter)  
 
 # [Navigation event types](#Reference)  
 
@@ -50,80 +50,47 @@ There is also a next interface to receive all events.
 
 ## [OnLoaded](#Reference)  
 
-|項目|説明|
+||Explanation|
 |:--|:--|
-|概要|画面遷移後の画面の表示後に通知される。<br>（PushAsyncなどで）前方へ画面遷移した場合だけでなく、何らかの戻る処理で戻ってきたタイミングでも通知される。<br>OnUnloadで、画面の非活性化処理を想定しており、OnLoadedでは逆に活性化処理を想定している。<br>物理バックボタンやスワイプで戻ってくることも想定しているため、画面遷移パラメーターには対応しない。|
-|対応インターフェース|IPageLoadedAware|
-|基本通知順序|画面遷移処理の完了後、OnUnloadの前に通知される。<br>親から子へトップダウンで通知する。<br>またPageへ先に通知した後に、ViewModelへ通知する。|
-|MasterDetailPage|MasterDetailPage、MasterPage、DetailPageの順で通知する。|
-|NavigationPage|NavigationPage、Currentの順で通知される。<br>NavigationStackに多数のページがあった場合でも、Currentにのみ通知する。|
-|TabbedPage|TabbedPage、Currentタブの順で通知される。<br>タブが複数あった場合、非表示のタブには通知されない。<br>タブが切り替えられた場合、切り替え後のタブにたいしても通知される。|
-|CarouselPage|CarouselPage、Currentページの順で通知される。<br>ページが複数あった場合、非表示のページには通知されない。<br>ページが切り替えられた場合、切り替え後のページにも通知される。|
+|Overview|It is notified after displaying the Page.<br>(PushAsync, etc.) not only when forward, but also when returned in some way back processing is notified.<br>OnUnload, designed to be Page deactivation, OnLoaded assumes activation process in reverse.<br>Supposed to come back in a physical back button and swipe. Therefore, it does not correspond to parameters.|
+|Interface|IPageLoadedAware|
+|Basic notification order|After displaying a page, ago the original Page's OnUnload notified.<br>From parent to child to notify top-down.<br>Notify ViewModel after notifying page.|
+|MasterDetailPage  notification order|1. MasterDetailPage<br>2. MasterPage<br>3. DetailPage.|
+|NavigationPage  notification order|1. NavigationPage<br>2. Current Page|
+|TabbedPage  notification order|1. TabbedPage<br>2. Current Tab Page|
+|CarouselPage  notification order|1. CarouselPage<br>2. Current Page|
 
 ## [OnUnloaded](#Reference)  
 
-|項目|説明|
+||Explanation|
 |:--|:--|
-|概要|（PushAsyncなどで）前方へ画面遷移した際に、遷移元の画面に通知される。<br>画面の非活性化処理の実装を想定している。  <br>戻ってくる可能性のあるPageにたいして通知される。|
-|対応インターフェース|IPageUnloadedAware|
-|基本通知順序|画面遷移処理の完了後、OnLoadedの後に通知される。<br>子から親へボトムアップで通知する。<br>またViewModelへ通知した後、Pageへ先に通知される。|
-|MasterDetailPage|DetailPage、MasterPage、MasterDetailPageの順で通知する。|
-|NavigationPage|Currentページ、NavigationPageの順で通知される。<br>NavigationStackに多数のページがあった場合でも、Currentにのみ通知する。|
-|TabbedPage|Currentタブ、TabbedPageの順で通知される。<br>タブが複数あった場合、非表示のタブには通知されない。<br>タブが切り替えられた場合、切り替え前に表示していたタブのページにたいしても通知される。|
-|CarouselPage|Currentページ、CarouselPageの順で通知される。<br>ページが複数あった場合、非表示のページには通知されない。<br>ページが切り替えられた場合、切り替え前に表示していたページにも通知される。|
+|Overview|It is notified after Page is not displayed.<br>Expects the implementation of Page deactivation process.  <br>It is notified to Page that may be redisplayed.<br>Page that pops from the stack will be notified of onclosed.|
+|Interface|IPageUnloadedAware|
+|Basic notification order|It is notified after OnLoaded is notified to the displayed Page.<br>From child to parent to notify buttom-up.<br>Notify Page after notifying View Model.|
+|MasterDetailPage  notification order|1. DetailPage<br>2. MasterPage<br>3. MasterDetailPage|
+|NavigationPage  notification order|1. Current Page<br>2. NavigationPage|
+|TabbedPage  notification order|1. Current Tab Page<br>2. TabbedPage<br>When there are multiple tabs, the hidden tab is not notified.<br>Also notified when the tab is hidden from display.|
+|CarouselPage  notification order|1. Current Page<br>2. CarouselPage<br>When there are multiple Pages, the hidden page is not notified.<br>Also notified when the Page is hidden from display.|
 
 ## [OnClosed](#Reference)  
 
-|項目|説明|
+||説明|
 |:--|:--|
-|概要|Pageが破棄されるタイミングで通知される。<br>リソースの解放や、イベントの購読解除などを想定している。<br>戻る処理が発生した場合の元画面にたいして通知される。|
-|対応インターフェース|IPageClosedAware|
-|基本通知順序|戻る処理の完了後、OnLoadedの後に通知される。<br>子から親へボトムアップで通知する。<br>またViewModelへ通知した後、Pageへ先に通知される。|
-|MasterDetailPage|DetailPage、MasterPage、MasterDetailPageの順で通知する。|
-|NavigationPage|NavigationStackの全ページの降順、NavigationPageの順で通知される。<br>NavigationPageそのものがPopされたり、MainPageが変更された場合が該当する。|
-|TabbedPage|全タブの降順、TabbedPageの順で通知される。|
-|CarouselPage|全子ページの降順、CarouselPageの順で通知される。|
+|Overview|Notified when the Page is destroyed.<br>If the page is pop from the stack, etc.<br>It is intended to release resources and unsubscribe from events.|
+|Interface|IPageClosedAware|
+|Basic notification order|It is notified after OnLoaded is notified to the displayed Page.<br>From child to parent to notify buttom-up.<br>Notify Page after notifying View Model.|
+|MasterDetailPage  notification order|1. DetailPage<br>2. MasterPage<br>3. MasterDetailPage|
+|NavigationPage  notification order|1. NavigationPage<br>2. NavigationStack Descending|
+|TabbedPage  notification order|1. TabbedPage<br>2. All Tabs Descending|
+|CarouselPage  notification order|1. CarouselPage<br>2. All Child Pages Descending|
 
-# [画面遷移時パラメーター仕様](#Reference)  
+# [Application life cycle event](#Reference)  
 
-つぎの条件を満たした場合、型安全性の保障されたパラメーターを遷移時に渡すことが可能です。  
+KAMISHIBAI is the Page Navigation library. Originally dealing with application life-cycle events is not might be appropriate.    
+However, the mechanism for notifying Application OnSleep and OnResume will be similar to the KAMISHIBAI notification.
+For this reason, KAMISHIBAI provides a mechanism for notifying application lifecycle events.  
 
-* INavigationRequest&lt;in TParam>を利用した遷移通知  
-* PageかViewModelが、IPageInitializeAware&lt;in TParam>もしくはIPageLifecycleAware&lt;in TParam>を実装している  
-
-例えばstring型のパラメーターを渡す場合、ViewModelではつぎのように実装します。  
-
-```cs
-public INavigationRequest<string> RequestNavigation { get; } = new NavigationRequest<string>();
-
-public Task Navigation()
-{
-    return RequestNavigation.RaiseAsync("param");
-}
-```
-
-そしてViewModel側ではつぎのように受け取ります。  
-
-```cs
-public FooPageViewModel : IPageInitializeAware<string>
-{
-    public void OnInitialize(string parameter)
-    {
-        ...
-    }
-}
-```
-
-型パラメーターと実際に受け渡すパラメーターは、完全に一致する必要はありませんが、受け渡すパラメーターが受け取る側の型に代入可能である必要があります。  
-また、遷移要求時にパラメーターを指定した場合、型パラメーターで修飾されていないIPageInitializeAwareを実装しても、通知を受け取ることができませんので注意が必要です。  
-
-# [Applicationライフサイクルイベント仕様](#Reference)  
-
-KAMISHIBAIは画面遷移フレームワークであり、本来はアプリケーションのライフサイクルイベントを扱うのは適当ではないかもしれません。  
-しかし、ApplicationのOnSleepやOnResumeを通知する仕組みは、KAMISHIBAIの画面遷移イベントの通知と非常に似通ったものになるでしょう。  
-その為、KAMISHIBAIではApplicationのライフサイクルイベントに関しても、通知できる仕組みを用意しています。  
-
-通知を行う場合、App.csクラスのOnSleepとOnResumeで次のように実装してください。
+For notifications, implement the following in the Onsleep and Onresume of the App.cs class:
 
 ```cs
 protected override void OnSleep()
@@ -139,25 +106,60 @@ protected override void OnResume()
 
 ## [OnSleep](#Reference)  
 
-|項目|説明|
+||説明|
 |:--|:--|
-|概要|アプリケーションが背面に移動した場合などに通知される。<br>通知タイミングはXamarin.Forms.ApplicationのOnSleepの仕様に準ずる|
-|対応インターフェース|IApplicationLifecycleAware|
-|基本通知順序|全ての画面へ通知する。<br>ModalStack上のページすべてに降順で通知した後、MainPageへ通知する。<br>ModalStack上のページがネストした構造を持っていた場合、子から親へボトムアップで通知する。<br>またViewModelへ通知した後、Pageへ先に通知される。|
-|MasterDetailPage|DetailPage、MasterPage、MasterDetailPageの順で通知する。|
-|NavigationPage|NavigationStackの全ページの降順、NavigationPageの順で通知される。<br>NavigationPageそのものがPopされたり、MainPageが変更された場合が該当する。|
-|TabbedPage|全タブの降順、TabbedPageの順で通知される。|
-|CarouselPage|全子ページの降順、CarouselPageの順で通知される。|
+|Overview|To notify the OnSleep of the Xamarin.Forms.Application|
+|Interface|IApplicationLifecycleAware|
+|Basic notification order|Notify all Pages and View Models.<br>Notify all pages on ModalStack in descending order, then notify MainPage.<br>If the page on the modalstack has a nested structure, from child to parent to notify buttom-up.<br>Notify Page after notifying View Model.|
+|MasterDetailPage  notification order|1. DetailPage<br>2. MasterPage<br>3. MasterDetailPage|
+|NavigationPage  notification order|1. NavigationPage<br>2. NavigationStack Descending|
+|TabbedPage  notification order|1. TabbedPage<br>2. All Tabs Descending|
+|CarouselPage  notification order|1. CarouselPage<br>2. All Child Pages Descending|
 
 
 ## [OnResume](#Reference)  
 
-|項目|説明|
+||説明|
 |:--|:--|
-|概要|アプリケーションが背面に移動した場合などに通知される。<br>通知タイミングはXamarin.Forms.ApplicationのOnResumeの仕様に準ずる|
-|対応インターフェース|IApplicationLifecycleAware|
-|基本通知順序|全ての画面へ通知する。<br>MainPageへ通知した後、ModalStack上のすべてのページへ昇順で通知する。<br>ModalStack上のページがネストした構造を持っていた場合、親から子へトップダウンで通知する。<br>またPageへ先に通知した後に、ViewModelへ通知する。|
-|MasterDetailPage|MasterDetailPage、MasterPage、DetailPageの順で通知する。|
-|NavigationPage|NavigationPage、NavigationStackの全ページの昇順で通知する。<br>DeepLinkを行っていない場合は、実質子ページは一つであるため、NavigationPageへの通知の後に、Currentへ通知されることになる。|
-|TabbedPage|TabbedPage、全タブの昇順で通知される。|
-|CarouselPage|CarouselPage、全子Pageの昇順で通知される。|
+|Overview|To notify the OnResume of the Xamarin.Forms.Application|
+|Interface|IApplicationLifecycleAware|
+|Basic notification order|Notify all Pages and View Models.<br>Notify MainPage, then notify all pages on ModalStack in ascending order.<br>If the page on the modalstack has a nested structure, from parent to child to notify top-down.<br>Notify Page after notifying View Model.|
+|MasterDetailPage  notification order|1. MasterDetailPage<br>2. MasterPage<br>3. DetailPage.|
+|NavigationPage  notification order|1. NavigationPage<br>2. NavigationStack Ascending|
+|TabbedPage  notification order|1. TabbedPage<br>2. Tabs Ascending|
+|CarouselPage  notification order|1. CarouselPage<br>2. Child Page Ascending|
+
+# [Page Navigation Parameter](#Reference)  
+
+Kamishibai can pass a type-safe parameter.  
+To pass parameters, implement the following:  
+
+* Navigation request by using INavigationRequest&lt;in TParam>  
+* Page or View Model to implement IPageInitializeAware&lt;in TParam> or IPageLifecycleAware&lt;in TParam>  
+
+If you pass a parameter of type string, you request navigation as follows:  
+
+```cs
+public INavigationRequest<string> RequestNavigation { get; } = new NavigationRequest<string>();
+
+public Task Navigation()
+{
+    return RequestNavigation.RaiseAsync("param");
+}
+```
+
+And, it receives it as follows:  
+
+```cs
+public FooPageViewModel : IPageInitializeAware<string>
+{
+    public void OnInitialize(string parameter)
+    {
+        ...
+    }
+}
+```
+
+There is no problem even if the type parameter of the interface and the parameter passed are different. But it must be assignable to the receiving side.    
+Also, if you pass a parameter on a navigation request, you will not receive a notification in IPageInitializeAware without a type parameter.   
+
