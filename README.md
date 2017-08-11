@@ -112,9 +112,9 @@ Let's use Xamarin.Forms with the most flexible Page navigation library!
 
 1. [How to install](#how-to-install)
 2. Documents
-    1. [Hello, KAMISHIBAI](Document/1-Hello-KAMISHIBAI-ja.md)  
-    2. [Reference](Document/2-Reference-ja.md)
-    2. [Architecture overview](Document/3-Architecture-Overview-ja.md)
+    1. [Hello, KAMISHIBAI](Document/1-Hello-KAMISHIBAI.md)  
+    2. [Reference](Document/2-Reference.md)
+    2. [Architecture overview](Document/3-Architecture-Overview.md)
 3. [Samples](https://github.com/nuitsjp/KAMISHIBAI-Samples)
 
 ## How to install  
