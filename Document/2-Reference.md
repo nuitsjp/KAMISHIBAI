@@ -14,35 +14,39 @@
 
 # [Navigation event types](#Reference)  
 
-KAMISHIBAIでは、画面遷移時に複数のイベント通知に対応しています。  
-イベントの通知は対応するインターフェース（IPageInitializeAwareなど）を実装したPageまたはViewModelに対して行います。  
-ViewModelだけではなく、Pageに対しても通知可能です。  
+KAMISHIBAI supports event notification when Page display status is changed.  
+Not page navigation event, the state of the pages is changed.  
+Even in the case of switching between Tab and CarouselPage, KAMISHIBAI will notifies consistent events.
 
-イベントの通知は、親Pageから子Pageへ再帰的に実行されます。  
-ただし、具体的な通知対象や通知順はイベント種別や、Pageの種別（NavigationPageかTabbedPageか...）によって異なります。  
+Event notifications are made for the Page or View Model that implements the corresponding interface (such as IPageInitializeAware).
 
-対応するイベント種別は、つぎの通りです。  
+Event notifications are executed recursively from the parent Page to the child Page.  
+The actual notification target and the order of notification depend on the type of event and the Page type.  
+
+Notify event type is as follows:  
 
 * [OnInitialize](#oninitialize)  
 * [OnLoaded](#onloaded)  
 * [OnUnloaded](#onunloaded)  
 * [OnClosed](#onclosed)
 
-なおイベントの通知を受け取るためには、個別の対応インターフェースのほかに、全てのイベントを受け取るつぎのインターフェースも存在します。  
+There is also a next interface to receive all events.  
+
 * IPageLifecycleAware
 * IPageLifecycleAware&lt;in TParam>
 
 ## [OnInitialize](#Reference)  
 
-|項目|説明|
+||Explanation|
 |:--|:--|
-|概要|画面遷移時に新しく作成されたPageおよびViewModelにたいして一度だけ通知される。<br>初期化処理の実装に用いることを想定している。<br>遷移要求時に画面遷移パラメーターが指定されていた場合、OnInitializeイベントにてパラメーターを受け取ることが可能。パラメーターを受け取ることが可能なのはOnInitializeイベントのみ。<br>画面遷移時において、遷移処理の実行前（例えばINavigation#PusyAsync()メソッドの呼び出し前）に通知される。<br>戻る処理で戻ってきた場合などは通知されない。|
-|対応インターフェース|IPageInitializeAware、IPageInitializeAware&lt;in TParam>|
-|基本通知順序|画面遷移処理の実施前（PushAsyncなどの呼び出し前）に通知される。<br>親から子へトップダウンで通知する。<br>またPageへ先に通知した後に、ViewModelへ通知する。|
-|MasterDetailPage|MasterDetailPage、MasterPage、DetailPageの順で通知する。|
-|NavigationPage|NavigationPage、NavigationStackの全ページの昇順で通知する。<br>DeepLinkを行っていない場合は、実質子ページは一つであるため、NavigationPageへの通知の後に、Currentへ通知されることになる。|
-|TabbedPage|TabbedPage、全タブの昇順で通知される。|
-|CarouselPage|CarouselPage、全子Pageの昇順で通知される。|
+|Overview|It is notified only once to the newly created Page and ViewModel at the Page navigation.<br>It is assumed to be used for the implementation of the initialization process.<br>If a parameter is specified, it can be received. Only OnInitialize events can receive parameters.<br>Before the navigation process is executed (for example, before calling the INavigation#Pusyasync() method).<br>Not be notified, if you came back in return.|
+|Interface|IPageInitializeAware、IPageInitializeAware&lt;in TParam>|
+|Basic notification order|Be notified before the screen transitions.<br>Notify parent to child with top down. <br>Notify Page ahead of ViewModel.|
+|MasterDetailPage  notification order|1. MasterDetailPage<br>2. MasterPage<br>3. DetailPage.|
+|NavigationPage  notification order|1. Navigationpage<br>2. NavigationStack ascending|
+|TabbedPage  notification order|1. TabbedPage<br>2. Tabs Ascending|
+|CarouselPage  notification order|1. CarouselPage<br>2. Child Page Ascending|
+
 
 ## [OnLoaded](#Reference)  
 
