@@ -1,4 +1,4 @@
-[[Home]](../README-ja.md) > Hello, KAMISHIBAI
+[[Home]](../README.md) > Hello, KAMISHIBAI
 
 # Hello, KAMISHIBAI  
 

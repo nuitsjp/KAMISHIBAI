@@ -1,4 +1,4 @@
-[[Home]](../README-ja.md) > Architecture Overview
+[[Home]](../README.md) > Architecture Overview
 
 # Architecture Overview  
 Important elements of KAMISHIBAI are the following three.  

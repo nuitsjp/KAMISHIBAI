@@ -1,4 +1,4 @@
-[[Home]](../README-ja.md) > Reference
+[[Home]](../README.md) > Reference
 
 # Reference
 
