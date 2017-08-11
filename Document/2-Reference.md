@@ -35,7 +35,7 @@ There is also a next interface to receive all events.
 * IPageLifecycleAware
 * IPageLifecycleAware&lt;in TParam>
 
-## [OnInitialize](#Reference)  
+## [OnInitialize](#reference)  
 
 ||Explanation|
 |:--|:--|
@@ -48,7 +48,7 @@ There is also a next interface to receive all events.
 |CarouselPage  notification order|1. CarouselPage<br>2. Child Page Ascending|
 
 
-## [OnLoaded](#Reference)  
+## [OnLoaded](#reference)  
 
 ||Explanation|
 |:--|:--|
@@ -60,7 +60,7 @@ There is also a next interface to receive all events.
 |TabbedPage  notification order|1. TabbedPage<br>2. Current Tab Page|
 |CarouselPage  notification order|1. CarouselPage<br>2. Current Page|
 
-## [OnUnloaded](#Reference)  
+## [OnUnloaded](#reference)  
 
 ||Explanation|
 |:--|:--|
@@ -72,7 +72,7 @@ There is also a next interface to receive all events.
 |TabbedPage  notification order|1. Current Tab Page<br>2. TabbedPage<br>When there are multiple tabs, the hidden tab is not notified.<br>Also notified when the tab is hidden from display.|
 |CarouselPage  notification order|1. Current Page<br>2. CarouselPage<br>When there are multiple Pages, the hidden page is not notified.<br>Also notified when the Page is hidden from display.|
 
-## [OnClosed](#Reference)  
+## [OnClosed](#reference)  
 
 ||説明|
 |:--|:--|
@@ -84,7 +84,7 @@ There is also a next interface to receive all events.
 |TabbedPage  notification order|1. TabbedPage<br>2. All Tabs Descending|
 |CarouselPage  notification order|1. CarouselPage<br>2. All Child Pages Descending|
 
-# [Application life cycle event](#Reference)  
+# [Application life cycle event](#reference)  
 
 KAMISHIBAI is the Page Navigation library. Originally dealing with application life-cycle events is not might be appropriate.    
 However, the mechanism for notifying Application OnSleep and OnResume will be similar to the KAMISHIBAI notification.
@@ -104,7 +104,7 @@ protected override void OnResume()
 }
 ```
 
-## [OnSleep](#Reference)  
+## [OnSleep](#reference)  
 
 ||説明|
 |:--|:--|
@@ -117,7 +117,7 @@ protected override void OnResume()
 |CarouselPage  notification order|1. CarouselPage<br>2. All Child Pages Descending|
 
 
-## [OnResume](#Reference)  
+## [OnResume](#reference)  
 
 ||説明|
 |:--|:--|
@@ -129,7 +129,7 @@ protected override void OnResume()
 |TabbedPage  notification order|1. TabbedPage<br>2. Tabs Ascending|
 |CarouselPage  notification order|1. CarouselPage<br>2. Child Page Ascending|
 
-# [Page Navigation Parameter](#Reference)  
+# [Page Navigation Parameter](#reference)  
 
 Kamishibai can pass a type-safe parameter.  
 To pass parameters, implement the following:  
