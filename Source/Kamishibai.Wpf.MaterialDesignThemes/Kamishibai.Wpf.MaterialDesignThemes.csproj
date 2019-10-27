@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net452</TargetFramework>
+    <Version>0.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
