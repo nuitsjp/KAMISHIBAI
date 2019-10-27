@@ -2,15 +2,17 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using MaterialDesignThemes.Wpf;
 
-namespace Kamishibai.Wpf.MaterialDesignThemes
+namespace Kamishibai.Wpf
 {
-    internal class MaterialPresentationService : IPresentationService
+    internal class RealPresentationService : IPresentationService
     {
-        internal MaterialPresentationService(Window window)
+        internal RealPresentationService(Window window)
         {
+            Window = window;
         }
+
+        private Window Window { get; set; }
 
         public IPresentationService Real { get; set; }
 
@@ -29,19 +31,20 @@ namespace Kamishibai.Wpf.MaterialDesignThemes
             }
         }
 
-        public async Task<IView> ShowDialogAsync<TViewModel>(Action<TViewModel> initializeViewModel) where TViewModel : class
+        public virtual Task<IView> ShowDialogAsync<TViewModel>(Action<TViewModel> initializeViewModel) where TViewModel : class
         {
             var newObject = ViewProvider.Resolve<TViewModel>();
-            if (newObject is ContentControl contentControl)
+            if (newObject is Window window)
             {
-                initializeViewModel(contentControl.DataContext as TViewModel);
-                await DialogHost.Show(contentControl);
-                return new MaterialView(contentControl);
+                initializeViewModel(window.DataContext as TViewModel);
+                window.ShowDialog();
+                return Task.Run(() => (IView)new View(window));
             }
             else
             {
                 throw new ArgumentException($"{typeof(TViewModel)} is not window.");
             }
         }
+
     }
 }

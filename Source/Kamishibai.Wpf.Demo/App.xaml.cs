@@ -33,7 +33,7 @@ namespace Kamishibai.Wpf.Demo
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            PresentationService.Setup(this);
+            new KamishibaiBootstrapper().Run(this);
         }
     }
 }
