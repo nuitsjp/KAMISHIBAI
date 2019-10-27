@@ -2,6 +2,6 @@
 {
     public interface IViewModel
     {
-        IPresentationService PresentationService { set; }
+        IPresentationService PresentationService { get; }
     }
 }

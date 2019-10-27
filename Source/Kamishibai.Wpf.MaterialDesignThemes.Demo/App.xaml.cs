@@ -15,7 +15,7 @@ namespace Kamishibai.Wpf.MaterialDesignThemes.Demo
     {
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            MaterialPresentationService.Setup(this);
+            new KamishibaiMaterialBootstrapper().Run(this);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Kamishibai.Wpf.Demo
         {
             Debug.WriteLine("MainWindowViewModel.Ctor()");
         }
-        public IPresentationService PresentationService { private get; set; }
+        public IPresentationService PresentationService { get; } = new PresentationService();
 
         public ICommand ShowWindowCommand => new Command(OnShowWindow);
 

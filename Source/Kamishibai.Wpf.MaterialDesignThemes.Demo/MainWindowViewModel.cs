@@ -6,7 +6,7 @@ namespace Kamishibai.Wpf.MaterialDesignThemes.Demo
 {
     public class MainWindowViewModel : IViewModel
     {
-        public IPresentationService PresentationService { get; set; }
+        public IPresentationService PresentationService { get; } = new PresentationService();
         public ICommand ShowWindowCommand => new Command(OnShowWindow);
         public ICommand ShowDialogCommand => new Command(OnShowDialog);
 
