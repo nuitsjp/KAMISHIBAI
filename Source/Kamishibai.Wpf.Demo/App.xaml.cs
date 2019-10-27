@@ -33,6 +33,7 @@ namespace Kamishibai.Wpf.Demo
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            ViewLocator.Register<MainWindowViewModel, MainWindow>();
             new KamishibaiBootstrapper().Run(this);
         }
     }

@@ -16,7 +16,7 @@ namespace Kamishibai.Wpf.MaterialDesignThemes
 
         public Task<IView> ShowWindowAsync<TViewModel>(Action<TViewModel> initializeViewModel) where TViewModel : class
         {
-            var newObject = ViewProvider.Resolve<TViewModel>();
+            var newObject = ViewLocator.GetInstance<TViewModel>();
             if (newObject is Window window)
             {
                 initializeViewModel(window.DataContext as TViewModel);
@@ -31,7 +31,7 @@ namespace Kamishibai.Wpf.MaterialDesignThemes
 
         public async Task<IView> ShowDialogAsync<TViewModel>(Action<TViewModel> initializeViewModel) where TViewModel : class
         {
-            var newObject = ViewProvider.Resolve<TViewModel>();
+            var newObject = ViewLocator.GetInstance<TViewModel>();
             if (newObject is ContentControl contentControl)
             {
                 initializeViewModel(contentControl.DataContext as TViewModel);
