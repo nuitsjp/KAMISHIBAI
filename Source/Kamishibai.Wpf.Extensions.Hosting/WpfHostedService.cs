@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
 using Kamishibai.Wpf.View;
+using Kamishibai.Wpf.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -9,12 +10,12 @@ namespace Kamishibai.Wpf.Extensions.Hosting;
 public class WpfHostedService : IHostedService
 {
     private readonly Application _application;
-    private readonly IShell _shell;
+    private readonly Window _mainWindow;
 
     public WpfHostedService(Application application, IShell shell)
     {
         _application = application;
-        _shell = shell;
+        _mainWindow = (Window)shell;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -24,11 +25,14 @@ public class WpfHostedService : IHostedService
             return Task.CompletedTask;
         }
 
-        _application.Run((Window)_shell);
-        _application.Exit += (_, _) =>
+        if (_mainWindow.DataContext is INavigationAware navigationAware)
         {
-            StopAsync(cancellationToken);
-        };
+            _mainWindow.Loaded += (_, _) =>
+            {
+                navigationAware.OnEntryAsync();
+            };
+        }
+        _application.Run(_mainWindow);
         return Task.CompletedTask;
     }
 
