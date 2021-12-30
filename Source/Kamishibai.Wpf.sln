@@ -1,15 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29409.12
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.Demo", "Kamishibai.Wpf.Demo\Kamishibai.Wpf.Demo.csproj", "{FFE3543C-40EA-43C4-A32F-8CC1B8E0EC47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf", "Kamishibai.Wpf\Kamishibai.Wpf.csproj", "{53DEFF09-D33F-41ED-A0D2-31A742FA175A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf", "Kamishibai.Wpf\Kamishibai.Wpf.csproj", "{53DEFF09-D33F-41ED-A0D2-31A742FA175A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.View", "Kamishibai.Wpf.View\Kamishibai.Wpf.View.csproj", "{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.MaterialDesignThemes", "Kamishibai.Wpf.MaterialDesignThemes\Kamishibai.Wpf.MaterialDesignThemes.csproj", "{4DCE33D6-2DC6-4B95-AEC4-9A126B19C500}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.ViewModel", "Kamishibai.Wpf.ViewModel\Kamishibai.Wpf.ViewModel.csproj", "{54AE0334-1F03-410A-AAA8-FF2EC76FD50D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.MaterialDesignThemes.Demo", "Kamishibai.Wpf.MaterialDesignThemes.Demo\Kamishibai.Wpf.MaterialDesignThemes.Demo.csproj", "{1B98F58A-ADA5-4DD6-93E6-355B5C6E35BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.Extensions.Hosting", "Kamishibai.Wpf.Extensions.Hosting\Kamishibai.Wpf.Extensions.Hosting.csproj", "{1932317C-23E0-4CCF-A09B-3CB95BBC6961}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.Demo.View", "Kamishibai.Wpf.Demo.View\Kamishibai.Wpf.Demo.View.csproj", "{A051B6A4-F6D3-4910-9459-36C873EBB228}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.Demo.ViewModel", "Kamishibai.Wpf.Demo.ViewModel\Kamishibai.Wpf.Demo.ViewModel.csproj", "{6541DC32-702E-45D7-8913-9F42C6D21D86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.Demo.App", "Kamishibai.Wpf.Demo.App\Kamishibai.Wpf.Demo.App.csproj", "{7B785701-6893-4BA3-8457-39DD34177843}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +23,34 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FFE3543C-40EA-43C4-A32F-8CC1B8E0EC47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FFE3543C-40EA-43C4-A32F-8CC1B8E0EC47}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FFE3543C-40EA-43C4-A32F-8CC1B8E0EC47}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FFE3543C-40EA-43C4-A32F-8CC1B8E0EC47}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53DEFF09-D33F-41ED-A0D2-31A742FA175A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{53DEFF09-D33F-41ED-A0D2-31A742FA175A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53DEFF09-D33F-41ED-A0D2-31A742FA175A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53DEFF09-D33F-41ED-A0D2-31A742FA175A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4DCE33D6-2DC6-4B95-AEC4-9A126B19C500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DCE33D6-2DC6-4B95-AEC4-9A126B19C500}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DCE33D6-2DC6-4B95-AEC4-9A126B19C500}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DCE33D6-2DC6-4B95-AEC4-9A126B19C500}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B98F58A-ADA5-4DD6-93E6-355B5C6E35BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B98F58A-ADA5-4DD6-93E6-355B5C6E35BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B98F58A-ADA5-4DD6-93E6-355B5C6E35BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B98F58A-ADA5-4DD6-93E6-355B5C6E35BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54AE0334-1F03-410A-AAA8-FF2EC76FD50D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54AE0334-1F03-410A-AAA8-FF2EC76FD50D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54AE0334-1F03-410A-AAA8-FF2EC76FD50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54AE0334-1F03-410A-AAA8-FF2EC76FD50D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1932317C-23E0-4CCF-A09B-3CB95BBC6961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1932317C-23E0-4CCF-A09B-3CB95BBC6961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1932317C-23E0-4CCF-A09B-3CB95BBC6961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1932317C-23E0-4CCF-A09B-3CB95BBC6961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A051B6A4-F6D3-4910-9459-36C873EBB228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A051B6A4-F6D3-4910-9459-36C873EBB228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A051B6A4-F6D3-4910-9459-36C873EBB228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A051B6A4-F6D3-4910-9459-36C873EBB228}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6541DC32-702E-45D7-8913-9F42C6D21D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6541DC32-702E-45D7-8913-9F42C6D21D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6541DC32-702E-45D7-8913-9F42C6D21D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6541DC32-702E-45D7-8913-9F42C6D21D86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B785701-6893-4BA3-8457-39DD34177843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B785701-6893-4BA3-8457-39DD34177843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B785701-6893-4BA3-8457-39DD34177843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B785701-6893-4BA3-8457-39DD34177843}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -123,10 +123,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kamishibai.Wpf.MaterialDesignThemes\Kamishibai.Wpf.MaterialDesignThemes.csproj">
-      <Project>{4dce33d6-2dc6-4b95-aec4-9a126b19c500}</Project>
-      <Name>Kamishibai.Wpf.MaterialDesignThemes</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Kamishibai.Wpf\Kamishibai.Wpf.csproj">
       <Project>{53deff09-d33f-41ed-a0d2-31a742fa175a}</Project>
       <Name>Kamishibai.Wpf</Name>

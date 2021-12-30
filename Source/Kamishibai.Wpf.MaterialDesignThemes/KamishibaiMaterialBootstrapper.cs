@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace Kamishibai.Wpf.MaterialDesignThemes.Demo
+namespace Kamishibai.Wpf.MaterialDesignThemes
 {
     public class KamishibaiMaterialBootstrapper
     {
