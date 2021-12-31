@@ -7,15 +7,24 @@ using Microsoft.Extensions.Hosting;
 
 namespace Kamishibai.Wpf.Extensions.Hosting;
 
-public class WpfHostedService : IHostedService
+public class WpfHostedService<TApplication, TShell> : IHostedService
+    where TApplication : Application
+    where TShell : Window, IShell
 {
-    private readonly Application _application;
-    private readonly Window _mainWindow;
+    private readonly TApplication _application;
+    private readonly TShell _shell;
+    private readonly IApplicationConfigurator<TApplication, TShell> _applicationConfigurator;
 
-    public WpfHostedService(Application application, IShell shell)
+
+    public WpfHostedService(TApplication application, TShell shell, IApplicationConfigurator<TApplication, TShell> applicationConfigurator)
     {
         _application = application;
-        _mainWindow = (Window)shell;
+        _application.DispatcherUnhandledException += (sender, args) =>
+        {
+
+        };
+        _shell = shell;
+        _applicationConfigurator = applicationConfigurator;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -25,14 +34,9 @@ public class WpfHostedService : IHostedService
             return Task.CompletedTask;
         }
 
-        if (_mainWindow.DataContext is INavigationAware navigationAware)
-        {
-            _mainWindow.Loaded += (_, _) =>
-            {
-                navigationAware.OnEntryAsync();
-            };
-        }
-        _application.Run(_mainWindow);
+        _applicationConfigurator.Configure(_application, _shell);
+
+        _application.Run(_shell);
         return Task.CompletedTask;
     }
 

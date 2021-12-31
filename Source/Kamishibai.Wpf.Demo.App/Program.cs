@@ -1,17 +1,20 @@
-﻿using Kamishibai.Wpf.Demo.App;
+﻿using System.Windows;
+using System.Windows.Threading;
+using Kamishibai.Wpf.Demo.App;
 using Kamishibai.Wpf.Demo.View;
 using Kamishibai.Wpf.Demo.ViewModel;
 using Kamishibai.Wpf.Extensions.Hosting;
+using Kamishibai.Wpf.View;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+
 new HostBuilder()
-    .ConfigureServices(ConfigureServices)
-    .UseWpf<App, MainWindow>()
+    .ConfigureServices((context, services) =>
+    {
+        //services.AddShellWindow<MainWindow>();
+        services.AddTransient<MainWindowViewModel>();
+    })
+    .UseKamishibai<App, MainWindow>()
     .Build()
     .RunAsync();
-
-void ConfigureServices(HostBuilderContext context, IServiceCollection services)
-{
-    services.AddTransient<MainWindowViewModel>();
-}

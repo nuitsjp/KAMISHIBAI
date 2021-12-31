@@ -14,7 +14,7 @@ namespace Kamishibai.Wpf.Extensions.Hosting
 
         public static IServiceCollection AddShellWindow<TWindow>(this IServiceCollection services) where TWindow : Window, IShell
         {
-            services.AddSingleton<TWindow>();
+            services.AddTransient<TWindow>();
             return services;
         }
 
