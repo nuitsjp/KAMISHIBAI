@@ -12,6 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Nuits.Extensions.Hosting.Wpf\Source\Nuits.Extensions.Hosting.Wpf\Nuits.Extensions.Hosting.Wpf.csproj" />
 	  <ProjectReference Include="..\Kamishibai.Wpf.View\Kamishibai.Wpf.View.csproj" />
 	</ItemGroup>
 

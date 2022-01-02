@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.Demo.ViewMod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.Demo.App", "Kamishibai.Wpf.Demo.App\Kamishibai.Wpf.Demo.App.csproj", "{7B785701-6893-4BA3-8457-39DD34177843}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuits.Extensions.Hosting.Wpf", "..\..\Nuits.Extensions.Hosting.Wpf\Source\Nuits.Extensions.Hosting.Wpf\Nuits.Extensions.Hosting.Wpf.csproj", "{C3C7C7B4-00C2-4550-B882-71035AE1CE25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{7B785701-6893-4BA3-8457-39DD34177843}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B785701-6893-4BA3-8457-39DD34177843}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B785701-6893-4BA3-8457-39DD34177843}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3C7C7B4-00C2-4550-B882-71035AE1CE25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3C7C7B4-00C2-4550-B882-71035AE1CE25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3C7C7B4-00C2-4550-B882-71035AE1CE25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3C7C7B4-00C2-4550-B882-71035AE1CE25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

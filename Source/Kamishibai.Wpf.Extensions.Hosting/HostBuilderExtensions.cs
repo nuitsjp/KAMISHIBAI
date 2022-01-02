@@ -4,47 +4,52 @@ using Kamishibai.Wpf.ViewModel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Nuits.Extensions.Hosting.Wpf;
 
 namespace Kamishibai.Wpf.Extensions.Hosting;
 
 public static class HostBuilderExtensions
 {
-    public static IHostBuilder UseWpf<TApplication, TShell>(this IHostBuilder hostBuilder) 
+    public static IHostBuilder ConfigureKamishibai<TApplication>(this IHostBuilder hostBuilder)
         where TApplication : Application
-        where TShell : Window, IShell
     {
-        return hostBuilder.UseWpf<TApplication, TShell>((_, _) => { });
+        return hostBuilder.ConfigureKamishibai<TApplication>((_, _, _) => { });
     }
 
-    public static IHostBuilder UseWpf<TApplication, TShell>(this IHostBuilder hostBuilder, Action<TApplication, TShell> configureApplication)
+    public static IHostBuilder ConfigureKamishibai<TApplication>(this IHostBuilder hostBuilder, Action<TApplication, Window, IServiceProvider> onLoaded)
         where TApplication : Application
-        where TShell : Window, IShell
     {
-        Thread.CurrentThread.SetApartmentState(ApartmentState.Unknown);
-        Thread.CurrentThread.SetApartmentState(ApartmentState.STA);
+        Initialize<TApplication>(hostBuilder);
+        return hostBuilder.ConfigureWpf(onLoaded);
+    }
 
+    public static IHostBuilder ConfigureKamishibai<TApplication, TWindow>(this IHostBuilder hostBuilder)
+        where TApplication : Application
+        where TWindow : Window
+    {
+        return hostBuilder.ConfigureKamishibai<TApplication, TWindow>((_, _, _) => { });
+    }
 
-        return hostBuilder.ConfigureServices((context, services) =>
+    public static IHostBuilder ConfigureKamishibai<TApplication, TWindow>(this IHostBuilder hostBuilder, Action<TApplication, TWindow, IServiceProvider> onLoaded)
+        where TApplication : Application
+        where TWindow : Window
+    {
+        Initialize<TApplication>(hostBuilder);
+        return hostBuilder.ConfigureWpf<TApplication, TWindow>((application, window, serviceProvider) =>
         {
-            services.AddHostedService<WpfHostedService<TApplication, TShell>>();
-            services.AddTransient<TApplication>();
-            services.AddTransient<TShell>();
-            services.AddTransient<IApplicationConfigurator<TApplication, TShell>>(_ => new ApplicationConfigurator<TApplication, TShell>(configureApplication));
+            var navigationService = (NavigationService) serviceProvider.GetRequiredService<INavigationService>();
+            navigationService.InitializeAsync(application, window).Wait();
+            onLoaded(application, window, serviceProvider);
         });
     }
 
-    public static IHostBuilder UseKamishibai<TApplication, TShell>(this IHostBuilder hostBuilder)
+    private static void Initialize<TApplication>(IHostBuilder hostBuilder)
         where TApplication : Application
-        where TShell : Window, IShell
     {
-        return hostBuilder.UseWpf<TApplication, TShell>((application, shell) =>
+        hostBuilder.ConfigureServices((_, services) =>
         {
-            if (shell.DataContext is INavigationAware navigationAware)
-            {
-                shell.Loaded += (_, _) => { navigationAware.OnEntryAsync(); };
-            }
-
-
+            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IViewProvider, ViewProvider<TApplication>>();
         });
     }
 }

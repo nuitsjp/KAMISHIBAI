@@ -4,10 +4,16 @@ namespace Kamishibai.Wpf.Demo.ViewModel;
 
 public class MainWindowViewModel : INavigationAware
 {
-    public string Message => "Hello, WPF on Generic Host!";
+    private readonly INavigationService _navigationService;
+
+    public MainWindowViewModel(INavigationService navigationService)
+    {
+        _navigationService = navigationService;
+    }
+
     public Task OnEntryAsync()
     {
-        return Task.CompletedTask;
+        return _navigationService.NavigateAsync<ContentPageViewModel, int>(1);
     }
 
     public Task OnExitAsync()

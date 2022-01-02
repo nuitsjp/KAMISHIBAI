@@ -1,10 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Threading;
-using Kamishibai.Wpf.Demo.App;
+﻿using Kamishibai.Wpf.Demo.App;
 using Kamishibai.Wpf.Demo.View;
 using Kamishibai.Wpf.Demo.ViewModel;
 using Kamishibai.Wpf.Extensions.Hosting;
-using Kamishibai.Wpf.View;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -12,9 +9,9 @@ using Microsoft.Extensions.Hosting;
 new HostBuilder()
     .ConfigureServices((context, services) =>
     {
-        //services.AddShellWindow<MainWindow>();
         services.AddTransient<MainWindowViewModel>();
+        services.AddPresentation<ContentPage, ContentPageViewModel>();
     })
-    .UseKamishibai<App, MainWindow>()
+    .ConfigureKamishibai<App, MainWindow>()
     .Build()
     .RunAsync();

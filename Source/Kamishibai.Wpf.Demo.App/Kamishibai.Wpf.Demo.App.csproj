@@ -14,6 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Nuits.Extensions.Hosting.Wpf\Source\Nuits.Extensions.Hosting.Wpf\Nuits.Extensions.Hosting.Wpf.csproj" />
 	  <ProjectReference Include="..\Kamishibai.Wpf.Demo.ViewModel\Kamishibai.Wpf.Demo.ViewModel.csproj" />
 	  <ProjectReference Include="..\Kamishibai.Wpf.Demo.View\Kamishibai.Wpf.Demo.View.csproj" />
 	  <ProjectReference Include="..\Kamishibai.Wpf.Extensions.Hosting\Kamishibai.Wpf.Extensions.Hosting.csproj" />

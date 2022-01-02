@@ -5,10 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kamishibai.Wpf.Demo.View"
         xmlns:viewModel="clr-namespace:Kamishibai.Wpf.Demo.ViewModel;assembly=Kamishibai.Wpf.Demo.ViewModel"
+        xmlns:view="clr-namespace:Kamishibai.Wpf.View;assembly=Kamishibai.Wpf.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        d:DataContext="{d:DesignInstance Type={x:Type viewModel:MainWindowViewModel}, IsDesignTimeCreatable=True}">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Text="{Binding Message}"/>
-    </Grid>
+        Title="MainWindow" Height="450" Width="800">
+    <view:NavigationFrame/>
 </Window>

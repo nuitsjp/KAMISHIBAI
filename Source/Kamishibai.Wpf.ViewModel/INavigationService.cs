@@ -1,45 +1,24 @@
-﻿namespace Kamishibai.Wpf.ViewModel
+﻿using System.Net.Mime;
+
+namespace Kamishibai.Wpf.ViewModel
 {
     public interface INavigationService
     {
-        void ShowMainWindow<TWindowViewModel>() where TWindowViewModel : class, IWindowViewModel;
-        Task PushAsync<TViewModel>() where TViewModel : class;
-        Task PopAsync();
-        Task PushAsync<TViewModel>(Action<TViewModel> initialize) where TViewModel : class;
-        Task PushModalAsync<TViewModel>() where TViewModel : class;
-        Task PushModalAsync<TViewModel>(Action<TViewModel> initialize) where TViewModel : class;
-    }
+        public static INavigationService DesignInstance => new DesignNavigationService();
+        public Task NavigateAsync<TViewModel>() where TViewModel : class;
+        public Task NavigateAsync<TViewModel, T>(T obj) where TViewModel : class, INavigationAware<T>;
 
-    public class DesignNavigationService : INavigationService
-    {
-        public void ShowMainWindow<TWindowViewModel>() where TWindowViewModel : class, IWindowViewModel
+        private class DesignNavigationService : INavigationService
         {
-            throw new NotImplementedException();
-        }
+            public Task NavigateAsync<TViewModel>() where TViewModel : class
+            {
+                throw new NotImplementedException();
+            }
 
-        public Task PushAsync<TViewModel>() where TViewModel : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task PopAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task PushAsync<TViewModel>(Action<TViewModel> initialize) where TViewModel : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task PushModalAsync<TViewModel>() where TViewModel : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task PushModalAsync<TViewModel>(Action<TViewModel> initialize) where TViewModel : class
-        {
-            throw new NotImplementedException();
+            public Task NavigateAsync<TViewModel, T>(T obj) where TViewModel : class, INavigationAware<T>
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

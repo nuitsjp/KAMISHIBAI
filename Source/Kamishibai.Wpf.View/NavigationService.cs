@@ -5,106 +5,45 @@ namespace Kamishibai.Wpf.View;
 
 public class NavigationService : INavigationService
 {
+    private static readonly string DefaultFrameName = string.Empty;
+    private readonly Dictionary<string, NavigationFrame> _frames = new();
     private readonly IViewProvider _viewProvider;
-    private readonly Stack<NavigationStack> _modelStack = new();
 
     public NavigationService(IViewProvider viewProvider)
     {
         _viewProvider = viewProvider;
-        _modelStack.Push(new NavigationStack());
     }
 
-    private Window CurrentWindow
+    public async Task InitializeAsync(Application application, Window window)
     {
-        get
-        {
-            var navigationService = _modelStack.Peek();
-            if (navigationService.HasPage)
-            {
-                return Window.GetWindow(navigationService.CurrentPage)!;
-            }
-            else
-            {
-                return _viewProvider.Application.MainWindow!;
-            }
-        }
-    }
-
-    private NavigationStack CurrentNavigationStack => _modelStack.Peek();
-
-    public void ShowMainWindow<TWindowViewModel>() where TWindowViewModel : class, IWindowViewModel
-    {
-        var mainWindow = (Window)_viewProvider.ResolvePresentation<TWindowViewModel>();
-        TWindowViewModel viewModel = (TWindowViewModel)mainWindow.DataContext;
-
-        _viewProvider.Application.MainWindow = mainWindow;
-        mainWindow.Loaded += async (_, _) =>
-        {
-            if (viewModel is INavigationAware navigatable)
-            {
-                await navigatable.OnEntryAsync();
-            }
-        };
-        mainWindow.Show();
-    }
-
-    public Task PushAsync<TViewModel>() where TViewModel : class
-    {
-        return PushAsync<TViewModel>(_ => { });
-    }
-
-    public async Task PushAsync<TViewModel>(Action<TViewModel> initialize) where TViewModel : class
-    {
-        var nextPage = _viewProvider.ResolvePresentation<TViewModel>();
-        TViewModel viewModel = (TViewModel) nextPage.DataContext;
-        initialize(viewModel);
-
-        var window = CurrentWindow;
-        _modelStack.Peek().Push(nextPage);
-
         var navigationFrame = window.GetChildOfType<NavigationFrame>()!;
-        navigationFrame.Children.Clear();
-        navigationFrame.Children.Add(nextPage);
-
-        if (viewModel is INavigationAware navigatable)
+        _frames[navigationFrame.Name] = navigationFrame;
+ 
+        if (window.DataContext is INavigationAware navigationAware)
         {
-            await navigatable.OnEntryAsync();
+            await navigationAware.OnEntryAsync();
         }
     }
 
-    public async Task PopAsync()
+    public async Task NavigateAsync<TViewModel>() where TViewModel : class
     {
-        var currentPage = CurrentNavigationStack.CurrentPage;
-        var previousPage = CurrentNavigationStack.Pop();
+        var navigationFrame = _frames[DefaultFrameName];
+        var view = _viewProvider.ResolvePresentation<TViewModel>();
 
-        var window = Window.GetWindow(currentPage)!;
-        var navigationFrame = window.GetChildOfType<NavigationFrame>()!;
-        navigationFrame.Children.Clear();
-        navigationFrame.Children.Add(previousPage);
+        navigationFrame.Push(view);
 
-        if (previousPage.DataContext is INavigationAware navigatable)
+        if (view.DataContext is INavigationAware navigationAware)
         {
-            await navigatable.OnEntryAsync();
+            await navigationAware.OnEntryAsync();
         }
     }
 
-    public Task PushModalAsync<TViewModel>() where TViewModel : class
+    public async Task NavigateAsync<TViewModel, T>(T obj) where TViewModel : class, INavigationAware<T>
     {
-        throw new NotImplementedException();
-    }
+        var navigationFrame = _frames[DefaultFrameName];
+        var view = _viewProvider.ResolvePresentation<TViewModel>();
 
-    public async Task PushModalAsync<TViewModel>(Action<TViewModel> initialize) where TViewModel : class
-    {
-        var nextPage = _viewProvider.ResolvePresentation<TViewModel>();
-        TViewModel viewModel = (TViewModel)nextPage.DataContext;
-        initialize(viewModel);
-
-        NavigationStack navigationStack = new();
-        navigationStack.Push(nextPage);
-        _modelStack.Push(navigationStack);
-        if (viewModel is INavigationAware navigatable)
-        {
-            await navigatable.OnEntryAsync();
-        }
+        navigationFrame.Push(view);
+        await ((INavigationAware<T>) view.DataContext).OnEntryAsync(obj);
     }
 }
