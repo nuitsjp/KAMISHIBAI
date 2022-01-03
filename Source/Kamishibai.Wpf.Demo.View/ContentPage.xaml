@@ -7,13 +7,17 @@
              xmlns:viewModel="clr-namespace:Kamishibai.Wpf.Demo.ViewModel;assembly=Kamishibai.Wpf.Demo.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance Type={x:Type viewModel:ContentPageViewModel}, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance {x:Type viewModel:DesignContentPageViewModel}, IsDesignTimeCreatable=True}">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
         <StackPanel Orientation="Horizontal" Margin="5">
-            <TextBlock Text="Navigation count:"/>
+            <TextBlock Text="Frame Name : "/>
+            <TextBlock Text="{Binding FrameName}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <TextBlock Text="Navigation count : "/>
             <TextBlock Text="{Binding Count}"/>
         </StackPanel>
         <Button Content="Navigate Next" Margin="5" Command="{Binding NavigateNextCommand}"/>
-        <Button Content="Go Back" Margin="5"/>
+        <Button Content="Go Back" Margin="5" Command="{Binding GoBackCommand}"/>
     </StackPanel>
 </UserControl>

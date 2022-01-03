@@ -11,7 +11,7 @@
 //    public NavigationService(IViewProvider viewProvider)
 //    {
 //        _viewProvider = viewProvider;
-//        _modelStack.Push(new NavigationStack());
+//        _modelStack.Navigate(new NavigationStack());
 //    }
 
 //    private Window CurrentWindow
@@ -40,9 +40,9 @@
 //        _viewProvider.Application.MainWindow = mainWindow;
 //        mainWindow.Loaded += async (_, _) =>
 //        {
-//            if (viewModel is INavigationAware navigatable)
+//            if (viewModel is INavigatedAsyncAware navigatable)
 //            {
-//                await navigatable.OnEntryAsync();
+//                await navigatable.OnNavigatedAsync();
 //            }
 //        };
 //        mainWindow.Show();
@@ -60,31 +60,31 @@
 //        initialize(viewModel);
 
 //        var window = CurrentWindow;
-//        _modelStack.Peek().Push(nextPage);
+//        _modelStack.Peek().Navigate(nextPage);
 
 //        var navigationFrame = window.GetChildOfType<NavigationFrame>()!;
 //        navigationFrame.Children.Clear();
 //        navigationFrame.Children.Add(nextPage);
 
-//        if (viewModel is INavigationAware navigatable)
+//        if (viewModel is INavigatedAsyncAware navigatable)
 //        {
-//            await navigatable.OnEntryAsync();
+//            await navigatable.OnNavigatedAsync();
 //        }
 //    }
 
 //    public async Task PopAsync()
 //    {
 //        var currentPage = CurrentNavigationStack.CurrentPage;
-//        var previousPage = CurrentNavigationStack.Pop();
+//        var previousPage = CurrentNavigationStack.GoBack();
 
 //        var window = Window.GetWindow(currentPage)!;
 //        var navigationFrame = window.GetChildOfType<NavigationFrame>()!;
 //        navigationFrame.Children.Clear();
 //        navigationFrame.Children.Add(previousPage);
 
-//        if (previousPage.DataContext is INavigationAware navigatable)
+//        if (previousPage.DataContext is INavigatedAsyncAware navigatable)
 //        {
-//            await navigatable.OnEntryAsync();
+//            await navigatable.OnNavigatedAsync();
 //        }
 //    }
 
@@ -100,11 +100,11 @@
 //        initialize(viewModel);
 
 //        NavigationStack navigationStack = new();
-//        navigationStack.Push(nextPage);
-//        _modelStack.Push(navigationStack);
-//        if (viewModel is INavigationAware navigatable)
+//        navigationStack.Navigate(nextPage);
+//        _modelStack.Navigate(navigationStack);
+//        if (viewModel is INavigatedAsyncAware navigatable)
 //        {
-//            await navigatable.OnEntryAsync();
+//            await navigatable.OnNavigatedAsync();
 //        }
 //    }
 //}

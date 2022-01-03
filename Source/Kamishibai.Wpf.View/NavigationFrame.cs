@@ -5,23 +5,73 @@ namespace Kamishibai.Wpf.View;
 
 public class NavigationFrame : Grid
 {
+    private static readonly LinkedList<WeakReference<NavigationFrame>> NavigationFrames = new();
+
+    public static readonly DependencyProperty FrameNameProperty = DependencyProperty.Register(
+        "FrameName", typeof(string), typeof(NavigationFrame), new PropertyMetadata(string.Empty));
+
     private readonly Stack<FrameworkElement> _pages = new();
 
-    internal bool HasPage => 0 < _pages.Count;
+    public NavigationFrame()
+    {
+        CleanNavigationFrames();
+        NavigationFrames.AddFirst(new WeakReference<NavigationFrame>(this));
+    }
 
-    internal FrameworkElement CurrentPage => _pages.Peek();
+    public string FrameName
+    {
+        get => (string) GetValue(FrameNameProperty);
+        set => SetValue(FrameNameProperty, value);
+    }
 
-    internal void Push(FrameworkElement page)
+    internal static NavigationFrame GetNavigationFrame(string name)
+    {
+        foreach (var weakReference in NavigationFrames.ToArray())
+        {
+            if (weakReference.TryGetTarget(out var navigationFrame))
+            {
+                if (object.Equals(name, navigationFrame.FrameName))
+                {
+                    return navigationFrame;
+                }
+            }
+            else
+            {
+                NavigationFrames.Remove(weakReference);
+            }
+        }
+
+        throw new InvalidOperationException($"There is no NavigationFrame named '{name}'.");
+    }
+
+    private static void CleanNavigationFrames()
+    {
+        foreach (var weakReference in NavigationFrames.ToArray())
+        {
+            if (!weakReference.TryGetTarget(out var _))
+            {
+                NavigationFrames.Remove(weakReference);
+            }
+        }
+    }
+
+    internal void Navigate(FrameworkElement page)
     {
         _pages.Push(page);
         Children.Clear();
         Children.Add(page);
     }
 
-    internal FrameworkElement Pop()
+    internal void GoBack()
     {
+        if (_pages.Count == 1)
+        {
+            return;
+        }
+
         _pages.Pop();
-        return _pages.Peek();
+        Children.Clear();
+        Children.Add(_pages.Peek());
     }
 
 }

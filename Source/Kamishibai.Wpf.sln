@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf", "Kamishibai.Wpf\Kamishibai.Wpf.csproj", "{53DEFF09-D33F-41ED-A0D2-31A742FA175A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.View", "Kamishibai.Wpf.View\Kamishibai.Wpf.View.csproj", "{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.ViewModel", "Kamishibai.Wpf.ViewModel\Kamishibai.Wpf.ViewModel.csproj", "{54AE0334-1F03-410A-AAA8-FF2EC76FD50D}"
@@ -25,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{53DEFF09-D33F-41ED-A0D2-31A742FA175A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53DEFF09-D33F-41ED-A0D2-31A742FA175A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53DEFF09-D33F-41ED-A0D2-31A742FA175A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53DEFF09-D33F-41ED-A0D2-31A742FA175A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -2,7 +2,7 @@
 
 namespace Kamishibai.Wpf.Demo.ViewModel;
 
-public class MainWindowViewModel : INavigationAware
+public class MainWindowViewModel : INavigatedAsyncAware
 {
     private readonly INavigationService _navigationService;
 
@@ -11,13 +11,18 @@ public class MainWindowViewModel : INavigationAware
         _navigationService = navigationService;
     }
 
-    public Task OnEntryAsync()
-    {
-        return _navigationService.NavigateAsync<ContentPageViewModel, int>(1);
-    }
+    public string SecondFrameName => "SecondFrame";
 
-    public Task OnExitAsync()
+    public async Task OnNavigatedAsync()
     {
-        return Task.CompletedTask;
+        await _navigationService.NavigateAsync<ContentPageViewModel, string, int>(INavigationService.DefaultFrameName, 1);
+        await _navigationService.NavigateAsync<ContentPageViewModel, string, int>(SecondFrameName, SecondFrameName, 1);
+    }
+}
+
+public class DesignMainWindowViewModel : MainWindowViewModel
+{
+    public DesignMainWindowViewModel() : base(INavigationService.DesignInstance)
+    {
     }
 }

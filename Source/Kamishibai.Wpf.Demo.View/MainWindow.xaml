@@ -7,6 +7,20 @@
         xmlns:viewModel="clr-namespace:Kamishibai.Wpf.Demo.ViewModel;assembly=Kamishibai.Wpf.Demo.ViewModel"
         xmlns:view="clr-namespace:Kamishibai.Wpf.View;assembly=Kamishibai.Wpf.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <view:NavigationFrame/>
+        Title="MainWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance {x:Type viewModel:DesignMainWindowViewModel}, IsDesignTimeCreatable=True}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <TextBlock Text="Default Frame" Margin="10"/>
+            <view:NavigationFrame/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <TextBlock Text="{Binding SecondFrameName}" Margin="10"/>
+            <view:NavigationFrame FrameName="{Binding SecondFrameName}"/>
+        </StackPanel>
+    </Grid>
 </Window>
