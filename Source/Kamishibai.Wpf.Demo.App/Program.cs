@@ -5,13 +5,9 @@ using Kamishibai.Wpf.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+var builder = KamishibaiApplication<App, MainWindow>.CreateBuilder();
+builder.Services.AddTransient<MainWindowViewModel>();
+builder.Services.AddPresentation<ContentPage, ContentPageViewModel>();
 
-new HostBuilder()
-    .ConfigureServices((context, services) =>
-    {
-        services.AddTransient<MainWindowViewModel>();
-        services.AddPresentation<ContentPage, ContentPageViewModel>();
-    })
-    .ConfigureKamishibai<App, MainWindow>()
-    .Build()
-    .RunAsync();
+var app = builder.Build();
+app.RunAsync();

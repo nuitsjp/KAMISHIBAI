@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0-windows</TargetFramework>
@@ -13,6 +13,8 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Nuits.Extensions.Hosting.Wpf\Source\Nuits.Extensions.Hosting.Wpf\Nuits.Extensions.Hosting.Wpf.csproj" />
+	  <ProjectReference Include="..\..\..\Wpf.Extensions.Hosting\src\Nuits.Extensions.Hosting.Wpf\Nuits.Extensions.Hosting.Wpf.csproj" />
+	  <ProjectReference Include="..\..\..\Wpf.Extensions.Hosting\src\Wpf.Extensions.Hosting\Wpf.Extensions.Hosting.csproj" />
 	  <ProjectReference Include="..\Kamishibai.Wpf.View\Kamishibai.Wpf.View.csproj" />
 	</ItemGroup>
 
