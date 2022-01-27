@@ -3,7 +3,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 
 namespace Kamishibai.Wpf.Demo.ViewModel;
 
-public class ContentPageViewModel : INavigatedAsyncAware<string, int>
+public class ContentPageViewModel : INavigatingAsyncAware<string, int>
 {
     private readonly INavigationService _navigationService;
 
@@ -11,30 +11,30 @@ public class ContentPageViewModel : INavigatedAsyncAware<string, int>
     {
         _navigationService = navigationService;
         NavigateNextCommand = new AsyncRelayCommand(OnNavigateNext);
-        GoBackCommand = new RelayCommand(OnGoBack);
+        GoBackCommand = new AsyncRelayCommand(OnGoBack);
     }
 
     public string FrameName { get; set; } = string.Empty;
     public int Count { get; set; }
 
     public AsyncRelayCommand NavigateNextCommand { get; }
-    public RelayCommand GoBackCommand { get; }
+    public AsyncRelayCommand GoBackCommand { get; }
 
-    public Task OnNavigatedAsync(string frameName, int count)
+    private Task OnNavigateNext()
+    {
+        return _navigationService.GetFrame(FrameName).TryNavigateAsync<ContentPageViewModel, string, int>(FrameName, ++Count);
+    }
+
+    private Task OnGoBack()
+    {
+        return _navigationService.GetFrame(FrameName).GoBackAsync();
+    }
+
+    public Task OnNavigatingAsync(string frameName, int count)
     {
         FrameName = frameName;
         Count = count;
         return Task.CompletedTask;
-    }
-
-    private Task OnNavigateNext()
-    {
-        return _navigationService.NavigateAsync<ContentPageViewModel, string, int>(FrameName, FrameName, ++Count);
-    }
-
-    private void OnGoBack()
-    {
-        _navigationService.GoBack(FrameName);
     }
 }
 

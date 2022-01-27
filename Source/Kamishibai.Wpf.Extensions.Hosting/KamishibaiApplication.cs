@@ -12,15 +12,6 @@ public class KamishibaiApplication<TApplication, TWindow>
 {
     public static IWpfApplicationBuilder<TApplication, TWindow> CreateBuilder()
     {
-        WpfApplicationOptions<TApplication, TWindow> options = new()
-        {
-            OnLoaded = (application, window, serviceProvider) =>
-            {
-                var navigationService = (NavigationService)serviceProvider.GetRequiredService<INavigationService>();
-                navigationService.InitializeAsync(application, window).Wait();
-            }
-        };
-        return new KamishibaiApplicationBuilder<TApplication, TWindow>(WpfApplication<TApplication, TWindow>
-            .CreateBuilder(options));
+        return new KamishibaiApplicationBuilder<TApplication, TWindow>(WpfApplication<TApplication, TWindow>.CreateBuilder());
     }
 }

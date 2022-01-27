@@ -15,8 +15,8 @@ public class MainWindowViewModel : INavigatedAsyncAware
 
     public async Task OnNavigatedAsync()
     {
-        await _navigationService.NavigateAsync<ContentPageViewModel, string, int>(INavigationService.DefaultFrameName, 1);
-        await _navigationService.NavigateAsync<ContentPageViewModel, string, int>(SecondFrameName, SecondFrameName, 1);
+        await _navigationService.Frame.TryNavigateAsync<ContentPageViewModel, string, int>(INavigationFrame.DefaultFrameName, 1);
+        await _navigationService.GetFrame(SecondFrameName).TryNavigateAsync<ContentPageViewModel, string, int>(INavigationFrame.DefaultFrameName, 1);
     }
 }
 

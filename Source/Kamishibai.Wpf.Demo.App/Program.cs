@@ -11,3 +11,5 @@ builder.Services.AddPresentation<ContentPage, ContentPageViewModel>();
 
 var app = builder.Build();
 app.RunAsync();
+
+var typeArguments = string.Join(", ", Enumerable.Range(1, 2).Select(x => $"in T{x}"));

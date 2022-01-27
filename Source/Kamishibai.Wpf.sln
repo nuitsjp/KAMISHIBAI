@@ -15,10 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Demo.ViewMod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Demo.App", "Kamishibai.Wpf.Demo.App\Kamishibai.Wpf.Demo.App.csproj", "{7B785701-6893-4BA3-8457-39DD34177843}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nuits.Extensions.Hosting.Wpf", "..\..\Wpf.Extensions.Hosting\src\Nuits.Extensions.Hosting.Wpf\Nuits.Extensions.Hosting.Wpf.csproj", "{D57BBFEA-8838-42EE-A592-1947DBDD5108}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.Extensions.Hosting", "..\..\Wpf.Extensions.Hosting\src\Wpf.Extensions.Hosting\Wpf.Extensions.Hosting.csproj", "{26FDCE4C-DC36-4548-9388-272EA9A0BEE5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,14 +45,6 @@ Global
 		{7B785701-6893-4BA3-8457-39DD34177843}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B785701-6893-4BA3-8457-39DD34177843}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B785701-6893-4BA3-8457-39DD34177843}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D57BBFEA-8838-42EE-A592-1947DBDD5108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D57BBFEA-8838-42EE-A592-1947DBDD5108}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D57BBFEA-8838-42EE-A592-1947DBDD5108}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D57BBFEA-8838-42EE-A592-1947DBDD5108}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26FDCE4C-DC36-4548-9388-272EA9A0BEE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26FDCE4C-DC36-4548-9388-272EA9A0BEE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26FDCE4C-DC36-4548-9388-272EA9A0BEE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26FDCE4C-DC36-4548-9388-272EA9A0BEE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

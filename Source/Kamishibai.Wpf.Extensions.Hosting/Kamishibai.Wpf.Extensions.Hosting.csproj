@@ -9,12 +9,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+		<PackageReference Include="Wpf.Extensions.Hosting" Version="1.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\Nuits.Extensions.Hosting.Wpf\Source\Nuits.Extensions.Hosting.Wpf\Nuits.Extensions.Hosting.Wpf.csproj" />
-	  <ProjectReference Include="..\..\..\Wpf.Extensions.Hosting\src\Nuits.Extensions.Hosting.Wpf\Nuits.Extensions.Hosting.Wpf.csproj" />
-	  <ProjectReference Include="..\..\..\Wpf.Extensions.Hosting\src\Wpf.Extensions.Hosting\Wpf.Extensions.Hosting.csproj" />
 	  <ProjectReference Include="..\Kamishibai.Wpf.View\Kamishibai.Wpf.View.csproj" />
 	</ItemGroup>
 

@@ -30,6 +30,12 @@ public class KamishibaiApplicationBuilder<TApplication, TWindow> : IWpfApplicati
         Services.AddSingleton<INavigationService, NavigationService>();
         Services.AddSingleton<IViewProvider, ViewProvider<TApplication>>();
 
-        return _builder.Build();
+        var app = _builder.Build();
+        app.Loaded += (sender, args) =>
+        {
+            var navigationService = (NavigationService)app.Services.GetRequiredService<INavigationService>();
+            navigationService.InitializeAsync(args.Application, args.Window).Wait();
+        };
+        return app;
     }
 }

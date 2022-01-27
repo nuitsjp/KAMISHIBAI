@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -7,7 +7,48 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="INavigatedAsyncAware - コピー.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="ReactiveProperty" Version="8.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="INavigationFrameNavigate.tt">
+	    <LastGenOutput>INavigationFrameNavigate.cs</LastGenOutput>
+	    <Generator>TextTemplatingFileGenerator</Generator>
+	  </None>
+	  <None Update="INavigatingAware.tt">
+	    <LastGenOutput>INavigatingAware.cs</LastGenOutput>
+	    <Generator>TextTemplatingFileGenerator</Generator>
+	  </None>
+	  <None Update="INavigatingAsyncAware.tt">
+	    <LastGenOutput>INavigatingAsyncAware.cs</LastGenOutput>
+	    <Generator>TextTemplatingFileGenerator</Generator>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="INavigationFrameNavigate.cs">
+	    <DependentUpon>INavigationFrameNavigate.tt</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="INavigatingAware.cs">
+	    <DependentUpon>INavigatingAware.tt</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="INavigatingAsyncAware.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>INavigatingAsyncAware.tt</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
