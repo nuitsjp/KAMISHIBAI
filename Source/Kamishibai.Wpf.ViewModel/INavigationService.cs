@@ -17,27 +17,17 @@ public partial interface INavigationService
 
         private class DesignNavigationFrame : INavigationFrame
         {
-            public Task<bool> TryNavigateAsync<TViewModel, T1>(T1 param1) where TViewModel : class, INavigatingAsyncAware<T1>
+            public Task<bool> NavigateAsync<TViewModel>() where TViewModel : class
             {
                 throw new NotImplementedException();
             }
 
-            public Task<bool> TryNavigateAsync<TViewModel, T1, T2>(T1 param1, T2 param2) where TViewModel : class, INavigatingAsyncAware<T1, T2>
+            public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel) where TViewModel : class
             {
                 throw new NotImplementedException();
             }
 
-            public Task<bool> TryNavigateAsync<TViewModel>() where TViewModel : class
-            {
-                throw new NotImplementedException();
-            }
-
-            public Task<bool> TryNavigateAsync<TViewModel>(TViewModel viewModel) where TViewModel : class
-            {
-                throw new NotImplementedException();
-            }
-
-            public Task<bool> TryNavigateAsync<TViewModel>(Action<TViewModel> init) where TViewModel : class
+            public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init) where TViewModel : class
             {
                 throw new NotImplementedException();
             }

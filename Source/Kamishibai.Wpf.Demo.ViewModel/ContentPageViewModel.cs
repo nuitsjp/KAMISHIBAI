@@ -3,7 +3,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 
 namespace Kamishibai.Wpf.Demo.ViewModel;
 
-public class ContentPageViewModel : INavigatingAsyncAware<string, int>
+public class ContentPageViewModel
 {
     private readonly INavigationService _navigationService;
 
@@ -22,19 +22,17 @@ public class ContentPageViewModel : INavigatingAsyncAware<string, int>
 
     private Task OnNavigateNext()
     {
-        return _navigationService.GetFrame(FrameName).TryNavigateAsync<ContentPageViewModel, string, int>(FrameName, ++Count);
+        //return _navigationService.GetFrame(FrameName).NavigateAsync<ContentPageViewModel, string, int>(FrameName, ++Count);
+        return _navigationService.GetFrame(FrameName).NavigateAsync<ContentPageViewModel>(x =>
+        {
+            x.FrameName = FrameName;
+            x.Count = ++Count;
+        });
     }
 
     private Task OnGoBack()
     {
         return _navigationService.GetFrame(FrameName).GoBackAsync();
-    }
-
-    public Task OnNavigatingAsync(string frameName, int count)
-    {
-        FrameName = frameName;
-        Count = count;
-        return Task.CompletedTask;
     }
 }
 

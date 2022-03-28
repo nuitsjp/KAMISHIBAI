@@ -15,14 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="INavigationFrameNavigate.tt">
-	    <LastGenOutput>INavigationFrameNavigate.cs</LastGenOutput>
-	    <Generator>TextTemplatingFileGenerator</Generator>
-	  </None>
-	  <None Update="INavigatingAware.tt">
-	    <LastGenOutput>INavigatingAware.cs</LastGenOutput>
-	    <Generator>TextTemplatingFileGenerator</Generator>
-	  </None>
 	  <None Update="INavigatingAsyncAware.tt">
 	    <LastGenOutput>INavigatingAsyncAware.cs</LastGenOutput>
 	    <Generator>TextTemplatingFileGenerator</Generator>
@@ -34,16 +26,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="INavigationFrameNavigate.cs">
-	    <DependentUpon>INavigationFrameNavigate.tt</DependentUpon>
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	  </Compile>
-	  <Compile Update="INavigatingAware.cs">
-	    <DependentUpon>INavigatingAware.tt</DependentUpon>
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	  </Compile>
 	  <Compile Update="INavigatingAsyncAware.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>

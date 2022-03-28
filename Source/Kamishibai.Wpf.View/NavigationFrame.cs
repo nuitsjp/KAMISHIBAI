@@ -82,33 +82,23 @@ public class NavigationFrame : Grid, INavigationFrame
         Children.Add(_pages.Peek());
     }
 
-    public Task<bool> TryNavigateAsync<TViewModel, T1>(T1 param1) where TViewModel : class, INavigatingAsyncAware<T1>
+    public Task<bool> NavigateAsync<TViewModel>() where TViewModel : class
     {
         throw new NotImplementedException();
     }
 
-    public async Task<bool> TryNavigateAsync<TViewModel, T1, T2>(T1 param1, T2 param2) where TViewModel : class, INavigatingAsyncAware<T1, T2>
+    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel) where TViewModel : class
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init) where TViewModel : class
     {
         var view = ViewProvider.ResolvePresentation<TViewModel>();
 
-        await ((INavigatingAsyncAware<T1, T2>)view.DataContext).OnNavigatingAsync(param1, param2);
+        init((TViewModel)view.DataContext);
         Navigate(view);
-        return false;
-    }
-
-    public Task<bool> TryNavigateAsync<TViewModel>() where TViewModel : class
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> TryNavigateAsync<TViewModel>(TViewModel viewModel) where TViewModel : class
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> TryNavigateAsync<TViewModel>(Action<TViewModel> init) where TViewModel : class
-    {
-        throw new NotImplementedException();
+        return true;
     }
 
     public Task<bool> GoBackAsync()
