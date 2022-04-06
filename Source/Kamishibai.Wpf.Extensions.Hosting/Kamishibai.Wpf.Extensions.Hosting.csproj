@@ -9,7 +9,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
-		<PackageReference Include="Wpf.Extensions.Hosting" Version="1.0.0" />
+		<PackageReference Include="Wpf.Extensions.Hosting" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

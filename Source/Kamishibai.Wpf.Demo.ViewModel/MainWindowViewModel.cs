@@ -1,8 +1,12 @@
-﻿using Kamishibai.Wpf.ViewModel;
+﻿using System.Diagnostics;
+using Kamishibai.Wpf.ViewModel;
 
 namespace Kamishibai.Wpf.Demo.ViewModel;
 
-public class MainWindowViewModel : INavigatedAsyncAware
+public class MainWindowViewModel : 
+    INavigatingAsyncAware,
+    INavigatingAware,
+    INavigatedAsyncAware
 {
     private readonly INavigationService _navigationService;
 
@@ -25,6 +29,17 @@ public class MainWindowViewModel : INavigatedAsyncAware
             x.FrameName = SecondFrameName;
             x.Count = 1;
         });
+    }
+
+    public Task OnNavigatingAsync()
+    {
+        Debug.WriteLine("MainWindowViewModel#OnNavigatingAsync");
+        return Task.CompletedTask;
+    }
+
+    public void OnNavigating()
+    {
+        Debug.WriteLine("MainWindowViewModel#OnNavigating");
     }
 }
 
