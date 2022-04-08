@@ -34,6 +34,10 @@ public class ContentPageViewModel :
 
     public string FrameName { get; set; } = string.Empty;
     public int Count { get; set; }
+    public bool CanNavigateAsync { get; set; } = true;
+    public bool CanNavigate { get; set; } = true;
+    public bool CanGoBackAsync { get; set; } = true;
+    public bool CanGoBack { get; set; } = true;
 
     public AsyncRelayCommand NavigateNextCommand { get; }
     public AsyncRelayCommand GoBackCommand { get; }
@@ -52,8 +56,18 @@ public class ContentPageViewModel :
         return _navigationService.GetFrame(FrameName).GoBackAsync();
     }
 
-    public Task OnPausingAsync() => WriteLogAsync();
-    public void OnPausing() => WriteLog();
+    public async Task<bool> OnPausingAsync()
+    {
+        await WriteLogAsync();
+        return CanNavigateAsync;
+    }
+
+    public bool OnPausing()
+    {
+        WriteLog();
+        return CanNavigate;
+    }
+
     public Task OnPausedAsync() => WriteLogAsync();
     public void OnPaused() => WriteLog();
     public Task OnNavigatingAsync() => WriteLogAsync();
@@ -64,8 +78,18 @@ public class ContentPageViewModel :
     public void OnResuming() => WriteLog();
     public Task OnResumedAsync() => WriteLogAsync();
     public void OnResumed() => WriteLog();
-    public Task OnDisposingAsync() => WriteLogAsync();
-    public void OnDisposing() => WriteLog();
+    public async Task<bool> OnDisposingAsync()
+    {
+        await WriteLogAsync();
+        return CanGoBackAsync;
+    }
+
+    public bool OnDisposing()
+    {
+        WriteLog();
+        return CanGoBack;
+    }
+
     public Task OnDisposedAsync() => WriteLogAsync();
     public void Dispose() => WriteLog();
 

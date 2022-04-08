@@ -2,5 +2,5 @@
 
 public interface IDisposingAware
 {
-    void OnDisposing();
+    bool OnDisposing();
 }

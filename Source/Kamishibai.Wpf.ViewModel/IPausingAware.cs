@@ -2,5 +2,5 @@
 
 public interface IPausingAware
 {
-    void OnPausing();
+    bool OnPausing();
 }

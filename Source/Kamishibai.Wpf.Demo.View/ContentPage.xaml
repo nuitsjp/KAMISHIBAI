@@ -10,13 +10,17 @@
              d:DataContext="{d:DesignInstance {x:Type viewModel:DesignContentPageViewModel}, IsDesignTimeCreatable=True}">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
         <StackPanel Orientation="Horizontal" Margin="5">
-            <TextBlock Text="Frame Name : "/>
+            <TextBlock Text="Frame name : "/>
             <TextBlock Text="{Binding FrameName}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="5">
             <TextBlock Text="Navigation count : "/>
             <TextBlock Text="{Binding Count}"/>
         </StackPanel>
+        <CheckBox Content="Can Navigate Async" IsChecked="{Binding CanNavigateAsync}"/>
+        <CheckBox Content="Can Navigate" IsChecked="{Binding CanNavigate}"/>
+        <CheckBox Content="Can Go Back Async" IsChecked="{Binding CanGoBackAsync}"/>
+        <CheckBox Content="Can Go Back" IsChecked="{Binding CanGoBack}"/>
         <Button Content="Navigate Next" Margin="5" Command="{Binding NavigateNextCommand}"/>
         <Button Content="Go Back" Margin="5" Command="{Binding GoBackCommand}"/>
     </StackPanel>

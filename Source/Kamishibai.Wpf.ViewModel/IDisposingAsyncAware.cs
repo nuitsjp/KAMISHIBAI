@@ -2,5 +2,5 @@
 
 public interface IDisposingAsyncAware
 {
-    Task OnDisposingAsync();
+    Task<bool> OnDisposingAsync();
 }

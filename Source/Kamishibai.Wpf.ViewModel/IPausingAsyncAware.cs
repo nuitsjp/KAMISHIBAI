@@ -2,5 +2,5 @@
 
 public interface IPausingAsyncAware
 {
-    Task OnPausingAsync();
+    Task<bool> OnPausingAsync();
 }

@@ -90,8 +90,21 @@ public class NavigationFrame : Grid, INavigationFrame
 
     private async Task<bool> NavigateAsync(FrameworkElement view, object? viewModel)
     {
-        if (CurrentViewModel is IPausingAsyncAware pausingAsyncAware) await pausingAsyncAware.OnPausingAsync();
-        if (CurrentViewModel is IPausingAware pausingAware) pausingAware.OnPausing();
+        if (CurrentViewModel is IPausingAsyncAware pausingAsyncAware)
+        {
+            if (await pausingAsyncAware.OnPausingAsync() is false)
+            {
+                return false;
+            }
+        }
+
+        if (CurrentViewModel is IPausingAware pausingAware)
+        {
+            if (pausingAware.OnPausing() is false)
+            {
+                return false;
+            }
+        }
         if (viewModel is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
         if (viewModel is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
 
@@ -114,24 +127,50 @@ public class NavigationFrame : Grid, INavigationFrame
             return false;
         }
 
-        var sourceView = _pages.Pop();
+        var sourceView = _pages.Peek();
         var sourceViewModel = sourceView.DataContext;
+
+        if (sourceViewModel is IDisposingAsyncAware disposingAsyncAware)
+        {
+            if (await disposingAsyncAware.OnDisposingAsync() is false)
+            {
+                return false;
+            }
+        }
+
+        if (sourceViewModel is IDisposingAware disposingAware)
+        {
+            if (disposingAware.OnDisposing() is false)
+            {
+                return false;
+            }
+        }
+
+        _pages.Pop();
         var destinationView = _pages.Peek();
         var destinationViewModel = destinationView.DataContext;
+        try
+        {
+            if (destinationViewModel is IResumingAsyncAware resumingAsyncAware) await resumingAsyncAware.OnResumingAsync();
+            if (destinationViewModel is IResumingAware resumingAware) resumingAware.OnResuming();
 
-        if (sourceViewModel is IDisposingAsyncAware disposingAsyncAware) await disposingAsyncAware.OnDisposingAsync();
-        if (sourceViewModel is IDisposingAware disposingAware) disposingAware.OnDisposing();
-        if (destinationViewModel is IResumingAsyncAware resumingAsyncAware) await resumingAsyncAware.OnResumingAsync();
-        if (destinationViewModel is IResumingAware resumingAware) resumingAware.OnResuming();
+            Children.Clear();
+            Children.Add(destinationView);
 
-        Children.Clear();
-        Children.Add(destinationView);
+            if (destinationViewModel is IResumedAsyncAware resumedAsyncAware) await resumedAsyncAware.OnResumedAsync();
+            if (destinationViewModel is IResumedAware resumedAware) resumedAware.OnResumed();
+            if (sourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync();
+            if (sourceViewModel is IDisposable disposable) disposable.Dispose();
 
-        if (destinationViewModel is IResumedAsyncAware resumedAsyncAware) await resumedAsyncAware.OnResumedAsync();
-        if (destinationViewModel is IResumedAware resumedAware) resumedAware.OnResumed();
-        if (sourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync();
-        if (sourceViewModel is IDisposable disposable) disposable.Dispose();
+            return true;
+        }
+        catch
+        {
+            _pages.Push(sourceView);
+            Children.Clear();
+            Children.Add(sourceView);
+            throw;
+        }
 
-        return true;
     }
 }
