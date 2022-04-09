@@ -7,7 +7,11 @@ using Microsoft.Extensions.Hosting;
 
 var builder = KamishibaiApplication<App, MainWindow>.CreateBuilder();
 builder.Services.AddTransient<MainWindowViewModel>();
-builder.Services.AddPresentation<ContentPage, ContentPageViewModel>();
+
+builder.Services.AddPresentation<ContentPage, ContentPageViewModel>(true);
+
+builder.Services.AddPresentation<SafeContentPage, SafeContentPageViewModel>();
+builder.Services.AddTransient<ISafeContentPageViewModelProvider, SafeContentPageViewModelProvider>();
 
 var app = builder.Build();
 app.RunAsync();

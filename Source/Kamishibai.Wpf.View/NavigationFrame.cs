@@ -76,7 +76,9 @@ public class NavigationFrame : Grid, INavigationFrame
     public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel) where TViewModel : class
     {
         var view = ViewProvider.ResolvePresentation<TViewModel>();
-        throw new NotImplementedException();
+        view.DataContext = viewModel;
+
+        return NavigateAsync(view, viewModel);
     }
 
     public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init) where TViewModel : class

@@ -26,14 +26,17 @@ public class ViewProvider<TApplication> : IViewProvider
 
     public FrameworkElement ResolvePresentation<TViewModel>() where TViewModel: class
     {
-        Type? viewType = ViewTypeCatch<TViewModel>.ViewType;
+        ViewType? viewType = ViewTypeCache<TViewModel>.ViewType;
         if (viewType is null)
         {
             throw new InvalidOperationException($"View matching the {typeof(TViewModel)} has not been registered.");
         }
 
-        var frameworkElement = (FrameworkElement)_serviceProvider!.GetRequiredService(viewType);
-        frameworkElement.DataContext ??= Resolve<TViewModel>();
+        var frameworkElement = (FrameworkElement)_serviceProvider!.GetRequiredService(viewType.Type);
+        if (viewType.AssignViewModel)
+        {
+            frameworkElement.DataContext ??= Resolve<TViewModel>();
+        }
 
         return frameworkElement;
     }

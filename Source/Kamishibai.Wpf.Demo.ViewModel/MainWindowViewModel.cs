@@ -10,20 +10,20 @@ public class MainWindowViewModel :
 {
     private readonly INavigationService _navigationService;
 
-    public MainWindowViewModel(INavigationService navigationService)
+    private readonly ISafeContentPageViewModelProvider _safeContentPageViewModelProvider;
+
+    public MainWindowViewModel(INavigationService navigationService, ISafeContentPageViewModelProvider safeContentPageViewModelProvider)
     {
         _navigationService = navigationService;
+        _safeContentPageViewModelProvider = safeContentPageViewModelProvider;
     }
 
     public string SecondFrameName => "SecondFrame";
 
     public async Task OnNavigatedAsync()
     {
-        await _navigationService.Frame.NavigateAsync<ContentPageViewModel>(x =>
-        {
-            x.FrameName = INavigationFrame.DefaultFrameName;
-            x.Count = 1;
-        });
+        await _navigationService.Frame.NavigateAsync(
+            _safeContentPageViewModelProvider.Resolve(1));
         await _navigationService.GetFrame(SecondFrameName).NavigateAsync<ContentPageViewModel>(x =>
         {
             x.FrameName = SecondFrameName;
@@ -45,7 +45,9 @@ public class MainWindowViewModel :
 
 public class DesignMainWindowViewModel : MainWindowViewModel
 {
-    public DesignMainWindowViewModel() : base(INavigationService.DesignInstance)
+    private static readonly ISafeContentPageViewModelProvider DesignInstance =
+        new SafeContentPageViewModelProvider(INavigationService.DesignInstance);
+    public DesignMainWindowViewModel() : base(INavigationService.DesignInstance, DesignInstance)
     {
     }
 }
