@@ -22,7 +22,11 @@ public class NavigationFrame : Grid, INavigationFrame
 
     internal IViewProvider ViewProvider
     {
-        get => _viewProvider!;
+        get
+        {
+            if (_viewProvider is null) throw new InvalidOperationException("ViewProvider is not initialized.");
+            return _viewProvider!;
+        }
         set => _viewProvider = value;
     }
 
