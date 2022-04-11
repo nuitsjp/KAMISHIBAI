@@ -1,7 +1,4 @@
-﻿using System.Windows;
-using Microsoft.Extensions.Hosting;
-
-namespace Kamishibai.Wpf.Demo.App
+﻿namespace Kamishibai.Wpf.Demo.App
 {
     public partial class App
     {

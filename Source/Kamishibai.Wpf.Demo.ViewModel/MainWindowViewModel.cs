@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using Kamishibai.Wpf.ViewModel;
 
 namespace Kamishibai.Wpf.Demo.ViewModel;
@@ -16,7 +15,7 @@ public class MainWindowViewModel :
         _navigationService = navigationService;
     }
 
-    public string SecondFrameName => "SecondFrame";
+    public static string SecondFrameName => "SecondFrame";
 
     public async Task OnNavigatedAsync()
     {
@@ -33,12 +32,5 @@ public class MainWindowViewModel :
     public void OnNavigating()
     {
         Debug.WriteLine("MainWindowViewModel#OnNavigating");
-    }
-}
-
-public class DesignMainWindowViewModel : MainWindowViewModel
-{
-    public DesignMainWindowViewModel() : base(default!)
-    {
     }
 }

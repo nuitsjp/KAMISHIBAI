@@ -3,12 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Kamishibai.Wpf.Demo.View"
-        xmlns:viewModel="clr-namespace:Kamishibai.Wpf.Demo.ViewModel;assembly=Kamishibai.Wpf.Demo.ViewModel"
         xmlns:view="clr-namespace:Kamishibai.Wpf.View;assembly=Kamishibai.Wpf.View"
+        xmlns:view1="clr-namespace:Kamishibai.Wpf.Demo.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        d:DataContext="{d:DesignInstance {x:Type viewModel:DesignMainWindowViewModel}, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance {x:Type view1:DesignMainWindowViewModel}, IsDesignTimeCreatable=True}"
         Background="Black">
     <Grid Margin="1">
         <Grid.ColumnDefinitions>

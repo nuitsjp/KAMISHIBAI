@@ -49,7 +49,7 @@ public class NavigationFrame : Grid, INavigationFrame
         return NavigateAsync(view, viewModel);
     }
 
-    public FrameworkElement GetPresentation<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class
+    private static FrameworkElement GetPresentation<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class
     {
         ViewType? viewType = ViewTypeCache<TViewModel>.ViewType;
         if (viewType is null)

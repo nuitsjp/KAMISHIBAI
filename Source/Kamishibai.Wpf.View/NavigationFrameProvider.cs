@@ -25,7 +25,7 @@ public class NavigationFrameProvider : INavigationFrameProvider
         {
             if (weakReference.TryGetTarget(out var navigationFrame))
             {
-                if (object.Equals(frameName, navigationFrame.FrameName))
+                if (Equals(frameName, navigationFrame.FrameName))
                 {
                     return navigationFrame;
                 }

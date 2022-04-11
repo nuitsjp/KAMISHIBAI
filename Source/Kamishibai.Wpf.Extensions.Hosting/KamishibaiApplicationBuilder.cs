@@ -25,12 +25,12 @@ public class KamishibaiApplicationBuilder<TApplication, TWindow> : IWpfApplicati
         Services.AddSingleton<INavigationFrameProvider, NavigationFrameProvider>();
 
         var app = _builder.Build();
-        app.Startup += async (sender, args) =>
+        app.Startup += async (_, args) =>
         {
             if (args.Window.DataContext is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
             if (args.Window.DataContext is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
         };
-        app.Loaded += async (sender, args) =>
+        app.Loaded += async (_, args) =>
         {
             if (args.Window.DataContext is INavigatedAsyncAware navigationAware) await navigationAware.OnNavigatedAsync();
             if (args.Window.DataContext is INavigatedAware navigatedAware) navigatedAware.OnNavigated();
