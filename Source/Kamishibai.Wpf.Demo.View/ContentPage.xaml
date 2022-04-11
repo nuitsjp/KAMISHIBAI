@@ -9,12 +9,9 @@
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance {x:Type viewModel:DesignContentPageViewModel}, IsDesignTimeCreatable=True}">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+        <TextBlock Text="Safe Content Page"/>
         <StackPanel Orientation="Horizontal" Margin="5">
-            <TextBlock Text="Frame name : "/>
-            <TextBlock Text="{Binding FrameName}"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <TextBlock Text="Navigation count : "/>
+            <TextBlock Text="NavigationService count : "/>
             <TextBlock Text="{Binding Count}"/>
         </StackPanel>
         <CheckBox Content="Can Navigate Async" IsChecked="{Binding CanNavigateAsync}"/>

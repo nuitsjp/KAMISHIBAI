@@ -10,8 +10,9 @@ builder.Services.AddTransient<MainWindowViewModel>();
 
 builder.Services.AddPresentation<ContentPage, ContentPageViewModel>(true);
 
-builder.Services.AddPresentation<SafeContentPage, SafeContentPageViewModel>();
-builder.Services.AddTransient<ISafeContentPageViewModelProvider, SafeContentPageViewModelProvider>();
+builder.Services.AddPresentation<ContentPage, ContentPageViewModel>();
+
+builder.Services.AddTransient<INavigationService, NavigationService>();
 
 var app = builder.Build();
 app.RunAsync();

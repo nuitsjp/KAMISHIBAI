@@ -5,6 +5,10 @@ using Microsoft.Toolkit.Mvvm.Input;
 
 namespace Kamishibai.Wpf.Demo.ViewModel;
 
+public class GenerateProviderAttribute : Attribute {}
+public class InjectionAttribute : Attribute {}
+
+[GenerateProvider]
 public class ContentPageViewModel :
     IPausingAsyncAware,
     IPausingAware,
@@ -25,15 +29,20 @@ public class ContentPageViewModel :
 {
     private readonly INavigationService _navigationService;
 
-    public ContentPageViewModel(INavigationService navigationService)
+    public ContentPageViewModel(
+        int count, 
+        string frameName, 
+        [Injection]INavigationService navigationService)
     {
+        Count = count;
+        FrameName = frameName;
         _navigationService = navigationService;
         NavigateNextCommand = new AsyncRelayCommand(OnNavigateNext);
         GoBackCommand = new AsyncRelayCommand(OnGoBack);
     }
 
-    public string FrameName { get; set; } = string.Empty;
-    public int Count { get; set; }
+    public int Count { get; }
+    public string FrameName { get; }
     public bool CanNavigateAsync { get; set; } = true;
     public bool CanNavigate { get; set; } = true;
     public bool CanGoBackAsync { get; set; } = true;
@@ -44,16 +53,12 @@ public class ContentPageViewModel :
 
     private Task OnNavigateNext()
     {
-        return _navigationService.GetFrame(FrameName).NavigateAsync<ContentPageViewModel>(x =>
-        {
-            x.FrameName = FrameName;
-            x.Count = Count + 1;
-        });
+        return _navigationService.NavigateToSafeContentPage(Count + 1, FrameName);
     }
 
     private Task OnGoBack()
     {
-        return _navigationService.GetFrame(FrameName).GoBackAsync();
+        return _navigationService.GoBackAsync(FrameName);
     }
 
     public async Task<bool> OnPausingAsync()
@@ -95,19 +100,12 @@ public class ContentPageViewModel :
 
     private Task WriteLogAsync([CallerMemberName] string member = "")
     {
-        Debug.WriteLine($"{member} Frame:{FrameName} Count:{Count}");
+        Debug.WriteLine($"{nameof(ContentPageViewModel)}#{member} Count:{Count}");
         return Task.CompletedTask;
     }
 
     private void WriteLog([CallerMemberName] string member = "")
     {
-        Debug.WriteLine($"{member} Frame:{FrameName} Count:{Count}");
-    }
-}
-
-public class DesignContentPageViewModel : ContentPageViewModel
-{
-    public DesignContentPageViewModel() : base(INavigationService.DesignInstance)
-    {
+        Debug.WriteLine($"{nameof(ContentPageViewModel)}#{member} Count:{Count}");
     }
 }

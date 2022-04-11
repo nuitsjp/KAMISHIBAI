@@ -1,11 +1,6 @@
 ﻿using System.Windows;
 using Kamishibai.Wpf.View;
 using Kamishibai.Wpf.ViewModel;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Wpf.Extensions.Hosting;
 
 namespace Kamishibai.Wpf.Extensions.Hosting;
 
@@ -27,19 +22,18 @@ public class KamishibaiApplicationBuilder<TApplication, TWindow> : IWpfApplicati
     public ConfigureHostBuilder Host => _builder.Host;
     public WpfApplication<TApplication, TWindow> Build()
     {
-        Services.AddSingleton<INavigationService, NavigationService>();
-        Services.AddSingleton<IViewProvider, ViewProvider<TApplication>>();
+        Services.AddSingleton<INavigationFrameProvider, NavigationFrameProvider>();
 
         var app = _builder.Build();
-        app.Startup += (sender, args) =>
+        app.Startup += async (sender, args) =>
         {
-            var navigationService = (NavigationService)app.Services.GetRequiredService<INavigationService>();
-            navigationService.InitializingAsync(args.Application, args.Window).Wait();
+            if (args.Window.DataContext is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
+            if (args.Window.DataContext is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
         };
-        app.Loaded += (sender, args) =>
+        app.Loaded += async (sender, args) =>
         {
-            var navigationService = (NavigationService)app.Services.GetRequiredService<INavigationService>();
-            navigationService.InitializeAsync(args.Application, args.Window).Wait();
+            if (args.Window.DataContext is INavigatedAsyncAware navigationAware) await navigationAware.OnNavigatedAsync();
+            if (args.Window.DataContext is INavigatedAware navigatedAware) navigatedAware.OnNavigated();
         };
         return app;
     }

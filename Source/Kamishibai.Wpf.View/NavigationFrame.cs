@@ -6,28 +6,14 @@ namespace Kamishibai.Wpf.View;
 
 public class NavigationFrame : Grid, INavigationFrame
 {
-    private static readonly LinkedList<WeakReference<NavigationFrame>> NavigationFrames = new();
-
     public static readonly DependencyProperty FrameNameProperty = DependencyProperty.Register(
         "FrameName", typeof(string), typeof(NavigationFrame), new PropertyMetadata(string.Empty));
 
     private readonly Stack<FrameworkElement> _pages = new();
-    private IViewProvider? _viewProvider;
 
     public NavigationFrame()
     {
-        CleanNavigationFrames();
-        NavigationFrames.AddFirst(new WeakReference<NavigationFrame>(this));
-    }
-
-    internal IViewProvider ViewProvider
-    {
-        get
-        {
-            if (_viewProvider is null) throw new InvalidOperationException("ViewProvider is not initialized.");
-            return _viewProvider!;
-        }
-        set => _viewProvider = value;
+        NavigationFrameProvider.AddNavigationFrame(this);
     }
 
     public string FrameName
@@ -41,58 +27,45 @@ public class NavigationFrame : Grid, INavigationFrame
             ? currentView.DataContext 
             : null;
 
-    internal static NavigationFrame GetNavigationFrame(string name)
-    {
-        foreach (var weakReference in NavigationFrames.ToArray())
-        {
-            if (weakReference.TryGetTarget(out var navigationFrame))
-            {
-                if (object.Equals(name, navigationFrame.FrameName))
-                {
-                    return navigationFrame;
-                }
-            }
-            else
-            {
-                NavigationFrames.Remove(weakReference);
-            }
-        }
-
-        throw new InvalidOperationException($"There is no NavigationFrame named '{name}'.");
-    }
-
-    private static void CleanNavigationFrames()
-    {
-        foreach (var weakReference in NavigationFrames.ToArray())
-        {
-            if (!weakReference.TryGetTarget(out var _))
-            {
-                NavigationFrames.Remove(weakReference);
-            }
-        }
-    }
-
-    public Task<bool> NavigateAsync<TViewModel>() where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel) where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, IServiceProvider serviceProvider) where TViewModel : class
     {
-        var view = ViewProvider.ResolvePresentation<TViewModel>();
+        var view = GetPresentation<TViewModel>(serviceProvider);
         view.DataContext = viewModel;
 
         return NavigateAsync(view, viewModel);
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init) where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, IServiceProvider serviceProvider) where TViewModel : class
     {
-        var view = ViewProvider.ResolvePresentation<TViewModel>();
+        var view = GetPresentation<TViewModel>(serviceProvider);
         var viewModel = (TViewModel) view.DataContext;
         init(viewModel);
 
         return NavigateAsync(view, viewModel);
     }
+
+    public FrameworkElement GetPresentation<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class
+    {
+        ViewType? viewType = ViewTypeCache<TViewModel>.ViewType;
+        if (viewType is null)
+        {
+            throw new InvalidOperationException($"View matching the {typeof(TViewModel)} has not been registered.");
+        }
+
+        var frameworkElement = (FrameworkElement)serviceProvider.GetService(viewType.Type)!;
+        if (viewType.AssignViewModel)
+        {
+            frameworkElement.DataContext ??= (TViewModel)serviceProvider.GetService(typeof(TViewModel))!;
+        }
+
+        return frameworkElement;
+    }
+
 
     private async Task<bool> NavigateAsync(FrameworkElement view, object? viewModel)
     {

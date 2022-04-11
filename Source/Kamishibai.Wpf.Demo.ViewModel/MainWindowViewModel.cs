@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Kamishibai.Wpf.ViewModel;
 
 namespace Kamishibai.Wpf.Demo.ViewModel;
@@ -10,25 +11,17 @@ public class MainWindowViewModel :
 {
     private readonly INavigationService _navigationService;
 
-    private readonly ISafeContentPageViewModelProvider _safeContentPageViewModelProvider;
-
-    public MainWindowViewModel(INavigationService navigationService, ISafeContentPageViewModelProvider safeContentPageViewModelProvider)
+    public MainWindowViewModel(INavigationService navigationService)
     {
         _navigationService = navigationService;
-        _safeContentPageViewModelProvider = safeContentPageViewModelProvider;
     }
 
     public string SecondFrameName => "SecondFrame";
 
     public async Task OnNavigatedAsync()
     {
-        await _navigationService.Frame.NavigateAsync(
-            _safeContentPageViewModelProvider.Resolve(1));
-        await _navigationService.GetFrame(SecondFrameName).NavigateAsync<ContentPageViewModel>(x =>
-        {
-            x.FrameName = SecondFrameName;
-            x.Count = 1;
-        });
+        await _navigationService.NavigateToSafeContentPage(1);
+        await _navigationService.NavigateToSafeContentPage(1, SecondFrameName);
     }
 
     public Task OnNavigatingAsync()
@@ -45,9 +38,7 @@ public class MainWindowViewModel :
 
 public class DesignMainWindowViewModel : MainWindowViewModel
 {
-    private static readonly ISafeContentPageViewModelProvider DesignInstance =
-        new SafeContentPageViewModelProvider(INavigationService.DesignInstance);
-    public DesignMainWindowViewModel() : base(INavigationService.DesignInstance, DesignInstance)
+    public DesignMainWindowViewModel() : base(default!)
     {
     }
 }
