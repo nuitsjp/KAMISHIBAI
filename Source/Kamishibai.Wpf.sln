@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Demo.ViewMod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Demo.App", "Kamishibai.Wpf.Demo.App\Kamishibai.Wpf.Demo.App.csproj", "{7B785701-6893-4BA3-8457-39DD34177843}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf", "Kamishibai.Wpf\Kamishibai.Wpf.csproj", "{D2E450A4-C102-4405-95C1-94ABE394A712}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.CodeAnalysis", "Kamishibai.Wpf.CodeAnalysis\Kamishibai.Wpf.CodeAnalysis.csproj", "{EA630B1F-7A3D-4870-B938-AF3FCBAAF8D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{7B785701-6893-4BA3-8457-39DD34177843}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B785701-6893-4BA3-8457-39DD34177843}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B785701-6893-4BA3-8457-39DD34177843}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2E450A4-C102-4405-95C1-94ABE394A712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2E450A4-C102-4405-95C1-94ABE394A712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2E450A4-C102-4405-95C1-94ABE394A712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2E450A4-C102-4405-95C1-94ABE394A712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA630B1F-7A3D-4870-B938-AF3FCBAAF8D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA630B1F-7A3D-4870-B938-AF3FCBAAF8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA630B1F-7A3D-4870-B938-AF3FCBAAF8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA630B1F-7A3D-4870-B938-AF3FCBAAF8D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

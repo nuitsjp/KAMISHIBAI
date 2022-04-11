@@ -5,10 +5,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 
 namespace Kamishibai.Wpf.Demo.ViewModel;
 
-public class GenerateProviderAttribute : Attribute {}
-public class InjectionAttribute : Attribute {}
-
-[GenerateProvider]
+[Navigatable]
 public class ContentPageViewModel :
     IPausingAsyncAware,
     IPausingAware,
