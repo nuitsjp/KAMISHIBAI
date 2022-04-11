@@ -15,7 +15,7 @@ public class MainWindowViewModel :
         _navigationService = navigationService;
     }
 
-    public static string SecondFrameName => "SecondFrame";
+    public string SecondFrameName => "SecondFrame";
 
     public async Task OnNavigatedAsync()
     {
