@@ -13,21 +13,21 @@ public class NavigationService : INavigationService
         _navigationFrameProvider = navigationFrameProvider;
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(string frameName = INavigationFrame.DefaultFrameName) where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(string frameName = "") where TViewModel : class
     {
         return _navigationFrameProvider
             .GetNavigationFrame(frameName)
             .NavigateAsync<TViewModel>(_serviceProvider);
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = INavigationFrame.DefaultFrameName) where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = "") where TViewModel : class
     {
         return _navigationFrameProvider
             .GetNavigationFrame(frameName)
             .NavigateAsync(viewModel, _serviceProvider);
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = INavigationFrame.DefaultFrameName) where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = "") where TViewModel : class
     {
         return _navigationFrameProvider
             .GetNavigationFrame(frameName)
@@ -41,7 +41,7 @@ public class NavigationService : INavigationService
             frameName);
     }
 
-    public Task<bool> GoBackAsync(string frameName = INavigationFrame.DefaultFrameName)
+    public Task<bool> GoBackAsync(string frameName = "")
     {
         return _navigationFrameProvider
             .GetNavigationFrame(frameName)
