@@ -21,6 +21,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Demo", "Kami
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Demo.Repository", "Kamishibai.Wpf.Demo.Repository\Kamishibai.Wpf.Demo.Repository.csproj", "{D0791782-A631-4550-A96A-1C54EC592FC5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KamishibaiApp", "KamishibaiApp", "{2986C37E-E4E8-4132-BA08-B74254C004FF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KamishibaiApp.App", "KamishibaiApp.App\KamishibaiApp.App.csproj", "{D01428E2-FF85-4A1E-B854-E1CFC0A8F632}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KamishibaiApp.View", "KamishibaiApp.View\KamishibaiApp.View.csproj", "{D4966F09-2485-4F3A-A229-F66ABA02E5A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KamishibaiApp", "KamishibaiApp\KamishibaiApp.csproj", "{215AED3C-2B1B-41D4-B4D4-EF9A229983E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,9 +71,26 @@ Global
 		{D0791782-A631-4550-A96A-1C54EC592FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0791782-A631-4550-A96A-1C54EC592FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0791782-A631-4550-A96A-1C54EC592FC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D01428E2-FF85-4A1E-B854-E1CFC0A8F632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D01428E2-FF85-4A1E-B854-E1CFC0A8F632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D01428E2-FF85-4A1E-B854-E1CFC0A8F632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D01428E2-FF85-4A1E-B854-E1CFC0A8F632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4966F09-2485-4F3A-A229-F66ABA02E5A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4966F09-2485-4F3A-A229-F66ABA02E5A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4966F09-2485-4F3A-A229-F66ABA02E5A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4966F09-2485-4F3A-A229-F66ABA02E5A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{215AED3C-2B1B-41D4-B4D4-EF9A229983E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{215AED3C-2B1B-41D4-B4D4-EF9A229983E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{215AED3C-2B1B-41D4-B4D4-EF9A229983E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{215AED3C-2B1B-41D4-B4D4-EF9A229983E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D01428E2-FF85-4A1E-B854-E1CFC0A8F632} = {2986C37E-E4E8-4132-BA08-B74254C004FF}
+		{D4966F09-2485-4F3A-A229-F66ABA02E5A9} = {2986C37E-E4E8-4132-BA08-B74254C004FF}
+		{215AED3C-2B1B-41D4-B4D4-EF9A229983E1} = {2986C37E-E4E8-4132-BA08-B74254C004FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0051E635-D04F-4694-A42E-3F7BDA9E52B3}
