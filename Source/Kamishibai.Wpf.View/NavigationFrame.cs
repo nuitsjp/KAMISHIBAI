@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using Kamishibai.Wpf.ViewModel;
 
 namespace Kamishibai.Wpf.View;
 

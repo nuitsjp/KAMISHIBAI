@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using Kamishibai.Wpf.ViewModel;
 using Microsoft.Toolkit.Mvvm.Input;
 
 namespace Kamishibai.Wpf.Demo.ViewModel;

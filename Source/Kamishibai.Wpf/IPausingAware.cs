@@ -1,4 +1,4 @@
-﻿namespace Kamishibai.Wpf.ViewModel;
+﻿namespace Kamishibai.Wpf;
 
 public interface IPausingAware
 {

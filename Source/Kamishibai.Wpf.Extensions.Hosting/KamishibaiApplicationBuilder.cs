@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Kamishibai.Wpf.View;
-using Kamishibai.Wpf.ViewModel;
 
 namespace Kamishibai.Wpf.Extensions.Hosting;
 

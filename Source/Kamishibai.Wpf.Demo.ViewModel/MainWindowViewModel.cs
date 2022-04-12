@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using Kamishibai.Wpf.ViewModel;
 
 namespace Kamishibai.Wpf.Demo.ViewModel;
 

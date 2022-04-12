@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.View", "Kamishibai.Wpf.View\Kamishibai.Wpf.View.csproj", "{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.ViewModel", "Kamishibai.Wpf.ViewModel\Kamishibai.Wpf.ViewModel.csproj", "{54AE0334-1F03-410A-AAA8-FF2EC76FD50D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Extensions.Hosting", "Kamishibai.Wpf.Extensions.Hosting\Kamishibai.Wpf.Extensions.Hosting.csproj", "{1932317C-23E0-4CCF-A09B-3CB95BBC6961}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Demo.View", "Kamishibai.Wpf.Demo.View\Kamishibai.Wpf.Demo.View.csproj", "{A051B6A4-F6D3-4910-9459-36C873EBB228}"
@@ -19,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf", "Kamishiba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.CodeAnalysis", "Kamishibai.Wpf.CodeAnalysis\Kamishibai.Wpf.CodeAnalysis.csproj", "{EA630B1F-7A3D-4870-B938-AF3FCBAAF8D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.Demo", "Kamishibai.Wpf.Demo\Kamishibai.Wpf.Demo.csproj", "{81AFCD90-7744-43EB-A618-E675605A5D9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Demo", "Kamishibai.Wpf.Demo\Kamishibai.Wpf.Demo.csproj", "{81AFCD90-7744-43EB-A618-E675605A5D9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.Demo.Repository", "Kamishibai.Wpf.Demo.Repository\Kamishibai.Wpf.Demo.Repository.csproj", "{D0791782-A631-4550-A96A-1C54EC592FC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Demo.Repository", "Kamishibai.Wpf.Demo.Repository\Kamishibai.Wpf.Demo.Repository.csproj", "{D0791782-A631-4550-A96A-1C54EC592FC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +31,6 @@ Global
 		{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD8E10EE-B5FB-416A-A890-75E9B49B2E1B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54AE0334-1F03-410A-AAA8-FF2EC76FD50D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54AE0334-1F03-410A-AAA8-FF2EC76FD50D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54AE0334-1F03-410A-AAA8-FF2EC76FD50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54AE0334-1F03-410A-AAA8-FF2EC76FD50D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1932317C-23E0-4CCF-A09B-3CB95BBC6961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1932317C-23E0-4CCF-A09B-3CB95BBC6961}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1932317C-23E0-4CCF-A09B-3CB95BBC6961}.Release|Any CPU.ActiveCfg = Release|Any CPU

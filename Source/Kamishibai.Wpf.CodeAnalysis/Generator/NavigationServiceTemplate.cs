@@ -25,7 +25,7 @@ namespace Kamishibai.Wpf.CodeAnalysis.Generator
         /// </summary>
         public override string TransformText()
         {
-            this.Write("using Kamishibai.Wpf.ViewModel;\r\n\r\nnamespace ");
+            this.Write("using Kamishibai.Wpf;\r\n\r\nnamespace ");
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             this.Write(@";
 

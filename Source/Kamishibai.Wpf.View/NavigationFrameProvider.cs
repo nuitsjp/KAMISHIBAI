@@ -1,6 +1,4 @@
-﻿using Kamishibai.Wpf.ViewModel;
-
-namespace Kamishibai.Wpf.View;
+﻿namespace Kamishibai.Wpf.View;
 
 public class NavigationFrameProvider : INavigationFrameProvider
 {
