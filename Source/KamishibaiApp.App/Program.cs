@@ -1,8 +1,11 @@
-﻿using KamishibaiApp.View;
+﻿using System.Windows.Navigation;
+using Kamishibai.Wpf.Extensions.Hosting;
+using KamishibaiApp.View;
+using KamishibaiApp.ViewModel;
 
-// Create a builder by specifying the application and main window.
-var builder = WpfApplication<App, MainWindow>.CreateBuilder(args);
+var builder = KamishibaiApplication<App, ShellWindow>.CreateBuilder();
+builder.Services.AddTransient<ShellWindowViewModel>();
 
-// Build and run the application.
+
 var app = builder.Build();
 app.RunAsync();
