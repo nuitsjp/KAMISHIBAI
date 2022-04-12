@@ -13,7 +13,14 @@ public partial interface INavigationService
     public Task<bool> NavigateAsync<TViewModel>(string frameName = "") where TViewModel : class;
     public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = "") where TViewModel : class;
     public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = "") where TViewModel : class;
-    Task<bool> NavigateToSafeContentPage(int count, string frameName = "");
+<#
+foreach(var navigationInfo in NavigationInfos)
+{
+#>
+    public Task<bool> NavigateTo<#= navigationInfo.NavigationName #>Async(<#= navigationInfo.NavigationParameters #>);
+<#  
+}
+#>
     Task<bool> GoBackAsync(string frameName = "");
 }
 
@@ -49,13 +56,22 @@ public class NavigationService : INavigationService
             .NavigateAsync(init, _serviceProvider);
     }
 
-    public Task<bool> NavigateToSafeContentPage(int count, string frameName)
+<#
+foreach(var navigationInfo in NavigationInfos)
+{
+#>
+    public Task<bool> NavigateTo<#= navigationInfo.NavigationName #>Async(<#= navigationInfo.NavigationParameters #>)
     {
         return NavigateAsync(
-            new ContentPageViewModel(count, frameName, this), 
+            new <#= navigationInfo.ViewModelName #>(
+                <#= navigationInfo.ConstructorParameters #>
+            ), 
             frameName);
     }
 
+<#  
+}
+#>
     public Task<bool> GoBackAsync(string frameName = "")
     {
         return _navigationFrameProvider

@@ -15,7 +15,7 @@ namespace Kamishibai.Wpf.Demo.View
 
     public class DesignContentPageViewModel : ContentPageViewModel
     {
-        public DesignContentPageViewModel() : base(2, "frameName", default!)
+        public DesignContentPageViewModel() : base(2, "frameName", default!, default!)
         {
         }
     }

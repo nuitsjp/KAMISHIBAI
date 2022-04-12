@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Kamishibai.Wpf.CodeAnalysis\Kamishibai.Wpf.CodeAnalysis.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\Kamishibai.Wpf.Demo\Kamishibai.Wpf.Demo.csproj" />
 		<ProjectReference Include="..\Kamishibai.Wpf.ViewModel\Kamishibai.Wpf.ViewModel.csproj" />
 		<ProjectReference Include="..\Kamishibai.Wpf\Kamishibai.Wpf.csproj" />
 	</ItemGroup>

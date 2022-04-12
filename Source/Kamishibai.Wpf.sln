@@ -15,9 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Demo.ViewMod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.Demo.App", "Kamishibai.Wpf.Demo.App\Kamishibai.Wpf.Demo.App.csproj", "{7B785701-6893-4BA3-8457-39DD34177843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf", "Kamishibai.Wpf\Kamishibai.Wpf.csproj", "{D2E450A4-C102-4405-95C1-94ABE394A712}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf", "Kamishibai.Wpf\Kamishibai.Wpf.csproj", "{D2E450A4-C102-4405-95C1-94ABE394A712}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.CodeAnalysis", "Kamishibai.Wpf.CodeAnalysis\Kamishibai.Wpf.CodeAnalysis.csproj", "{EA630B1F-7A3D-4870-B938-AF3FCBAAF8D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Wpf.CodeAnalysis", "Kamishibai.Wpf.CodeAnalysis\Kamishibai.Wpf.CodeAnalysis.csproj", "{EA630B1F-7A3D-4870-B938-AF3FCBAAF8D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.Demo", "Kamishibai.Wpf.Demo\Kamishibai.Wpf.Demo.csproj", "{81AFCD90-7744-43EB-A618-E675605A5D9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Wpf.Demo.Repository", "Kamishibai.Wpf.Demo.Repository\Kamishibai.Wpf.Demo.Repository.csproj", "{D0791782-A631-4550-A96A-1C54EC592FC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{EA630B1F-7A3D-4870-B938-AF3FCBAAF8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA630B1F-7A3D-4870-B938-AF3FCBAAF8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA630B1F-7A3D-4870-B938-AF3FCBAAF8D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81AFCD90-7744-43EB-A618-E675605A5D9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81AFCD90-7744-43EB-A618-E675605A5D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81AFCD90-7744-43EB-A618-E675605A5D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81AFCD90-7744-43EB-A618-E675605A5D9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0791782-A631-4550-A96A-1C54EC592FC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0791782-A631-4550-A96A-1C54EC592FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0791782-A631-4550-A96A-1C54EC592FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0791782-A631-4550-A96A-1C54EC592FC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

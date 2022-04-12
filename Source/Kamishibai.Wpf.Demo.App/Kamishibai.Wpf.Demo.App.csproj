@@ -14,8 +14,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Kamishibai.Wpf.Demo.Repository\Kamishibai.Wpf.Demo.Repository.csproj" />
 	  <ProjectReference Include="..\Kamishibai.Wpf.Demo.ViewModel\Kamishibai.Wpf.Demo.ViewModel.csproj" />
 	  <ProjectReference Include="..\Kamishibai.Wpf.Demo.View\Kamishibai.Wpf.Demo.View.csproj" />
+	  <ProjectReference Include="..\Kamishibai.Wpf.Demo\Kamishibai.Wpf.Demo.csproj" />
 	  <ProjectReference Include="..\Kamishibai.Wpf.Extensions.Hosting\Kamishibai.Wpf.Extensions.Hosting.csproj" />
 	</ItemGroup>
 </Project>

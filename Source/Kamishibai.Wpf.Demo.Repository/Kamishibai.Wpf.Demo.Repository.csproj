@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Kamishibai.Wpf.Demo\Kamishibai.Wpf.Demo.csproj" />
+  </ItemGroup>
+
 </Project>

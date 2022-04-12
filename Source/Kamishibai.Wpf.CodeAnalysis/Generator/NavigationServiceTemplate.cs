@@ -27,34 +27,81 @@ namespace Kamishibai.Wpf.CodeAnalysis.Generator
         {
             this.Write("using Kamishibai.Wpf.ViewModel;\r\n\r\nnamespace ");
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
-            this.Write(";\r\n\r\npublic partial interface INavigationService\r\n{\r\n    public Task<bool> Naviga" +
-                    "teAsync<TViewModel>(string frameName = \"\") where TViewModel : class;\r\n    public" +
-                    " Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = \"" +
-                    "\") where TViewModel : class;\r\n    public Task<bool> NavigateAsync<TViewModel>(Ac" +
-                    "tion<TViewModel> init, string frameName = \"\") where TViewModel : class;\r\n    Tas" +
-                    "k<bool> NavigateToSafeContentPage(int count, string frameName = \"\");\r\n    Task<b" +
-                    "ool> GoBackAsync(string frameName = \"\");\r\n}\r\n\r\npublic class NavigationService : " +
-                    "INavigationService\r\n{\r\n    private readonly INavigationFrameProvider _navigation" +
-                    "FrameProvider;\r\n    private readonly IServiceProvider _serviceProvider;\r\n\r\n    p" +
-                    "ublic NavigationService(IServiceProvider serviceProvider, INavigationFrameProvid" +
-                    "er navigationFrameProvider)\r\n    {\r\n        _serviceProvider = serviceProvider;\r" +
-                    "\n        _navigationFrameProvider = navigationFrameProvider;\r\n    }\r\n\r\n    publi" +
-                    "c Task<bool> NavigateAsync<TViewModel>(string frameName = \"\") where TViewModel :" +
-                    " class\r\n    {\r\n        return _navigationFrameProvider\r\n            .GetNavigati" +
-                    "onFrame(frameName)\r\n            .NavigateAsync<TViewModel>(_serviceProvider);\r\n " +
-                    "   }\r\n\r\n    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, st" +
-                    "ring frameName = \"\") where TViewModel : class\r\n    {\r\n        return _navigation" +
-                    "FrameProvider\r\n            .GetNavigationFrame(frameName)\r\n            .Navigate" +
-                    "Async(viewModel, _serviceProvider);\r\n    }\r\n\r\n    public Task<bool> NavigateAsyn" +
-                    "c<TViewModel>(Action<TViewModel> init, string frameName = \"\") where TViewModel :" +
-                    " class\r\n    {\r\n        return _navigationFrameProvider\r\n            .GetNavigati" +
-                    "onFrame(frameName)\r\n            .NavigateAsync(init, _serviceProvider);\r\n    }\r\n" +
-                    "\r\n    public Task<bool> NavigateToSafeContentPage(int count, string frameName)\r\n" +
-                    "    {\r\n        return NavigateAsync(\r\n            new ContentPageViewModel(count" +
-                    ", frameName, this), \r\n            frameName);\r\n    }\r\n\r\n    public Task<bool> Go" +
-                    "BackAsync(string frameName = \"\")\r\n    {\r\n        return _navigationFrameProvider" +
-                    "\r\n            .GetNavigationFrame(frameName)\r\n            .GoBackAsync();\r\n    }" +
-                    "\r\n}");
+            this.Write(@";
+
+public partial interface INavigationService
+{
+    public Task<bool> NavigateAsync<TViewModel>(string frameName = """") where TViewModel : class;
+    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = """") where TViewModel : class;
+    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = """") where TViewModel : class;
+");
+
+foreach(var navigationInfo in NavigationInfos)
+{
+
+            this.Write("    public Task<bool> NavigateTo");
+            this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.NavigationName));
+            this.Write("Async(");
+            this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.NavigationParameters));
+            this.Write(");\r\n");
+  
+}
+
+            this.Write(@"    Task<bool> GoBackAsync(string frameName = """");
+}
+
+public class NavigationService : INavigationService
+{
+    private readonly INavigationFrameProvider _navigationFrameProvider;
+    private readonly IServiceProvider _serviceProvider;
+
+    public NavigationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
+    {
+        _serviceProvider = serviceProvider;
+        _navigationFrameProvider = navigationFrameProvider;
+    }
+
+    public Task<bool> NavigateAsync<TViewModel>(string frameName = """") where TViewModel : class
+    {
+        return _navigationFrameProvider
+            .GetNavigationFrame(frameName)
+            .NavigateAsync<TViewModel>(_serviceProvider);
+    }
+
+    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = """") where TViewModel : class
+    {
+        return _navigationFrameProvider
+            .GetNavigationFrame(frameName)
+            .NavigateAsync(viewModel, _serviceProvider);
+    }
+
+    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = """") where TViewModel : class
+    {
+        return _navigationFrameProvider
+            .GetNavigationFrame(frameName)
+            .NavigateAsync(init, _serviceProvider);
+    }
+
+");
+
+foreach(var navigationInfo in NavigationInfos)
+{
+
+            this.Write("    public Task<bool> NavigateTo");
+            this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.NavigationName));
+            this.Write("Async(");
+            this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.NavigationParameters));
+            this.Write(")\r\n    {\r\n        return NavigateAsync(\r\n            new ");
+            this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.ViewModelName));
+            this.Write("(\r\n                ");
+            this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.ConstructorParameters));
+            this.Write("\r\n            ), \r\n            frameName);\r\n    }\r\n\r\n");
+  
+}
+
+            this.Write("    public Task<bool> GoBackAsync(string frameName = \"\")\r\n    {\r\n        return _" +
+                    "navigationFrameProvider\r\n            .GetNavigationFrame(frameName)\r\n           " +
+                    " .GoBackAsync();\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

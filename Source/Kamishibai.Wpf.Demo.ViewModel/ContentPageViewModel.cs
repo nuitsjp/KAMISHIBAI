@@ -28,8 +28,9 @@ public class ContentPageViewModel :
 
     public ContentPageViewModel(
         int count, 
-        string frameName, 
-        [Injection]INavigationService navigationService)
+        string frameName,
+        [Injection] IEmployeeRepository employeeRepository,
+        [Injection] INavigationService navigationService)
     {
         Count = count;
         FrameName = frameName;
@@ -50,7 +51,7 @@ public class ContentPageViewModel :
 
     private Task OnNavigateNext()
     {
-        return _navigationService.NavigateToSafeContentPage(Count + 1, FrameName);
+        return _navigationService.NavigateToContentPageAsync(Count + 1, FrameName);
     }
 
     private Task OnGoBack()

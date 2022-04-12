@@ -19,8 +19,8 @@ public class MainWindowViewModel :
 
     public async Task OnNavigatedAsync()
     {
-        await _navigationService.NavigateToSafeContentPage(1);
-        await _navigationService.NavigateToSafeContentPage(1, SecondFrameName);
+        await _navigationService.NavigateToContentPageAsync(1, "");
+        await _navigationService.NavigateToContentPageAsync(1, SecondFrameName);
     }
 
     public Task OnNavigatingAsync()
