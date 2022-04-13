@@ -71,43 +71,19 @@ public class NavigationFrame : Grid, INavigationFrame
     }
 
 
-    private async Task<bool> NavigateAsync(FrameworkElement view, object viewModel, INavigationHandler navigationHandler)
+    private async Task<bool> NavigateAsync(FrameworkElement view, object destination, INavigationHandler navigationHandler)
     {
-        if (await NotifyPausing(CurrentViewModel, viewModel, navigationHandler) is false) return false;
-        if (viewModel is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
-        if (viewModel is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
+        var source = CurrentViewModel;
+
+        if (await NotifyPausing(source, destination, navigationHandler) is false) return false;
+        await NotifyNavigating(destination, navigationHandler, source);
 
         _pages.Push(view);
         Children.Clear();
         Children.Add(view);
 
-        if (viewModel is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync();
-        if (viewModel is INavigatedAware navigatedAware) navigatedAware.OnNavigated();
-        if (CurrentViewModel is IPausedAsyncAware pausedAsyncAware) await pausedAsyncAware.OnPausedAsync();
-        if (CurrentViewModel is IPausedAware pausedAware) pausedAware.OnPaused();
-
-        return true;
-    }
-
-    private async Task<bool> NotifyPausing(object source, object destination, INavigationHandler navigationHandler)
-    {
-        if (CurrentViewModel is IPausingAsyncAware pausingAsyncAware)
-        {
-            if (await pausingAsyncAware.OnPausingAsync() is false)
-            {
-                return false;
-            }
-        }
-
-        if (CurrentViewModel is IPausingAware pausingAware)
-        {
-            if (pausingAware.OnPausing() is false)
-            {
-                return false;
-            }
-        }
-
-        navigationHandler.OnPausing(source, destination);
+        await NotifyNavigated(destination, navigationHandler, source);
+        await NotifyPaused(destination, navigationHandler, source);
 
         return true;
     }
@@ -163,6 +139,51 @@ public class NavigationFrame : Grid, INavigationFrame
             Children.Add(sourceView);
             throw;
         }
-
     }
+
+    private async Task<bool> NotifyPausing(object source, object destination, INavigationHandler navigationHandler)
+    {
+        if (CurrentViewModel is IPausingAsyncAware pausingAsyncAware)
+        {
+            if (await pausingAsyncAware.OnPausingAsync() is false)
+            {
+                return false;
+            }
+        }
+
+        if (CurrentViewModel is IPausingAware pausingAware)
+        {
+            if (pausingAware.OnPausing() is false)
+            {
+                return false;
+            }
+        }
+
+        navigationHandler.OnPausing(source, destination);
+
+        return true;
+    }
+
+    private static async Task NotifyNavigating(object destination, INavigationHandler navigationHandler, object source)
+    {
+        if (destination is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
+        if (destination is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
+        navigationHandler.OnNavigating(source, destination);
+    }
+
+    private static async Task NotifyNavigated(object destination, INavigationHandler navigationHandler, object source)
+    {
+        if (destination is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync();
+        if (destination is INavigatedAware navigatedAware) navigatedAware.OnNavigated();
+        navigationHandler.OnNavigated(source, destination);
+    }
+
+    private async Task NotifyPaused(object destination, INavigationHandler navigationHandler, object source)
+    {
+        if (CurrentViewModel is IPausedAsyncAware pausedAsyncAware) await pausedAsyncAware.OnPausedAsync();
+        if (CurrentViewModel is IPausedAware pausedAware) pausedAware.OnPaused();
+        navigationHandler.OnPaused(source, destination);
+    }
+
+
 }
