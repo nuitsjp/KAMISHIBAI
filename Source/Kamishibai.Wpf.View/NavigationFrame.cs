@@ -26,6 +26,11 @@ public class NavigationFrame : Grid, INavigationFrame
             ? currentView.DataContext 
             : null;
 
+    public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class
     {
         throw new NotImplementedException();

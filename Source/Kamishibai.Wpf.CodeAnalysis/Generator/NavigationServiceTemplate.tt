@@ -10,6 +10,8 @@ namespace <#= Namespace #>;
 
 public partial interface INavigationService
 {
+    public bool CanGoBack { get; }
+    public Task<bool> NavigateAsync(Type viewModelType, string frameName = "");
     public Task<bool> NavigateAsync<TViewModel>(string frameName = "") where TViewModel : class;
     public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = "") where TViewModel : class;
     public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = "") where TViewModel : class;
@@ -29,10 +31,19 @@ public class NavigationService : INavigationService
     private readonly INavigationFrameProvider _navigationFrameProvider;
     private readonly IServiceProvider _serviceProvider;
 
+    public bool CanGoBack { get; } = false;
+
     public NavigationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
     {
         _serviceProvider = serviceProvider;
         _navigationFrameProvider = navigationFrameProvider;
+    }
+
+    public Task<bool> NavigateAsync(Type viewModelType, string frameName = "")
+    {
+        return _navigationFrameProvider
+            .GetNavigationFrame(frameName)
+            .NavigateAsync(viewModelType, _serviceProvider);
     }
 
     public Task<bool> NavigateAsync<TViewModel>(string frameName = "") where TViewModel : class

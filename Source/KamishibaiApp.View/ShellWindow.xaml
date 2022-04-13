@@ -5,9 +5,9 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:local="clr-namespace:KamishibaiApp.View"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                 xmlns:properties="clr-namespace:KamishibaiApp.View.Properties"
                  xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                  xmlns:templateSelectors="clr-namespace:KamishibaiApp.View.TemplateSelectors"
+                 xmlns:properties="clr-namespace:KamishibaiApp.ViewModel.Properties;assembly=KamishibaiApp.ViewModel"
                  mc:Ignorable="d"
                  Title="{x:Static properties:Resources.AppDisplayName}" Height="450" Width="800">
     <b:Interaction.Triggers>
