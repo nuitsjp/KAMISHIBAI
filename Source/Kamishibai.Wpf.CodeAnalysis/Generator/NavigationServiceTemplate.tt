@@ -8,13 +8,8 @@ using Kamishibai.Wpf;
 
 namespace <#= Namespace #>;
 
-public partial interface INavigationService
+public partial interface INavigationService : INavigationServiceBase
 {
-    public bool CanGoBack { get; }
-    public Task<bool> NavigateAsync(Type viewModelType, string frameName = "");
-    public Task<bool> NavigateAsync<TViewModel>(string frameName = "") where TViewModel : class;
-    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = "") where TViewModel : class;
-    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = "") where TViewModel : class;
 <#
 foreach(var navigationInfo in NavigationInfos)
 {
@@ -23,48 +18,16 @@ foreach(var navigationInfo in NavigationInfos)
 <#  
 }
 #>
-    Task<bool> GoBackAsync(string frameName = "");
 }
 
-public class NavigationService : INavigationService
+public class NavigationService : NavigationServiceBase, INavigationService
 {
-    private readonly INavigationFrameProvider _navigationFrameProvider;
     private readonly IServiceProvider _serviceProvider;
 
-    public bool CanGoBack { get; } = false;
-
     public NavigationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
+        : base (serviceProvider, navigationFrameProvider)
     {
         _serviceProvider = serviceProvider;
-        _navigationFrameProvider = navigationFrameProvider;
-    }
-
-    public Task<bool> NavigateAsync(Type viewModelType, string frameName = "")
-    {
-        return _navigationFrameProvider
-            .GetNavigationFrame(frameName)
-            .NavigateAsync(viewModelType, _serviceProvider);
-    }
-
-    public Task<bool> NavigateAsync<TViewModel>(string frameName = "") where TViewModel : class
-    {
-        return _navigationFrameProvider
-            .GetNavigationFrame(frameName)
-            .NavigateAsync<TViewModel>(_serviceProvider);
-    }
-
-    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = "") where TViewModel : class
-    {
-        return _navigationFrameProvider
-            .GetNavigationFrame(frameName)
-            .NavigateAsync(viewModel, _serviceProvider);
-    }
-
-    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = "") where TViewModel : class
-    {
-        return _navigationFrameProvider
-            .GetNavigationFrame(frameName)
-            .NavigateAsync(init, _serviceProvider);
     }
 
 <#
@@ -83,10 +46,4 @@ foreach(var navigationInfo in NavigationInfos)
 <#  
 }
 #>
-    public Task<bool> GoBackAsync(string frameName = "")
-    {
-        return _navigationFrameProvider
-            .GetNavigationFrame(frameName)
-            .GoBackAsync();
-    }
 }

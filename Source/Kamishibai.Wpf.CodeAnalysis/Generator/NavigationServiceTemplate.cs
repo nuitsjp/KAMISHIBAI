@@ -27,16 +27,7 @@ namespace Kamishibai.Wpf.CodeAnalysis.Generator
         {
             this.Write("using Kamishibai.Wpf;\r\n\r\nnamespace ");
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
-            this.Write(@";
-
-public partial interface INavigationService
-{
-    public bool CanGoBack { get; }
-    public Task<bool> NavigateAsync(Type viewModelType, string frameName = """");
-    public Task<bool> NavigateAsync<TViewModel>(string frameName = """") where TViewModel : class;
-    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = """") where TViewModel : class;
-    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = """") where TViewModel : class;
-");
+            this.Write(";\r\n\r\npublic partial interface INavigationService : INavigationServiceBase\r\n{\r\n");
 
 foreach(var navigationInfo in NavigationInfos)
 {
@@ -49,26 +40,19 @@ foreach(var navigationInfo in NavigationInfos)
   
 }
 
-            this.Write("    Task<bool> GoBackAsync(string frameName = \"\");\r\n}\r\n\r\npublic class NavigationS" +
-                    "ervice : INavigationService\r\n{\r\n    private readonly INavigationFrameProvider _n" +
-                    "avigationFrameProvider;\r\n    private readonly IServiceProvider _serviceProvider;" +
-                    "\r\n\r\n    public bool CanGoBack { get; } = false;\r\n\r\n    public NavigationService(" +
-                    "IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvid" +
-                    "er)\r\n    {\r\n        _serviceProvider = serviceProvider;\r\n        _navigationFram" +
-                    "eProvider = navigationFrameProvider;\r\n    }\r\n\r\n    public Task<bool> NavigateAsy" +
-                    "nc(Type viewModelType, string frameName = \"\")\r\n    {\r\n        return _navigation" +
-                    "FrameProvider\r\n            .GetNavigationFrame(frameName)\r\n            .Navigate" +
-                    "Async(viewModelType, _serviceProvider);\r\n    }\r\n\r\n    public Task<bool> Navigate" +
-                    "Async<TViewModel>(string frameName = \"\") where TViewModel : class\r\n    {\r\n      " +
-                    "  return _navigationFrameProvider\r\n            .GetNavigationFrame(frameName)\r\n " +
-                    "           .NavigateAsync<TViewModel>(_serviceProvider);\r\n    }\r\n\r\n    public Ta" +
-                    "sk<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = \"\") " +
-                    "where TViewModel : class\r\n    {\r\n        return _navigationFrameProvider\r\n      " +
-                    "      .GetNavigationFrame(frameName)\r\n            .NavigateAsync(viewModel, _ser" +
-                    "viceProvider);\r\n    }\r\n\r\n    public Task<bool> NavigateAsync<TViewModel>(Action<" +
-                    "TViewModel> init, string frameName = \"\") where TViewModel : class\r\n    {\r\n      " +
-                    "  return _navigationFrameProvider\r\n            .GetNavigationFrame(frameName)\r\n " +
-                    "           .NavigateAsync(init, _serviceProvider);\r\n    }\r\n\r\n");
+            this.Write(@"}
+
+public class NavigationService : NavigationServiceBase, INavigationService
+{
+    private readonly IServiceProvider _serviceProvider;
+
+    public NavigationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
+        : base (serviceProvider, navigationFrameProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
+");
 
 foreach(var navigationInfo in NavigationInfos)
 {
@@ -85,9 +69,7 @@ foreach(var navigationInfo in NavigationInfos)
   
 }
 
-            this.Write("    public Task<bool> GoBackAsync(string frameName = \"\")\r\n    {\r\n        return _" +
-                    "navigationFrameProvider\r\n            .GetNavigationFrame(frameName)\r\n           " +
-                    " .GoBackAsync();\r\n    }\r\n}");
+            this.Write("}");
             return this.GenerationEnvironment.ToString();
         }
     }
