@@ -9,7 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Wpf.Extensions.Hosting" Version="1.1.0" />
+		<PackageReference Include="Wpf.Extensions.Hosting" Version="1.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>
