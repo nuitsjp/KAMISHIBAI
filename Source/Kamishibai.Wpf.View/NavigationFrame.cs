@@ -21,36 +21,36 @@ public class NavigationFrame : Grid, INavigationFrame
         set => SetValue(FrameNameProperty, value);
     }
 
-    private object? CurrentViewModel => 
+    private object CurrentViewModel => 
         _pages.TryPeek(out var currentView) 
             ? currentView.DataContext 
-            : null;
+            : throw new InvalidOperationException();
 
-    public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider)
+    public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider, INavigationHandler navigationHandler)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider, INavigationHandler navigationHandler) where TViewModel : class
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, IServiceProvider serviceProvider) where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, IServiceProvider serviceProvider, INavigationHandler navigationHandler) where TViewModel : class
     {
         var view = GetPresentation<TViewModel>(serviceProvider);
         view.DataContext = viewModel;
 
-        return NavigateAsync(view, viewModel);
+        return NavigateAsync(view, viewModel, navigationHandler);
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, IServiceProvider serviceProvider) where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, IServiceProvider serviceProvider, INavigationHandler navigationHandler) where TViewModel : class
     {
         var view = GetPresentation<TViewModel>(serviceProvider);
         var viewModel = (TViewModel) view.DataContext;
         init(viewModel);
 
-        return NavigateAsync(view, viewModel);
+        return NavigateAsync(view, viewModel, navigationHandler);
     }
 
     private static FrameworkElement GetPresentation<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class
@@ -71,7 +71,25 @@ public class NavigationFrame : Grid, INavigationFrame
     }
 
 
-    private async Task<bool> NavigateAsync(FrameworkElement view, object? viewModel)
+    private async Task<bool> NavigateAsync(FrameworkElement view, object viewModel, INavigationHandler navigationHandler)
+    {
+        if (await NotifyPausing(CurrentViewModel, viewModel, navigationHandler) is false) return false;
+        if (viewModel is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
+        if (viewModel is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
+
+        _pages.Push(view);
+        Children.Clear();
+        Children.Add(view);
+
+        if (viewModel is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync();
+        if (viewModel is INavigatedAware navigatedAware) navigatedAware.OnNavigated();
+        if (CurrentViewModel is IPausedAsyncAware pausedAsyncAware) await pausedAsyncAware.OnPausedAsync();
+        if (CurrentViewModel is IPausedAware pausedAware) pausedAware.OnPaused();
+
+        return true;
+    }
+
+    private async Task<bool> NotifyPausing(object source, object destination, INavigationHandler navigationHandler)
     {
         if (CurrentViewModel is IPausingAsyncAware pausingAsyncAware)
         {
@@ -88,22 +106,13 @@ public class NavigationFrame : Grid, INavigationFrame
                 return false;
             }
         }
-        if (viewModel is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
-        if (viewModel is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
 
-        _pages.Push(view);
-        Children.Clear();
-        Children.Add(view);
-
-        if (viewModel is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync();
-        if (viewModel is INavigatedAware navigatedAware) navigatedAware.OnNavigated();
-        if (CurrentViewModel is IPausedAsyncAware pausedAsyncAware) await pausedAsyncAware.OnPausedAsync();
-        if (CurrentViewModel is IPausedAware pausedAware) pausedAware.OnPaused();
+        navigationHandler.OnPausing(source, destination);
 
         return true;
     }
 
-    public async Task<bool> GoBackAsync()
+    public async Task<bool> GoBackAsync(INavigationHandler navigationHandler)
     {
         if (_pages.Count == 1)
         {

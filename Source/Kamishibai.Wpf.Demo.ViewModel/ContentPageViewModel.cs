@@ -28,8 +28,8 @@ public class ContentPageViewModel :
     public ContentPageViewModel(
         int count, 
         string frameName,
-        [Injection] IEmployeeRepository employeeRepository,
-        [Injection] INavigationService navigationService)
+        [Inject] IEmployeeRepository employeeRepository,
+        [Inject] INavigationService navigationService)
     {
         Count = count;
         FrameName = frameName;

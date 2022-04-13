@@ -42,7 +42,7 @@ public class SourceGenerator : ISourceGenerator
                     var typeName = info?.ToString() ?? ((IdentifierNameSyntax)parameterSyntax.Type!).Identifier.Text;
                     var isInjection = parameterSyntax.AttributeLists
                         .SelectMany(x => x.Attributes)
-                        .Any(x => x.Name.ToString() is "Injection" or "InjectionAttribute");
+                        .Any(x => x.Name.ToString() is "Inject" or "InjectAttribute");
                     navigationInfo.Parameters.Add(new(typeName, parameterSyntax.Identifier.Text, isInjection));
                 }
             }
