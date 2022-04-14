@@ -68,21 +68,23 @@ public class NavigationFrame : Grid, INavigationFrame
     }
 
 
-    private async Task<bool> NavigateAsync(FrameworkElement view, object destination, INavigationHandler navigationHandler)
+    private async Task<bool> NavigateAsync(FrameworkElement view, object destinationViewModel, INavigationHandler navigationHandler)
     {
-        var source = _pages.Any()
+        var sourceView = _pages.Any()
             ? _pages.Current()
             : null;
+        var sourceViewModel = sourceView?.DataContext;
 
-        if (await NotifyPausing(source, destination, navigationHandler) is false) return false;
-        await NotifyNavigating(source, destination, navigationHandler);
+
+        if (await NotifyPausing(sourceViewModel, destinationViewModel, navigationHandler) is false) return false;
+        await NotifyNavigating(sourceViewModel, destinationViewModel, navigationHandler);
 
         _pages.Add(view);
         Children.Clear();
         Children.Add(view);
 
-        await NotifyNavigated(source, destination, navigationHandler);
-        await NotifyPaused(source, destination, navigationHandler);
+        await NotifyNavigated(sourceViewModel, destinationViewModel, navigationHandler);
+        await NotifyPaused(sourceViewModel, destinationViewModel, navigationHandler);
 
         return true;
     }
@@ -100,35 +102,18 @@ public class NavigationFrame : Grid, INavigationFrame
         var destinationViewModel = destinationView.DataContext;
 
 
-        if (sourceViewModel is IDisposingAsyncAware disposingAsyncAware)
-        {
-            if (await disposingAsyncAware.OnDisposingAsync() is false)
-            {
-                return false;
-            }
-        }
+        if (!await NotifyDisposing(sourceViewModel, destinationViewModel, navigationHandler)) return false;
 
-        if (sourceViewModel is IDisposingAware disposingAware)
-        {
-            if (disposingAware.OnDisposing() is false)
-            {
-                return false;
-            }
-        }
-
-        _pages.PopCurrent();
+        _pages.RemoveCurrent();
         try
         {
-            if (destinationViewModel is IResumingAsyncAware resumingAsyncAware) await resumingAsyncAware.OnResumingAsync();
-            if (destinationViewModel is IResumingAware resumingAware) resumingAware.OnResuming();
+            await NotifyResuming(sourceViewModel, destinationViewModel, navigationHandler);
 
             Children.Clear();
             Children.Add(destinationView);
 
-            if (destinationViewModel is IResumedAsyncAware resumedAsyncAware) await resumedAsyncAware.OnResumedAsync();
-            if (destinationViewModel is IResumedAware resumedAware) resumedAware.OnResumed();
-            if (sourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync();
-            if (sourceViewModel is IDisposable disposable) disposable.Dispose();
+            await NotifyResumed(sourceViewModel, destinationViewModel, navigationHandler);
+            await NotifyDisposed(sourceViewModel, destinationViewModel, navigationHandler);
 
             return true;
         }
@@ -185,5 +170,50 @@ public class NavigationFrame : Grid, INavigationFrame
         navigationHandler.OnPaused(source, destination);
     }
 
+    private static async Task<bool> NotifyDisposing(object sourceViewModel, object destinationViewModel, INavigationHandler navigationHandler)
+    {
+        if (sourceViewModel is IDisposingAsyncAware disposingAsyncAware)
+        {
+            if (await disposingAsyncAware.OnDisposingAsync() is false)
+            {
+                return false;
+            }
+        }
+
+        if (sourceViewModel is IDisposingAware disposingAware)
+        {
+            if (disposingAware.OnDisposing() is false)
+            {
+                return false;
+            }
+        }
+
+        navigationHandler.OnDisposing(sourceViewModel, destinationViewModel);
+        return true;
+    }
+
+    private static async Task NotifyResuming(object sourceViewModel, object destinationViewModel,
+        INavigationHandler navigationHandler)
+    {
+        if (destinationViewModel is IResumingAsyncAware resumingAsyncAware) await resumingAsyncAware.OnResumingAsync();
+        if (destinationViewModel is IResumingAware resumingAware) resumingAware.OnResuming();
+        navigationHandler.OnResuming(sourceViewModel, destinationViewModel);
+    }
+
+    private static async Task NotifyResumed(object sourceViewModel, object destinationViewModel,
+        INavigationHandler navigationHandler)
+    {
+        if (destinationViewModel is IResumedAsyncAware resumedAsyncAware) await resumedAsyncAware.OnResumedAsync();
+        if (destinationViewModel is IResumedAware resumedAware) resumedAware.OnResumed();
+        navigationHandler.OnResumed(sourceViewModel, destinationViewModel);
+    }
+
+    private static async Task NotifyDisposed(object sourceViewModel, object destinationViewModel,
+        INavigationHandler navigationHandler)
+    {
+        if (sourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync();
+        if (sourceViewModel is IDisposable disposable) disposable.Dispose();
+        navigationHandler.OnDisposed(sourceViewModel, destinationViewModel);
+    }
 
 }
