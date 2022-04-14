@@ -14,6 +14,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Kamishibai.Wpf.Extensions.Hosting\Kamishibai.Wpf.Extensions.Hosting.csproj" />
+	  <ProjectReference Include="..\KamishibaiApp.Repository\KamishibaiApp.Repository.csproj" />
 	  <ProjectReference Include="..\KamishibaiApp.ViewModel\KamishibaiApp.ViewModel.csproj" />
 	  <ProjectReference Include="..\KamishibaiApp.View\KamishibaiApp.View.csproj" />
 	</ItemGroup>

@@ -5,8 +5,20 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/KamishibaiApp.View;component/Styles/_FontSizes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/KamishibaiApp.View;component/Styles/_Thickness.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/KamishibaiApp.View;component/Styles/ListView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/KamishibaiApp.View;component/Styles/MetroWindow.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/KamishibaiApp.View;component/Styles/TextBlock.xaml" />
+
+                <!--
+                MahApps.Metro resource dictionaries.
+                Learn more about using MahApps.Metro at https://mahapps.com/
+                -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
