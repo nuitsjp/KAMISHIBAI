@@ -8,8 +8,10 @@
                  xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                  xmlns:templateSelectors="clr-namespace:KamishibaiApp.View.TemplateSelectors"
                  xmlns:properties="clr-namespace:KamishibaiApp.ViewModel.Properties;assembly=KamishibaiApp.ViewModel"
+                 xmlns:view="clr-namespace:Kamishibai.Wpf.View;assembly=Kamishibai.Wpf.View"
                  mc:Ignorable="d"
-                 Title="{x:Static properties:Resources.AppDisplayName}" Height="450" Width="800">
+                 Title="{x:Static properties:Resources.AppDisplayName}" Height="450" Width="800"
+                 d:DataContext="{d:DesignInstance Type={x:Type local:DesignShellWindowViewModel}, IsDesignTimeCreatable=True}">
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding LoadedCommand}" />
@@ -102,11 +104,7 @@
             OptionsItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
             ItemTemplateSelector="{StaticResource MenuItemTemplateSelector}">
             <mah:HamburgerMenu.Content>
-                <Frame
-                    x:Name="shellFrame"
-                    Grid.Row="1"
-                    NavigationUIVisibility="Hidden"
-                    Focusable="False" />
+                <view:NavigationFrame/>
             </mah:HamburgerMenu.Content>
         </mah:HamburgerMenu>
     </mah:MetroWindow.Content>

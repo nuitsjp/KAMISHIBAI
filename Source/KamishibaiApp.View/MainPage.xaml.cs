@@ -12,26 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using KamishibaiApp.ViewModel;
 
 namespace KamishibaiApp.View
 {
     /// <summary>
-    /// Interaction logic for ShellWindow.xaml
+    /// MainPage.xaml の相互作用ロジック
     /// </summary>
-    public partial class ShellWindow
+    public partial class MainPage
     {
-        public ShellWindow(ShellWindowViewModel shellWindowViewModel)
+        public MainPage()
         {
             InitializeComponent();
-            DataContext = shellWindowViewModel;
-        }
-    }
-
-    public class DesignShellWindowViewModel : ShellWindowViewModel
-    {
-        public DesignShellWindowViewModel() : base(default!)
-        {
         }
     }
 }

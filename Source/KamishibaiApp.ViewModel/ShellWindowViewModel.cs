@@ -10,7 +10,7 @@ namespace KamishibaiApp.ViewModel;
 
 [AddINotifyPropertyChangedInterface]
 [Navigatable]
-public class ShellWindowViewModel : INavigatingAware
+public class ShellWindowViewModel : INavigatingAware, IDisposable
 {
     private readonly INavigationService _navigationService;
 
@@ -77,11 +77,31 @@ public class ShellWindowViewModel : INavigatingAware
         }
     }
 
-    private void OnNavigated(object sender, string viewModelName)
+    public void OnNavigating()
+    {
+        _navigationService.Navigated += NavigationService_Navigated;
+        _navigationService.Resumed += NavigationService_Resumed;
+    }
+
+    public void Dispose()
+    {
+        _navigationService.Navigated -= NavigationService_Navigated;
+    }
+
+    private void NavigationService_Navigated(object? sender, NavigatedEventArgs e)
+    {
+        CurrentPageUpdated(e.DestinationViewModel);
+    }
+
+    private void NavigationService_Resumed(object? sender, ResumedEventArgs e)
+    {
+        CurrentPageUpdated(e.DestinationViewModel);
+    }
+
+    private void CurrentPageUpdated(object destinationViewModel)
     {
         var item = MenuItems
-                    .OfType<HamburgerMenuItem>()
-                    .FirstOrDefault(i => viewModelName == i.TargetPageType?.FullName);
+            .FirstOrDefault(i => destinationViewModel.GetType() == i.TargetPageType);
         if (item != null)
         {
             SelectedMenuItem = item;
@@ -89,14 +109,9 @@ public class ShellWindowViewModel : INavigatingAware
         else
         {
             SelectedOptionsMenuItem = OptionMenuItems
-                    .OfType<HamburgerMenuItem>()
-                    .FirstOrDefault(i => viewModelName == i.TargetPageType?.FullName);
+                .FirstOrDefault(i => destinationViewModel.GetType() == i.TargetPageType);
         }
 
         GoBackCommand.NotifyCanExecuteChanged();
-    }
-
-    public void OnNavigating()
-    {
     }
 }

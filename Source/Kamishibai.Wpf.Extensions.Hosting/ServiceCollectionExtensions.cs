@@ -5,11 +5,11 @@ namespace Kamishibai.Wpf.Extensions.Hosting;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddPresentation<TView, TViewModel>(this IServiceCollection services, bool assignViewModel = false)
+    public static IServiceCollection AddPresentation<TView, TViewModel>(this IServiceCollection services)
         where TView : FrameworkElement
         where TViewModel : class
     {
-        ViewTypeCache<TViewModel>.ViewType = new ViewType(typeof(TView), assignViewModel);
+        ViewTypeCache.SetViewType<TView, TViewModel>();
         services.AddTransient<TView>();
         services.AddTransient<TViewModel>();
         return services;

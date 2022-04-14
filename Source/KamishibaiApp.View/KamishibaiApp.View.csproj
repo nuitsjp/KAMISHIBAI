@@ -16,6 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Kamishibai.Wpf.View\Kamishibai.Wpf.View.csproj" />
 	  <ProjectReference Include="..\KamishibaiApp.ViewModel\KamishibaiApp.ViewModel.csproj" />
 	</ItemGroup>
 

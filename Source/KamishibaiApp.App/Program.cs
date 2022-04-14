@@ -7,6 +7,7 @@ using NavigationService = KamishibaiApp.ViewModel.NavigationService;
 var builder = KamishibaiApplication<App, ShellWindow>.CreateBuilder();
 builder.Services.AddTransient<ShellWindowViewModel>();
 builder.Services.AddTransient<INavigationService, NavigationService>();
+builder.Services.AddPresentation<MainPage, MainViewModel>();
 
 
 var app = builder.Build();

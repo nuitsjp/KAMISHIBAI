@@ -25,7 +25,10 @@ public class NavigationFrame : Grid, INavigationFrame
 
     public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider, INavigationHandler navigationHandler)
     {
-        throw new NotImplementedException();
+        var view = GetPresentation(serviceProvider, viewModelType);
+        var viewModel = view.DataContext;
+
+        return NavigateAsync(view, viewModel, navigationHandler);
     }
 
     public Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider, INavigationHandler navigationHandler) where TViewModel : class
@@ -35,7 +38,7 @@ public class NavigationFrame : Grid, INavigationFrame
 
     public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, IServiceProvider serviceProvider, INavigationHandler navigationHandler) where TViewModel : class
     {
-        var view = GetPresentation<TViewModel>(serviceProvider);
+        var view = GetPresentation(serviceProvider, typeof(TViewModel));
         view.DataContext = viewModel;
 
         return NavigateAsync(view, viewModel, navigationHandler);
@@ -43,26 +46,19 @@ public class NavigationFrame : Grid, INavigationFrame
 
     public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, IServiceProvider serviceProvider, INavigationHandler navigationHandler) where TViewModel : class
     {
-        var view = GetPresentation<TViewModel>(serviceProvider);
+        var view = GetPresentation(serviceProvider, typeof(TViewModel));
         var viewModel = (TViewModel) view.DataContext;
         init(viewModel);
 
         return NavigateAsync(view, viewModel, navigationHandler);
     }
 
-    private static FrameworkElement GetPresentation<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class
+    private static FrameworkElement GetPresentation(IServiceProvider serviceProvider, Type viewModelType)
     {
-        ViewType? viewType = ViewTypeCache<TViewModel>.ViewType;
-        if (viewType is null)
-        {
-            throw new InvalidOperationException($"View matching the {typeof(TViewModel)} has not been registered.");
-        }
+        Type viewType = ViewTypeCache.GetViewType(viewModelType);
 
-        var frameworkElement = (FrameworkElement)serviceProvider.GetService(viewType.Type)!;
-        if (viewType.AssignViewModel)
-        {
-            frameworkElement.DataContext ??= (TViewModel)serviceProvider.GetService(typeof(TViewModel))!;
-        }
+        var frameworkElement = (FrameworkElement)serviceProvider.GetService(viewType)!;
+        frameworkElement.DataContext ??= serviceProvider.GetService(viewModelType)!;
 
         return frameworkElement;
     }
