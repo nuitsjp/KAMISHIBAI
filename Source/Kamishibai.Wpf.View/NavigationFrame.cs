@@ -8,7 +8,7 @@ public class NavigationFrame : Grid, INavigationFrame
     public static readonly DependencyProperty FrameNameProperty = DependencyProperty.Register(
         "FrameName", typeof(string), typeof(NavigationFrame), new PropertyMetadata(string.Empty));
 
-    private readonly Stack<FrameworkElement> _pages = new();
+    private readonly List<FrameworkElement> _pages = new();
 
     public NavigationFrame()
     {
@@ -21,10 +21,7 @@ public class NavigationFrame : Grid, INavigationFrame
         set => SetValue(FrameNameProperty, value);
     }
 
-    private object CurrentViewModel => 
-        _pages.TryPeek(out var currentView) 
-            ? currentView.DataContext 
-            : throw new InvalidOperationException();
+    private object CurrentViewModel => _pages.Current();
 
     public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider, INavigationHandler navigationHandler)
     {
@@ -73,17 +70,19 @@ public class NavigationFrame : Grid, INavigationFrame
 
     private async Task<bool> NavigateAsync(FrameworkElement view, object destination, INavigationHandler navigationHandler)
     {
-        var source = CurrentViewModel;
+        var source = _pages.Any()
+            ? _pages.Current()
+            : null;
 
         if (await NotifyPausing(source, destination, navigationHandler) is false) return false;
-        await NotifyNavigating(destination, navigationHandler, source);
+        await NotifyNavigating(source, destination, navigationHandler);
 
-        _pages.Push(view);
+        _pages.Add(view);
         Children.Clear();
         Children.Add(view);
 
-        await NotifyNavigated(destination, navigationHandler, source);
-        await NotifyPaused(destination, navigationHandler, source);
+        await NotifyNavigated(source, destination, navigationHandler);
+        await NotifyPaused(source, destination, navigationHandler);
 
         return true;
     }
@@ -95,8 +94,11 @@ public class NavigationFrame : Grid, INavigationFrame
             return false;
         }
 
-        var sourceView = _pages.Peek();
+        var sourceView = _pages.Current();
         var sourceViewModel = sourceView.DataContext;
+        var destinationView = _pages.Previous();
+        var destinationViewModel = destinationView.DataContext;
+
 
         if (sourceViewModel is IDisposingAsyncAware disposingAsyncAware)
         {
@@ -114,9 +116,7 @@ public class NavigationFrame : Grid, INavigationFrame
             }
         }
 
-        _pages.Pop();
-        var destinationView = _pages.Peek();
-        var destinationViewModel = destinationView.DataContext;
+        _pages.PopCurrent();
         try
         {
             if (destinationViewModel is IResumingAsyncAware resumingAsyncAware) await resumingAsyncAware.OnResumingAsync();
@@ -134,16 +134,16 @@ public class NavigationFrame : Grid, INavigationFrame
         }
         catch
         {
-            _pages.Push(sourceView);
+            _pages.Add(sourceView);
             Children.Clear();
             Children.Add(sourceView);
             throw;
         }
     }
 
-    private async Task<bool> NotifyPausing(object source, object destination, INavigationHandler navigationHandler)
+    private async Task<bool> NotifyPausing(object? source, object destination, INavigationHandler navigationHandler)
     {
-        if (CurrentViewModel is IPausingAsyncAware pausingAsyncAware)
+        if (source is IPausingAsyncAware pausingAsyncAware)
         {
             if (await pausingAsyncAware.OnPausingAsync() is false)
             {
@@ -151,7 +151,7 @@ public class NavigationFrame : Grid, INavigationFrame
             }
         }
 
-        if (CurrentViewModel is IPausingAware pausingAware)
+        if (source is IPausingAware pausingAware)
         {
             if (pausingAware.OnPausing() is false)
             {
@@ -164,24 +164,24 @@ public class NavigationFrame : Grid, INavigationFrame
         return true;
     }
 
-    private static async Task NotifyNavigating(object destination, INavigationHandler navigationHandler, object source)
+    private static async Task NotifyNavigating(object? source, object destination, INavigationHandler navigationHandler)
     {
         if (destination is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
         if (destination is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
         navigationHandler.OnNavigating(source, destination);
     }
 
-    private static async Task NotifyNavigated(object destination, INavigationHandler navigationHandler, object source)
+    private static async Task NotifyNavigated(object? source, object destination, INavigationHandler navigationHandler)
     {
         if (destination is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync();
         if (destination is INavigatedAware navigatedAware) navigatedAware.OnNavigated();
         navigationHandler.OnNavigated(source, destination);
     }
 
-    private async Task NotifyPaused(object destination, INavigationHandler navigationHandler, object source)
+    private async Task NotifyPaused(object? source, object destination, INavigationHandler navigationHandler)
     {
-        if (CurrentViewModel is IPausedAsyncAware pausedAsyncAware) await pausedAsyncAware.OnPausedAsync();
-        if (CurrentViewModel is IPausedAware pausedAware) pausedAware.OnPaused();
+        if (source is IPausedAsyncAware pausedAsyncAware) await pausedAsyncAware.OnPausedAsync();
+        if (source is IPausedAware pausedAware) pausedAware.OnPaused();
         navigationHandler.OnPaused(source, destination);
     }
 

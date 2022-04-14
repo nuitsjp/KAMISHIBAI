@@ -57,16 +57,16 @@ public class NavigationServiceBase : INavigationServiceBase, INavigationHandler
             .GoBackAsync(this);
     }
 
-    public void OnPausing(object sourceViewModel, object destinationViewModel)
+    public void OnPausing(object? sourceViewModel, object destinationViewModel)
         => Pausing?.Invoke(this, new(sourceViewModel, destinationViewModel));
 
-    public void OnNavigating(object sourceViewModel, object destinationViewModel)
+    public void OnNavigating(object? sourceViewModel, object destinationViewModel)
         => Navigating?.Invoke(this, new(sourceViewModel, destinationViewModel));
 
-    public void OnNavigated(object sourceViewModel, object destinationViewModel)
+    public void OnNavigated(object? sourceViewModel, object destinationViewModel)
         => Navigated?.Invoke(this, new(sourceViewModel, destinationViewModel));
 
-    public void OnPaused(object sourceViewModel, object destinationViewModel)
+    public void OnPaused(object? sourceViewModel, object destinationViewModel)
         => Paused?.Invoke(this, new(sourceViewModel, destinationViewModel));
 
     public void OnDisposing(object sourceViewModel, object destinationViewModel)
