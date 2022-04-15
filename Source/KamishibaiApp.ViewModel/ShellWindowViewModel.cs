@@ -79,13 +79,14 @@ public class ShellWindowViewModel : INavigatingAware, IDisposable
 
     public void OnNavigating()
     {
-        _navigationService.Navigated += NavigationService_Navigated;
-        _navigationService.Resumed += NavigationService_Resumed;
+        _navigationService.GetNavigationFrame().Navigated += NavigationService_Navigated;
+        _navigationService.GetNavigationFrame().Resumed += NavigationService_Resumed;
     }
 
     public void Dispose()
     {
-        _navigationService.Navigated -= NavigationService_Navigated;
+        _navigationService.GetNavigationFrame().Navigated -= NavigationService_Navigated;
+        _navigationService.GetNavigationFrame().Resumed -= NavigationService_Resumed;
     }
 
     private void NavigationService_Navigated(object? sender, NavigatedEventArgs e)

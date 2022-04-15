@@ -2,11 +2,21 @@
 
 public interface INavigationFrame
 {
+    public event EventHandler<PausingEventArgs>? Pausing;
+    public event EventHandler<NavigatingEventArgs>? Navigating;
+    public event EventHandler<NavigatedEventArgs>? Navigated;
+    public event EventHandler<PausedEventArgs>? Paused;
+
+    public event EventHandler<DisposingEventArgs>? Disposing;
+    public event EventHandler<ResumingEventArgs>? Resuming;
+    public event EventHandler<ResumedEventArgs>? Resumed;
+    public event EventHandler<DisposedEventArgs>? Disposed;
+
     public string FrameName { get; }
-    public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider, INavigationHandler navigationHandler);
-    public Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider, INavigationHandler navigationHandler) where TViewModel : class;
-    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, IServiceProvider serviceProvider, INavigationHandler navigationHandler) where TViewModel : class;
-    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, IServiceProvider serviceProvider, INavigationHandler navigationHandler) where TViewModel : class;
-    public Task<bool> GoBackAsync(INavigationHandler navigationHandler);
+    public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider);
+    public Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class;
+    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, IServiceProvider serviceProvider) where TViewModel : class;
+    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, IServiceProvider serviceProvider) where TViewModel : class;
+    public Task<bool> GoBackAsync();
 
 }

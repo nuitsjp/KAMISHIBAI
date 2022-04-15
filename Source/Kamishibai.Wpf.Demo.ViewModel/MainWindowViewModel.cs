@@ -13,14 +13,6 @@ public class MainWindowViewModel :
     public MainWindowViewModel(INavigationService navigationService)
     {
         _navigationService = navigationService;
-        _navigationService.Pausing += HandleNavigationEvent;
-        _navigationService.Navigating += HandleNavigationEvent;
-        _navigationService.Navigated += HandleNavigationEvent;
-        _navigationService.Paused += HandleNavigationEvent;
-        _navigationService.Disposing += HandleNavigationEvent;
-        _navigationService.Resuming += HandleNavigationEvent;
-        _navigationService.Resumed += HandleNavigationEvent;
-        _navigationService.Disposed += HandleNavigationEvent;
     }
 
     private void HandleNavigationEvent(object? sender, EventArgs e)
@@ -33,6 +25,15 @@ public class MainWindowViewModel :
 
     public async Task OnNavigatedAsync()
     {
+        _navigationService.GetNavigationFrame().Pausing += HandleNavigationEvent;
+        _navigationService.GetNavigationFrame().Navigating += HandleNavigationEvent;
+        _navigationService.GetNavigationFrame().Navigated += HandleNavigationEvent;
+        _navigationService.GetNavigationFrame().Paused += HandleNavigationEvent;
+        _navigationService.GetNavigationFrame().Disposing += HandleNavigationEvent;
+        _navigationService.GetNavigationFrame().Resuming += HandleNavigationEvent;
+        _navigationService.GetNavigationFrame().Resumed += HandleNavigationEvent;
+        _navigationService.GetNavigationFrame().Disposed += HandleNavigationEvent;
+
         await _navigationService.NavigateToContentPageAsync(1, "");
         await _navigationService.NavigateToContentPageAsync(1, SecondFrameName);
     }
