@@ -26,7 +26,7 @@ public class ContentGridViewModel : ObservableObject, INavigatedAsyncAware
 
     private Task NavigateToDetail(SampleOrder? order)
     {
-        return _navigationService.NavigateToContentGridDetailAsync(order!.OrderID);
+        return _navigationService.NavigateToContentGridDetailAsync(order!.OrderId);
     }
 
     public async Task OnNavigatedAsync()

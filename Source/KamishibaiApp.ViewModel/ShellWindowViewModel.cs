@@ -89,10 +89,10 @@ public class ShellWindowViewModel : INavigatingAware, IDisposable, INotifyProper
         => _navigationService.GoBackAsync();
 
     private void OnMenuItemInvoked()
-        => NavigateTo(SelectedMenuItem.TargetPageType);
+        => NavigateTo(SelectedMenuItem?.TargetPageType);
 
     private void OnOptionsMenuItemInvoked()
-        => NavigateTo(SelectedOptionsMenuItem.TargetPageType);
+        => NavigateTo(SelectedOptionsMenuItem?.TargetPageType);
 
     private void NavigateTo(Type? targetViewModel)
     {

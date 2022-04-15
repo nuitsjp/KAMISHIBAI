@@ -27,6 +27,6 @@ public class ContentGridDetailViewModel : ObservableObject, INavigatedAsyncAware
     public async Task OnNavigatedAsync()
     {
         var data = await _sampleDataService.GetContentGridDataAsync();
-        Item = data.First(i => i.OrderID == _orderId);
+        Item = data.First(i => i.OrderId == _orderId);
     }
 }

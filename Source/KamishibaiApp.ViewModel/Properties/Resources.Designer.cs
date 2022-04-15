@@ -61,7 +61,7 @@ namespace KamishibaiApp.ViewModel.Properties {
         }
         
         /// <summary>
-        ///   MvvmApp に類似しているローカライズされた文字列を検索します。
+        ///   KamishibaiApp に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string AppDisplayName {
             get {

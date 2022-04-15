@@ -2,14 +2,25 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Wpf.Extensions.Hosting" Version="1.1.0" />
+		<PackageReference Include="OSVersionHelper" Version="1.1.24" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -5,24 +5,37 @@
     // It is the model class we use to display data on pages like Grid, Chart, and List Details.
     public class SampleOrderDetail
     {
-        public long ProductID { get; set; }
+        public SampleOrderDetail(long productId, string productName, int quantity, double discount, string quantityPerUnit, double unitPrice, string categoryName, string categoryDescription, double total)
+        {
+            ProductId = productId;
+            ProductName = productName;
+            Quantity = quantity;
+            Discount = discount;
+            QuantityPerUnit = quantityPerUnit;
+            UnitPrice = unitPrice;
+            CategoryName = categoryName;
+            CategoryDescription = categoryDescription;
+            Total = total;
+        }
 
-        public string ProductName { get; set; }
+        public long ProductId { get; }
 
-        public int Quantity { get; set; }
+        public string ProductName { get; }
 
-        public double Discount { get; set; }
+        public int Quantity { get; }
 
-        public string QuantityPerUnit { get; set; }
+        public double Discount { get; }
 
-        public double UnitPrice { get; set; }
+        public string QuantityPerUnit { get; }
 
-        public string CategoryName { get; set; }
+        public double UnitPrice { get; }
 
-        public string CategoryDescription { get; set; }
+        public string CategoryName { get; }
 
-        public double Total { get; set; }
+        public string CategoryDescription { get; }
 
-        public string ShortDescription => $"Product ID: {ProductID} - {ProductName}";
+        public double Total { get; }
+
+        public string ShortDescription => $"Product ID: {ProductId} - {ProductName}";
     }
 }

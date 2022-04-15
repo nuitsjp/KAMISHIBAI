@@ -6,11 +6,11 @@ namespace KamishibaiApp.View.TemplateSelectors;
 
 public class MenuItemTemplateSelector : DataTemplateSelector
 {
-    public DataTemplate GlyphDataTemplate { get; set; }
+    public DataTemplate? GlyphDataTemplate { get; set; }
 
-    public DataTemplate ImageDataTemplate { get; set; }
+    public DataTemplate? ImageDataTemplate { get; set; }
 
-    public override DataTemplate SelectTemplate(object item, DependencyObject container)
+    public override DataTemplate? SelectTemplate(object item, DependencyObject container)
     {
         if (item is HamburgerMenuGlyphItem)
         {

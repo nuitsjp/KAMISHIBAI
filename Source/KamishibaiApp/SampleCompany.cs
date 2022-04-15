@@ -5,26 +5,41 @@
     // It is the model class we use to display data on pages like Grid, Chart, and List Details.
     public class SampleCompany
     {
-        public string CompanyID { get; set; }
+        public SampleCompany(string companyId, string companyName, string contactName, string contactTitle, string address, string city, string postalCode, string country, string phone, string fax, ICollection<SampleOrder> orders)
+        {
+            CompanyId = companyId;
+            CompanyName = companyName;
+            ContactName = contactName;
+            ContactTitle = contactTitle;
+            Address = address;
+            City = city;
+            PostalCode = postalCode;
+            Country = country;
+            Phone = phone;
+            Fax = fax;
+            Orders = orders;
+        }
 
-        public string CompanyName { get; set; }
+        public string CompanyId { get; }
 
-        public string ContactName { get; set; }
+        public string CompanyName { get; }
 
-        public string ContactTitle { get; set; }
+        public string ContactName { get; }
 
-        public string Address { get; set; }
+        public string ContactTitle { get; }
 
-        public string City { get; set; }
+        public string Address { get; }
 
-        public string PostalCode { get; set; }
+        public string City { get; }
 
-        public string Country { get; set; }
+        public string PostalCode { get; }
 
-        public string Phone { get; set; }
+        public string Country { get; }
 
-        public string Fax { get; set; }
+        public string Phone { get; }
 
-        public ICollection<SampleOrder> Orders { get; set; }
+        public string Fax { get; }
+
+        public ICollection<SampleOrder> Orders { get; }
     }
 }

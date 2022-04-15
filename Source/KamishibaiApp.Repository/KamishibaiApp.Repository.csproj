@@ -10,4 +10,10 @@
     <ProjectReference Include="..\KamishibaiApp\KamishibaiApp.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="companies.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
