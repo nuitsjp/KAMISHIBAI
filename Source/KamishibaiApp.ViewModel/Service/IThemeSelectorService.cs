@@ -1,4 +1,4 @@
-﻿namespace KamishibaiApp.View
+﻿namespace KamishibaiApp.ViewModel.Service
 {
     public interface IThemeSelectorService
     {

@@ -10,4 +10,8 @@
     <ProjectReference Include="..\KamishibaiApp\KamishibaiApp.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Service\" />
+  </ItemGroup>
+
 </Project>

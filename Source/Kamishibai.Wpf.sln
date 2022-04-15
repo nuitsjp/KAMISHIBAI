@@ -33,8 +33,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KamishibaiApp.ViewModel", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KamishibaiApp.Repository", "KamishibaiApp.Repository\KamishibaiApp.Repository.csproj", "{BF19AD74-D04E-4534-AE38-155EABAF7DDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KamishibaiApp.System", "KamishibaiApp.System\KamishibaiApp.System.csproj", "{1B4EC2CA-8F06-492E-81BC-72E56B2A4CE8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,10 +95,6 @@ Global
 		{BF19AD74-D04E-4534-AE38-155EABAF7DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF19AD74-D04E-4534-AE38-155EABAF7DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF19AD74-D04E-4534-AE38-155EABAF7DDD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B4EC2CA-8F06-492E-81BC-72E56B2A4CE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B4EC2CA-8F06-492E-81BC-72E56B2A4CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B4EC2CA-8F06-492E-81BC-72E56B2A4CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B4EC2CA-8F06-492E-81BC-72E56B2A4CE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,7 +105,6 @@ Global
 		{215AED3C-2B1B-41D4-B4D4-EF9A229983E1} = {2986C37E-E4E8-4132-BA08-B74254C004FF}
 		{542366D6-77B2-4B5A-A5A2-76A9E1488A65} = {2986C37E-E4E8-4132-BA08-B74254C004FF}
 		{BF19AD74-D04E-4534-AE38-155EABAF7DDD} = {2986C37E-E4E8-4132-BA08-B74254C004FF}
-		{1B4EC2CA-8F06-492E-81BC-72E56B2A4CE8} = {2986C37E-E4E8-4132-BA08-B74254C004FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0051E635-D04F-4694-A42E-3F7BDA9E52B3}

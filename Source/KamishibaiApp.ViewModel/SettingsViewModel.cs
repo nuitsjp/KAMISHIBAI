@@ -2,7 +2,7 @@
 using Kamishibai.Wpf;
 using KamishibaiApp.App;
 using KamishibaiApp.Application;
-using KamishibaiApp.View;
+using KamishibaiApp.ViewModel.Service;
 using Microsoft.Extensions.Options;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;

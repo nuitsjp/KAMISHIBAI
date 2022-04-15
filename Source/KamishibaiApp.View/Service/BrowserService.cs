@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using KamishibaiApp.ViewModel.Service;
 
 namespace KamishibaiApp.View.Service
 {

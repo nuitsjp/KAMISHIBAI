@@ -6,14 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:converters="clr-namespace:KamishibaiApp.View.Converters"
-    xmlns:view="clr-namespace:KamishibaiApp.View;assembly=KamishibaiApp"
     xmlns:properties="clr-namespace:KamishibaiApp.ViewModel.Properties;assembly=KamishibaiApp.ViewModel"
     xmlns:local="clr-namespace:KamishibaiApp.View"
+    xmlns:service="clr-namespace:KamishibaiApp.ViewModel.Service;assembly=KamishibaiApp.ViewModel"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800"
     d:DataContext="{d:DesignInstance Type={x:Type local:DesignSettingsViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
-        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="view:AppTheme" />
+        <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="service:AppTheme" />
     </UserControl.Resources>
     <ScrollViewer>
         <Grid Margin="{StaticResource SmallTopBottomMargin}">
