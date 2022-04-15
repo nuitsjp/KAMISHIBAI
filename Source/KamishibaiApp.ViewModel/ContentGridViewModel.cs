@@ -5,15 +5,12 @@ using Microsoft.Toolkit.Mvvm.Input;
 
 namespace KamishibaiApp.ViewModel;
 
-[Navigatable]
 public class ContentGridViewModel : ObservableObject, INavigatedAsyncAware
 {
     private readonly INavigationService _navigationService;
     private readonly ISampleDataRepository _sampleDataService;
 
-    public ContentGridViewModel(
-        [Inject] ISampleDataRepository sampleDataService,
-        [Inject] INavigationService navigationService)
+    public ContentGridViewModel(ISampleDataRepository sampleDataService, INavigationService navigationService)
     {
         _sampleDataService = sampleDataService;
         _navigationService = navigationService;

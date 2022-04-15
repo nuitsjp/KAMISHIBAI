@@ -11,7 +11,7 @@ using PropertyChanged;
 namespace KamishibaiApp.ViewModel;
 
 [Navigatable]
-public class ShellWindowViewModel : INavigatingAware, IDisposable, INotifyPropertyChanged
+public class ShellWindowViewModel : ViewModelBase, INavigatingAware, INotifyPropertyChanged
 {
     private readonly INavigationService _navigationService;
     private HamburgerMenuItem? _selectedMenuItem;
@@ -68,20 +68,6 @@ public class ShellWindowViewModel : INavigatingAware, IDisposable, INotifyProper
 
     public ICommand OptionsMenuItemInvokedCommand => new RelayCommand(OnOptionsMenuItemInvoked);
 
-    public ICommand LoadedCommand => new RelayCommand(OnLoaded);
-
-    public ICommand UnloadedCommand => new RelayCommand(OnUnloaded);
-
-    private void OnLoaded()
-    {
-        //_navigationService.Navigated += OnNavigated;
-    }
-
-    private void OnUnloaded()
-    {
-        //_navigationService.Navigated -= OnNavigated;
-    }
-
     private bool CanGoBack()
         => _navigationService.CanGoBack();
 
@@ -124,11 +110,7 @@ public class ShellWindowViewModel : INavigatingAware, IDisposable, INotifyProper
             OnPropertyChanged(nameof(SelectedOptionsMenuItem));
 
             GoBackCommand.NotifyCanExecuteChanged();
-        });
-    }
-
-    public void Dispose()
-    {
+        }).AddTo(this);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

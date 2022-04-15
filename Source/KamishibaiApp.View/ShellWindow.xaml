@@ -12,14 +12,6 @@
                  mc:Ignorable="d"
                  Title="{x:Static properties:Resources.AppDisplayName}" Height="450" Width="800"
                  d:DataContext="{d:DesignInstance Type={x:Type local:DesignShellWindowViewModel}, IsDesignTimeCreatable=True}">
-    <b:Interaction.Triggers>
-        <b:EventTrigger EventName="Loaded">
-            <b:InvokeCommandAction Command="{Binding LoadedCommand}" />
-        </b:EventTrigger>
-        <b:EventTrigger EventName="Unloaded">
-            <b:InvokeCommandAction Command="{Binding UnloadedCommand}" />
-        </b:EventTrigger>
-    </b:Interaction.Triggers>
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
             <Button
