@@ -1,11 +1,8 @@
 ﻿namespace KamishibaiApp
 {
-    // Remove this class once your pages/features are using your data.
-    // This is used by the SampleDataService.
-    // It is the model class we use to display data on pages like Grid, Chart, and List Details.
-    public class SampleCompany
+    public class Company
     {
-        public SampleCompany(string companyId, string companyName, string contactName, string contactTitle, string address, string city, string postalCode, string country, string phone, string fax, ICollection<SampleOrder> orders)
+        public Company(string companyId, string companyName, string contactName, string contactTitle, string address, string city, string postalCode, string country, string phone, string fax, ICollection<Order> orders)
         {
             CompanyId = companyId;
             CompanyName = companyName;
@@ -40,6 +37,6 @@
 
         public string Fax { get; }
 
-        public ICollection<SampleOrder> Orders { get; }
+        public ICollection<Order> Orders { get; }
     }
 }

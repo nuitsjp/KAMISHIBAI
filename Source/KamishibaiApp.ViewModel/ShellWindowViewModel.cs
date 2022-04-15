@@ -111,6 +111,7 @@ public class ShellWindowViewModel : ViewModelBase, INavigatingAware, INotifyProp
 
             GoBackCommand.NotifyCanExecuteChanged();
         }).AddTo(this);
+        NavigateTo(MenuItems.First().TargetPageType);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

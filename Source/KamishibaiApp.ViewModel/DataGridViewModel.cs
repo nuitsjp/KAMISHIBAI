@@ -8,7 +8,7 @@ namespace KamishibaiApp.ViewModel
     {
         private readonly ISampleDataRepository _sampleDataRepository;
 
-        public ObservableCollection<SampleOrder> Source { get; } = new ObservableCollection<SampleOrder>();
+        public ObservableCollection<Order> Source { get; } = new ObservableCollection<Order>();
 
         public DataGridViewModel(ISampleDataRepository sampleDataRepository)
         {
@@ -20,7 +20,7 @@ namespace KamishibaiApp.ViewModel
             Source.Clear();
 
             // Replace this with your actual data
-            var data = await _sampleDataRepository.GetGridDataAsync();
+            var data = await _sampleDataRepository.GetSampleOrdersAsync();
 
             foreach (var item in data)
             {

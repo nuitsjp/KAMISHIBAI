@@ -8,9 +8,9 @@ public class ContentGridDetailViewModel : ObservableObject, INavigatedAsyncAware
 {
     private readonly long _orderId;
     private readonly ISampleDataRepository _sampleDataService;
-    private SampleOrder? _item;
+    private Order? _item;
 
-    public SampleOrder? Item
+    public Order? Item
     {
         get => _item;
         set => SetProperty(ref _item, value);
@@ -26,7 +26,7 @@ public class ContentGridDetailViewModel : ObservableObject, INavigatedAsyncAware
 
     public async Task OnNavigatedAsync()
     {
-        var data = await _sampleDataService.GetContentGridDataAsync();
+        var data = await _sampleDataService.GetSampleOrdersAsync();
         Item = data.First(i => i.OrderId == _orderId);
     }
 }

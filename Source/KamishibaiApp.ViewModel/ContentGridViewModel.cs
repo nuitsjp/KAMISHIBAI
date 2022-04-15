@@ -14,14 +14,14 @@ public class ContentGridViewModel : ObservableObject, INavigatedAsyncAware
     {
         _sampleDataService = sampleDataService;
         _navigationService = navigationService;
-        NavigateToDetailCommand = new AsyncRelayCommand<SampleOrder>(NavigateToDetail);
+        NavigateToDetailCommand = new AsyncRelayCommand<Order>(NavigateToDetail);
     }
 
-    public AsyncRelayCommand<SampleOrder> NavigateToDetailCommand { get; }
+    public AsyncRelayCommand<Order> NavigateToDetailCommand { get; }
 
-    public ObservableCollection<SampleOrder> Source { get; } = new();
+    public ObservableCollection<Order> Source { get; } = new();
 
-    private Task NavigateToDetail(SampleOrder? order)
+    private Task NavigateToDetail(Order? order)
     {
         return _navigationService.NavigateToContentGridDetailAsync(order!.OrderId);
     }
@@ -31,7 +31,7 @@ public class ContentGridViewModel : ObservableObject, INavigatedAsyncAware
         Source.Clear();
 
         // Replace this with your actual data
-        var data = await _sampleDataService.GetContentGridDataAsync();
+        var data = await _sampleDataService.GetSampleOrdersAsync();
         foreach (var item in data)
         {
             Source.Add(item);

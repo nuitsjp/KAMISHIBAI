@@ -10,9 +10,9 @@ public class ListDetailsViewModel : ObservableObject, INavigatedAsyncAware
 {
     private readonly ISampleDataRepository _sampleDataRepository;
 
-    public SampleOrder? Selected { get; set; }
+    public Order? Selected { get; set; }
 
-    public ObservableCollection<SampleOrder> SampleItems { get; } = new();
+    public ObservableCollection<Order> SampleItems { get; } = new();
 
     public ListDetailsViewModel(ISampleDataRepository sampleDataRepository)
     {
@@ -23,7 +23,7 @@ public class ListDetailsViewModel : ObservableObject, INavigatedAsyncAware
     {
         SampleItems.Clear();
 
-        var data = await _sampleDataRepository.GetListDetailsDataAsync();
+        var data = await _sampleDataRepository.GetSampleOrdersAsync();
 
         foreach (var item in data)
         {

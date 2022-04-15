@@ -1,11 +1,8 @@
 ﻿namespace KamishibaiApp
 {
-    // Remove this class once your pages/features are using your data.
-    // This is used by the SampleDataService.
-    // It is the model class we use to display data on pages like Grid, Chart, and List Details.
-    public class SampleOrderDetail
+    public class OrderDetail
     {
-        public SampleOrderDetail(long productId, string productName, int quantity, double discount, string quantityPerUnit, double unitPrice, string categoryName, string categoryDescription, double total)
+        public OrderDetail(long productId, string productName, int quantity, double discount, string quantityPerUnit, double unitPrice, string categoryName, string categoryDescription, double total)
         {
             ProductId = productId;
             ProductName = productName;

@@ -1,11 +1,8 @@
 ﻿namespace KamishibaiApp
 {
-    // Remove this class once your pages/features are using your data.
-    // This is used by the SampleDataService.
-    // It is the model class we use to display data on pages like Grid, Chart, and List Details.
-    public class SampleOrder
+    public class Order
     {
-        public SampleOrder(long orderId, DateTime orderDate, DateTime requiredDate, DateTime shippedDate, string shipperName, string shipperPhone, double freight, string company, string shipTo, double orderTotal, string status, int symbolCode, ICollection<SampleOrderDetail> details)
+        public Order(long orderId, DateTime orderDate, DateTime requiredDate, DateTime shippedDate, string shipperName, string shipperPhone, double freight, string company, string shipTo, double orderTotal, string status, int symbolCode, ICollection<OrderDetail> details)
         {
             OrderId = orderId;
             OrderDate = orderDate;
@@ -48,7 +45,7 @@
 
         public int SymbolCode { get; }
 
-        public ICollection<SampleOrderDetail> Details { get; }
+        public ICollection<OrderDetail> Details { get; }
 
         public override string ToString()
         {
