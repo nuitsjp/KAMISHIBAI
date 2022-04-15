@@ -97,7 +97,6 @@
             DisplayMode="CompactInline"
             ItemsSource="{Binding MenuItems}"
             SelectedItem="{Binding SelectedMenuItem}"
-            ItemCommand="{Binding MenuItemInvokedCommand}"
             OptionsItemsSource="{Binding OptionMenuItems}"
             SelectedOptionsItem="{Binding SelectedOptionsMenuItem}"
             OptionsItemCommand="{Binding OptionsMenuItemInvokedCommand}"

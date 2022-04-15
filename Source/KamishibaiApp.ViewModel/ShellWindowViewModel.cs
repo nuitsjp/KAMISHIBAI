@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Kamishibai.Wpf;
 using KamishibaiApp.ViewModel.Properties;
@@ -8,20 +10,43 @@ using PropertyChanged;
 
 namespace KamishibaiApp.ViewModel;
 
-[AddINotifyPropertyChangedInterface]
 [Navigatable]
-public class ShellWindowViewModel : INavigatingAware, IDisposable
+public class ShellWindowViewModel : INavigatingAware, IDisposable, INotifyPropertyChanged
 {
     private readonly INavigationService _navigationService;
+    private HamburgerMenuItem? _selectedMenuItem;
+    private HamburgerMenuItem? _selectedOptionsMenuItem;
 
     public ShellWindowViewModel(INavigationService navigationService)
     {
         _navigationService = navigationService;
+        GoBackCommand = new(OnGoBack, CanGoBack);
     }
 
-    public HamburgerMenuItem? SelectedMenuItem { get; set; }
+    [DoNotNotify]
+    public HamburgerMenuItem? SelectedMenuItem
+    {
+        get => _selectedMenuItem;
+        set
+        {
+            if (value is not null)
+            {
+                NavigateTo(value.TargetPageType);
+            }
+        }
+    }
 
-    public HamburgerMenuItem? SelectedOptionsMenuItem { get; set; }
+    public HamburgerMenuItem? SelectedOptionsMenuItem
+    {
+        get => _selectedOptionsMenuItem;
+        set
+        {
+            if (value is not null)
+            {
+                NavigateTo(value.TargetPageType);
+            }
+        }
+    }
 
     // TODO WTS: Change the icons and titles for all HamburgerMenuItems here.
     public ObservableCollection<HamburgerMenuItem> MenuItems { get; } = new()
@@ -37,7 +62,7 @@ public class ShellWindowViewModel : INavigatingAware, IDisposable
             new HamburgerMenuGlyphItem() { Label = Resources.ShellSettingsPage, Glyph = "\uE713", TargetPageType = typeof(SettingsViewModel) }
         };
 
-    public AsyncRelayCommand GoBackCommand => new(OnGoBack, CanGoBack);
+    public AsyncRelayCommand GoBackCommand { get; }
 
     public ICommand MenuItemInvokedCommand => new RelayCommand(OnMenuItemInvoked);
 
@@ -58,7 +83,7 @@ public class ShellWindowViewModel : INavigatingAware, IDisposable
     }
 
     private bool CanGoBack()
-        => _navigationService.CanGoBack;
+        => _navigationService.CanGoBack();
 
     private Task OnGoBack()
         => _navigationService.GoBackAsync();
@@ -79,45 +104,37 @@ public class ShellWindowViewModel : INavigatingAware, IDisposable
 
     public void OnNavigating()
     {
-        _navigationService.GetNavigationFrame().Navigated += NavigationService_Navigated;
-        _navigationService.GetNavigationFrame().Resumed += NavigationService_Resumed;
         _navigationService.GetNavigationFrame().Subscribe(viewModel =>
         {
-            SelectedMenuItem = MenuItems
+            var item = MenuItems
                 .FirstOrDefault(i => viewModel.GetType() == i.TargetPageType);
+            if (item != null)
+            {
+                _selectedMenuItem = item;
+                _selectedOptionsMenuItem = null;
+            }
+            else
+            {
+                _selectedMenuItem = null;
+                _selectedOptionsMenuItem = OptionMenuItems
+                    .FirstOrDefault(i => viewModel.GetType() == i.TargetPageType);
+            }
+
+            OnPropertyChanged(nameof(SelectedMenuItem));
+            OnPropertyChanged(nameof(SelectedOptionsMenuItem));
+
+            GoBackCommand.NotifyCanExecuteChanged();
         });
     }
 
     public void Dispose()
     {
-        _navigationService.GetNavigationFrame().Navigated -= NavigationService_Navigated;
-        _navigationService.GetNavigationFrame().Resumed -= NavigationService_Resumed;
     }
 
-    private void NavigationService_Navigated(object? sender, NavigatedEventArgs e)
-    {
-        CurrentPageUpdated(e.DestinationViewModel);
-    }
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    private void NavigationService_Resumed(object? sender, ResumedEventArgs e)
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
-        CurrentPageUpdated(e.DestinationViewModel);
-    }
-
-    private void CurrentPageUpdated(object destinationViewModel)
-    {
-        var item = MenuItems
-            .FirstOrDefault(i => destinationViewModel.GetType() == i.TargetPageType);
-        if (item != null)
-        {
-            SelectedMenuItem = item;
-        }
-        else
-        {
-            SelectedOptionsMenuItem = OptionMenuItems
-                .FirstOrDefault(i => destinationViewModel.GetType() == i.TargetPageType);
-        }
-
-        GoBackCommand.NotifyCanExecuteChanged();
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

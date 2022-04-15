@@ -13,6 +13,7 @@ public interface INavigationFrame : IObservable<object>
     public event EventHandler<DisposedEventArgs>? Disposed;
 
     public string FrameName { get; }
+    public bool CanGoBack { get; }
     public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider);
     public Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class;
     public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, IServiceProvider serviceProvider) where TViewModel : class;

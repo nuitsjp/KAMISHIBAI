@@ -17,6 +17,8 @@ internal class NavigationStack : IObservable<FrameworkElement>, IReadOnlyList<Fr
     public FrameworkElement Peek => _pages[^1];
     public FrameworkElement Previous => _pages[^2];
 
+    public bool CanPop => 1 < _pages.Count;
+
     public bool TryPeek(out FrameworkElement? page)
     {
         if (_pages.Count == 0)

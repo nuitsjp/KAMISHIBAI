@@ -5,8 +5,6 @@ public class NavigationServiceBase : INavigationServiceBase
     private readonly INavigationFrameProvider _navigationFrameProvider;
     private readonly IServiceProvider _serviceProvider;
 
-    public bool CanGoBack { get; } = false;
-
     public NavigationServiceBase(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
     {
         _serviceProvider = serviceProvider;
@@ -47,6 +45,8 @@ public class NavigationServiceBase : INavigationServiceBase
             .GetNavigationFrame(frameName)
             .GoBackAsync();
     }
+
+    bool INavigationServiceBase.CanGoBack(string frameName) => _navigationFrameProvider.GetNavigationFrame(frameName).CanGoBack;
 
     public INavigationFrame GetNavigationFrame(string frameName = "") =>
         _navigationFrameProvider.GetNavigationFrame(frameName);

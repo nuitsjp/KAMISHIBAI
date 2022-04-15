@@ -30,6 +30,8 @@ public class NavigationFrame : Grid, INavigationFrame
         set => SetValue(FrameNameProperty, value);
     }
 
+    public bool CanGoBack => _pages.CanPop;
+
     public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider)
     {
         var view = GetPresentation(serviceProvider, viewModelType);
