@@ -1,6 +1,6 @@
 ﻿namespace Kamishibai.Wpf;
 
-public interface INavigationFrame
+public interface INavigationFrame : IObservable<object>
 {
     public event EventHandler<PausingEventArgs>? Pausing;
     public event EventHandler<NavigatingEventArgs>? Navigating;

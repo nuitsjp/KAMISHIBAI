@@ -81,6 +81,11 @@ public class ShellWindowViewModel : INavigatingAware, IDisposable
     {
         _navigationService.GetNavigationFrame().Navigated += NavigationService_Navigated;
         _navigationService.GetNavigationFrame().Resumed += NavigationService_Resumed;
+        _navigationService.GetNavigationFrame().Subscribe(viewModel =>
+        {
+            SelectedMenuItem = MenuItems
+                .FirstOrDefault(i => viewModel.GetType() == i.TargetPageType);
+        });
     }
 
     public void Dispose()

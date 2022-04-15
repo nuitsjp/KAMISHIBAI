@@ -8,7 +8,7 @@ public class NavigationFrame : Grid, INavigationFrame
     public static readonly DependencyProperty FrameNameProperty = DependencyProperty.Register(
         "FrameName", typeof(string), typeof(NavigationFrame), new PropertyMetadata(string.Empty));
 
-    private readonly List<FrameworkElement> _pages = new();
+    private readonly NavigationStack _pages = new();
 
     public NavigationFrame()
     {
@@ -29,8 +29,6 @@ public class NavigationFrame : Grid, INavigationFrame
         get => (string) GetValue(FrameNameProperty);
         set => SetValue(FrameNameProperty, value);
     }
-
-    private object CurrentViewModel => _pages.Current();
 
     public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider)
     {
@@ -75,16 +73,14 @@ public class NavigationFrame : Grid, INavigationFrame
 
     private async Task<bool> NavigateAsync(FrameworkElement view, object destinationViewModel)
     {
-        var sourceView = _pages.Any()
-            ? _pages.Current()
-            : null;
+        _pages.TryPeek(out var  sourceView);
         var sourceViewModel = sourceView?.DataContext;
 
 
         if (await NotifyPausing(sourceViewModel, destinationViewModel) is false) return false;
         await NotifyNavigating(sourceViewModel, destinationViewModel);
 
-        _pages.Add(view);
+        _pages.Push(view);
         Children.Clear();
         Children.Add(view);
 
@@ -101,15 +97,15 @@ public class NavigationFrame : Grid, INavigationFrame
             return false;
         }
 
-        var sourceView = _pages.Current();
+        var sourceView = _pages.Peek;
         var sourceViewModel = sourceView.DataContext;
-        var destinationView = _pages.Previous();
+        var destinationView = _pages.Previous;
         var destinationViewModel = destinationView.DataContext;
 
 
         if (!await NotifyDisposing(sourceViewModel, destinationViewModel)) return false;
 
-        _pages.RemoveCurrent();
+        _pages.Pop();
         try
         {
             await NotifyResuming(sourceViewModel, destinationViewModel);
@@ -124,7 +120,7 @@ public class NavigationFrame : Grid, INavigationFrame
         }
         catch
         {
-            _pages.Add(sourceView);
+            _pages.Push(sourceView);
             Children.Clear();
             Children.Add(sourceView);
             throw;
@@ -224,4 +220,24 @@ public class NavigationFrame : Grid, INavigationFrame
         Disposed?.Invoke(this, new DisposedEventArgs(FrameName, sourceViewModel, destinationViewModel));
     }
 
+    public IDisposable Subscribe(IObserver<object> observer)
+    {
+        return _pages.Subscribe(new PageObserver(observer));
+    }
+
+    private class PageObserver : IObserver<FrameworkElement>
+    {
+        private readonly IObserver<object> _observer;
+
+        public PageObserver(IObserver<object> observer)
+        {
+            _observer = observer;
+        }
+
+        public void OnCompleted() => _observer.OnCompleted();
+
+        public void OnError(Exception error) => _observer.OnError(error);
+
+        public void OnNext(FrameworkElement value) => _observer.OnNext(value.DataContext);
+    }
 }
