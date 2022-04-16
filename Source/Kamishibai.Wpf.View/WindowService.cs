@@ -12,13 +12,23 @@ public class WindowService : IWindowService
         _serviceProvider = serviceProvider;
     }
 
-    public async Task OpenWindowAsync(Type viewModelType, OpenWindowOptions options)
+    public Task OpenWindowAsync(Type viewModelType, OpenWindowOptions options)
+    {
+        var viewModel = _serviceProvider.GetService(viewModelType)!;
+        return OpenWindowAsync(viewModelType, viewModel, options);
+    }
+
+    public Task OpenWindowAsync<TViewModel>(TViewModel viewModel, OpenWindowOptions options) where TViewModel : notnull
+    {
+        return OpenWindowAsync(typeof(TViewModel), viewModel, options);
+    }
+
+    public async Task OpenWindowAsync(Type viewModelType, object viewModel, OpenWindowOptions options)
     {
         var window = GetWindow(viewModelType);
-        var viewModel = _serviceProvider.GetService(viewModelType)!;
         window.DataContext = viewModel;
         window.WindowStartupLocation = (System.Windows.WindowStartupLocation)options.WindowStartupLocation;
-        window.Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive); 
+        window.Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
 
         await NotifyNavigating(viewModel);
         window.Show();
@@ -27,8 +37,18 @@ public class WindowService : IWindowService
 
     public async Task OpenDialogAsync(Type viewModelType, OpenWindowOptions options)
     {
-        var window = GetWindow(viewModelType);
         var viewModel = _serviceProvider.GetService(viewModelType)!;
+        await OpenDialogAsync(viewModelType, viewModel, options);
+    }
+
+    public Task OpenDialogAsync<TViewModel>(TViewModel viewModel, OpenWindowOptions options) where TViewModel : notnull
+    {
+        return OpenDialogAsync(typeof(TViewModel), viewModel, options);
+    }
+
+    private async Task OpenDialogAsync(Type viewModelType, object viewModel, OpenWindowOptions options)
+    {
+        var window = GetWindow(viewModelType);
         window.DataContext = viewModel;
         window.WindowStartupLocation = (System.Windows.WindowStartupLocation)options.WindowStartupLocation;
         window.Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);

@@ -6,6 +6,7 @@
         mc:Ignorable="d"
         Title="ChildWindow" Height="450" Width="800">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Text="{Binding Message}"/>
         <Button Content="Open Window" Margin="5" Command="{Binding OpenWindowCommand}"/>
         <Button Content="Open Dialog" Margin="5" Command="{Binding OpenDialogCommand}"/>
     </StackPanel>

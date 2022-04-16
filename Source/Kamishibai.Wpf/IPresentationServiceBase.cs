@@ -11,5 +11,7 @@ public interface IPresentationServiceBase
     INavigationFrame GetNavigationFrame(string frameName = "");
 
     public Task OpenWindowAsync(Type viewModelType, OpenWindowOptions? options = null);
+    public Task OpenWindowAsync<TViewModel>(TViewModel viewModel, OpenWindowOptions? options = null) where TViewModel : notnull;
     public Task OpenDialogAsync(Type viewModelType, OpenWindowOptions? options = null);
+    public Task OpenDialogAsync<TViewModel>(TViewModel viewModel, OpenWindowOptions? options = null) where TViewModel : notnull;
 }

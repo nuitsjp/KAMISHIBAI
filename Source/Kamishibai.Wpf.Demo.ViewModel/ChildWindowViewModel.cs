@@ -11,6 +11,7 @@ public class ChildWindowViewModel
         _presentationService = presentationService;
     }
 
+    public string Message { get; set; } = string.Empty;
     public AsyncRelayCommand OpenWindowCommand => new(OnOpenWindowAsync);
     public AsyncRelayCommand OpenDialogCommand => new(OnOpenDialogAsync);
 

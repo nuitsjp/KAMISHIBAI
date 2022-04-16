@@ -47,7 +47,9 @@ public class ContentPageViewModel :
     public AsyncRelayCommand NavigateNextCommand => new(OnNavigateNextAsync);
     public AsyncRelayCommand GoBackCommand => new(OnGoBackAsync);
     public AsyncRelayCommand OpenWindowCommand => new(OnOpenWindowAsync);
+    public AsyncRelayCommand OpenWindowWithParameterCommand => new(OnOpenWindowWithParameterAsync);
     public AsyncRelayCommand OpenDialogCommand => new(OnOpenDialogAsync);
+    public AsyncRelayCommand OpenDialogWithParameterCommand => new(OnOpenDialogWithParameterAsync);
 
     private Task OnNavigateNextAsync()
     {
@@ -64,9 +66,19 @@ public class ContentPageViewModel :
         return _presentationService.OpenWindowAsync(typeof(ChildWindowViewModel));
     }
 
+    private Task OnOpenWindowWithParameterAsync()
+    {
+        return _presentationService.OpenWindowAsync(new ChildWindowViewModel(_presentationService){Message = "Hello, OpenWindow with parameter."});
+    }
+
     private Task OnOpenDialogAsync()
     {
         return _presentationService.OpenDialogAsync(typeof(ChildWindowViewModel));
+    }
+
+    private Task OnOpenDialogWithParameterAsync()
+    {
+        return _presentationService.OpenDialogAsync(new ChildWindowViewModel(_presentationService) { Message = "Hello, OpenWindow with parameter." });
     }
 
     public async Task<bool> OnPausingAsync()
