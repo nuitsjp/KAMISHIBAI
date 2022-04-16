@@ -56,6 +56,9 @@ public class PresentationServiceBase : IPresentationServiceBase
     public INavigationFrame GetNavigationFrame(string frameName = "") =>
         _navigationFrameProvider.GetNavigationFrame(frameName);
 
-    public Task OpenWindow(Type viewModelType, OpenWindowOptions? options = null)
-        => _windowService.OpenWindow(viewModelType, options ?? new OpenWindowOptions());
+    public Task OpenWindowAsync(Type viewModelType, OpenWindowOptions? options = null)
+        => _windowService.OpenWindowAsync(viewModelType, options ?? new OpenWindowOptions());
+
+    public Task OpenDialogAsync(Type viewModelType, OpenWindowOptions? options = null)
+        => _windowService.OpenDialogAsync(viewModelType, options ?? new OpenWindowOptions());
 }

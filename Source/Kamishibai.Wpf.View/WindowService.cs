@@ -12,7 +12,7 @@ public class WindowService : IWindowService
         _serviceProvider = serviceProvider;
     }
 
-    public async Task OpenWindow(Type viewModelType, OpenWindowOptions options)
+    public async Task OpenWindowAsync(Type viewModelType, OpenWindowOptions options)
     {
         var window = GetWindow(viewModelType);
         var viewModel = _serviceProvider.GetService(viewModelType)!;
@@ -22,6 +22,19 @@ public class WindowService : IWindowService
 
         await NotifyNavigating(viewModel);
         window.Show();
+        await NotifyNavigated(viewModel);
+    }
+
+    public async Task OpenDialogAsync(Type viewModelType, OpenWindowOptions options)
+    {
+        var window = GetWindow(viewModelType);
+        var viewModel = _serviceProvider.GetService(viewModelType)!;
+        window.DataContext = viewModel;
+        window.WindowStartupLocation = (System.Windows.WindowStartupLocation)options.WindowStartupLocation;
+        window.Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+
+        await NotifyNavigating(viewModel);
+        window.ShowDialog();
         await NotifyNavigated(viewModel);
     }
 

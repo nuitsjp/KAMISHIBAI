@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="ChildWindow" Height="450" Width="800">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <Button Content="Open Window" Margin="5" Command="{Binding OpenWindowCommand}"/>
-    </Grid>
+        <Button Content="Open Dialog" Margin="5" Command="{Binding OpenDialogCommand}"/>
+    </StackPanel>
 </Window>

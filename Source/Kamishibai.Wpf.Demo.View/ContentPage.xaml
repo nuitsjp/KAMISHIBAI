@@ -20,5 +20,6 @@
         <Button Content="Navigate Next" Margin="5" Command="{Binding NavigateNextCommand}"/>
         <Button Content="Go Back" Margin="5" Command="{Binding GoBackCommand}"/>
         <Button Content="Open Window" Margin="5" Command="{Binding OpenWindowCommand}"/>
+        <Button Content="Open Dialog" Margin="5" Command="{Binding OpenDialogCommand}"/>
     </StackPanel>
 </UserControl>

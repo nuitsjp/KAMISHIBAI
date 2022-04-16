@@ -35,9 +35,6 @@ public class ContentPageViewModel :
         Count = count;
         FrameName = frameName;
         _presentationService = presentationService;
-        NavigateNextCommand = new AsyncRelayCommand(OnNavigateNext);
-        GoBackCommand = new AsyncRelayCommand(OnGoBack);
-        OpenWindowCommand = new AsyncRelayCommand(OnOpenWindow);
     }
 
     public int Count { get; }
@@ -47,23 +44,29 @@ public class ContentPageViewModel :
     public bool CanGoBackAsync { get; set; } = true;
     public bool CanGoBack { get; set; } = true;
 
-    public AsyncRelayCommand NavigateNextCommand { get; }
-    public AsyncRelayCommand GoBackCommand { get; }
-    public AsyncRelayCommand OpenWindowCommand { get; }
+    public AsyncRelayCommand NavigateNextCommand => new(OnNavigateNextAsync);
+    public AsyncRelayCommand GoBackCommand => new(OnGoBackAsync);
+    public AsyncRelayCommand OpenWindowCommand => new(OnOpenWindowAsync);
+    public AsyncRelayCommand OpenDialogCommand => new(OnOpenDialogAsync);
 
-    private Task OnNavigateNext()
+    private Task OnNavigateNextAsync()
     {
         return _presentationService.NavigateToContentPageAsync(Count + 1, FrameName);
     }
 
-    private Task OnGoBack()
+    private Task OnGoBackAsync()
     {
         return _presentationService.GoBackAsync(FrameName);
     }
 
-    private Task OnOpenWindow()
+    private Task OnOpenWindowAsync()
     {
-        return _presentationService.OpenWindow(typeof(ChildWindowViewModel), new OpenWindowOptions{WindowStartupLocation = WindowStartupLocation.CenterScreen});
+        return _presentationService.OpenWindowAsync(typeof(ChildWindowViewModel));
+    }
+
+    private Task OnOpenDialogAsync()
+    {
+        return _presentationService.OpenDialogAsync(typeof(ChildWindowViewModel));
     }
 
     public async Task<bool> OnPausingAsync()

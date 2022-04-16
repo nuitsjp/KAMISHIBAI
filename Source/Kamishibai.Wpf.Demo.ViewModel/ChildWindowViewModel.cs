@@ -11,11 +11,16 @@ public class ChildWindowViewModel
         _presentationService = presentationService;
     }
 
-    public AsyncRelayCommand OpenWindowCommand => new(OnOpenWindow);
+    public AsyncRelayCommand OpenWindowCommand => new(OnOpenWindowAsync);
+    public AsyncRelayCommand OpenDialogCommand => new(OnOpenDialogAsync);
 
-    private Task OnOpenWindow()
+    private Task OnOpenWindowAsync()
     {
-        return _presentationService.OpenWindow(typeof(ChildWindowViewModel));
+        return _presentationService.OpenWindowAsync(typeof(ChildWindowViewModel));
     }
 
+    private Task OnOpenDialogAsync()
+    {
+        return _presentationService.OpenDialogAsync(typeof(ChildWindowViewModel));
+    }
 }

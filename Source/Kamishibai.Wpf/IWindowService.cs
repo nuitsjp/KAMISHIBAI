@@ -2,5 +2,6 @@
 
 public interface IWindowService
 {
-    Task OpenWindow(Type viewModelType, OpenWindowOptions options);
+    Task OpenWindowAsync(Type viewModelType, OpenWindowOptions options);
+    Task OpenDialogAsync(Type viewModelType, OpenWindowOptions options);
 }
