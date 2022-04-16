@@ -8,7 +8,7 @@ namespace KamishibaiApp.ViewModel
     {
         private readonly ISampleDataRepository _sampleDataRepository;
 
-        public ObservableCollection<Order> Source { get; } = new ObservableCollection<Order>();
+        public ObservableCollection<Order> Source { get; } = new();
 
         public DataGridViewModel(ISampleDataRepository sampleDataRepository)
         {

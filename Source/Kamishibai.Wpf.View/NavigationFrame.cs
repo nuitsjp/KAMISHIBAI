@@ -175,7 +175,7 @@ public class NavigationFrame : Grid, INavigationFrame
         if (source is IPausedAware pausedAware) pausedAware.OnPaused();
         if (source is not null)
         {
-            Paused?.Invoke(this, new(FrameName, source, destination));
+            Paused?.Invoke(this, new PausedEventArgs(FrameName, source, destination));
         }
     }
 

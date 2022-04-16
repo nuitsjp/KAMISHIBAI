@@ -1,6 +1,4 @@
-﻿using PropertyChanged;
-
-namespace KamishibaiApp.ViewModel;
+﻿namespace KamishibaiApp.ViewModel;
 
 public class MainViewModel
 {

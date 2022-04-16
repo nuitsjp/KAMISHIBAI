@@ -41,6 +41,7 @@
 
         public string Status { get; }
 
+        // ReSharper disable once UnusedMember.Global
         public char Symbol => (char)SymbolCode;
 
         public int SymbolCode { get; }
@@ -52,6 +53,7 @@
             return $"{Company} {Status}";
         }
 
+        // ReSharper disable once UnusedMember.Global
         public string ShortDescription => $"Order ID: {OrderId}";
     }
 }

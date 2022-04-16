@@ -5,8 +5,6 @@ public static class ViewTypeCache
 {
     private static readonly Dictionary<Type, Type> ViewTypes = new();
 
-    public static Type GetViewType<TViewType>() => GetViewType(typeof(TViewType));
-
     public static Type GetViewType(Type viewModelType)
     {
         if (ViewTypes.TryGetValue(viewModelType, out var viewType))

@@ -7,10 +7,10 @@ namespace KamishibaiApp.View.Behaviors
 {
     public class ListViewItemSelectionBehavior : Behavior<ListView>
     {
-        public ICommand Command
+        public ICommand? Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(ListViewItemSelectionBehavior), new PropertyMetadata(null));
@@ -18,7 +18,7 @@ namespace KamishibaiApp.View.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
-            var listView = AssociatedObject as ListView;
+            var listView = AssociatedObject;
             listView.PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
             listView.KeyDown += OnKeyDown;
         }
@@ -26,7 +26,7 @@ namespace KamishibaiApp.View.Behaviors
         protected override void OnDetaching()
         {
             base.OnDetaching();
-            var listView = AssociatedObject as ListView;
+            var listView = AssociatedObject;
             listView.PreviewMouseLeftButtonDown -= OnPreviewMouseLeftButtonDown;
             listView.KeyDown -= OnKeyDown;
         }

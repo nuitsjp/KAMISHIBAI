@@ -28,6 +28,7 @@ public class ContentPageViewModel :
     public ContentPageViewModel(
         int count, 
         string frameName,
+        // ReSharper disable once UnusedParameter.Local
         [Inject] IEmployeeRepository employeeRepository,
         [Inject] INavigationService navigationService)
     {

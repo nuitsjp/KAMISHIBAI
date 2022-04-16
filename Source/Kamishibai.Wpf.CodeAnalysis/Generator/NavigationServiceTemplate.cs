@@ -23,7 +23,7 @@ namespace Kamishibai.Wpf.CodeAnalysis.Generator
         /// <summary>
         /// Create the template output
         /// </summary>
-        public override string TransformText()
+        public virtual string TransformText()
         {
             this.Write("using Kamishibai.Wpf;\r\n\r\nnamespace ");
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));

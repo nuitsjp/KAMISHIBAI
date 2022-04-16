@@ -1,4 +1,5 @@
-﻿namespace KamishibaiApp.ViewModel.Service
+﻿// ReSharper disable UnusedMember.Global
+namespace KamishibaiApp.ViewModel.Service
 {
     public enum AppTheme
     {

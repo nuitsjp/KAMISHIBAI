@@ -33,6 +33,7 @@
 
         public double Total { get; }
 
+        // ReSharper disable once UnusedMember.Global
         public string ShortDescription => $"Product ID: {ProductId} - {ProductName}";
     }
 }

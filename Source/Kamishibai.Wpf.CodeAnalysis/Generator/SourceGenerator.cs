@@ -43,7 +43,7 @@ public class SourceGenerator : ISourceGenerator
                     var isInjection = parameterSyntax.AttributeLists
                         .SelectMany(x => x.Attributes)
                         .Any(x => x.Name.ToString() is "Inject" or "InjectAttribute");
-                    navigationInfo.Parameters.Add(new(typeName, parameterSyntax.Identifier.Text, isInjection));
+                    navigationInfo.Parameters.Add(new NavigationParameter(typeName, parameterSyntax.Identifier.Text, isInjection));
                 }
             }
         }
@@ -69,7 +69,7 @@ public class SourceGenerator : ISourceGenerator
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
-            if (syntaxNode is TypeDeclarationSyntax typeDeclarationSyntax && typeDeclarationSyntax.AttributeLists.Count > 0)
+            if (syntaxNode is TypeDeclarationSyntax {AttributeLists.Count: > 0} typeDeclarationSyntax)
             {
                 // Comparable is not declared.
                 var attr =

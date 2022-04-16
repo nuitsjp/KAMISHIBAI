@@ -1,14 +1,11 @@
 ﻿using Kamishibai.Wpf.Extensions.Hosting;
 using KamishibaiApp;
-using KamishibaiApp.App;
 using KamishibaiApp.App.Service;
-using KamishibaiApp.Application;
 using KamishibaiApp.Repository;
 using KamishibaiApp.View;
 using KamishibaiApp.View.Service;
 using KamishibaiApp.ViewModel;
 using KamishibaiApp.ViewModel.Service;
-using MvvmApp.Views;
 
 var builder = KamishibaiApplication<App, ShellWindow>.CreateBuilder();
 builder.Services.AddTransient<ShellWindowViewModel>();

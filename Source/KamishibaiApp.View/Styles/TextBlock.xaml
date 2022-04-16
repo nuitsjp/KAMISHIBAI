@@ -27,8 +27,7 @@
         <Setter Property="FontSize" Value="{StaticResource LargeFontSize}" />
     </Style>
 
-    <Style x:Key="BodyTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
-    </Style>
+    <Style x:Key="BodyTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
 
     <Style x:Key="ListTitleStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="TextWrapping" Value="NoWrap" />

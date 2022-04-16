@@ -8,7 +8,7 @@ namespace KamishibaiApp.View.Converters
     {
         public Type? EnumType { get; set; }
 
-        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (EnumType is null) throw new InvalidOperationException("EnumType is null.");
             if (parameter is not string enumString) return false;

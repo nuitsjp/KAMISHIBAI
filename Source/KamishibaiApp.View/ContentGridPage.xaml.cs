@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace MvvmApp.Views
+﻿namespace KamishibaiApp.View
 {
     public partial class ContentGridPage
     {

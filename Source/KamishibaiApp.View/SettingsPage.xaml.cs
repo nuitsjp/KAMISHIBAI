@@ -1,7 +1,5 @@
-﻿using System.Windows.Controls;
-using KamishibaiApp.App;
-using KamishibaiApp.Application;
-using KamishibaiApp.ViewModel;
+﻿using KamishibaiApp.ViewModel;
+using KamishibaiApp.ViewModel.Service;
 using Microsoft.Extensions.Options;
 
 namespace KamishibaiApp.View

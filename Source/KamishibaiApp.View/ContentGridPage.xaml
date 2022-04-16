@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="MvvmApp.Views.ContentGridPage"
+    x:Class="KamishibaiApp.View.ContentGridPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <DataTemplate x:Key="contentGridItemTemplate">
+        <DataTemplate x:Key="ContentGridItemTemplate">
             <Grid
                 Width="160"
                 Height="160"
@@ -22,7 +22,7 @@
                         HorizontalAlignment="Center"
                         FontFamily="Segoe MDL2 Assets" />
                     <TextBlock
-                        Margin="{StaticResource XXSmallTopMargin}"
+                        Margin="{StaticResource XxSmallTopMargin}"
                         HorizontalAlignment="Center"
                         Style="{StaticResource BodyTextStyle}"
                         Text="{Binding Company}" />
@@ -38,7 +38,6 @@
         </Grid.RowDefinitions>
         <TextBlock
             Style="{StaticResource PageTitleStyle}"
-            Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.ContentGridPageTitle}" />
         <ListView
             Grid.Row="1"
@@ -46,7 +45,7 @@
             SelectionMode="Single"
             ItemsSource="{Binding Source}"
             Style="{StaticResource ContentGridListViewStyle}"
-            ItemTemplate="{StaticResource contentGridItemTemplate}">
+            ItemTemplate="{StaticResource ContentGridItemTemplate}">
             <i:Interaction.Behaviors>
                 <behaviors:ListViewItemSelectionBehavior Command="{Binding NavigateToDetailCommand}" />
             </i:Interaction.Behaviors>

@@ -5,7 +5,6 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:local="clr-namespace:KamishibaiApp.View"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                 xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                  xmlns:templateSelectors="clr-namespace:KamishibaiApp.View.TemplateSelectors"
                  xmlns:properties="clr-namespace:KamishibaiApp.ViewModel.Properties;assembly=KamishibaiApp.ViewModel"
                  xmlns:view="clr-namespace:Kamishibai.Wpf.View;assembly=Kamishibai.Wpf.View"
@@ -15,7 +14,7 @@
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
             <Button
-                Width="{Binding ElementName=hamburgerMenu, Path=CompactPaneLength}"
+                Width="{Binding ElementName=HamburgerMenu, Path=CompactPaneLength}"
                 AutomationProperties.Name="{x:Static properties:Resources.ShellGoBackButton}"
                 ToolTip="{x:Static properties:Resources.ShellGoBackButton}"
                 Command="{Binding GoBackCommand}">
@@ -83,7 +82,7 @@
     </mah:MetroWindow.Resources>
     <mah:MetroWindow.Content>
         <mah:HamburgerMenu
-            x:Name="hamburgerMenu"
+            x:Name="HamburgerMenu"
             HamburgerButtonName="{x:Static properties:Resources.ShellHamburgerButtonName}"
             IsPaneOpen="False"
             DisplayMode="CompactInline"

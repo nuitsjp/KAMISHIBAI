@@ -1,4 +1,5 @@
-﻿<UserControl
+﻿<!-- ReSharper disable file MarkupAttributeTypo -->
+<UserControl
     x:Class="KamishibaiApp.View.ListDetailsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -43,7 +44,6 @@
                             AutomationProperties.Name="Detail icon" />
                         <TextBlock
                             Margin="{StaticResource SmallLeftMargin}"
-                            VerticalAlignment="Center"
                             Text="{Binding Company, Mode=OneWay}"
                             Style="{StaticResource PageTitleStyle}" />
                     </StackPanel>
@@ -120,7 +120,6 @@
             </Grid.RowDefinitions>
             <TextBlock
                 Style="{StaticResource PageTitleStyle}"
-                Margin="{StaticResource MediumLeftMargin}"
                 Text="{x:Static properties:Resources.ListDetailsPageTitle}" />
             <ListView
                 Grid.Row="1"

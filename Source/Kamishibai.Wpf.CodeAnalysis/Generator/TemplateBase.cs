@@ -6,8 +6,6 @@ namespace Kamishibai.Wpf.CodeAnalysis.Generator
     {
         protected StringBuilder GenerationEnvironment { get; } = new();
 
-        public abstract string TransformText();
-
         public void Write(string text)
         {
             GenerationEnvironment.Append(text);

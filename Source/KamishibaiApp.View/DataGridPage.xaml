@@ -14,7 +14,6 @@
         </Grid.RowDefinitions>
         <TextBlock
             Style="{StaticResource PageTitleStyle}"
-            Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.DataGridPageTitle}" />
         <Grid Grid.Row="1">
             <DataGrid

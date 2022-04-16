@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Kamishibai.Wpf;
 using KamishibaiApp.ViewModel.Properties;
+using KamishibaiApp.ViewModel.Service;
 using MahApps.Metro.Controls;
 using Microsoft.Toolkit.Mvvm.Input;
 using PropertyChanged;
@@ -14,13 +15,15 @@ namespace KamishibaiApp.ViewModel;
 public class ShellWindowViewModel : ViewModelBase, INavigatingAware, INotifyPropertyChanged
 {
     private readonly INavigationService _navigationService;
+    private readonly IThemeSelectorService _themeSelectorService;
     private HamburgerMenuItem? _selectedMenuItem;
     private HamburgerMenuItem? _selectedOptionsMenuItem;
 
-    public ShellWindowViewModel(INavigationService navigationService)
+    public ShellWindowViewModel(INavigationService navigationService, IThemeSelectorService themeSelectorService)
     {
         _navigationService = navigationService;
-        GoBackCommand = new(OnGoBack, CanGoBack);
+        _themeSelectorService = themeSelectorService;
+        GoBackCommand = new AsyncRelayCommand(OnGoBack, CanGoBack);
     }
 
     [DoNotNotify]
@@ -64,8 +67,6 @@ public class ShellWindowViewModel : ViewModelBase, INavigatingAware, INotifyProp
 
     public AsyncRelayCommand GoBackCommand { get; }
 
-    public ICommand MenuItemInvokedCommand => new RelayCommand(OnMenuItemInvoked);
-
     public ICommand OptionsMenuItemInvokedCommand => new RelayCommand(OnOptionsMenuItemInvoked);
 
     private bool CanGoBack()
@@ -73,9 +74,6 @@ public class ShellWindowViewModel : ViewModelBase, INavigatingAware, INotifyProp
 
     private Task OnGoBack()
         => _navigationService.GoBackAsync();
-
-    private void OnMenuItemInvoked()
-        => NavigateTo(SelectedMenuItem?.TargetPageType);
 
     private void OnOptionsMenuItemInvoked()
         => NavigateTo(SelectedOptionsMenuItem?.TargetPageType);
@@ -90,6 +88,7 @@ public class ShellWindowViewModel : ViewModelBase, INavigatingAware, INotifyProp
 
     public void OnNavigating()
     {
+        _themeSelectorService.InitializeTheme();
         _navigationService.GetNavigationFrame().Subscribe(viewModel =>
         {
             var item = MenuItems
