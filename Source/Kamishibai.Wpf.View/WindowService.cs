@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Runtime.InteropServices;
+using System.Windows;
 
 namespace Kamishibai.Wpf.View;
 
@@ -11,11 +12,13 @@ public class WindowService : IWindowService
         _serviceProvider = serviceProvider;
     }
 
-    public async Task OpenWindow(Type viewModelType)
+    public async Task OpenWindow(Type viewModelType, OpenWindowOptions options)
     {
         var window = GetWindow(viewModelType);
         var viewModel = _serviceProvider.GetService(viewModelType)!;
         window.DataContext = viewModel;
+        window.WindowStartupLocation = (System.Windows.WindowStartupLocation)options.WindowStartupLocation;
+        window.Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive); 
 
         await NotifyNavigating(viewModel);
         window.Show();
@@ -39,5 +42,12 @@ public class WindowService : IWindowService
         if (destination is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync();
         if (destination is INavigatedAware navigatedAware) navigatedAware.OnNavigated();
     }
+
+}
+
+public class NativeMethods
+{
+    [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
+    public static extern IntPtr GetActiveWindow();
 
 }

@@ -63,7 +63,7 @@ public class ContentPageViewModel :
 
     private Task OnOpenWindow()
     {
-        return _presentationService.OpenWindow(typeof(ChildWindowViewModel));
+        return _presentationService.OpenWindow(typeof(ChildWindowViewModel), new OpenWindowOptions{WindowStartupLocation = WindowStartupLocation.CenterScreen});
     }
 
     public async Task<bool> OnPausingAsync()

@@ -2,5 +2,5 @@
 
 public interface IWindowService
 {
-    Task OpenWindow(Type viewModelType);
+    Task OpenWindow(Type viewModelType, OpenWindowOptions options);
 }
