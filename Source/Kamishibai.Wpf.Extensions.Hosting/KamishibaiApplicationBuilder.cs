@@ -22,6 +22,7 @@ public class KamishibaiApplicationBuilder<TApplication, TWindow> : IWpfApplicati
     public WpfApplication<TApplication, TWindow> Build()
     {
         Services.AddSingleton<INavigationFrameProvider, NavigationFrameProvider>();
+        Services.AddTransient<IWindowService, WindowService>();
 
         var app = _builder.Build();
         app.Startup += async (_, args) =>

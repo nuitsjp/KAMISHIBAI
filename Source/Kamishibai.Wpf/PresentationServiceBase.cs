@@ -4,11 +4,16 @@ public class PresentationServiceBase : IPresentationServiceBase
 {
     private readonly INavigationFrameProvider _navigationFrameProvider;
     private readonly IServiceProvider _serviceProvider;
+    private readonly IWindowService _windowService;
 
-    public PresentationServiceBase(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
+    public PresentationServiceBase(
+        IServiceProvider serviceProvider, 
+        INavigationFrameProvider navigationFrameProvider, 
+        IWindowService windowService)
     {
         _serviceProvider = serviceProvider;
         _navigationFrameProvider = navigationFrameProvider;
+        _windowService = windowService;
     }
 
     public Task<bool> NavigateAsync(Type viewModelType, string frameName = "")
@@ -50,4 +55,7 @@ public class PresentationServiceBase : IPresentationServiceBase
 
     public INavigationFrame GetNavigationFrame(string frameName = "") =>
         _navigationFrameProvider.GetNavigationFrame(frameName);
+
+    public Task OpenWindow(Type viewModelType)
+        => _windowService.OpenWindow(viewModelType);
 }

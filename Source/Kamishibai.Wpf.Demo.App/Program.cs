@@ -11,6 +11,7 @@ var builder = KamishibaiApplication<App, MainWindow>.CreateBuilder();
 builder.Services.AddTransient<MainWindowViewModel>();
 
 builder.Services.AddPresentation<ContentPage, ContentPageViewModel>();
+builder.Services.AddPresentation<ChildWindow, ChildWindowViewModel>();
 
 builder.Services.AddTransient<IPresentationService, PresentationService>();
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();

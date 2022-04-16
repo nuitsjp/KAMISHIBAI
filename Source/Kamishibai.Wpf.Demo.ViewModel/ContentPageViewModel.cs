@@ -37,6 +37,7 @@ public class ContentPageViewModel :
         _presentationService = presentationService;
         NavigateNextCommand = new AsyncRelayCommand(OnNavigateNext);
         GoBackCommand = new AsyncRelayCommand(OnGoBack);
+        OpenWindowCommand = new AsyncRelayCommand(OnOpenWindow);
     }
 
     public int Count { get; }
@@ -48,6 +49,7 @@ public class ContentPageViewModel :
 
     public AsyncRelayCommand NavigateNextCommand { get; }
     public AsyncRelayCommand GoBackCommand { get; }
+    public AsyncRelayCommand OpenWindowCommand { get; }
 
     private Task OnNavigateNext()
     {
@@ -57,6 +59,11 @@ public class ContentPageViewModel :
     private Task OnGoBack()
     {
         return _presentationService.GoBackAsync(FrameName);
+    }
+
+    private Task OnOpenWindow()
+    {
+        return _presentationService.OpenWindow(typeof(ChildWindowViewModel));
     }
 
     public async Task<bool> OnPausingAsync()

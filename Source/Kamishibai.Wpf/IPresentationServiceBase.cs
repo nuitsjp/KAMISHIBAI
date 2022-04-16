@@ -9,4 +9,6 @@ public interface IPresentationServiceBase
     Task<bool> GoBackAsync(string frameName = "");
     public bool CanGoBack(string frameName = "");
     INavigationFrame GetNavigationFrame(string frameName = "");
+
+    public Task OpenWindow(Type viewModelType);
 }

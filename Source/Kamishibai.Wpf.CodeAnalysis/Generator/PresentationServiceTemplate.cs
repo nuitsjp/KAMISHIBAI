@@ -47,8 +47,8 @@ public class PresentationService : PresentationServiceBase, IPresentationService
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
-        : base (serviceProvider, navigationFrameProvider)
+    public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
+        : base (serviceProvider, navigationFrameProvider, windowService)
     {
         _serviceProvider = serviceProvider;
     }

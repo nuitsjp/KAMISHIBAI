@@ -19,5 +19,6 @@
         <CheckBox Content="Can Go Back" IsChecked="{Binding CanGoBack}"/>
         <Button Content="Navigate Next" Margin="5" Command="{Binding NavigateNextCommand}"/>
         <Button Content="Go Back" Margin="5" Command="{Binding GoBackCommand}"/>
+        <Button Content="Open Window" Margin="5" Command="{Binding OpenWindowCommand}"/>
     </StackPanel>
 </UserControl>
