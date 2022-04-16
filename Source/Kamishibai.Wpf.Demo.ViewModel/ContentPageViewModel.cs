@@ -48,8 +48,10 @@ public class ContentPageViewModel :
     public AsyncRelayCommand GoBackCommand => new(OnGoBackAsync);
     public AsyncRelayCommand OpenWindowCommand => new(OnOpenWindowAsync);
     public AsyncRelayCommand OpenWindowWithParameterCommand => new(OnOpenWindowWithParameterAsync);
+    public AsyncRelayCommand OpenWindowWithCallbackCommand => new(OnOpenWindowWithCallbackAsync);
     public AsyncRelayCommand OpenDialogCommand => new(OnOpenDialogAsync);
     public AsyncRelayCommand OpenDialogWithParameterCommand => new(OnOpenDialogWithParameterAsync);
+    public AsyncRelayCommand OpenDialogWithCallbackCommand => new(OnOpenDialogWithCallbackAsync);
 
     private Task OnNavigateNextAsync()
     {
@@ -71,6 +73,11 @@ public class ContentPageViewModel :
         return _presentationService.OpenWindowAsync(new ChildWindowViewModel(_presentationService){Message = "Hello, OpenWindow with parameter."});
     }
 
+    private Task OnOpenWindowWithCallbackAsync()
+    {
+        return _presentationService.OpenWindowAsync<ChildWindowViewModel>(viewModel => viewModel.Message = "Hello, OpenWindow with callback.", null);
+    }
+
     private Task OnOpenDialogAsync()
     {
         return _presentationService.OpenDialogAsync(typeof(ChildWindowViewModel));
@@ -79,6 +86,11 @@ public class ContentPageViewModel :
     private Task OnOpenDialogWithParameterAsync()
     {
         return _presentationService.OpenDialogAsync(new ChildWindowViewModel(_presentationService) { Message = "Hello, OpenWindow with parameter." });
+    }
+
+    private Task OnOpenDialogWithCallbackAsync()
+    {
+        return _presentationService.OpenDialogAsync(new ChildWindowViewModel(_presentationService) { Message = "Hello, OpenWindow with callback." });
     }
 
     public async Task<bool> OnPausingAsync()

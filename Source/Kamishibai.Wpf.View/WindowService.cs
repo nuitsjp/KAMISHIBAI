@@ -23,6 +23,13 @@ public class WindowService : IWindowService
         return OpenWindowAsync(typeof(TViewModel), viewModel, options);
     }
 
+    public Task OpenWindowAsync<TViewModel>(Action<TViewModel> init, OpenWindowOptions options)
+    {
+        var viewModel = (TViewModel)_serviceProvider.GetService(typeof(TViewModel))!;
+        init(viewModel);
+        return OpenWindowAsync(typeof(TViewModel), viewModel, options);
+    }
+
     public async Task OpenWindowAsync(Type viewModelType, object viewModel, OpenWindowOptions options)
     {
         var window = GetWindow(viewModelType);
@@ -43,6 +50,13 @@ public class WindowService : IWindowService
 
     public Task OpenDialogAsync<TViewModel>(TViewModel viewModel, OpenWindowOptions options) where TViewModel : notnull
     {
+        return OpenDialogAsync(typeof(TViewModel), viewModel, options);
+    }
+
+    public Task OpenDialogAsync<TViewModel>(Action<TViewModel> init, OpenWindowOptions options)
+    {
+        var viewModel = (TViewModel)_serviceProvider.GetService(typeof(TViewModel))!;
+        init(viewModel);
         return OpenDialogAsync(typeof(TViewModel), viewModel, options);
     }
 

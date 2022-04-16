@@ -62,9 +62,15 @@ public class PresentationServiceBase : IPresentationServiceBase
     public Task OpenWindowAsync<TViewModel>(TViewModel viewModel, OpenWindowOptions? options = null) where TViewModel : notnull
         => _windowService.OpenWindowAsync(viewModel, options ?? new OpenWindowOptions());
 
+    public Task OpenWindowAsync<TViewModel>(Action<TViewModel> init, OpenWindowOptions? options = null)
+        => _windowService.OpenWindowAsync(init, options ?? new OpenWindowOptions());
+
     public Task OpenDialogAsync(Type viewModelType, OpenWindowOptions? options = null)
         => _windowService.OpenDialogAsync(viewModelType, options ?? new OpenWindowOptions());
 
     public Task OpenDialogAsync<TViewModel>(TViewModel viewModel, OpenWindowOptions? options = null) where TViewModel : notnull
         => _windowService.OpenDialogAsync(viewModel, options ?? new OpenWindowOptions());
+
+    public Task OpenDialogAsync<TViewModel>(Action<TViewModel> init, OpenWindowOptions? options = null)
+        => _windowService.OpenDialogAsync(init, options ?? new OpenWindowOptions());
 }

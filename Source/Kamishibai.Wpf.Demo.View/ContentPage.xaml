@@ -21,7 +21,9 @@
         <Button Content="Go Back" Margin="5" Command="{Binding GoBackCommand}"/>
         <Button Content="Open Window" Margin="5" Command="{Binding OpenWindowCommand}"/>
         <Button Content="Open Window with parameter" Margin="5" Command="{Binding OpenWindowWithParameterCommand}"/>
+        <Button Content="Open Window with callback" Margin="5" Command="{Binding OpenWindowWithCallbackCommand}"/>
         <Button Content="Open Dialog" Margin="5" Command="{Binding OpenDialogCommand}"/>
         <Button Content="Open Dialog with parameter" Margin="5" Command="{Binding OpenDialogWithParameterCommand}"/>
+        <Button Content="Open Dialog with callback" Margin="5" Command="{Binding OpenDialogWithCallbackCommand}"/>
     </StackPanel>
 </UserControl>
