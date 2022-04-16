@@ -12,7 +12,7 @@ builder.Services.AddTransient<MainWindowViewModel>();
 
 builder.Services.AddPresentation<ContentPage, ContentPageViewModel>();
 
-builder.Services.AddTransient<INavigationService, NavigationService>();
+builder.Services.AddTransient<IPresentationService, PresentationService>();
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 
 var app = builder.Build();

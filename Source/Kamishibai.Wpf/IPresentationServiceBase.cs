@@ -1,6 +1,6 @@
 ﻿namespace Kamishibai.Wpf;
 
-public interface INavigationServiceBase
+public interface IPresentationServiceBase
 {
     public Task<bool> NavigateAsync(Type viewModelType, string frameName = "");
     public Task<bool> NavigateAsync<TViewModel>(string frameName = "") where TViewModel : class;

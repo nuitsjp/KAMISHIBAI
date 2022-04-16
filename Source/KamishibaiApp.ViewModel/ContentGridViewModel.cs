@@ -7,13 +7,13 @@ namespace KamishibaiApp.ViewModel;
 
 public class ContentGridViewModel : ObservableObject, INavigatedAsyncAware
 {
-    private readonly INavigationService _navigationService;
+    private readonly IPresentationService _presentationService;
     private readonly ISampleDataRepository _sampleDataService;
 
-    public ContentGridViewModel(ISampleDataRepository sampleDataService, INavigationService navigationService)
+    public ContentGridViewModel(ISampleDataRepository sampleDataService, IPresentationService presentationService)
     {
         _sampleDataService = sampleDataService;
-        _navigationService = navigationService;
+        _presentationService = presentationService;
         NavigateToDetailCommand = new AsyncRelayCommand<Order>(NavigateToDetail);
     }
 
@@ -23,7 +23,7 @@ public class ContentGridViewModel : ObservableObject, INavigatedAsyncAware
 
     private Task NavigateToDetail(Order? order)
     {
-        return _navigationService.NavigateToContentGridDetailAsync(order!.OrderId);
+        return _presentationService.NavigateToContentGridDetailAsync(order!.OrderId);
     }
 
     public async Task OnNavigatedAsync()

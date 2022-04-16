@@ -8,11 +8,11 @@ public class MainWindowViewModel :
     INavigatingAware,
     INavigatedAsyncAware
 {
-    private readonly INavigationService _navigationService;
+    private readonly IPresentationService _presentationService;
 
-    public MainWindowViewModel(INavigationService navigationService)
+    public MainWindowViewModel(IPresentationService presentationService)
     {
-        _navigationService = navigationService;
+        _presentationService = presentationService;
     }
 
     private void HandleNavigationEvent(object? sender, EventArgs e)
@@ -25,17 +25,17 @@ public class MainWindowViewModel :
 
     public async Task OnNavigatedAsync()
     {
-        _navigationService.GetNavigationFrame().Pausing += HandleNavigationEvent;
-        _navigationService.GetNavigationFrame().Navigating += HandleNavigationEvent;
-        _navigationService.GetNavigationFrame().Navigated += HandleNavigationEvent;
-        _navigationService.GetNavigationFrame().Paused += HandleNavigationEvent;
-        _navigationService.GetNavigationFrame().Disposing += HandleNavigationEvent;
-        _navigationService.GetNavigationFrame().Resuming += HandleNavigationEvent;
-        _navigationService.GetNavigationFrame().Resumed += HandleNavigationEvent;
-        _navigationService.GetNavigationFrame().Disposed += HandleNavigationEvent;
+        _presentationService.GetNavigationFrame().Pausing += HandleNavigationEvent;
+        _presentationService.GetNavigationFrame().Navigating += HandleNavigationEvent;
+        _presentationService.GetNavigationFrame().Navigated += HandleNavigationEvent;
+        _presentationService.GetNavigationFrame().Paused += HandleNavigationEvent;
+        _presentationService.GetNavigationFrame().Disposing += HandleNavigationEvent;
+        _presentationService.GetNavigationFrame().Resuming += HandleNavigationEvent;
+        _presentationService.GetNavigationFrame().Resumed += HandleNavigationEvent;
+        _presentationService.GetNavigationFrame().Disposed += HandleNavigationEvent;
 
-        await _navigationService.NavigateToContentPageAsync(1, "");
-        await _navigationService.NavigateToContentPageAsync(1, SecondFrameName);
+        await _presentationService.NavigateToContentPageAsync(1, "");
+        await _presentationService.NavigateToContentPageAsync(1, SecondFrameName);
     }
 
     public Task OnNavigatingAsync()

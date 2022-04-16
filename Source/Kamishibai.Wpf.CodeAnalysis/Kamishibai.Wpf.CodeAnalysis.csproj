@@ -8,10 +8,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Include="Generator\NavigationServiceTemplate.cs">
+	  <None Include="Generator\PresentationServiceTemplate.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
-	    <DependentUpon>NavigationServiceTemplate.tt</DependentUpon>
+	    <DependentUpon>PresentationServiceTemplate.tt</DependentUpon>
 	  </None>
 	</ItemGroup>
 
@@ -22,9 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <None Update="Generator\NavigationServiceTemplate.tt">
+	  <None Update="Generator\PresentationServiceTemplate.tt">
 	    <Generator>TextTemplatingFilePreprocessor</Generator>
-	    <LastGenOutput>NavigationServiceTemplate.cs</LastGenOutput>
+	    <LastGenOutput>PresentationServiceTemplate.cs</LastGenOutput>
 	  </None>
 	</ItemGroup>
 
@@ -37,6 +37,11 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>NavigationServiceTemplate.tt</DependentUpon>
+	  </Compile>
+	  <Compile Update="Generator\PresentationServiceTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>PresentationServiceTemplate.tt</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

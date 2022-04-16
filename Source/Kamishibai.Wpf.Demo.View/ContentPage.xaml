@@ -10,7 +10,7 @@
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
         <TextBlock Text="Safe Content Page"/>
         <StackPanel Orientation="Horizontal" Margin="5">
-            <TextBlock Text="NavigationService count : "/>
+            <TextBlock Text="PresentationService count : "/>
             <TextBlock Text="{Binding Count}"/>
         </StackPanel>
         <CheckBox Content="Can Navigate Async" IsChecked="{Binding CanNavigateAsync}"/>

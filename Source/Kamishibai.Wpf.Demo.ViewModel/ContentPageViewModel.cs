@@ -23,18 +23,18 @@ public class ContentPageViewModel :
     IDisposedAsyncAware,
     IDisposable
 {
-    private readonly INavigationService _navigationService;
+    private readonly IPresentationService _presentationService;
 
     public ContentPageViewModel(
         int count, 
         string frameName,
         // ReSharper disable once UnusedParameter.Local
         [Inject] IEmployeeRepository employeeRepository,
-        [Inject] INavigationService navigationService)
+        [Inject] IPresentationService presentationService)
     {
         Count = count;
         FrameName = frameName;
-        _navigationService = navigationService;
+        _presentationService = presentationService;
         NavigateNextCommand = new AsyncRelayCommand(OnNavigateNext);
         GoBackCommand = new AsyncRelayCommand(OnGoBack);
     }
@@ -51,12 +51,12 @@ public class ContentPageViewModel :
 
     private Task OnNavigateNext()
     {
-        return _navigationService.NavigateToContentPageAsync(Count + 1, FrameName);
+        return _presentationService.NavigateToContentPageAsync(Count + 1, FrameName);
     }
 
     private Task OnGoBack()
     {
-        return _navigationService.GoBackAsync(FrameName);
+        return _presentationService.GoBackAsync(FrameName);
     }
 
     public async Task<bool> OnPausingAsync()

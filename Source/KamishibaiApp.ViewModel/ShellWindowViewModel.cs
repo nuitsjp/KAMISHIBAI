@@ -14,14 +14,14 @@ namespace KamishibaiApp.ViewModel;
 [Navigatable]
 public class ShellWindowViewModel : ViewModelBase, INavigatingAware, INotifyPropertyChanged
 {
-    private readonly INavigationService _navigationService;
+    private readonly IPresentationService _presentationService;
     private readonly IThemeSelectorService _themeSelectorService;
     private HamburgerMenuItem? _selectedMenuItem;
     private HamburgerMenuItem? _selectedOptionsMenuItem;
 
-    public ShellWindowViewModel(INavigationService navigationService, IThemeSelectorService themeSelectorService)
+    public ShellWindowViewModel(IPresentationService presentationService, IThemeSelectorService themeSelectorService)
     {
-        _navigationService = navigationService;
+        _presentationService = presentationService;
         _themeSelectorService = themeSelectorService;
         GoBackCommand = new AsyncRelayCommand(OnGoBack, CanGoBack);
     }
@@ -70,10 +70,10 @@ public class ShellWindowViewModel : ViewModelBase, INavigatingAware, INotifyProp
     public ICommand OptionsMenuItemInvokedCommand => new RelayCommand(OnOptionsMenuItemInvoked);
 
     private bool CanGoBack()
-        => _navigationService.CanGoBack();
+        => _presentationService.CanGoBack();
 
     private Task OnGoBack()
-        => _navigationService.GoBackAsync();
+        => _presentationService.GoBackAsync();
 
     private void OnOptionsMenuItemInvoked()
         => NavigateTo(SelectedOptionsMenuItem?.TargetPageType);
@@ -82,14 +82,14 @@ public class ShellWindowViewModel : ViewModelBase, INavigatingAware, INotifyProp
     {
         if (targetViewModel is not null)
         {
-            _navigationService.NavigateAsync(targetViewModel);
+            _presentationService.NavigateAsync(targetViewModel);
         }
     }
 
     public void OnNavigating()
     {
         _themeSelectorService.InitializeTheme();
-        _navigationService.GetNavigationFrame().Subscribe(viewModel =>
+        _presentationService.GetNavigationFrame().Subscribe(viewModel =>
         {
             var item = MenuItems
                 .FirstOrDefault(i => viewModel.GetType() == i.TargetPageType);

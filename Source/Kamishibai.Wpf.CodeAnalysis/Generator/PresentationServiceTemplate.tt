@@ -8,7 +8,7 @@ using Kamishibai.Wpf;
 
 namespace <#= Namespace #>;
 
-public partial interface INavigationService : INavigationServiceBase
+public partial interface IPresentationService : IPresentationServiceBase
 {
 <#
 foreach(var navigationInfo in NavigationInfos)
@@ -20,11 +20,11 @@ foreach(var navigationInfo in NavigationInfos)
 #>
 }
 
-public class NavigationService : NavigationServiceBase, INavigationService
+public class PresentationService : PresentationServiceBase, IPresentationService
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public NavigationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
+    public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
         : base (serviceProvider, navigationFrameProvider)
     {
         _serviceProvider = serviceProvider;

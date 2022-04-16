@@ -49,7 +49,7 @@ public class SourceGenerator : ISourceGenerator
         }
 
         var source =
-            new NavigationServiceTemplate(
+            new PresentationServiceTemplate(
                 context.Compilation.AssemblyName!,
                 navigationInfos
             ).TransformText();

@@ -1,11 +1,11 @@
 ﻿namespace Kamishibai.Wpf;
 
-public class NavigationServiceBase : INavigationServiceBase
+public class PresentationServiceBase : IPresentationServiceBase
 {
     private readonly INavigationFrameProvider _navigationFrameProvider;
     private readonly IServiceProvider _serviceProvider;
 
-    public NavigationServiceBase(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
+    public PresentationServiceBase(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
     {
         _serviceProvider = serviceProvider;
         _navigationFrameProvider = navigationFrameProvider;
@@ -46,7 +46,7 @@ public class NavigationServiceBase : INavigationServiceBase
             .GoBackAsync();
     }
 
-    bool INavigationServiceBase.CanGoBack(string frameName) => _navigationFrameProvider.GetNavigationFrame(frameName).CanGoBack;
+    bool IPresentationServiceBase.CanGoBack(string frameName) => _navigationFrameProvider.GetNavigationFrame(frameName).CanGoBack;
 
     public INavigationFrame GetNavigationFrame(string frameName = "") =>
         _navigationFrameProvider.GetNavigationFrame(frameName);

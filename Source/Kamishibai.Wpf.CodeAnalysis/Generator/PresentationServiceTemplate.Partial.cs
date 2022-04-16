@@ -1,8 +1,8 @@
 ﻿namespace Kamishibai.Wpf.CodeAnalysis.Generator;
 
-public partial class NavigationServiceTemplate
+public partial class PresentationServiceTemplate
 {
-    public NavigationServiceTemplate(string ns, List<NavigationInfo> navigationInfos)
+    public PresentationServiceTemplate(string ns, List<NavigationInfo> navigationInfos)
     {
         Namespace = ns;
         NavigationInfos = navigationInfos;

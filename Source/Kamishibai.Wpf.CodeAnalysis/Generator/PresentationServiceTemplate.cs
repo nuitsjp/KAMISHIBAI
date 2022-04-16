@@ -18,16 +18,17 @@ namespace Kamishibai.Wpf.CodeAnalysis.Generator
     /// Class to produce the template output
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class NavigationServiceTemplate : TemplateBase
+    public partial class PresentationServiceTemplate : TemplateBase
     {
         /// <summary>
         /// Create the template output
         /// </summary>
-        public virtual string TransformText()
+        public override string TransformText()
         {
             this.Write("using Kamishibai.Wpf;\r\n\r\nnamespace ");
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
-            this.Write(";\r\n\r\npublic partial interface INavigationService : INavigationServiceBase\r\n{\r\n");
+            this.Write(";\r\n\r\npublic partial interface IPresentationService : IPresentationServiceBase\r\n{\r" +
+                    "\n");
 
 foreach(var navigationInfo in NavigationInfos)
 {
@@ -42,11 +43,11 @@ foreach(var navigationInfo in NavigationInfos)
 
             this.Write(@"}
 
-public class NavigationService : NavigationServiceBase, INavigationService
+public class PresentationService : PresentationServiceBase, IPresentationService
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public NavigationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
+    public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider)
         : base (serviceProvider, navigationFrameProvider)
     {
         _serviceProvider = serviceProvider;
