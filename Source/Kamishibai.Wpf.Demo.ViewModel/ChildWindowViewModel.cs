@@ -12,16 +12,32 @@ public class ChildWindowViewModel
     }
 
     public string Message { get; set; } = string.Empty;
-    public AsyncRelayCommand OpenWindowCommand => new(OnOpenWindowAsync);
+    public AsyncRelayCommand<object> OpenWindowCommand => new(OnOpenWindowAsync);
     public AsyncRelayCommand OpenDialogCommand => new(OnOpenDialogAsync);
+    public AsyncRelayCommand CloseWindowCommand => new(OnCloseWindowAsync);
+    public AsyncRelayCommand CloseDialogCommand => new(OnCloseDialogAsync);
 
-    private Task OnOpenWindowAsync()
+#nullable enable
+    private Task OnOpenWindowAsync(object? window)
     {
-        return _presentationService.OpenWindowAsync(typeof(ChildWindowViewModel));
+#nullable disable
+        return _presentationService.OpenWindowAsync(typeof(ChildWindowViewModel), window);
     }
 
     private Task OnOpenDialogAsync()
     {
         return _presentationService.OpenDialogAsync(typeof(ChildWindowViewModel));
     }
+    private Task OnCloseWindowAsync()
+    {
+        _presentationService.CloseWindowAsync();
+        return Task.CompletedTask;
+    }
+
+    private Task OnCloseDialogAsync()
+    {
+        _presentationService.CloseDialogAsync(true);
+        return Task.CompletedTask;
+    }
+
 }

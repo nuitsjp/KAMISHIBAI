@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:view="clr-namespace:Kamishibai.Wpf.Demo.View"
+             xmlns:kamishibai="clr-namespace:Kamishibai.Wpf.View;assembly=Kamishibai.Wpf.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance {x:Type view:DesignContentPageViewModel}, IsDesignTimeCreatable=True}">
@@ -19,11 +20,16 @@
         <CheckBox Content="Can Go Back" IsChecked="{Binding CanGoBack}"/>
         <Button Content="Navigate Next" Margin="5" Command="{Binding NavigateNextCommand}"/>
         <Button Content="Go Back" Margin="5" Command="{Binding GoBackCommand}"/>
-        <Button Content="Open Window" Margin="5" Command="{Binding OpenWindowCommand}"/>
+        <Button Content="Open Window" Margin="5" Command="{Binding OpenWindowCommand}" CommandParameter="{kamishibai:Window}"/>
         <Button Content="Open Window with parameter" Margin="5" Command="{Binding OpenWindowWithParameterCommand}"/>
         <Button Content="Open Window with callback" Margin="5" Command="{Binding OpenWindowWithCallbackCommand}"/>
-        <Button Content="Open Dialog" Margin="5" Command="{Binding OpenDialogCommand}"/>
-        <Button Content="Open Dialog with parameter" Margin="5" Command="{Binding OpenDialogWithParameterCommand}"/>
-        <Button Content="Open Dialog with callback" Margin="5" Command="{Binding OpenDialogWithCallbackCommand}"/>
+        <Button Content="Open Dialog" Margin="5" Command="{Binding OpenDialogCommand}" CommandParameter="{kamishibai:Window}"/>
+        <Button Content="Open Dialog with parameter" Margin="5" Command="{Binding OpenDialogWithParameterCommand}" CommandParameter="{kamishibai:Window}"/>
+        <Button Content="Open Dialog with callback" Margin="5" Command="{Binding OpenDialogWithCallbackCommand}" CommandParameter="{kamishibai:Window}"/>
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <TextBlock Text="Dialog result : "/>
+            <TextBlock Text="{Binding DialogResult}"/>
+        </StackPanel>
+
     </StackPanel>
 </UserControl>

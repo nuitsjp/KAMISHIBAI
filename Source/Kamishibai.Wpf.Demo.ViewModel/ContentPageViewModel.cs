@@ -1,10 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Toolkit.Mvvm.Input;
+using PropertyChanged;
 
 namespace Kamishibai.Wpf.Demo.ViewModel;
 
 [Navigatable]
+[AddINotifyPropertyChangedInterface]
 public class ContentPageViewModel :
     IPausingAsyncAware,
     IPausingAware,
@@ -43,10 +45,11 @@ public class ContentPageViewModel :
     public bool CanNavigate { get; set; } = true;
     public bool CanGoBackAsync { get; set; } = true;
     public bool CanGoBack { get; set; } = true;
+    public bool DialogResult { get; set; }
 
     public AsyncRelayCommand NavigateNextCommand => new(OnNavigateNextAsync);
     public AsyncRelayCommand GoBackCommand => new(OnGoBackAsync);
-    public AsyncRelayCommand OpenWindowCommand => new(OnOpenWindowAsync);
+    public AsyncRelayCommand<object> OpenWindowCommand => new(OnOpenWindowAsync);
     public AsyncRelayCommand OpenWindowWithParameterCommand => new(OnOpenWindowWithParameterAsync);
     public AsyncRelayCommand OpenWindowWithCallbackCommand => new(OnOpenWindowWithCallbackAsync);
     public AsyncRelayCommand OpenDialogCommand => new(OnOpenDialogAsync);
@@ -63,9 +66,11 @@ public class ContentPageViewModel :
         return _presentationService.GoBackAsync(FrameName);
     }
 
-    private Task OnOpenWindowAsync()
+#nullable enable
+    private Task OnOpenWindowAsync(object? window)
+#nullable disable
     {
-        return _presentationService.OpenWindowAsync(typeof(ChildWindowViewModel));
+        return _presentationService.OpenWindowAsync(typeof(ChildWindowViewModel), window);
     }
 
     private Task OnOpenWindowWithParameterAsync()
@@ -78,19 +83,19 @@ public class ContentPageViewModel :
         return _presentationService.OpenWindowAsync<ChildWindowViewModel>(viewModel => viewModel.Message = "Hello, OpenWindow with callback.", null);
     }
 
-    private Task OnOpenDialogAsync()
+    private async Task OnOpenDialogAsync()
     {
-        return _presentationService.OpenDialogAsync(typeof(ChildWindowViewModel));
+        DialogResult = await _presentationService.OpenDialogAsync(typeof(ChildWindowViewModel));
     }
 
-    private Task OnOpenDialogWithParameterAsync()
+    private async Task OnOpenDialogWithParameterAsync()
     {
-        return _presentationService.OpenDialogAsync(new ChildWindowViewModel(_presentationService) { Message = "Hello, OpenWindow with parameter." });
+        DialogResult = await _presentationService.OpenDialogAsync(new ChildWindowViewModel(_presentationService) { Message = "Hello, OpenWindow with parameter." });
     }
 
-    private Task OnOpenDialogWithCallbackAsync()
+    private async Task OnOpenDialogWithCallbackAsync()
     {
-        return _presentationService.OpenDialogAsync(new ChildWindowViewModel(_presentationService) { Message = "Hello, OpenWindow with callback." });
+        DialogResult = await _presentationService.OpenDialogAsync<ChildWindowViewModel>(viewModel => viewModel.Message = "Hello, OpenWindow with callback.");
     }
 
     public async Task<bool> OnPausingAsync()

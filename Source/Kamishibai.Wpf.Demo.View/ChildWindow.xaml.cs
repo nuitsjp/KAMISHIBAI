@@ -11,17 +11,24 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Kamishibai.Wpf.Demo.ViewModel;
 
-namespace Kamishibai.Wpf.Demo.View
+namespace Kamishibai.Wpf.Demo.View;
+
+/// <summary>
+/// ChildWindow.xaml の相互作用ロジック
+/// </summary>
+public partial class ChildWindow : Window
 {
-    /// <summary>
-    /// ChildWindow.xaml の相互作用ロジック
-    /// </summary>
-    public partial class ChildWindow : Window
+    public ChildWindow()
     {
-        public ChildWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
+}
+
+public class DesignChildWindowViewModel : ChildWindowViewModel
+{
+    public DesignChildWindowViewModel() : base(default!)
+    {
     }
 }
