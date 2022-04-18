@@ -3,7 +3,6 @@ using SampleBrowser.ViewModel.Page;
 
 namespace SampleBrowser.ViewModel;
 
-[Navigatable]
 public class MainViewModel : INavigatedAsyncAware
 {
     private MenuItem _selectedMenuItem;
