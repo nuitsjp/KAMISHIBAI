@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SampleBrowser.ViewModel;
+using SampleBrowser.ViewModel.Page;
 
 namespace SampleBrowser.View.Page
 {
@@ -23,6 +25,13 @@ namespace SampleBrowser.View.Page
         public NavigationMenuPage()
         {
             InitializeComponent();
+        }
+    }
+
+    public class DesignNavigationMenuViewModel : NavigationMenuViewModel
+    {
+        public DesignNavigationMenuViewModel() : base(default!)
+        {
         }
     }
 }
