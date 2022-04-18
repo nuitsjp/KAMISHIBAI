@@ -17,7 +17,8 @@ public class MainViewModel : INavigatedAsyncAware
 
     public IReadOnlyList<MenuItem> SampleItems { get; } = new List<MenuItem>
     {
-        new ("Navigation", typeof(NavigationMenuViewModel))
+        new ("Navigation", typeof(NavigationMenuViewModel)),
+        new ("Open Window", typeof(OpenWindowViewModel))
     };
 
     public MenuItem SelectedMenuItem

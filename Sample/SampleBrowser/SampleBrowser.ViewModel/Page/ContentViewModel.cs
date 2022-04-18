@@ -14,6 +14,6 @@ public class ContentViewModel
         _presentationService = presentationService;
     }
 
-    public string Message { get; set; } = "Default Message";
+    public string Message { get; set; } = "Default WindowName";
     public ICommand GoBackCommand => new AsyncRelayCommand(() => _presentationService.GoBackAsync());
 }

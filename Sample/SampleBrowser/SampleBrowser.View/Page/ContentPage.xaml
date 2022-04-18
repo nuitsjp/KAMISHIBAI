@@ -21,7 +21,7 @@
         <TextBlock Text="Content Page" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
         <Border Grid.Row="1" Padding="16">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Message : "/>
+                <TextBlock Text="WindowName : "/>
                 <TextBlock Text="{Binding Message}" Margin="10"/>
                 <Button Content="Go Back" Command="{Binding GoBackCommand}"/>
             </StackPanel>

@@ -17,6 +17,9 @@ public class WindowService : IWindowService
         return OpenWindowAsync(viewModelType, owner, viewModel, options);
     }
 
+    public Task OpenWindowAsync<TViewModel>(object? owner, OpenWindowOptions options)
+        => OpenWindowAsync(typeof(TViewModel), owner, options);
+
     public Task OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner, OpenWindowOptions options) where TViewModel : notnull
     {
         return OpenWindowAsync(typeof(TViewModel), owner, viewModel, options);

@@ -3,6 +3,7 @@
 public interface IWindowService
 {
     Task OpenWindowAsync(Type viewModelType, object? owner, OpenWindowOptions options);
+    Task OpenWindowAsync<TViewModel>(object? owner, OpenWindowOptions options);
     Task OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner, OpenWindowOptions options) where TViewModel : notnull;
     Task OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner, OpenWindowOptions options);
     Task<bool> OpenDialogAsync(Type viewModelType, object? owner, OpenWindowOptions options);

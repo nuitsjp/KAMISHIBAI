@@ -59,6 +59,9 @@ public class PresentationServiceBase : IPresentationServiceBase
     public Task OpenWindowAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null)
         => _windowService.OpenWindowAsync(viewModelType, owner, options ?? new OpenWindowOptions());
 
+    public Task OpenWindowAsync<TViewModel>(object? owner = null, OpenWindowOptions? options = null)
+        => _windowService.OpenWindowAsync<TViewModel>(owner, options ?? new OpenWindowOptions());
+
     public Task OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenWindowOptions? options = null) where TViewModel : notnull
         => _windowService.OpenWindowAsync(viewModel, owner, options ?? new OpenWindowOptions());
 

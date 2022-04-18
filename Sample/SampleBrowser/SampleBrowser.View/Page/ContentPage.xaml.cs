@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-using SampleBrowser.ViewModel;
-using SampleBrowser.ViewModel.Page;
+﻿using SampleBrowser.ViewModel.Page;
 
 namespace SampleBrowser.View.Page;
 

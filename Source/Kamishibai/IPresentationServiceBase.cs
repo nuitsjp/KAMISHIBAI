@@ -11,13 +11,14 @@ public interface IPresentationServiceBase
     INavigationFrame GetNavigationFrame(string frameName = "");
 
     public Task OpenWindowAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null);
+    public Task OpenWindowAsync<TViewModel>(object? owner = null, OpenWindowOptions? options = null);
     public Task OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenWindowOptions? options = null) where TViewModel : notnull;
     public Task OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenWindowOptions? options = null);
+    public Task CloseWindowAsync(object? window = null);
+
     public Task<bool> OpenDialogAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null);
     public Task<bool> OpenDialogAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenWindowOptions? options = null) where TViewModel : notnull;
     public Task<bool> OpenDialogAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenWindowOptions? options = null);
-
-    public Task CloseWindowAsync(object? window = null);
     public Task CloseDialogAsync(bool dialogResult, object? window = null);
 
     public MessageBoxResult ShowMessage(

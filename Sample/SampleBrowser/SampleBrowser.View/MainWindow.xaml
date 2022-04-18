@@ -16,7 +16,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        d:DataContext="{d:DesignInstance {x:Type viewModel:MainViewModel}, IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance {x:Type local:DesignMainViewModel}, IsDesignTimeCreatable=True}">
     <materialDesign:DrawerHost
             IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
         <materialDesign:DrawerHost.LeftDrawerContent>
@@ -68,8 +68,8 @@
                             VerticalAlignment="Center"
                             FontSize="22"
                             Margin="-152,0,0,0"
-                            AutomationProperties.Name="Material Design In XAML Toolkit on KAMISHIBAI"
-                            Text="Material Design In XAML Toolkit on KAMISHIBAI"/>
+                            AutomationProperties.Name="KAMISHIBAI"
+                            Text="KAMISHIBAI"/>
                 </DockPanel>
             </materialDesign:ColorZone>
 
