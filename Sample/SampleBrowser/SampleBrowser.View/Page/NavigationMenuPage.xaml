@@ -12,6 +12,11 @@
         <ResourceDictionary>
             <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
             </Style>
+            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid VerticalAlignment="Top">
@@ -25,15 +30,28 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0"  Text="Navigate by Type : "/>
-                <Button Grid.Row="0" Grid.Column="1" Content="Navigate" Command="{Binding NavigateByTypeCommand}"/>
+                <Button Grid.Row="0" Grid.Column="2" Content="Navigate" Command="{Binding NavigateByTypeCommand}"/>
                 <TextBlock Grid.Row="1" Grid.Column="0"  Text="Navigate by Generic Type : "/>
-                <Button Grid.Row="1" Grid.Column="1" Content="Navigate" Command="{Binding NavigateByGenericTypeCommand}"/>
+                <Button Grid.Row="1" Grid.Column="2" Content="Navigate" Command="{Binding NavigateByGenericTypeCommand}"/>
+                <TextBlock Grid.Row="2" Grid.Column="0"  Text="Navigate by View Model instance : "/>
+                <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding Message1}"/>
+                <Button Grid.Row="2" Grid.Column="2" Content="Navigate" Command="{Binding NavigateByInstanceCommand}"/>
+                <TextBlock Grid.Row="3" Grid.Column="0"  Text="Navigate with Callback initializer : "/>
+                <TextBox Grid.Row="3" Grid.Column="1"  Text="{Binding Message2}"/>
+                <Button Grid.Row="3" Grid.Column="2" Content="Navigate" Command="{Binding NavigateWithCallbackCommand}"/>
+                <TextBlock Grid.Row="4" Grid.Column="0"  Text="Navigate with Safe Parameter : "/>
+                <TextBox Grid.Row="4" Grid.Column="1"  Text="{Binding Message3}"/>
+                <Button Grid.Row="4" Grid.Column="2" Content="Navigate" Command="{Binding NavigateWithSafeParameterCommand}"/>
             </Grid>
         </Border>
     </Grid>

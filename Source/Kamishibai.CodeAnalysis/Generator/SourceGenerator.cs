@@ -34,7 +34,7 @@ public class SourceGenerator : ISourceGenerator
                 .OfType<ConstructorDeclarationSyntax>();
             foreach (var constructorDeclarationSyntax in constructors)
             {
-                NavigationInfo navigationInfo = new(ToNavigationName(typeSymbol.Name), typeSymbol.Name);
+                NavigationInfo navigationInfo = new(ToNavigationName(typeSymbol.Name), typeSymbol.ToString());
                 navigationInfos.Add(navigationInfo);
                 foreach (var parameterSyntax in constructorDeclarationSyntax.ParameterList.Parameters)
                 {
@@ -53,7 +53,7 @@ public class SourceGenerator : ISourceGenerator
                 context.Compilation.AssemblyName!,
                 navigationInfos
             ).TransformText();
-        context.AddSource((string) "INavigationService.cs", (string) source);
+        context.AddSource("IPresentationService.cs", source);
     }
 
     private static string ToNavigationName(string viewModelName)

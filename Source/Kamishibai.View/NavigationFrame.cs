@@ -55,7 +55,9 @@ public class NavigationFrame : Grid, INavigationFrame
     public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, IServiceProvider serviceProvider) where TViewModel : class
     {
         var view = GetPresentation(serviceProvider, typeof(TViewModel));
-        var viewModel = (TViewModel) view.DataContext;
+        view.DataContext ??= serviceProvider.GetService(typeof(TViewModel));
+
+        var viewModel = (TViewModel) view.DataContext!;
         init(viewModel);
 
         return NavigateAsync(view, viewModel);

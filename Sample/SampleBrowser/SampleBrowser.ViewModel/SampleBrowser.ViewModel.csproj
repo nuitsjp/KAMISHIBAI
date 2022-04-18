@@ -1,18 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Source\Kamishibai.CodeAnalysis\Kamishibai.CodeAnalysis.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\..\..\Source\Kamishibai\Kamishibai.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="PropertyChanged.Fody" Version="3.4.0" PrivateAssets="All" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Source\Kamishibai.CodeAnalysis\Kamishibai.CodeAnalysis.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\..\Source\Kamishibai\Kamishibai.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+	</ItemGroup>
 
 </Project>
