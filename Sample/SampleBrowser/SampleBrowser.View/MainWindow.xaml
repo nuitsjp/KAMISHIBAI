@@ -1,0 +1,85 @@
+﻿<Window x:Class="SampleBrowser.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SampleBrowser.View"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModel="clr-namespace:SampleBrowser.ViewModel;assembly=SampleBrowser.ViewModel"
+        xmlns:kamishibai="clr-namespace:Kamishibai;assembly=Kamishibai.View"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance {x:Type viewModel:MainViewModel}, IsDesignTimeCreatable=True}">
+    <materialDesign:DrawerHost
+            IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+        <materialDesign:DrawerHost.LeftDrawerContent>
+            <DockPanel MinWidth="220">
+                <ToggleButton 
+                        Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                        DockPanel.Dock="Top"
+                        HorizontalAlignment="Right" 
+                        Margin="16"
+                        IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"/>
+
+                <ListBox 
+                        x:Name="DemoItemsListBox" 
+                        Margin="0 16 0 16"
+                        SelectedItem="{Binding SelectedMenuItem}"
+                        ItemsSource="{Binding SampleItems}"
+                        PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
+                        AutomationProperties.Name="DemoPagesListBox"
+                        Style="{StaticResource MaterialDesignNavigationPrimaryListBox}">
+                    <ListBox.Resources>
+                        <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
+                    </ListBox.Resources>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="viewModel:MenuItem">
+                            <TextBlock Text="{Binding Name}" Margin="24 4 0 4" AutomationProperties.AutomationId="DemoItemPage"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </materialDesign:DrawerHost.LeftDrawerContent>
+
+        <DockPanel>
+            <materialDesign:ColorZone
+                    Padding="16"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                    Mode="PrimaryMid"
+                    DockPanel.Dock="Top">
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton
+                                x:Name="MenuToggleButton"
+                                Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                IsChecked="False"
+                                AutomationProperties.Name="HamburgerToggleButton"/>
+                    </StackPanel>
+
+                    <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="22"
+                            Margin="-152,0,0,0"
+                            AutomationProperties.Name="Material Design In XAML Toolkit on KAMISHIBAI"
+                            Text="Material Design In XAML Toolkit on KAMISHIBAI"/>
+                </DockPanel>
+            </materialDesign:ColorZone>
+
+            <Grid Margin="16">
+                <kamishibai:NavigationFrame/>
+
+                <materialDesign:Snackbar
+                        x:Name="MainSnackbar"
+                        MessageQueue="{materialDesign:MessageQueue}"/>
+            </Grid>
+        </DockPanel>
+    </materialDesign:DrawerHost>
+</Window>

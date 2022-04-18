@@ -1,51 +1,56 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{2133B821-376E-4EC8-B7D9-3EA29DA854EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai", "Source\Kamishibai\Kamishibai.csproj", "{2C5DEDEA-5135-4221-B0B9-36401F695130}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai", "Source\Kamishibai\Kamishibai.csproj", "{2C5DEDEA-5135-4221-B0B9-36401F695130}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.CodeAnalysis", "Source\Kamishibai.CodeAnalysis\Kamishibai.CodeAnalysis.csproj", "{525BE5ED-EE93-4F24-AA3B-91F26CC74707}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.CodeAnalysis", "Source\Kamishibai.CodeAnalysis\Kamishibai.CodeAnalysis.csproj", "{525BE5ED-EE93-4F24-AA3B-91F26CC74707}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Extensions.Hosting", "Source\Kamishibai.Extensions.Hosting\Kamishibai.Extensions.Hosting.csproj", "{E5B7C0F8-AE6A-4C7D-A88D-4B8070E5C0BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Extensions.Hosting", "Source\Kamishibai.Extensions.Hosting\Kamishibai.Extensions.Hosting.csproj", "{E5B7C0F8-AE6A-4C7D-A88D-4B8070E5C0BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.View", "Source\Kamishibai.View\Kamishibai.View.csproj", "{1070FD63-39F5-424E-AE87-30285C3ACEDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.View", "Source\Kamishibai.View\Kamishibai.View.csproj", "{1070FD63-39F5-424E-AE87-30285C3ACEDD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{60F6A13E-E403-4310-9339-34EEA5E6368D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{095B9D2A-2456-45D3-9AAD-F0E0E8EA9302}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kamishibai.Demo", "Kamishibai.Demo", "{095B9D2A-2456-45D3-9AAD-F0E0E8EA9302}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Demo", "Sample\Demo\Kamishibai.Demo\Kamishibai.Demo.csproj", "{502B31BA-3B76-4BE0-A55D-1D6F2E1659A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Demo", "Sample\Demo\Kamishibai.Demo\Kamishibai.Demo.csproj", "{502B31BA-3B76-4BE0-A55D-1D6F2E1659A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Demo.App", "Sample\Demo\Kamishibai.Demo.App\Kamishibai.Demo.App.csproj", "{83516D6C-C39C-4EEF-9B6C-ADC8A0DA7419}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Demo.App", "Sample\Demo\Kamishibai.Demo.App\Kamishibai.Demo.App.csproj", "{83516D6C-C39C-4EEF-9B6C-ADC8A0DA7419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Demo.Repository", "Sample\Demo\Kamishibai.Demo.Repository\Kamishibai.Demo.Repository.csproj", "{F0ACEA67-9901-44A9-B053-FF57A328D429}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Demo.Repository", "Sample\Demo\Kamishibai.Demo.Repository\Kamishibai.Demo.Repository.csproj", "{F0ACEA67-9901-44A9-B053-FF57A328D429}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Demo.View", "Sample\Demo\Kamishibai.Demo.View\Kamishibai.Demo.View.csproj", "{3F2044AA-368B-430E-A7C5-C0E58D0DF2E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Demo.View", "Sample\Demo\Kamishibai.Demo.View\Kamishibai.Demo.View.csproj", "{3F2044AA-368B-430E-A7C5-C0E58D0DF2E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Demo.ViewModel", "Sample\Demo\Kamishibai.Demo.ViewModel\Kamishibai.Demo.ViewModel.csproj", "{0E81327A-EEBD-4CBF-A7E0-E897E6B5C338}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Demo.ViewModel", "Sample\Demo\Kamishibai.Demo.ViewModel\Kamishibai.Demo.ViewModel.csproj", "{0E81327A-EEBD-4CBF-A7E0-E897E6B5C338}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KamishibaiApp", "KamishibaiApp", "{0427365D-C0CC-41F2-ACCC-947CEC1FDD8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KamishibaiApp", "Sample\KamishibaiApp\KamishibaiApp\KamishibaiApp.csproj", "{1CA94A2A-67BF-463B-AD7A-3F39BE86C9D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KamishibaiApp", "Sample\KamishibaiApp\KamishibaiApp\KamishibaiApp.csproj", "{1CA94A2A-67BF-463B-AD7A-3F39BE86C9D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KamishibaiApp.App", "Sample\KamishibaiApp\KamishibaiApp.App\KamishibaiApp.App.csproj", "{DB503E5B-F058-4571-8E8D-20E208ED7FF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KamishibaiApp.App", "Sample\KamishibaiApp\KamishibaiApp.App\KamishibaiApp.App.csproj", "{DB503E5B-F058-4571-8E8D-20E208ED7FF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KamishibaiApp.Repository", "Sample\KamishibaiApp\KamishibaiApp.Repository\KamishibaiApp.Repository.csproj", "{CFB3C1C1-178C-440D-A3C1-4C0E9A431462}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KamishibaiApp.Repository", "Sample\KamishibaiApp\KamishibaiApp.Repository\KamishibaiApp.Repository.csproj", "{CFB3C1C1-178C-440D-A3C1-4C0E9A431462}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KamishibaiApp.View", "Sample\KamishibaiApp\KamishibaiApp.View\KamishibaiApp.View.csproj", "{8B226B54-4647-478D-BE8F-4DB489742A3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KamishibaiApp.View", "Sample\KamishibaiApp\KamishibaiApp.View\KamishibaiApp.View.csproj", "{8B226B54-4647-478D-BE8F-4DB489742A3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KamishibaiApp.ViewModel", "Sample\KamishibaiApp\KamishibaiApp.ViewModel\KamishibaiApp.ViewModel.csproj", "{6B5FAEEE-6591-4C28-AF09-D073796F9FB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KamishibaiApp.ViewModel", "Sample\KamishibaiApp\KamishibaiApp.ViewModel\KamishibaiApp.ViewModel.csproj", "{6B5FAEEE-6591-4C28-AF09-D073796F9FB0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleBrowser", "SampleBrowser", "{11B04DF8-B979-4332-A34C-B485FB80CC7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleBrowser.View", "Sample\SampleBrowser\SampleBrowser.View\SampleBrowser.View.csproj", "{CC5B2C9D-C98E-4C09-AD6F-EDFA889D8FBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleBrowser.App", "Sample\SampleBrowser\SampleBrowser.App\SampleBrowser.App.csproj", "{3578A77A-D46A-4D20-9808-D9F623ED13A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleBrowser.ViewModel", "Sample\SampleBrowser\SampleBrowser.ViewModel\SampleBrowser.ViewModel.csproj", "{7C981C5F-9559-4A36-BEF1-87794FF66053}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2C5DEDEA-5135-4221-B0B9-36401F695130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -104,6 +109,21 @@ Global
 		{6B5FAEEE-6591-4C28-AF09-D073796F9FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B5FAEEE-6591-4C28-AF09-D073796F9FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B5FAEEE-6591-4C28-AF09-D073796F9FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5B2C9D-C98E-4C09-AD6F-EDFA889D8FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5B2C9D-C98E-4C09-AD6F-EDFA889D8FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5B2C9D-C98E-4C09-AD6F-EDFA889D8FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5B2C9D-C98E-4C09-AD6F-EDFA889D8FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3578A77A-D46A-4D20-9808-D9F623ED13A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3578A77A-D46A-4D20-9808-D9F623ED13A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3578A77A-D46A-4D20-9808-D9F623ED13A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3578A77A-D46A-4D20-9808-D9F623ED13A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C981C5F-9559-4A36-BEF1-87794FF66053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C981C5F-9559-4A36-BEF1-87794FF66053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C981C5F-9559-4A36-BEF1-87794FF66053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C981C5F-9559-4A36-BEF1-87794FF66053}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2C5DEDEA-5135-4221-B0B9-36401F695130} = {2133B821-376E-4EC8-B7D9-3EA29DA854EC}
@@ -122,5 +142,12 @@ Global
 		{CFB3C1C1-178C-440D-A3C1-4C0E9A431462} = {0427365D-C0CC-41F2-ACCC-947CEC1FDD8C}
 		{8B226B54-4647-478D-BE8F-4DB489742A3E} = {0427365D-C0CC-41F2-ACCC-947CEC1FDD8C}
 		{6B5FAEEE-6591-4C28-AF09-D073796F9FB0} = {0427365D-C0CC-41F2-ACCC-947CEC1FDD8C}
+		{11B04DF8-B979-4332-A34C-B485FB80CC7A} = {60F6A13E-E403-4310-9339-34EEA5E6368D}
+		{CC5B2C9D-C98E-4C09-AD6F-EDFA889D8FBC} = {11B04DF8-B979-4332-A34C-B485FB80CC7A}
+		{3578A77A-D46A-4D20-9808-D9F623ED13A0} = {11B04DF8-B979-4332-A34C-B485FB80CC7A}
+		{7C981C5F-9559-4A36-BEF1-87794FF66053} = {11B04DF8-B979-4332-A34C-B485FB80CC7A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C276323-7E28-4228-85F8-925F9C3B6FEE}
 	EndGlobalSection
 EndGlobal

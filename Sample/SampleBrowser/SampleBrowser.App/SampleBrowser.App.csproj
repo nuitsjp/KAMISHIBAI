@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Wpf.Extensions.Hosting" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Source\Kamishibai.Extensions.Hosting\Kamishibai.Extensions.Hosting.csproj" />
+    <ProjectReference Include="..\SampleBrowser.ViewModel\SampleBrowser.ViewModel.csproj" />
+    <ProjectReference Include="..\SampleBrowser.View\SampleBrowser.View.csproj" />
+  </ItemGroup>
+
+</Project>
