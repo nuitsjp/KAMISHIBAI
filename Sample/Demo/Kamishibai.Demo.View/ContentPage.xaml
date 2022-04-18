@@ -30,6 +30,12 @@
             <TextBlock Text="Dialog result : "/>
             <TextBlock Text="{Binding DialogResult}"/>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <TextBlock Text="Message : "/>
+            <TextBox Text="{Binding Message}"/>
+        </StackPanel>
+        <Button Content="Show Message" Margin="5" Command="{Binding ShowMessageCommand}"/>
+        <Button Content="Show Message with Window" Margin="5" Command="{Binding ShowMessageWithWindowCommand}" CommandParameter="{kamishibai:Window}"/>
 
     </StackPanel>
 </UserControl>

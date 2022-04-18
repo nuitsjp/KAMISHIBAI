@@ -45,7 +45,8 @@ public class ContentPageViewModel :
     public bool CanNavigate { get; set; } = true;
     public bool CanGoBackAsync { get; set; } = true;
     public bool CanGoBack { get; set; } = true;
-    public bool DialogResult { get; set; }
+    public object DialogResult { get; set; }
+    public string Message { get; set; } = "Hello, Message Dialog!";
 
     public AsyncRelayCommand NavigateNextCommand => new(OnNavigateNextAsync);
     public AsyncRelayCommand GoBackCommand => new(OnGoBackAsync);
@@ -55,6 +56,8 @@ public class ContentPageViewModel :
     public AsyncRelayCommand OpenDialogCommand => new(OnOpenDialogAsync);
     public AsyncRelayCommand OpenDialogWithParameterCommand => new(OnOpenDialogWithParameterAsync);
     public AsyncRelayCommand OpenDialogWithCallbackCommand => new(OnOpenDialogWithCallbackAsync);
+    public RelayCommand ShowMessageCommand => new(OnShowMessage);
+    public RelayCommand<object> ShowMessageWithWindowCommand => new(OnShowMessageWithWindow);
 
     private Task OnNavigateNextAsync()
     {
@@ -96,6 +99,18 @@ public class ContentPageViewModel :
     private async Task OnOpenDialogWithCallbackAsync()
     {
         DialogResult = await _presentationService.OpenDialogAsync<ChildWindowViewModel>(viewModel => viewModel.Message = "Hello, OpenWindow with callback.");
+    }
+
+    private void OnShowMessage()
+    {
+        DialogResult = _presentationService.ShowMessage(Message, "caption", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel, MessageBoxOptions.None);
+    }
+
+#nullable enable
+    private void OnShowMessageWithWindow(object? owner)
+#nullable disable
+    {
+        DialogResult = _presentationService.ShowMessage(Message, owner: owner);
     }
 
     public async Task<bool> OnPausingAsync()

@@ -6,7 +6,7 @@
         xmlns:view1="clr-namespace:Kamishibai.Demo.View"
         xmlns:kamishibai="clr-namespace:Kamishibai;assembly=Kamishibai.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="600" Width="800"
         d:DataContext="{d:DesignInstance {x:Type view1:DesignMainWindowViewModel}, IsDesignTimeCreatable=True}"
         Background="Black">
     <Grid Margin="1">

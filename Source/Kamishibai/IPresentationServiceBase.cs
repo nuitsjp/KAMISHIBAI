@@ -19,4 +19,13 @@ public interface IPresentationServiceBase
 
     public Task CloseWindowAsync(object? window = null);
     public Task CloseDialogAsync(bool dialogResult, object? window = null);
+
+    public MessageBoxResult ShowMessage(
+        string messageBoxText,
+        string? caption = null,
+        MessageBoxButton button = MessageBoxButton.OK,
+        MessageBoxImage icon = MessageBoxImage.None, 
+        MessageBoxResult defaultResult = MessageBoxResult.None,
+        MessageBoxOptions options = MessageBoxOptions.None,
+        object? owner = null);
 }

@@ -79,6 +79,26 @@ public class WindowService : IWindowService
         await NotifyDisposed(target.DataContext);
     }
 
+    public MessageBoxResult ShowMessage(string messageBoxText, string? caption, MessageBoxButton button,
+        MessageBoxImage icon,
+        MessageBoxResult defaultResult, MessageBoxOptions options, object? owner)
+        => (MessageBoxResult) (owner is null
+            ? MessageBox.Show(
+                messageBoxText,
+                caption ?? string.Empty,
+                (System.Windows.MessageBoxButton) button,
+                (System.Windows.MessageBoxImage) icon,
+                (System.Windows.MessageBoxResult) defaultResult,
+                (System.Windows.MessageBoxOptions) options)
+            : MessageBox.Show(
+                (Window) owner,
+                messageBoxText,
+                caption ?? string.Empty,
+                (System.Windows.MessageBoxButton) button,
+                (System.Windows.MessageBoxImage) icon,
+                (System.Windows.MessageBoxResult) defaultResult,
+                (System.Windows.MessageBoxOptions) options));
+
     private Window? GetActiveWindow()
         => Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
 
