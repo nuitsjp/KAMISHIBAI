@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Kamishibai.Wpf.CodeAnalysis.Generator
+namespace Kamishibai.CodeAnalysis.Generator
 {
     public abstract class TemplateBase
     {

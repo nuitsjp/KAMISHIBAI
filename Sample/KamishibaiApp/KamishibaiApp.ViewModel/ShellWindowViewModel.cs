@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Kamishibai.Wpf;
+using Kamishibai;
 using KamishibaiApp.ViewModel.Properties;
 using KamishibaiApp.ViewModel.Service;
 using MahApps.Metro.Controls;

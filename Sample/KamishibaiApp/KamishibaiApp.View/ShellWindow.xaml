@@ -7,7 +7,7 @@
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:templateSelectors="clr-namespace:KamishibaiApp.View.TemplateSelectors"
                  xmlns:properties="clr-namespace:KamishibaiApp.ViewModel.Properties;assembly=KamishibaiApp.ViewModel"
-                 xmlns:view="clr-namespace:Kamishibai.Wpf.View;assembly=Kamishibai.Wpf.View"
+                 xmlns:kamishibai="clr-namespace:Kamishibai;assembly=Kamishibai.View"
                  mc:Ignorable="d"
                  Title="{x:Static properties:Resources.AppDisplayName}" Height="450" Width="800"
                  d:DataContext="{d:DesignInstance Type={x:Type local:DesignShellWindowViewModel}, IsDesignTimeCreatable=True}">
@@ -94,7 +94,7 @@
             OptionsItemTemplateSelector="{StaticResource MenuItemTemplateSelector}"
             ItemTemplateSelector="{StaticResource MenuItemTemplateSelector}">
             <mah:HamburgerMenu.Content>
-                <view:NavigationFrame/>
+                <kamishibai:NavigationFrame/>
             </mah:HamburgerMenu.Content>
         </mah:HamburgerMenu>
     </mah:MetroWindow.Content>

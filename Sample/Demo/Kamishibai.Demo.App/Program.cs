@@ -1,9 +1,9 @@
-﻿using Kamishibai.Wpf.Demo;
-using Kamishibai.Wpf.Demo.App;
-using Kamishibai.Wpf.Demo.Repository;
-using Kamishibai.Wpf.Demo.View;
-using Kamishibai.Wpf.Demo.ViewModel;
-using Kamishibai.Wpf.Extensions.Hosting;
+﻿using Kamishibai;
+using Kamishibai.Demo;
+using Kamishibai.Demo.App;
+using Kamishibai.Demo.Repository;
+using Kamishibai.Demo.View;
+using Kamishibai.Demo.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 

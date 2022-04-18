@@ -1,9 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
-using System.Windows.Media;
 
-namespace Kamishibai.Wpf.View;
+namespace Kamishibai;
 
 [MarkupExtensionReturnType(typeof(Window))]
 public class WindowExtension : MarkupExtension

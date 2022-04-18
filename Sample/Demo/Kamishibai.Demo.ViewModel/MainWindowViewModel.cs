@@ -1,7 +1,7 @@
 ﻿#nullable enable
 using System.Diagnostics;
 
-namespace Kamishibai.Wpf.Demo.ViewModel;
+namespace Kamishibai.Demo.ViewModel;
 
 public class MainWindowViewModel : 
     INavigatingAsyncAware,

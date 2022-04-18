@@ -1,4 +1,4 @@
-﻿namespace Kamishibai.Wpf.Demo
+﻿namespace Kamishibai.Demo
 {
     public interface IEmployeeRepository
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Windows;
 
-namespace Kamishibai.Wpf.View;
+namespace Kamishibai;
 
 internal class NavigationStack : IObservable<FrameworkElement>, IReadOnlyList<FrameworkElement>
 {

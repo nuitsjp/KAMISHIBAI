@@ -1,4 +1,4 @@
-﻿namespace Kamishibai.Wpf.Demo.App
+﻿namespace Kamishibai.Demo.App
 {
     public partial class App
     {

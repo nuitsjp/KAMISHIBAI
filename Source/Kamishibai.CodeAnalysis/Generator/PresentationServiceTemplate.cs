@@ -7,7 +7,7 @@
 //     コードが再生成されると失われます。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Kamishibai.Wpf.CodeAnalysis.Generator
+namespace Kamishibai.CodeAnalysis.Generator
 {
     using System.Linq;
     using System.Text;
@@ -25,7 +25,7 @@ namespace Kamishibai.Wpf.CodeAnalysis.Generator
         /// </summary>
         public override string TransformText()
         {
-            this.Write("using Kamishibai.Wpf;\r\n\r\nnamespace ");
+            this.Write("using Kamishibai;\r\n\r\nnamespace ");
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             this.Write(";\r\n\r\npublic partial interface IPresentationService : IPresentationServiceBase\r\n{\r" +
                     "\n");

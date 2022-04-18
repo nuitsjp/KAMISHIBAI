@@ -1,4 +1,4 @@
-﻿namespace Kamishibai.Wpf.View;
+﻿namespace Kamishibai;
 
 public class NavigationFrameProvider : INavigationFrameProvider
 {

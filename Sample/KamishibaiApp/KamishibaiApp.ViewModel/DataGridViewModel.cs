@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using Kamishibai.Wpf;
+using Kamishibai;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace KamishibaiApp.ViewModel

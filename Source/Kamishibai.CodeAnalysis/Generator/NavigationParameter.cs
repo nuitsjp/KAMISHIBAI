@@ -1,4 +1,4 @@
-﻿namespace Kamishibai.Wpf.CodeAnalysis.Generator;
+﻿namespace Kamishibai.CodeAnalysis.Generator;
 
 public class NavigationParameter
 {

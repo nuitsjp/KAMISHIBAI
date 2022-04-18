@@ -5,6 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
+    <RootNamespace>Kamishibai</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>

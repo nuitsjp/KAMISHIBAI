@@ -1,6 +1,6 @@
-﻿using Kamishibai.Wpf.Demo.ViewModel;
+﻿using Kamishibai.Demo.ViewModel;
 
-namespace Kamishibai.Wpf.Demo.View
+namespace Kamishibai.Demo.View
 {
     /// <summary>
     /// ContentPage.xaml の相互作用ロジック

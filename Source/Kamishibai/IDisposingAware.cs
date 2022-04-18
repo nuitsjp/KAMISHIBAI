@@ -1,4 +1,4 @@
-﻿namespace Kamishibai.Wpf;
+﻿namespace Kamishibai;
 
 public interface IDisposingAware
 {

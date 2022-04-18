@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kamishibai.Wpf.CodeAnalysis\Kamishibai.Wpf.CodeAnalysis.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\Kamishibai.Wpf\Kamishibai.Wpf.csproj" />
+    <ProjectReference Include="..\..\..\Source\Kamishibai.CodeAnalysis\Kamishibai.CodeAnalysis.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\..\Source\Kamishibai\Kamishibai.csproj" />
     <ProjectReference Include="..\KamishibaiApp\KamishibaiApp.csproj" />
   </ItemGroup>
 

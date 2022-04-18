@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using Kamishibai.Wpf.View;
 
-namespace Kamishibai.Wpf.Extensions.Hosting;
+namespace Kamishibai;
 
 public static class ServiceCollectionExtensions
 {

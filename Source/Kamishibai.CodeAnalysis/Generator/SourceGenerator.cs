@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Kamishibai.Wpf.CodeAnalysis.Generator;
+namespace Kamishibai.CodeAnalysis.Generator;
 
 [Generator]
 public class SourceGenerator : ISourceGenerator
@@ -53,7 +53,7 @@ public class SourceGenerator : ISourceGenerator
                 context.Compilation.AssemblyName!,
                 navigationInfos
             ).TransformText();
-        context.AddSource("INavigationService.cs", source);
+        context.AddSource((string) "INavigationService.cs", (string) source);
     }
 
     private static string ToNavigationName(string viewModelName)

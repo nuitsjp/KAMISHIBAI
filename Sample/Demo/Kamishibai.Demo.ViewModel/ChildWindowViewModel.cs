@@ -1,6 +1,6 @@
 ﻿using Microsoft.Toolkit.Mvvm.Input;
 
-namespace Kamishibai.Wpf.Demo.ViewModel;
+namespace Kamishibai.Demo.ViewModel;
 
 public class ChildWindowViewModel
 {

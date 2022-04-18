@@ -1,4 +1,4 @@
-﻿using Kamishibai.Wpf.Extensions.Hosting;
+﻿using Kamishibai;
 using KamishibaiApp;
 using KamishibaiApp.App.Service;
 using KamishibaiApp.Repository;

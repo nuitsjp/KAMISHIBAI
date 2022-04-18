@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using Kamishibai.Wpf;
+using Kamishibai;
 using KamishibaiApp.ViewModel.Service;
 using Microsoft.Extensions.Options;
 using Microsoft.Toolkit.Mvvm.ComponentModel;

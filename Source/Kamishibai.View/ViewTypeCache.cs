@@ -1,4 +1,4 @@
-﻿namespace Kamishibai.Wpf.View;
+﻿namespace Kamishibai;
 
 // ReSharper disable once UnusedTypeParameter
 public static class ViewTypeCache

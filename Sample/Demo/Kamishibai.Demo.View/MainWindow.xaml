@@ -1,10 +1,10 @@
-﻿<Window x:Class="Kamishibai.Wpf.Demo.View.MainWindow"
+﻿<Window x:Class="Kamishibai.Demo.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:view="clr-namespace:Kamishibai.Wpf.View;assembly=Kamishibai.Wpf.View"
-        xmlns:view1="clr-namespace:Kamishibai.Wpf.Demo.View"
+        xmlns:view1="clr-namespace:Kamishibai.Demo.View"
+        xmlns:kamishibai="clr-namespace:Kamishibai;assembly=Kamishibai.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         d:DataContext="{d:DesignInstance {x:Type view1:DesignMainWindowViewModel}, IsDesignTimeCreatable=True}"
@@ -17,11 +17,11 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Orientation="Vertical" Background="White">
             <TextBlock Text="Default Frame" Margin="10"/>
-            <view:NavigationFrame/>
+            <kamishibai:NavigationFrame/>
         </StackPanel>
         <StackPanel Grid.Column="2" Orientation="Vertical" Background="White">
             <TextBlock Text="{Binding SecondFrameName}" Margin="10"/>
-            <view:NavigationFrame FrameName="{Binding SecondFrameName}"/>
+            <kamishibai:NavigationFrame FrameName="{Binding SecondFrameName}"/>
         </StackPanel>
     </Grid>
 </Window>

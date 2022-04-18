@@ -1,8 +1,6 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Automation;
+﻿using System.Windows;
 
-namespace Kamishibai.Wpf.View;
+namespace Kamishibai;
 
 public class WindowService : IWindowService
 {

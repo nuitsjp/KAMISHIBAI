@@ -1,4 +1,4 @@
-﻿namespace Kamishibai.Wpf;
+﻿namespace Kamishibai;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class NavigatableAttribute : Attribute {}

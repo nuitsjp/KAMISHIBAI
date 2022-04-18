@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.Toolkit.Mvvm.Input;
 using PropertyChanged;
 
-namespace Kamishibai.Wpf.Demo.ViewModel;
+namespace Kamishibai.Demo.ViewModel;
 
 [Navigatable]
 [AddINotifyPropertyChangedInterface]

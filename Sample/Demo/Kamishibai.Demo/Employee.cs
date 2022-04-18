@@ -1,4 +1,4 @@
-﻿namespace Kamishibai.Wpf.Demo
+﻿namespace Kamishibai.Demo
 {
     // ReSharper disable once UnusedMember.Global
     public class Employee

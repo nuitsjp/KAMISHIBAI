@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using Kamishibai.Wpf.View;
 
-namespace Kamishibai.Wpf.Extensions.Hosting;
+namespace Kamishibai;
 
 public class KamishibaiApplicationBuilder<TApplication, TWindow> : IWpfApplicationBuilder<TApplication, TWindow>
     where TApplication : Application 
