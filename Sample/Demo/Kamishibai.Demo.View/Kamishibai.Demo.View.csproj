@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kamishibai.Wpf.Demo.ViewModel\Kamishibai.Wpf.Demo.ViewModel.csproj" />
-    <ProjectReference Include="..\Kamishibai.Wpf.View\Kamishibai.Wpf.View.csproj" />
+    <ProjectReference Include="..\..\..\Source\Kamishibai.View\Kamishibai.View.csproj" />
+    <ProjectReference Include="..\Kamishibai.Demo.ViewModel\Kamishibai.Demo.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,7 +10,7 @@
 
 	<!-- NuGet -->
 	<PropertyGroup>
-		<PackageId>Kamishibai.Wpf</PackageId>
+		<PackageId>Kamishibai</PackageId>
 		<Description></Description>
 		<PackageVersion>$(Version)</PackageVersion>
 		<Authors>nuits.jp</Authors>
@@ -28,12 +28,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Kamishibai.Wpf.CodeAnalysis\Kamishibai.Wpf.CodeAnalysis.csproj" />
+		<ProjectReference Include="..\Kamishibai.CodeAnalysis\Kamishibai.CodeAnalysis.csproj" />
 	</ItemGroup>
 
 	<Target Name="_AddAnalyzersToOutput">
 		<ItemGroup>
-			<TfmSpecificPackageFile Include="$(OutputPath)\Kamishibai.Wpf.CodeAnalysis.dll" PackagePath="analyzers/dotnet/cs" />
+			<TfmSpecificPackageFile Include="$(OutputPath)\Kamishibai.CodeAnalysis.dll" PackagePath="analyzers/dotnet/cs" />
 		</ItemGroup>
 	</Target>
 

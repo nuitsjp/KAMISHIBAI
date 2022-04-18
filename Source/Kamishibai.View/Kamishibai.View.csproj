@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Kamishibai.Wpf\Kamishibai.Wpf.csproj" />
+	  <ProjectReference Include="..\Kamishibai\Kamishibai.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KamishibaiApp\KamishibaiApp.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Service\" />
+    <ProjectReference Include="..\Kamishibai.Demo\Kamishibai.Demo.csproj" />
   </ItemGroup>
 
 </Project>

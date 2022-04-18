@@ -13,7 +13,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Kamishibai.Wpf.View\Kamishibai.Wpf.View.csproj" />
+	  <ProjectReference Include="..\Kamishibai.View\Kamishibai.View.csproj" />
 	</ItemGroup>
 
 </Project>
