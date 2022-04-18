@@ -42,9 +42,7 @@ public class NavigationFrame : Grid, INavigationFrame
     }
 
     public Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class
-    {
-        throw new NotImplementedException();
-    }
+        => NavigateAsync(typeof(TViewModel), serviceProvider);
 
     public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, IServiceProvider serviceProvider) where TViewModel : class
     {

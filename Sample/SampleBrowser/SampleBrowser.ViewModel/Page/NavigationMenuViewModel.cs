@@ -14,6 +14,12 @@ public class NavigationMenuViewModel
 
     public ICommand NavigateByTypeCommand => new AsyncRelayCommand(NavigateByTypeAsync);
 
+    public ICommand NavigateByGenericTypeCommand => new AsyncRelayCommand(NavigateByGenericTypeAsync);
+
     private Task NavigateByTypeAsync()
         => _presentationService.NavigateAsync(typeof(ContentViewModel));
+
+    private Task NavigateByGenericTypeAsync()
+        => _presentationService.NavigateAsync<ContentViewModel>();
+
 }

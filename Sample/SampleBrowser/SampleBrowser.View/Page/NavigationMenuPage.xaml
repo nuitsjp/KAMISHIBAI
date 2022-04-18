@@ -21,10 +21,20 @@
         </Grid.RowDefinitions>
         <TextBlock Text="Navigation" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
         <Border Grid.Row="1" Padding="16">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Navigate by Type : "/>
-                <Button Content="Navigate" Command="{Binding NavigateByTypeCommand}"/>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0"  Text="Navigate by Type : "/>
+                <Button Grid.Row="0" Grid.Column="1" Content="Navigate" Command="{Binding NavigateByTypeCommand}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0"  Text="Navigate by Generic Type : "/>
+                <Button Grid.Row="1" Grid.Column="1" Content="Navigate" Command="{Binding NavigateByGenericTypeCommand}"/>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>
