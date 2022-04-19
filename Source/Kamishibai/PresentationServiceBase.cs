@@ -71,6 +71,9 @@ public class PresentationServiceBase : IPresentationServiceBase
     public Task<bool> OpenDialogAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null)
         => _windowService.OpenDialogAsync(viewModelType, owner, options ?? new OpenWindowOptions());
 
+    public Task<bool> OpenDialogAsync<TViewModel>(object? owner = null, OpenWindowOptions? options = null)
+        => _windowService.OpenDialogAsync<TViewModel>(owner, options ?? new OpenWindowOptions());
+
     public Task<bool> OpenDialogAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenWindowOptions? options = null) where TViewModel : notnull
         => _windowService.OpenDialogAsync(viewModel, owner, options ?? new OpenWindowOptions());
 

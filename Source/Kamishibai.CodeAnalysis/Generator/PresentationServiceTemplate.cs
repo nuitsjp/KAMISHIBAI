@@ -41,6 +41,7 @@ foreach(var navigationInfo in NavigationInfos)
   
 }
 
+            this.Write("\r\n");
 
 foreach(var openWindowInfo in OpenWindowInfos)
 {
@@ -49,6 +50,19 @@ foreach(var openWindowInfo in OpenWindowInfos)
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationName));
             this.Write("WindowAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationParameters));
+            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n");
+  
+}
+
+            this.Write("\r\n");
+
+foreach(var openDialogInfo in OpenDialogInfos)
+{
+
+            this.Write("    public Task Open");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationName));
+            this.Write("DialogAsync(");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationParameters));
             this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n");
   
 }
@@ -96,6 +110,24 @@ foreach(var openWindowInfo in OpenWindowInfos)
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.ViewModelName));
             this.Write("(\r\n                ");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.ConstructorParameters));
+            this.Write("\r\n            ), \r\n            owner,\r\n            options);\r\n    }\r\n\r\n");
+  
+}
+
+            this.Write("\r\n");
+
+foreach(var openDialogInfo in OpenDialogInfos)
+{
+
+            this.Write("    public Task Open");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationName));
+            this.Write("DialogAsync(");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationParameters));
+            this.Write(", object? owner = null, OpenWindowOptions? options = null)\r\n    {\r\n        return" +
+                    " OpenDialogAsync(\r\n            new ");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.ViewModelName));
+            this.Write("(\r\n                ");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.ConstructorParameters));
             this.Write("\r\n            ), \r\n            owner,\r\n            options);\r\n    }\r\n\r\n");
   
 }

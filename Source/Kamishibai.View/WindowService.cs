@@ -50,6 +50,9 @@ public class WindowService : IWindowService
         return OpenDialogAsync(viewModelType, owner, viewModel, options);
     }
 
+    public Task<bool> OpenDialogAsync<TViewModel>(object? owner, OpenWindowOptions options)
+        => OpenDialogAsync(typeof(TViewModel), owner, options);
+
     public Task<bool> OpenDialogAsync<TViewModel>(TViewModel viewModel, object? owner, OpenWindowOptions options) where TViewModel : notnull
     {
         return OpenDialogAsync(typeof(TViewModel), owner, viewModel, options);

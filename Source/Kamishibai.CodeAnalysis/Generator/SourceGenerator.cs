@@ -34,7 +34,12 @@ public class SourceGenerator : ISourceGenerator
                 .OpenWindows
                 .SelectMany(type => type.GetConstructors().Select(constructor => new OpenWindowInfo(context, type, constructor)))
                 .ToList();
-        List<OpenDialogInfo> openDialogInfos = new();
+
+        var openDialogInfos =
+            syntaxReceiver
+                .OpenWindows
+                .SelectMany(type => type.GetConstructors().Select(constructor => new OpenDialogInfo(context, type, constructor)))
+                .ToList();
 
         var source =
             new PresentationServiceTemplate(

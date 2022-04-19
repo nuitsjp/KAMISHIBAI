@@ -3,6 +3,7 @@
 namespace SampleBrowser.ViewModel;
 
 [OpenWindow]
+[OpenDialog]
 public class ChildMessageViewModel : ChildViewModel
 {
     public ChildMessageViewModel(
