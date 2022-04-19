@@ -19,7 +19,8 @@ public class MainViewModel : INavigatedAsyncAware
     {
         new ("Navigation", typeof(NavigationMenuViewModel)),
         new ("Open Window", typeof(OpenWindowViewModel)),
-        new ("Open Dialog", typeof(OpenDialogViewModel))
+        new ("Open Dialog", typeof(OpenDialogViewModel)),
+        new ("Show Message", typeof(ShowMessageViewModel))
     };
 
     public MenuItem SelectedMenuItem
