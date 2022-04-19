@@ -41,6 +41,18 @@ foreach(var navigationInfo in NavigationInfos)
   
 }
 
+
+foreach(var openWindowInfo in OpenWindowInfos)
+{
+
+            this.Write("    public Task Open");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationName));
+            this.Write("WindowAsync(");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationParameters));
+            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n");
+  
+}
+
             this.Write(@"}
 
 public class PresentationService : PresentationServiceBase, IPresentationService
@@ -67,6 +79,24 @@ foreach(var navigationInfo in NavigationInfos)
             this.Write("(\r\n                ");
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.ConstructorParameters));
             this.Write("\r\n            ), \r\n            frameName);\r\n    }\r\n\r\n");
+  
+}
+
+            this.Write("\r\n");
+
+foreach(var openWindowInfo in OpenWindowInfos)
+{
+
+            this.Write("    public Task Open");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationName));
+            this.Write("WindowAsync(");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationParameters));
+            this.Write(", object? owner = null, OpenWindowOptions? options = null)\r\n    {\r\n        return" +
+                    " OpenWindowAsync(\r\n            new ");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.ViewModelName));
+            this.Write("(\r\n                ");
+            this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.ConstructorParameters));
+            this.Write("\r\n            ), \r\n            owner,\r\n            options);\r\n    }\r\n\r\n");
   
 }
 

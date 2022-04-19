@@ -3,9 +3,9 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Kamishibai.CodeAnalysis.Generator;
 
-public class NavigationInfo
+public class OpenWindowInfo
 {
-    public NavigationInfo(
+    public OpenWindowInfo(
         GeneratorExecutionContext context,
         SyntaxNode type,
         ConstructorDeclarationSyntax constructor)
@@ -30,11 +30,6 @@ public class NavigationInfo
                     .Where(x => x.IsInjection is false)
                     .Select(x => $"{x.Type} {x.Name}")
                     .ToList();
-            if (Parameters.All(x => x.Name != "frameName"))
-            {
-                paramStrings.Add("string frameName = \"\"");
-            }
-
             return string.Join(", ", paramStrings);
         }
     }
@@ -47,9 +42,9 @@ public class NavigationInfo
                 @", 
                 ",
                 Parameters
-                    .Select(x => 
-                        x.Type == "INavigationService" 
-                            ? "this" 
+                    .Select(x =>
+                        x.Type == "INavigationService"
+                            ? "this"
                             : x.IsInjection
                                 ? $"({x.Type})_serviceProvider.GetService(typeof({x.Type}))!"
                                 : x.Name)

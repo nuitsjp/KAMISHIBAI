@@ -3,7 +3,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace KamishibaiApp.ViewModel;
 
-[Navigatable]
+[Navigate]
 public class ContentGridDetailViewModel : ObservableObject, INavigatedAsyncAware
 {
     private readonly long _orderId;

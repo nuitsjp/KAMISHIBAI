@@ -28,4 +28,8 @@ public class OpenWindowViewModel
     public ICommand OpenWithCallbackCommand =>
         new AsyncRelayCommand(() => _presentationService.OpenWindowAsync<ChildViewModel>(viewModel => viewModel.WindowName = WindowName2));
 
+    public string WindowName3 { get; set; } = "Hello, Safe Parameters!";
+
+    public ICommand OpenWithSafeParameterCommand =>
+        new AsyncRelayCommand(() => _presentationService.OpenChildMessageWindowAsync(WindowName3));
 }

@@ -18,6 +18,14 @@ foreach(var navigationInfo in NavigationInfos)
 <#  
 }
 #>
+<#
+foreach(var openWindowInfo in OpenWindowInfos)
+{
+#>
+    public Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null);
+<#  
+}
+#>
 }
 
 public class PresentationService : PresentationServiceBase, IPresentationService
@@ -41,6 +49,24 @@ foreach(var navigationInfo in NavigationInfos)
                 <#= navigationInfo.ConstructorParameters #>
             ), 
             frameName);
+    }
+
+<#  
+}
+#>
+
+<#
+foreach(var openWindowInfo in OpenWindowInfos)
+{
+#>
+    public Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null)
+    {
+        return OpenWindowAsync(
+            new <#= openWindowInfo.ViewModelName #>(
+                <#= openWindowInfo.ConstructorParameters #>
+            ), 
+            owner,
+            options);
     }
 
 <#  

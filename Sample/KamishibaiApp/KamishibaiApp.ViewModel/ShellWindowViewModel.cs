@@ -11,7 +11,7 @@ using PropertyChanged;
 
 namespace KamishibaiApp.ViewModel;
 
-[Navigatable]
+[Navigate]
 public class ShellWindowViewModel : ViewModelBase, INavigatingAware, INotifyPropertyChanged
 {
     private readonly IPresentationService _presentationService;

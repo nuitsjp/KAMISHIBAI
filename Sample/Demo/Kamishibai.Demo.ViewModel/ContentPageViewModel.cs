@@ -5,7 +5,7 @@ using PropertyChanged;
 
 namespace Kamishibai.Demo.ViewModel;
 
-[Navigatable]
+[Navigate]
 [AddINotifyPropertyChangedInterface]
 public class ContentPageViewModel :
     IPausingAsyncAware,
@@ -45,7 +45,7 @@ public class ContentPageViewModel :
     public bool CanNavigate { get; set; } = true;
     public bool CanGoBackAsync { get; set; } = true;
     public bool CanGoBack { get; set; } = true;
-    public object DialogResult { get; set; }
+    public object? DialogResult { get; set; }
     public string Message { get; set; } = "Hello, Message Dialog!";
 
     public AsyncRelayCommand NavigateNextCommand => new(OnNavigateNextAsync);

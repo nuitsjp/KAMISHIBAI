@@ -55,9 +55,9 @@
                 <TextBlock Grid.Row="3" Grid.Column="1"  Text="with Callback initializer."/>
                 <TextBox Grid.Row="3" Grid.Column="2"  Text="{Binding WindowName2}"/>
 
-                <Button Grid.Row="4" Grid.Column="0" Content="Navigate" Command="{Binding NavigateWithSafeParameterCommand}"/>
+                <Button Grid.Row="4" Grid.Column="0" Content="Open" Command="{Binding OpenWithSafeParameterCommand}"/>
                 <TextBlock Grid.Row="4" Grid.Column="1"  Text="with Safe Parameter."/>
-                <TextBox Grid.Row="4" Grid.Column="2"  Text="{Binding Message3}"/>
+                <TextBox Grid.Row="4" Grid.Column="2"  Text="{Binding WindowName3}"/>
             </Grid>
         </Border>
     </Grid>

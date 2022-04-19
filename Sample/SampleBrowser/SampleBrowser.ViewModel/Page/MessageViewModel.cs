@@ -4,7 +4,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 
 namespace SampleBrowser.ViewModel.Page;
 
-[Navigatable]
+[Navigate]
 public class MessageViewModel
 {
     private readonly IPresentationService _presentationService;

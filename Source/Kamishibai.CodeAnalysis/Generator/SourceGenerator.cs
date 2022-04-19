@@ -21,67 +21,63 @@ public class SourceGenerator : ISourceGenerator
     public void Execute(GeneratorExecutionContext context)
     {
         var syntaxReceiver = (SyntaxReceiver)context.SyntaxReceiver!;
-        if (!syntaxReceiver.Targets.Any()) return;
+        if (!syntaxReceiver.Navigates.Any()) return;
 
-        List<NavigationInfo> navigationInfos = new();
+        var navigationInfos =
+            syntaxReceiver
+                .Navigates
+                .SelectMany(type => type.GetConstructors().Select(constructor => new NavigationInfo(context, type, constructor)))
+                .ToList();
 
-        foreach (var typeDeclarationSyntax in syntaxReceiver.Targets)
-        {
-            var model = context.Compilation.GetSemanticModel(typeDeclarationSyntax.SyntaxTree);
-            var typeSymbol = model.GetDeclaredSymbol(typeDeclarationSyntax)!;
-            var constructors = typeDeclarationSyntax
-                .Members
-                .OfType<ConstructorDeclarationSyntax>();
-            foreach (var constructorDeclarationSyntax in constructors)
-            {
-                NavigationInfo navigationInfo = new(ToNavigationName(typeSymbol.Name), typeSymbol.ToString());
-                navigationInfos.Add(navigationInfo);
-                foreach (var parameterSyntax in constructorDeclarationSyntax.ParameterList.Parameters)
-                {
-                    var info = model.GetSymbolInfo(parameterSyntax.Type!).Symbol;
-                    var typeName = info?.ToString() ?? ((IdentifierNameSyntax)parameterSyntax.Type!).Identifier.Text;
-                    var isInjection = parameterSyntax.AttributeLists
-                        .SelectMany(x => x.Attributes)
-                        .Any(x => x.Name.ToString() is "Inject" or "InjectAttribute");
-                    navigationInfo.Parameters.Add(new NavigationParameter(typeName, parameterSyntax.Identifier.Text, isInjection));
-                }
-            }
-        }
+        var openWindowInfos =
+            syntaxReceiver
+                .OpenWindows
+                .SelectMany(type => type.GetConstructors().Select(constructor => new OpenWindowInfo(context, type, constructor)))
+                .ToList();
+        List<OpenDialogInfo> openDialogInfos = new();
 
         var source =
             new PresentationServiceTemplate(
                 context.Compilation.AssemblyName!,
-                navigationInfos
+                navigationInfos,
+                openWindowInfos,
+                openDialogInfos
             ).TransformText();
         context.AddSource("IPresentationService.cs", source);
     }
 
-    private static string ToNavigationName(string viewModelName)
-    {
-        return viewModelName.EndsWith("ViewModel")
-            ? viewModelName.Substring(0, viewModelName.LastIndexOf("ViewModel", StringComparison.Ordinal))
-            : viewModelName;
-    }
-
     class SyntaxReceiver : ISyntaxReceiver
     {
-        public List<TypeDeclarationSyntax> Targets { get; } = new();
+        public List<TypeDeclarationSyntax> Navigates { get; } = new();
+        public List<TypeDeclarationSyntax> OpenWindows { get; } = new();
+        public List<TypeDeclarationSyntax> OpenDialogs { get; } = new();
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
             if (syntaxNode is TypeDeclarationSyntax {AttributeLists.Count: > 0} typeDeclarationSyntax)
             {
                 // Comparable is not declared.
-                var attr =
+                var navigates =
                     typeDeclarationSyntax
                         .AttributeLists
                         .SelectMany(x => x.Attributes)
-                        .FirstOrDefault(x => x.Name.ToString() is "Navigatable" or "NavigatableAttribute");
-                if (attr == null) return;
+                        .FirstOrDefault(x => x.Name.ToString() is "Navigate" or "NavigateAttribute");
+                if (navigates is not null) Navigates.Add(typeDeclarationSyntax);
 
-                Targets.Add(typeDeclarationSyntax);
+                var openWindows =
+                    typeDeclarationSyntax
+                        .AttributeLists
+                        .SelectMany(x => x.Attributes)
+                        .FirstOrDefault(x => x.Name.ToString() is "OpenWindow" or "OpenWindowAttribute");
+                if (openWindows is not null) OpenWindows.Add(typeDeclarationSyntax);
+
+                var openDialogs =
+                    typeDeclarationSyntax
+                        .AttributeLists
+                        .SelectMany(x => x.Attributes)
+                        .FirstOrDefault(x => x.Name.ToString() is "OpenWindow" or "OpenWindowAttribute");
+                if (openDialogs is not null) OpenDialogs.Add(typeDeclarationSyntax);
             }
         }
     }
-
 }

@@ -1,4 +1,4 @@
 ﻿namespace Kamishibai;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class WindowOpenableAttribute : Attribute { }
+public class OpenDialogAttribute : Attribute { }

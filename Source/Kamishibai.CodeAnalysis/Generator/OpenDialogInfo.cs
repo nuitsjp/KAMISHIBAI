@@ -1,27 +1,17 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿namespace Kamishibai.CodeAnalysis.Generator;
 
-namespace Kamishibai.CodeAnalysis.Generator;
-
-public class NavigationInfo
+public class OpenDialogInfo
 {
-    public NavigationInfo(
-        GeneratorExecutionContext context,
-        SyntaxNode type,
-        ConstructorDeclarationSyntax constructor)
+    public OpenDialogInfo(string navigationName, string viewModelName)
     {
-        var model = context.Compilation.GetSemanticModel(type.SyntaxTree);
-        var symbol = model.GetDeclaredSymbol(type)!;
-        NavigationName = symbol.Name.ToNavigationName();
-        ViewModelName = symbol.ToString();
-        Parameters = constructor.CreateNavigationParameters(model).ToList();
+        NavigationName = navigationName;
+        ViewModelName = viewModelName;
     }
 
     public string NavigationName { get; }
     public string ViewModelName { get; }
-    public IList<NavigationParameter> Parameters { get; }
 
-    public string NavigationParameters
+    public string OpenDialogParameters
     {
         get
         {
@@ -56,4 +46,6 @@ public class NavigationInfo
                     .ToList());
         }
     }
+
+    public IList<NavigationParameter> Parameters { get; } = new List<NavigationParameter>();
 }

@@ -2,7 +2,7 @@
 
 namespace SampleBrowser.ViewModel;
 
-[WindowOpenable]
+[OpenWindow]
 public class ChildMessageViewModel : ChildViewModel
 {
     public ChildMessageViewModel(
