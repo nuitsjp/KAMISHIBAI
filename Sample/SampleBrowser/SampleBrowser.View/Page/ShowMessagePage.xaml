@@ -20,6 +20,7 @@
             </Style>
             <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
                 <Setter Property="Margin" Value="5"/>
+                <Setter Property="Width" Value="170"/>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -49,28 +50,28 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Message"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text=":" Margin="14"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
                 <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Message}"/>
 
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Caption"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text=":" Margin="14"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
                 <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Caption}"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="MessageBoxButton"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" Text=":" Margin="14"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
                 <ComboBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding MessageBoxButtons}" SelectedItem="{Binding SelectedMessageBoxButton}"/>
 
                 <TextBlock Grid.Row="0" Grid.Column="3" Text="MessageBoxImage"/>
-                <TextBlock Grid.Row="0" Grid.Column="4" Text=":" Margin="14"/>
+                <TextBlock Grid.Row="0" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
                 <ComboBox Grid.Row="0" Grid.Column="5" ItemsSource="{Binding MessageBoxImages}" SelectedItem="{Binding SelectedMessageBoxImage}"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="3" Text="MessageBoxResult"/>
-                <TextBlock Grid.Row="1" Grid.Column="4" Text=":" Margin="14"/>
+                <TextBlock Grid.Row="1" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
                 <ComboBox Grid.Row="1" Grid.Column="5" ItemsSource="{Binding MessageBoxResults}" SelectedItem="{Binding SelectedMessageBoxResult}"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="3" Text="MessageBoxOption"/>
-                <TextBlock Grid.Row="2" Grid.Column="4" Text=":" Margin="14"/>
+                <TextBlock Grid.Row="2" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
                 <ComboBox Grid.Row="2" Grid.Column="5" ItemsSource="{Binding MessageBoxOptions}" SelectedItem="{Binding SelectedMessageBoxOptions}"/>
 
                 <Button Grid.Row="4" Grid.Column="5" Content="Show" HorizontalAlignment="Right"
