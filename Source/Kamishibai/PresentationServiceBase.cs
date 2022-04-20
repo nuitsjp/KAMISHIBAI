@@ -89,4 +89,7 @@ public class PresentationServiceBase : IPresentationServiceBase
         MessageBoxResult defaultResult = MessageBoxResult.None, MessageBoxOptions options = MessageBoxOptions.None,
         object? owner = null)
         => _windowService.ShowMessage(messageBoxText, caption, button, icon, defaultResult, options, owner);
+
+    public bool TryOpenFile(OpenFileContext context, out string file)
+        => _windowService.TryOpenFile(context, out file);
 }

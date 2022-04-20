@@ -17,6 +17,7 @@ builder.Services.AddPresentation<MessagePage, MessageViewModel>();
 builder.Services.AddPresentation<OpenWindowPage, OpenWindowViewModel>();
 builder.Services.AddPresentation<OpenDialogPage, OpenDialogViewModel>();
 builder.Services.AddPresentation<ShowMessagePage, ShowMessageViewModel>();
+builder.Services.AddPresentation<OpenFilePage, OpenFileViewModel>();
 
 
 builder.Services.AddTransient<IPresentationService, PresentationService>();

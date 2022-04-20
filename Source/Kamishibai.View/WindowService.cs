@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Microsoft.Win32;
 
 namespace Kamishibai;
 
@@ -104,6 +105,19 @@ public class WindowService : IWindowService
                 (System.Windows.MessageBoxImage) icon,
                 (System.Windows.MessageBoxResult) defaultResult,
                 (System.Windows.MessageBoxOptions) options));
+
+    public bool TryOpenFile(OpenFileContext context, out string file)
+    {
+        var openFileDialog = new OpenFileDialog();
+        if (openFileDialog.ShowDialog() == true)
+        {
+            file = openFileDialog.FileName;
+            return true;
+        }
+
+        file = string.Empty;
+        return false;
+    }
 
     private Window? GetActiveWindow()
         => Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
