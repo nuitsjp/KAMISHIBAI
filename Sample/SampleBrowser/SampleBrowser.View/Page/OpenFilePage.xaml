@@ -37,6 +37,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -48,9 +49,9 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Message"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="AddExtension"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Message}"/>
+                <ToggleButton Grid.Row="0" Grid.Column="2" IsChecked="{Binding AddExtension}" Margin="10" HorizontalAlignment="Left"/>
 
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Caption"/>
@@ -75,6 +76,14 @@
 
                 <Button Grid.Row="4" Grid.Column="5" Content="Open" HorizontalAlignment="Right"
                         Command="{Binding OpenFileCommand}"/>
+
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="OpenFileResult"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
+                <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding OpenFileResult}"/>
+
+                <TextBlock Grid.Row="5" Grid.Column="3" Text="FilePath"/>
+                <TextBlock Grid.Row="5" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
+                <TextBlock Grid.Row="5" Grid.Column="5" Text="{Binding FilePath}" ToolTip="{Binding FilePath}"/>
             </Grid>
         </Border>
     </Grid>
