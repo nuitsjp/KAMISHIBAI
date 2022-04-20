@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:SampleBrowser.View.Page"
              xmlns:kamishibai="clr-namespace:Kamishibai;assembly=Kamishibai.View"
              mc:Ignorable="d" 
+             d:DesignWidth="1280" d:DesignHeight="1024"
              d:DataContext="{d:DesignInstance Type={x:Type local:DesignOpenFileViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -14,77 +15,120 @@
             </Style>
             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
                 <Setter Property="Margin" Value="5"/>
-                <Setter Property="Width" Value="150"/>
+                <Setter Property="Width" Value="170"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
             </Style>
             <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
                 <Setter Property="Margin" Value="5"/>
                 <Setter Property="Width" Value="170"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignCheckBox}">
+                <Setter Property="Margin" Value="10"/>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid VerticalAlignment="Top">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="Open File" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
-        <Border Grid.Row="1" Padding="16">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <Grid VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Open File" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+            <Border Grid.Row="1" Padding="16">
+                <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="AddExtension"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                <ToggleButton Grid.Row="0" Grid.Column="2" IsChecked="{Binding AddExtension}" Margin="10" HorizontalAlignment="Left"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="AddExtension"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
+                        <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{Binding AddExtension}"/>
 
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Caption"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Caption}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="CheckFileExists"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
+                        <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding CheckFileExists}"/>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="MessageBoxButton"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                <ComboBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding MessageBoxButtons}" SelectedItem="{Binding SelectedMessageBoxButton}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="CheckPathExists"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
+                        <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{Binding CheckPathExists}"/>
 
-                <TextBlock Grid.Row="0" Grid.Column="3" Text="MessageBoxImage"/>
-                <TextBlock Grid.Row="0" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
-                <ComboBox Grid.Row="0" Grid.Column="5" ItemsSource="{Binding MessageBoxImages}" SelectedItem="{Binding SelectedMessageBoxImage}"/>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="CustomPlaces"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
+                        <!--<CheckBox Grid.Row="3" Grid.Column="2" IsChecked="{Binding CheckPathExists}"/>-->
 
-                <TextBlock Grid.Row="1" Grid.Column="3" Text="MessageBoxResult"/>
-                <TextBlock Grid.Row="1" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
-                <ComboBox Grid.Row="1" Grid.Column="5" ItemsSource="{Binding MessageBoxResults}" SelectedItem="{Binding SelectedMessageBoxResult}"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="DefaultExt"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding DefaultExt}"/>
 
-                <TextBlock Grid.Row="2" Grid.Column="3" Text="MessageBoxOption"/>
-                <TextBlock Grid.Row="2" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
-                <ComboBox Grid.Row="2" Grid.Column="5" ItemsSource="{Binding MessageBoxOptions}" SelectedItem="{Binding SelectedMessageBoxOptions}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="3" Text="DereferenceLinks"/>
+                        <TextBlock Grid.Row="0" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
+                        <CheckBox Grid.Row="0" Grid.Column="5" IsChecked="{Binding DereferenceLinks}"/>
 
-                <Button Grid.Row="4" Grid.Column="5" Content="Open" HorizontalAlignment="Right"
-                        Command="{Binding OpenFileCommand}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="3" Text="DefaultExt"/>
+                        <TextBlock Grid.Row="1" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding DefaultExt}"/>
 
-                <TextBlock Grid.Row="5" Grid.Column="0" Text="OpenFileResult"/>
-                <TextBlock Grid.Row="5" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding OpenFileResult}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="3" Text="Filter"/>
+                        <TextBlock Grid.Row="2" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding Filter}"/>
 
-                <TextBlock Grid.Row="5" Grid.Column="3" Text="FilePath"/>
-                <TextBlock Grid.Row="5" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
-                <TextBlock Grid.Row="5" Grid.Column="5" Text="{Binding FilePath}" ToolTip="{Binding FilePath}"/>
-            </Grid>
-        </Border>
-    </Grid>
+                        <TextBlock Grid.Row="3" Grid.Column="3" Text="FilterIndex"/>
+                        <TextBlock Grid.Row="3" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
+                        <ComboBox Grid.Row="3" Grid.Column="5" ItemsSource="{Binding FilterIndexes}" SelectedItem="{Binding SelectedFilterIndex}"/>
+
+                        <TextBlock Grid.Row="4" Grid.Column="3" Text="InitialDirectory"/>
+                        <TextBlock Grid.Row="4" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding InitialDirectory}"/>
+
+                        <TextBlock Grid.Row="0" Grid.Column="6" Text="ReadOnlyChecked"/>
+                        <TextBlock Grid.Row="0" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
+                        <CheckBox Grid.Row="0" Grid.Column="8" IsChecked="{Binding ReadOnlyChecked}"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="6" Text="ShowReadOnly"/>
+                        <TextBlock Grid.Row="1" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
+                        <CheckBox Grid.Row="1" Grid.Column="8" IsChecked="{Binding ShowReadOnly}"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="6" Text="Title"/>
+                        <TextBlock Grid.Row="2" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="2" Grid.Column="8" Text="{Binding Title}"/>
+
+                        <TextBlock Grid.Row="3" Grid.Column="6" Text="ValidateNames"/>
+                        <TextBlock Grid.Row="3" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
+                        <CheckBox Grid.Row="3" Grid.Column="8" IsChecked="{Binding ValidateNames}"/>
+                    </Grid>
+                    <Button Content="Open" HorizontalAlignment="Right" Command="{Binding OpenFileCommand}"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Text="OpenFileResult"/>
+                        <TextBlock Text=":" Margin="0,14,0,14"/>
+                        <TextBlock Text="{Binding OpenFileResult}" Width="70"/>
+
+                        <TextBlock Text="FilePath"/>
+                        <TextBlock Text=":" Margin="0,14,0,14"/>
+                        <TextBlock Text="{Binding FilePath}" ToolTip="{Binding FilePath}"/>
+
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

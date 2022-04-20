@@ -108,15 +108,26 @@ public class WindowService : IWindowService
 
     public bool TryOpenFile(OpenFileContext context, out string file)
     {
-        var openFileDialog = new OpenFileDialog();
-        if (openFileDialog.ShowDialog() == true)
+        var openFileDialog = new OpenFileDialog
         {
-            file = openFileDialog.FileName;
-            return true;
-        }
-
-        file = string.Empty;
-        return false;
+            AddExtension = context.AddExtension,
+            CheckFileExists = context.CheckFileExists,
+            CheckPathExists = context.CheckPathExists,
+            DefaultExt = context.DefaultExt,
+            DereferenceLinks = context.DereferenceLinks,
+            Filter = context.Filter,
+            FilterIndex = context.FilterIndex,
+            InitialDirectory = context.InitialDirectory,
+            ReadOnlyChecked = context.ReadOnlyChecked,
+            ShowReadOnly = context.ShowReadOnly,
+            Title = context.Title,
+            ValidateNames = context.ValidateNames
+        };
+        var result = openFileDialog.ShowDialog() == true;
+        context.SafeFileName = openFileDialog.SafeFileName;
+        context.SafeFileNames = openFileDialog.SafeFileNames;
+        file = openFileDialog.FileName;
+        return result;
     }
 
     private Window? GetActiveWindow()
