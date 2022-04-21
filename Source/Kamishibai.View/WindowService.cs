@@ -130,6 +130,31 @@ public class WindowService : IWindowService
         return result;
     }
 
+    public bool TryOpenFile(OpenFileContext context, out string[] files)
+    {
+        var openFileDialog = new OpenFileDialog
+        {
+            AddExtension = context.AddExtension,
+            CheckFileExists = context.CheckFileExists,
+            CheckPathExists = context.CheckPathExists,
+            DefaultExt = context.DefaultExt,
+            DereferenceLinks = context.DereferenceLinks,
+            Filter = context.Filter,
+            FilterIndex = context.FilterIndex,
+            InitialDirectory = context.InitialDirectory,
+            Multiselect = true,
+            ReadOnlyChecked = context.ReadOnlyChecked,
+            ShowReadOnly = context.ShowReadOnly,
+            Title = context.Title,
+            ValidateNames = context.ValidateNames
+        };
+        var result = openFileDialog.ShowDialog() == true;
+        context.SafeFileName = openFileDialog.SafeFileName;
+        context.SafeFileNames = openFileDialog.SafeFileNames;
+        files = openFileDialog.FileNames;
+        return result;
+    }
+
     private Window? GetActiveWindow()
         => Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
 

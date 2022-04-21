@@ -21,7 +21,8 @@ public class MainViewModel : INavigatedAsyncAware
         new ("Open Window", typeof(OpenWindowViewModel)),
         new ("Open Dialog", typeof(OpenDialogViewModel)),
         new ("Show Message", typeof(ShowMessageViewModel)),
-        new ("Open File", typeof(OpenFileViewModel))
+        new ("Open File", typeof(OpenFileViewModel)),
+        new ("Open Files", typeof(OpenFilesViewModel))
 
     };
 
