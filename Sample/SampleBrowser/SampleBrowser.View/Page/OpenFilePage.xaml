@@ -45,6 +45,8 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -59,62 +61,86 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="AddExtension"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="AddToMostRecentlyUsedList"/>
                         <TextBlock Grid.Row="0" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{Binding AddExtension}"/>
+                        <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{Binding AddToMostRecentlyUsedList}"/>
 
 
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="CheckFileExists"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="AllowNonFileSystemItems"/>
                         <TextBlock Grid.Row="1" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding CheckFileExists}"/>
+                        <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding AllowNonFileSystemItems}"/>
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="CheckPathExists"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="AllowPropertyEditing"/>
                         <TextBlock Grid.Row="2" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{Binding CheckPathExists}"/>
+                        <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{Binding AllowPropertyEditing}"/>
 
-                        <TextBlock Grid.Row="3" Grid.Column="0" Text="CustomPlaces"/>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="DefaultDirectory"/>
                         <TextBlock Grid.Row="3" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                        <!--<CheckBox Grid.Row="3" Grid.Column="2" IsChecked="{Binding CheckPathExists}"/>-->
+                        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding DefaultDirectory}"/>
 
-                        <TextBlock Grid.Row="4" Grid.Column="0" Text="DefaultExt"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="DefaultExtension"/>
                         <TextBlock Grid.Row="4" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding DefaultExt}"/>
+                        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding DefaultExtension}"/>
 
-                        <TextBlock Grid.Row="0" Grid.Column="3" Text="DereferenceLinks"/>
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="DefaultFileName"/>
+                        <TextBlock Grid.Row="5" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding DefaultFileName}"/>
+
+                        <TextBlock Grid.Row="0" Grid.Column="3" Text="EnsureFileExists"/>
                         <TextBlock Grid.Row="0" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="0" Grid.Column="5" IsChecked="{Binding DereferenceLinks}"/>
+                        <CheckBox Grid.Row="0" Grid.Column="5" IsChecked="{Binding EnsureFileExists}"/>
 
-                        <TextBlock Grid.Row="1" Grid.Column="3" Text="DefaultExt"/>
+                        <TextBlock Grid.Row="1" Grid.Column="3" Text="EnsurePathExists"/>
                         <TextBlock Grid.Row="1" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding DefaultExt}"/>
+                        <CheckBox Grid.Row="1" Grid.Column="5" IsChecked="{Binding EnsurePathExists}"/>
 
-                        <TextBlock Grid.Row="2" Grid.Column="3" Text="Filter"/>
+                        <TextBlock Grid.Row="2" Grid.Column="3" Text="EnsureReadOnly"/>
                         <TextBlock Grid.Row="2" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding Filter}"/>
+                        <CheckBox Grid.Row="2" Grid.Column="5" IsChecked="{Binding EnsureReadOnly}"/>
 
-                        <TextBlock Grid.Row="3" Grid.Column="3" Text="FilterIndex"/>
+                        <TextBlock Grid.Row="3" Grid.Column="3" Text="EnsureValidNames"/>
                         <TextBlock Grid.Row="3" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
-                        <ComboBox Grid.Row="3" Grid.Column="5" ItemsSource="{Binding FilterIndexes}" SelectedItem="{Binding SelectedFilterIndex}"/>
+                        <CheckBox Grid.Row="3" Grid.Column="5" IsChecked="{Binding EnsureValidNames}"/>
 
-                        <TextBlock Grid.Row="4" Grid.Column="3" Text="InitialDirectory"/>
+                        <TextBlock Grid.Row="4" Grid.Column="3" Text="Filter"/>
                         <TextBlock Grid.Row="4" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding InitialDirectory}"/>
+                        <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding Filter}"/>
 
-                        <TextBlock Grid.Row="0" Grid.Column="6" Text="ReadOnlyChecked"/>
+                        <TextBlock Grid.Row="5" Grid.Column="3" Text="InitialDirectory"/>
+                        <TextBlock Grid.Row="5" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="5" Grid.Column="5" Text="{Binding InitialDirectory}"/>
+
+                        <TextBlock Grid.Row="6" Grid.Column="3" Text="IsFolderPicker"/>
+                        <TextBlock Grid.Row="6" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
+                        <CheckBox Grid.Row="6" Grid.Column="5" IsChecked="{Binding IsFolderPicker}"/>
+
+                        <TextBlock Grid.Row="0" Grid.Column="6" Text="Multiselect"/>
                         <TextBlock Grid.Row="0" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="0" Grid.Column="8" IsChecked="{Binding ReadOnlyChecked}"/>
+                        <CheckBox Grid.Row="0" Grid.Column="8" IsChecked="{Binding Multiselect}"/>
 
-                        <TextBlock Grid.Row="1" Grid.Column="6" Text="ShowReadOnly"/>
+                        <TextBlock Grid.Row="1" Grid.Column="6" Text="NavigateToShortcut"/>
                         <TextBlock Grid.Row="1" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="1" Grid.Column="8" IsChecked="{Binding ShowReadOnly}"/>
+                        <CheckBox Grid.Row="1" Grid.Column="8" IsChecked="{Binding NavigateToShortcut}"/>
 
-                        <TextBlock Grid.Row="2" Grid.Column="6" Text="Title"/>
+                        <TextBlock Grid.Row="2" Grid.Column="6" Text="RestoreDirectory"/>
                         <TextBlock Grid.Row="2" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="2" Grid.Column="8" Text="{Binding Title}"/>
+                        <CheckBox Grid.Row="2" Grid.Column="8" IsChecked="{Binding RestoreDirectory}"/>
 
-                        <TextBlock Grid.Row="3" Grid.Column="6" Text="ValidateNames"/>
+                        <TextBlock Grid.Row="3" Grid.Column="6" Text="ShowHiddenItems"/>
                         <TextBlock Grid.Row="3" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="3" Grid.Column="8" IsChecked="{Binding ValidateNames}"/>
+                        <CheckBox Grid.Row="3" Grid.Column="8" IsChecked="{Binding ShowHiddenItems}"/>
+
+                        <TextBlock Grid.Row="4" Grid.Column="6" Text="ShowPlacesList"/>
+                        <TextBlock Grid.Row="4" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
+                        <CheckBox Grid.Row="4" Grid.Column="8" IsChecked="{Binding ShowPlacesList}"/>
+
+                        <TextBlock Grid.Row="5" Grid.Column="6" Text="Place"/>
+                        <TextBlock Grid.Row="5" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="5" Grid.Column="8" Text="{Binding Place}"/>
+
+                        <TextBlock Grid.Row="6" Grid.Column="6" Text="Title"/>
+                        <TextBlock Grid.Row="6" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="6" Grid.Column="8" Text="{Binding Title}"/>
                     </Grid>
                     <Button Content="Open" HorizontalAlignment="Right" Command="{Binding OpenFileCommand}"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
@@ -127,6 +153,7 @@
                         <TextBlock Text="{Binding FilePath}" ToolTip="{Binding FilePath}"/>
 
                     </StackPanel>
+                    <TextBlock Foreground="Red" Text="{Binding ErrorMessage}"/>
                 </StackPanel>
             </Border>
         </Grid>

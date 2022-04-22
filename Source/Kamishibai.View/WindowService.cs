@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Kamishibai;
 
@@ -106,52 +107,48 @@ public class WindowService : IWindowService
                 (System.Windows.MessageBoxResult) defaultResult,
                 (System.Windows.MessageBoxOptions) options));
 
-    public bool TryOpenFile(OpenFileContext context, out string file)
+    public DialogResult OpenFile(OpenFileDialogContext dialogContext)
     {
-        var openFileDialog = new OpenFileDialog
+        var openFileDialog = new CommonOpenFileDialog
         {
-            AddExtension = context.AddExtension,
-            CheckFileExists = context.CheckFileExists,
-            CheckPathExists = context.CheckPathExists,
-            DefaultExt = context.DefaultExt,
-            DereferenceLinks = context.DereferenceLinks,
-            Filter = context.Filter,
-            FilterIndex = context.FilterIndex,
-            InitialDirectory = context.InitialDirectory,
-            ReadOnlyChecked = context.ReadOnlyChecked,
-            ShowReadOnly = context.ShowReadOnly,
-            Title = context.Title,
-            ValidateNames = context.ValidateNames
+            AddToMostRecentlyUsedList = dialogContext.AddToMostRecentlyUsedList,
+            AllowNonFileSystemItems = dialogContext.AllowNonFileSystemItems,
+            AllowPropertyEditing = dialogContext.AllowPropertyEditing,
+            CookieIdentifier = dialogContext.CookieIdentifier,
+            DefaultDirectory = dialogContext.DefaultDirectory,
+            DefaultExtension = dialogContext.DefaultExtension,
+            DefaultFileName = dialogContext.DefaultFileName,
+            EnsureFileExists = dialogContext.EnsureFileExists,
+            EnsurePathExists = dialogContext.EnsurePathExists,
+            EnsureReadOnly = dialogContext.EnsureReadOnly,
+            EnsureValidNames = dialogContext.EnsureValidNames,
+            InitialDirectory = dialogContext.InitialDirectory,
+            IsFolderPicker = dialogContext.IsFolderPicker,
+            Multiselect = dialogContext.Multiselect,
+            NavigateToShortcut = dialogContext.NavigateToShortcut,
+            RestoreDirectory = dialogContext.RestoreDirectory,
+            ShowHiddenItems = dialogContext.ShowHiddenItems,
+            ShowPlacesList = dialogContext.ShowPlacesList,
+            Title = dialogContext.Title,
         };
-        var result = openFileDialog.ShowDialog() == true;
-        context.SafeFileName = openFileDialog.SafeFileName;
-        context.SafeFileNames = openFileDialog.SafeFileNames;
-        file = openFileDialog.FileName;
-        return result;
-    }
+        foreach (var filter in dialogContext.Filters)
+        {
+            openFileDialog.Filters.Add(
+                new CommonFileDialogFilter(
+                    filter.RawDisplayName,
+                    string.Join(";", filter.Extensions)));
+        }
 
-    public bool TryOpenFile(OpenFileContext context, out string[] files)
-    {
-        var openFileDialog = new OpenFileDialog
+        foreach (var place in dialogContext.CustomPlaces)
         {
-            AddExtension = context.AddExtension,
-            CheckFileExists = context.CheckFileExists,
-            CheckPathExists = context.CheckPathExists,
-            DefaultExt = context.DefaultExt,
-            DereferenceLinks = context.DereferenceLinks,
-            Filter = context.Filter,
-            FilterIndex = context.FilterIndex,
-            InitialDirectory = context.InitialDirectory,
-            Multiselect = true,
-            ReadOnlyChecked = context.ReadOnlyChecked,
-            ShowReadOnly = context.ShowReadOnly,
-            Title = context.Title,
-            ValidateNames = context.ValidateNames
-        };
-        var result = openFileDialog.ShowDialog() == true;
-        context.SafeFileName = openFileDialog.SafeFileName;
-        context.SafeFileNames = openFileDialog.SafeFileNames;
-        files = openFileDialog.FileNames;
+            openFileDialog.AddPlace(place.Path, Microsoft.WindowsAPICodePack.Shell.FileDialogAddPlaceLocation.Top);
+        }
+        var result = (DialogResult)openFileDialog.ShowDialog();
+        if (result == DialogResult.Ok)
+        {
+            dialogContext.FileName = openFileDialog.Multiselect ? string.Empty : openFileDialog.FileName;
+            dialogContext.FileNames = openFileDialog.FileNames;
+        }
         return result;
     }
 

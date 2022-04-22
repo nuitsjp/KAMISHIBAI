@@ -31,6 +31,5 @@ public interface IPresentationServiceBase
         MessageBoxOptions options = MessageBoxOptions.None,
         object? owner = null);
 
-    public bool TryOpenFile(OpenFileContext context, out string file);
-    public bool TryOpenFiles(OpenFileContext context, out string[] files);
+    public DialogResult OpenFile(OpenFileDialogContext dialogContext);
 }
