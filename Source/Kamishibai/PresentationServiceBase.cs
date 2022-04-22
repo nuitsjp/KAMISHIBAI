@@ -90,5 +90,6 @@ public class PresentationServiceBase : IPresentationServiceBase
         object? owner = null)
         => _windowService.ShowMessage(messageBoxText, caption, button, icon, defaultResult, options, owner);
 
-    public DialogResult OpenFile(OpenFileDialogContext dialogContext) => _windowService.OpenFile(dialogContext);
+    public DialogResult OpenFile(OpenFileDialogContext context) => _windowService.OpenFile(context);
+    public DialogResult SaveFile(SaveFileDialogContext context) => _windowService.SaveFile(context);
 }

@@ -6,11 +6,11 @@ using PropertyChanged;
 namespace SampleBrowser.ViewModel.Page;
 
 [AddINotifyPropertyChangedInterface]
-public class OpenFileViewModel
+public class SaveFileViewModel
 {
     private readonly IPresentationService _presentationService;
 
-    public OpenFileViewModel(IPresentationService presentationService)
+    public SaveFileViewModel(IPresentationService presentationService)
     {
         _presentationService = presentationService;
         string[] filters = {
@@ -21,21 +21,22 @@ public class OpenFileViewModel
     }
 
     public bool AddToMostRecentlyUsedList { get; set; } = true;
-    public bool AllowPropertyEditing { get; set; } = false;
+    public bool AllowPropertyEditing { get; set; }
+    public bool AlwaysAppendDefaultExtension { get; set; }
+    public bool CreatePrompt { get; set; }
     public string DefaultDirectory { get; set; } = string.Empty;
     public string DefaultExtension { get; set; } = string.Empty;
     public string DefaultFileName { get; set; } = string.Empty;
     public bool EnsureFileExists { get; set; } = true;
     public bool EnsurePathExists { get; set; } = true;
     public bool EnsureReadOnly { get; set; } = true;
-    public bool EnsureValidNames { get; set; } = false;
-    public string DefaultExt { get; set; } = string.Empty;
-    public bool DereferenceLinks { get; set; } = true;
+    public bool EnsureValidNames { get; set; }
     public string Filter { get; set; }
     public string InitialDirectory { get; set; } = string.Empty;
-    public bool IsFolderPicker { get; set; }
+    public bool IsExpandedMode { get; set; }
     public bool Multiselect { get; set; }
     public bool NavigateToShortcut { get; set; } = true;
+    public bool OverwritePrompt { get; set; }
     public bool RestoreDirectory { get; set; }
     public bool ShowHiddenItems { get; set; }
     public bool ShowPlacesList { get; set; } = true;
@@ -46,7 +47,7 @@ public class OpenFileViewModel
 
     public string ErrorMessage { get; set; } = string.Empty;
 
-    public ICommand OpenFileCommand => new RelayCommand(() =>
+    public ICommand SaveFileCommand => new RelayCommand(() =>
     {
         ErrorMessage = string.Empty;
         List<FileDialogFilter> filters =
@@ -59,10 +60,12 @@ public class OpenFileViewModel
 
         try
         {
-            var context = new OpenFileDialogContext
+            var context = new SaveFileDialogContext
             {
                 AddToMostRecentlyUsedList = AddToMostRecentlyUsedList,
                 AllowPropertyEditing = AllowPropertyEditing,
+                AlwaysAppendDefaultExtension = AlwaysAppendDefaultExtension,
+                CreatePrompt = CreatePrompt,
                 DefaultDirectory = DefaultDirectory,
                 DefaultExtension = DefaultExtension,
                 DefaultFileName = DefaultFileName,
@@ -72,9 +75,9 @@ public class OpenFileViewModel
                 EnsureValidNames = EnsureValidNames,
                 Filters = filters,
                 InitialDirectory = InitialDirectory,
-                IsFolderPicker = IsFolderPicker,
-                Multiselect = Multiselect,
+                IsExpandedMode = IsExpandedMode,
                 NavigateToShortcut = NavigateToShortcut,
+                OverwritePrompt = OverwritePrompt,
                 RestoreDirectory = RestoreDirectory,
                 ShowHiddenItems = ShowHiddenItems,
                 ShowPlacesList = ShowPlacesList,
@@ -84,8 +87,8 @@ public class OpenFileViewModel
             {
                 context.CustomPlaces.Add(new FileDialogCustomPlace(Place, FileDialogAddPlaceLocation.Top));
             }
-            OpenFileResult = _presentationService.OpenFile(context);
-            FilePath = string.Join("; ", context.FileNames);
+            OpenFileResult = _presentationService.SaveFile(context);
+            FilePath = context.FileName;
         }
         catch (Exception e)
         {

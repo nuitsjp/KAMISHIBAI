@@ -31,5 +31,6 @@ public interface IPresentationServiceBase
         MessageBoxOptions options = MessageBoxOptions.None,
         object? owner = null);
 
-    public DialogResult OpenFile(OpenFileDialogContext dialogContext);
+    public DialogResult OpenFile(OpenFileDialogContext context);
+    public DialogResult SaveFile(SaveFileDialogContext context);
 }

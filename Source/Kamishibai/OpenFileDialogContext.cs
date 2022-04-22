@@ -12,6 +12,9 @@ public class OpenFileDialogContext : FileDialogContext
     /// <remarks>This property should only be used when the <see cref="OpenFileDialogContext.Multiselect"/> property is <b>true</b>.</remarks>
     public IEnumerable<string> FileNames { get; set; } = Array.Empty<string>();
 
+    /// <summary>Gets or sets a value that determines whether the user can select folders or files. Default value is false.</summary>
+    public bool IsFolderPicker { get; set; }
+
     /// <summary>Gets or sets a value that determines whether the user can select more than one file.</summary>
     public bool Multiselect { get; set; } = false;
 }

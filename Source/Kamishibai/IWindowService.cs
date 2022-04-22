@@ -13,5 +13,6 @@ public interface IWindowService
     public Task CloseWindowAsync(object? window);
     public Task CloseDialogAsync(bool dialogResult, object? window);
     public MessageBoxResult ShowMessage(string messageBoxText, string? caption, MessageBoxButton button, MessageBoxImage icon, MessageBoxResult defaultResult, MessageBoxOptions options, object? owner);
-    DialogResult OpenFile(OpenFileDialogContext dialogContext);
+    DialogResult OpenFile(OpenFileDialogContext context);
+    DialogResult SaveFile(SaveFileDialogContext context);
 }

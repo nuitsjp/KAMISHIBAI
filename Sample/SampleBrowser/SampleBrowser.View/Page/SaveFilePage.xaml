@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SampleBrowser.View.Page.OpenFilePage"
+﻿<UserControl x:Class="SampleBrowser.View.Page.SaveFilePage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
              xmlns:kamishibai="clr-namespace:Kamishibai;assembly=Kamishibai.View"
              mc:Ignorable="d" 
              d:DesignWidth="1280" d:DesignHeight="1024"
-             d:DataContext="{d:DesignInstance Type={x:Type local:DesignOpenFileViewModel}, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance Type={x:Type local:DesignSaveFilePageViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
@@ -35,11 +35,12 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Open File" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+            <TextBlock Text="Save File" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
             <Border Grid.Row="1" Padding="16">
                 <StackPanel>
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -69,17 +70,25 @@
                         <TextBlock Grid.Row="1" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
                         <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding AllowPropertyEditing}"/>
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="DefaultDirectory"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="AllowPropertyEditing"/>
                         <TextBlock Grid.Row="2" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding DefaultDirectory}"/>
+                        <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{Binding AllowPropertyEditing}"/>
 
-                        <TextBlock Grid.Row="3" Grid.Column="0" Text="DefaultExtension"/>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="AlwaysAppendDefaultExtension"/>
                         <TextBlock Grid.Row="3" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding DefaultExtension}"/>
+                        <CheckBox Grid.Row="3" Grid.Column="2" IsChecked="{Binding AlwaysAppendDefaultExtension}"/>
 
-                        <TextBlock Grid.Row="4" Grid.Column="0" Text="DefaultFileName"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="CreatePrompt"/>
                         <TextBlock Grid.Row="4" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding DefaultFileName}"/>
+                        <CheckBox Grid.Row="4" Grid.Column="2" IsChecked="{Binding CreatePrompt}"/>
+
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="DefaultExtension"/>
+                        <TextBlock Grid.Row="5" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding DefaultExtension}"/>
+
+                        <TextBlock Grid.Row="6" Grid.Column="0" Text="DefaultFileName"/>
+                        <TextBlock Grid.Row="6" Grid.Column="1" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding DefaultFileName}"/>
 
                         <TextBlock Grid.Row="0" Grid.Column="3" Text="EnsureFileExists"/>
                         <TextBlock Grid.Row="0" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
@@ -105,9 +114,9 @@
                         <TextBlock Grid.Row="5" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
                         <TextBox Grid.Row="5" Grid.Column="5" Text="{Binding InitialDirectory}"/>
 
-                        <TextBlock Grid.Row="6" Grid.Column="3" Text="IsFolderPicker"/>
+                        <TextBlock Grid.Row="6" Grid.Column="3" Text="IsExpandedMode"/>
                         <TextBlock Grid.Row="6" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="6" Grid.Column="5" IsChecked="{Binding IsFolderPicker}"/>
+                        <CheckBox Grid.Row="6" Grid.Column="5" IsChecked="{Binding IsExpandedMode}"/>
 
                         <TextBlock Grid.Row="0" Grid.Column="6" Text="Multiselect"/>
                         <TextBlock Grid.Row="0" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
@@ -117,27 +126,31 @@
                         <TextBlock Grid.Row="1" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
                         <CheckBox Grid.Row="1" Grid.Column="8" IsChecked="{Binding NavigateToShortcut}"/>
 
-                        <TextBlock Grid.Row="2" Grid.Column="6" Text="RestoreDirectory"/>
+                        <TextBlock Grid.Row="2" Grid.Column="6" Text="OverwritePrompt"/>
                         <TextBlock Grid.Row="2" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="2" Grid.Column="8" IsChecked="{Binding RestoreDirectory}"/>
+                        <CheckBox Grid.Row="2" Grid.Column="8" IsChecked="{Binding OverwritePrompt}"/>
 
-                        <TextBlock Grid.Row="3" Grid.Column="6" Text="ShowHiddenItems"/>
+                        <TextBlock Grid.Row="3" Grid.Column="6" Text="RestoreDirectory"/>
                         <TextBlock Grid.Row="3" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="3" Grid.Column="8" IsChecked="{Binding ShowHiddenItems}"/>
+                        <CheckBox Grid.Row="3" Grid.Column="8" IsChecked="{Binding RestoreDirectory}"/>
 
-                        <TextBlock Grid.Row="4" Grid.Column="6" Text="ShowPlacesList"/>
+                        <TextBlock Grid.Row="4" Grid.Column="6" Text="ShowHiddenItems"/>
                         <TextBlock Grid.Row="4" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="4" Grid.Column="8" IsChecked="{Binding ShowPlacesList}"/>
+                        <CheckBox Grid.Row="4" Grid.Column="8" IsChecked="{Binding ShowHiddenItems}"/>
 
-                        <TextBlock Grid.Row="5" Grid.Column="6" Text="Place"/>
+                        <TextBlock Grid.Row="5" Grid.Column="6" Text="ShowPlacesList"/>
                         <TextBlock Grid.Row="5" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="5" Grid.Column="8" Text="{Binding Place}"/>
+                        <CheckBox Grid.Row="5" Grid.Column="8" IsChecked="{Binding ShowPlacesList}"/>
 
-                        <TextBlock Grid.Row="6" Grid.Column="6" Text="Title"/>
+                        <TextBlock Grid.Row="6" Grid.Column="6" Text="Place"/>
                         <TextBlock Grid.Row="6" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="6" Grid.Column="8" Text="{Binding Title}"/>
+                        <TextBox Grid.Row="6" Grid.Column="8" Text="{Binding Place}"/>
+
+                        <TextBlock Grid.Row="7" Grid.Column="6" Text="Title"/>
+                        <TextBlock Grid.Row="7" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
+                        <TextBox Grid.Row="7" Grid.Column="8" Text="{Binding Title}"/>
                     </Grid>
-                    <Button Content="Open" HorizontalAlignment="Right" Command="{Binding OpenFileCommand}"/>
+                    <Button Content="Save" HorizontalAlignment="Right" Command="{Binding SaveFileCommand}" Cursor="Hand"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Text="OpenFileResult"/>
                         <TextBlock Text=":" Margin="0,14,0,14"/>

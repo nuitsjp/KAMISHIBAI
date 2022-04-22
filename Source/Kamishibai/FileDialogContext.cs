@@ -66,9 +66,6 @@ public class FileDialogContext
     /// <value>A <see cref="System.String"/> object.</value>
     public string InitialDirectory { get; set; } = string.Empty;
 
-    /// <summary>Gets or sets a value that determines whether the user can select folders or files. Default value is false.</summary>
-    public bool IsFolderPicker { get; set; }
-
     ///<summary>
     /// Gets or sets a value that controls whether shortcuts should be treated as their target items, allowing an application to open a .lnk file.
     /// </summary>
@@ -97,16 +94,6 @@ public class FileDialogContext
     /// <value>A <see cref="System.String"/> object.</value>
     public string Title { get; set; } = string.Empty;
 
-
-
+    /// <summary>An item in the "Place" section to add to the list of locations where users can open or save items. </summary>
     public IList<FileDialogCustomPlace> CustomPlaces { get; set; } = new List<FileDialogCustomPlace>();
-    public string DefaultExt { get; set; } = string.Empty;
-    public bool DereferenceLinks { get; set; } = true;
-    public int FilterIndex { get; set; } = 1;
-
-    public bool ReadOnlyChecked { get; set; } = false;
-    public bool ShowReadOnly { get; set; } = false;
-    public string SafeFileName { get; set; } = string.Empty;
-    public string[] SafeFileNames { get; set; } = Array.Empty<string>();
-    public bool ValidateNames { get; set; } = true;
 }
