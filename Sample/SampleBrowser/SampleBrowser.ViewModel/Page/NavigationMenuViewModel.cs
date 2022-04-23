@@ -17,7 +17,7 @@ public class NavigationMenuViewModel : IPausingAware
 
     public bool BlockNavigation { get; set; }
 
-    public string Message { get; set; }
+    public string Message { get; set; } = string.Empty;
 
     public ICommand NavigateByTypeCommand => 
         new AsyncRelayCommand(() => _presentationService.NavigateAsync(typeof(ContentViewModel)));
