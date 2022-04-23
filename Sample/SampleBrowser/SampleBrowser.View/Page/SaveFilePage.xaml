@@ -47,7 +47,6 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -118,37 +117,33 @@
                         <TextBlock Grid.Row="6" Grid.Column="4" Text=":" Margin="0,14,0,14"/>
                         <CheckBox Grid.Row="6" Grid.Column="5" IsChecked="{Binding IsExpandedMode}"/>
 
-                        <TextBlock Grid.Row="0" Grid.Column="6" Text="Multiselect"/>
+                        <TextBlock Grid.Row="0" Grid.Column="6" Text="NavigateToShortcut"/>
                         <TextBlock Grid.Row="0" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="0" Grid.Column="8" IsChecked="{Binding Multiselect}"/>
+                        <CheckBox Grid.Row="0" Grid.Column="8" IsChecked="{Binding NavigateToShortcut}"/>
 
-                        <TextBlock Grid.Row="1" Grid.Column="6" Text="NavigateToShortcut"/>
+                        <TextBlock Grid.Row="1" Grid.Column="6" Text="OverwritePrompt"/>
                         <TextBlock Grid.Row="1" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="1" Grid.Column="8" IsChecked="{Binding NavigateToShortcut}"/>
+                        <CheckBox Grid.Row="1" Grid.Column="8" IsChecked="{Binding OverwritePrompt}"/>
 
-                        <TextBlock Grid.Row="2" Grid.Column="6" Text="OverwritePrompt"/>
+                        <TextBlock Grid.Row="2" Grid.Column="6" Text="RestoreDirectory"/>
                         <TextBlock Grid.Row="2" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="2" Grid.Column="8" IsChecked="{Binding OverwritePrompt}"/>
+                        <CheckBox Grid.Row="2" Grid.Column="8" IsChecked="{Binding RestoreDirectory}"/>
 
-                        <TextBlock Grid.Row="3" Grid.Column="6" Text="RestoreDirectory"/>
+                        <TextBlock Grid.Row="3" Grid.Column="6" Text="ShowHiddenItems"/>
                         <TextBlock Grid.Row="3" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="3" Grid.Column="8" IsChecked="{Binding RestoreDirectory}"/>
+                        <CheckBox Grid.Row="3" Grid.Column="8" IsChecked="{Binding ShowHiddenItems}"/>
 
-                        <TextBlock Grid.Row="4" Grid.Column="6" Text="ShowHiddenItems"/>
+                        <TextBlock Grid.Row="4" Grid.Column="6" Text="ShowPlacesList"/>
                         <TextBlock Grid.Row="4" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="4" Grid.Column="8" IsChecked="{Binding ShowHiddenItems}"/>
+                        <CheckBox Grid.Row="4" Grid.Column="8" IsChecked="{Binding ShowPlacesList}"/>
 
-                        <TextBlock Grid.Row="5" Grid.Column="6" Text="ShowPlacesList"/>
+                        <TextBlock Grid.Row="5" Grid.Column="6" Text="Place"/>
                         <TextBlock Grid.Row="5" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <CheckBox Grid.Row="5" Grid.Column="8" IsChecked="{Binding ShowPlacesList}"/>
+                        <TextBox Grid.Row="5" Grid.Column="8" Text="{Binding Place}"/>
 
-                        <TextBlock Grid.Row="6" Grid.Column="6" Text="Place"/>
+                        <TextBlock Grid.Row="6" Grid.Column="6" Text="Title"/>
                         <TextBlock Grid.Row="6" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="6" Grid.Column="8" Text="{Binding Place}"/>
-
-                        <TextBlock Grid.Row="7" Grid.Column="6" Text="Title"/>
-                        <TextBlock Grid.Row="7" Grid.Column="7" Text=":" Margin="0,14,0,14"/>
-                        <TextBox Grid.Row="7" Grid.Column="8" Text="{Binding Title}"/>
+                        <TextBox Grid.Row="6" Grid.Column="8" Text="{Binding Title}"/>
                     </Grid>
                     <Button Content="Save" HorizontalAlignment="Right" Command="{Binding SaveFileCommand}" Cursor="Hand"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">

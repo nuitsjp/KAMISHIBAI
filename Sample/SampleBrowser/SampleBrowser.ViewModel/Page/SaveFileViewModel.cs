@@ -34,7 +34,6 @@ public class SaveFileViewModel
     public string Filter { get; set; }
     public string InitialDirectory { get; set; } = string.Empty;
     public bool IsExpandedMode { get; set; }
-    public bool Multiselect { get; set; }
     public bool NavigateToShortcut { get; set; } = true;
     public bool OverwritePrompt { get; set; }
     public bool RestoreDirectory { get; set; }

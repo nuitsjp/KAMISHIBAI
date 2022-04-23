@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using Kamishibai;
 using Microsoft.Toolkit.Mvvm.Input;
 
 namespace SampleBrowser.ViewModel.Page;
@@ -13,7 +14,7 @@ public class OpenDialogViewModel
     }
 
     public ICommand OpenByTypeCommand =>
-        new AsyncRelayCommand(() => _presentationService.OpenDialogAsync(typeof(ChildViewModel)));
+        new AsyncRelayCommand(() => _presentationService.OpenDialogAsync(typeof(ChildViewModel), options: new OpenWindowOptions{WindowStartupLocation = WindowStartupLocation.CenterOwner}));
 
     public ICommand OpenByGenericTypeCommand =>
         new AsyncRelayCommand(() => _presentationService.OpenDialogAsync<ChildViewModel>());

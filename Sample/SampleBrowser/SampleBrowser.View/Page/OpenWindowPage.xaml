@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SampleBrowser.View.Page"
+             xmlns:kamishibai="clr-namespace:Kamishibai;assembly=Kamishibai.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type={x:Type local:DesignOpenWindowViewModel}, IsDesignTimeCreatable=True}">
@@ -24,9 +25,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Open Window" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
-        <Border Grid.Row="1" Padding="16">
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="WindowStartupLocations : "/>
+            <ComboBox ItemsSource="{Binding WindowStartupLocations}"
+                      SelectedItem="{Binding SelectedWindowStartupLocation}"/>
+        </StackPanel>
+        <Border Grid.Row="2" Padding="16">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -41,23 +48,23 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="0" Grid.Column="0" Content="Open" Command="{Binding OpenByTypeCommand}"/>
+                <Button Grid.Row="0" Grid.Column="0" Content="Open" Command="{Binding OpenByTypeCommand}" CommandParameter="{kamishibai:Window}"/>
                 <TextBlock Grid.Row="0" Grid.Column="1"  Text="by Type. "/>
 
-                <Button Grid.Row="1" Grid.Column="0" Content="Open" Command="{Binding OpenByGenericTypeCommand}"/>
+                <Button Grid.Row="1" Grid.Column="0" Content="Open" Command="{Binding OpenByGenericTypeCommand}" CommandParameter="{kamishibai:Window}"/>
                 <TextBlock Grid.Row="1" Grid.Column="1"  Text="by Generic Type."/>
 
-                <Button Grid.Row="2" Grid.Column="0" Content="Open" Command="{Binding OpenByInstanceCommand}"/>
+                <Button Grid.Row="2" Grid.Column="0" Content="Open" Command="{Binding OpenByInstanceCommand}" CommandParameter="{kamishibai:Window}"/>
                 <TextBlock Grid.Row="2" Grid.Column="1"  Text="by ViewModel Instance."/>
                 <TextBox Grid.Row="2" Grid.Column="2"  Text="{Binding WindowName1}"/>
 
-                <Button Grid.Row="3" Grid.Column="0" Content="Open" Command="{Binding OpenWithCallbackCommand}"/>
+                <Button Grid.Row="3" Grid.Column="0" Content="Open" Command="{Binding OpenWithCallbackCommand}" CommandParameter="{kamishibai:Window}"/>
                 <TextBlock Grid.Row="3" Grid.Column="1"  Text="with Callback initializer."/>
                 <TextBox Grid.Row="3" Grid.Column="2"  Text="{Binding WindowName2}"/>
 
-                <Button Grid.Row="4" Grid.Column="0" Content="Open" Command="{Binding OpenWithSafeParameterCommand}"/>
+                <Button Grid.Row="4" Grid.Column="0" Content="Open" Command="{Binding OpenWithSafeParameterCommand}" CommandParameter="{kamishibai:Window}"/>
                 <TextBlock Grid.Row="4" Grid.Column="1"  Text="with Safe Parameter."/>
-                <TextBox Grid.Row="4" Grid.Column="2"  Text="{Binding WindowName3}"/>
+                <TextBox Grid.Row="4" Grid.Column="2"  Text="{Binding WindowName3}" Cursor="Arrow"/>
             </Grid>
         </Border>
     </Grid>
