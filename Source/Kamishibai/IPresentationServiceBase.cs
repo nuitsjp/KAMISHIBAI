@@ -24,7 +24,7 @@ public interface IPresentationServiceBase
 
     public MessageBoxResult ShowMessage(
         string messageBoxText,
-        string? caption = null,
+        string caption = "",
         MessageBoxButton button = MessageBoxButton.OK,
         MessageBoxImage icon = MessageBoxImage.None, 
         MessageBoxResult defaultResult = MessageBoxResult.None,

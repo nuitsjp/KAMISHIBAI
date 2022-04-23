@@ -12,6 +12,6 @@ public class WindowExtension : MarkupExtension
         RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(Window), 1)
     };
 
-    public override object? ProvideValue(IServiceProvider serviceProvider)
+    public override object ProvideValue(IServiceProvider serviceProvider)
         => _binding.ProvideValue(serviceProvider);
 }

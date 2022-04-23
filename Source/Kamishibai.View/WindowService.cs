@@ -1,6 +1,6 @@
 ﻿using System.Windows;
-using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Application = System.Windows.Application;
 
 namespace Kamishibai;
 
@@ -72,7 +72,7 @@ public class WindowService : IWindowService
         Window? target = (Window?)window ?? GetActiveWindow();
         if (target is null) return;
 
-        await NotifyDisposing(target.DataContext);
+        if(await NotifyDisposing(target.DataContext) is false) return;
         target.Close();
         await NotifyDisposed(target.DataContext);
     }
@@ -82,30 +82,32 @@ public class WindowService : IWindowService
         Window? target = (Window?)window ?? GetActiveWindow();
         if(target is null) return;
 
-        await NotifyDisposing(target.DataContext);
+        if (await NotifyDisposing(target.DataContext) is false) return;
         target.DialogResult = dialogResult;
         await NotifyDisposed(target.DataContext);
     }
 
-    public MessageBoxResult ShowMessage(string messageBoxText, string? caption, MessageBoxButton button,
-        MessageBoxImage icon,
-        MessageBoxResult defaultResult, MessageBoxOptions options, object? owner)
-        => (MessageBoxResult) (owner is null
-            ? MessageBox.Show(
-                messageBoxText,
-                caption ?? string.Empty,
-                (System.Windows.MessageBoxButton) button,
-                (System.Windows.MessageBoxImage) icon,
-                (System.Windows.MessageBoxResult) defaultResult,
-                (System.Windows.MessageBoxOptions) options)
-            : MessageBox.Show(
-                (Window) owner,
-                messageBoxText,
-                caption ?? string.Empty,
-                (System.Windows.MessageBoxButton) button,
-                (System.Windows.MessageBoxImage) icon,
-                (System.Windows.MessageBoxResult) defaultResult,
-                (System.Windows.MessageBoxOptions) options));
+    public MessageBoxResult ShowMessage(
+        string messageBoxText, 
+        string caption, 
+        MessageBoxButton button, 
+        MessageBoxImage icon, 
+        MessageBoxResult defaultResult, 
+        MessageBoxOptions options, 
+        object? owner)
+    {
+        var messageDialog = owner is null ? 
+            new MessageDialog() : 
+            new MessageDialog((Window)owner);
+        messageDialog.Text = messageBoxText;
+        messageDialog.Caption = caption;
+        messageDialog.Buttons = button;
+        messageDialog.Icon = icon;
+        messageDialog.DefaultResult = defaultResult;
+        messageDialog.Options = options;
+
+        return (MessageBoxResult)messageDialog.Show();
+    }
 
     public DialogResult OpenFile(OpenFileDialogContext context)
     {

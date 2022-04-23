@@ -84,7 +84,7 @@ public class PresentationServiceBase : IPresentationServiceBase
 
     public Task CloseDialogAsync(bool dialogResult, object? window = null) => _windowService.CloseDialogAsync(dialogResult, window);
 
-    public MessageBoxResult ShowMessage(string messageBoxText, string? caption = null,
+    public MessageBoxResult ShowMessage(string messageBoxText, string caption = "",
         MessageBoxButton button = MessageBoxButton.OK, MessageBoxImage icon = MessageBoxImage.None,
         MessageBoxResult defaultResult = MessageBoxResult.None, MessageBoxOptions options = MessageBoxOptions.None,
         object? owner = null)

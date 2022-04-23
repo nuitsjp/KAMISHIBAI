@@ -76,7 +76,7 @@
 
                 <Button Grid.Row="4" Grid.Column="5" Content="Show" HorizontalAlignment="Right"
                         Command="{Binding ShowMessageCommand}"
-                        CommandParameter="{kamishibai:Window}" Cursor="Hand"/>
+                        CommandParameter="{kamishibai:Window}"/>
             </Grid>
         </Border>
     </Grid>
