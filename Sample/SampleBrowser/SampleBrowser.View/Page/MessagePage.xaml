@@ -20,10 +20,18 @@
         </Grid.RowDefinitions>
         <TextBlock Text="WindowName Page" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
         <Border Grid.Row="1" Padding="16">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="WindowName : "/>
-                <TextBlock Text="{Binding Message}" Margin="10"/>
-                <Button Content="Go Back" Command="{Binding GoBackCommand}"/>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Block Go Back : "/>
+                    <CheckBox IsChecked="{Binding BlockGoBack}" Margin="5"/>
+                    <TextBlock Foreground="Red" Text="{Binding AlertMessage}" Margin="5"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="WindowName : "/>
+                    <TextBlock Text="{Binding Message}" Margin="10"/>
+                    <Button Content="Go Back" Command="{Binding GoBackCommand}"/>
+                </StackPanel>
             </StackPanel>
         </Border>
     </Grid>

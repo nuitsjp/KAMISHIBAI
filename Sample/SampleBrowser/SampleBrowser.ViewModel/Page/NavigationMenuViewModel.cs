@@ -1,9 +1,12 @@
 ﻿using System.Windows.Input;
+using Kamishibai;
 using Microsoft.Toolkit.Mvvm.Input;
+using PropertyChanged;
 
 namespace SampleBrowser.ViewModel.Page;
 
-public class NavigationMenuViewModel
+[AddINotifyPropertyChangedInterface]
+public class NavigationMenuViewModel : IPausingAware
 {
     private readonly IPresentationService _presentationService;
 
@@ -11,6 +14,10 @@ public class NavigationMenuViewModel
     {
         _presentationService = presentationService;
     }
+
+    public bool BlockNavigation { get; set; }
+
+    public string Message { get; set; }
 
     public ICommand NavigateByTypeCommand => 
         new AsyncRelayCommand(() => _presentationService.NavigateAsync(typeof(ContentViewModel)));
@@ -32,4 +39,16 @@ public class NavigationMenuViewModel
 
     public ICommand NavigateWithSafeParameterCommand =>
         new AsyncRelayCommand(() => _presentationService.NavigateToMessageAsync(Message3));
+
+    public bool OnPausing()
+    {
+        if (BlockNavigation)
+        {
+            Message = "Navigation blocked.";
+            return false;
+        }
+
+        Message = string.Empty;
+        return true;
+    }
 }
