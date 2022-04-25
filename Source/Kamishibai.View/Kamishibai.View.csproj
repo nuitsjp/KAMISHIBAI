@@ -6,9 +6,27 @@
 		<Nullable>enable</Nullable>
 		<UseWpf>true</UseWpf>
 		<RootNamespace>Kamishibai</RootNamespace>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
-	<ItemGroup>
+  <!-- NuGet -->
+  <PropertyGroup>
+    <PackageId>Kamishibai.View</PackageId>
+    <Description>MVVM navigation library for Generic Host.</Description>
+    <PackageVersion>$(Version)</PackageVersion>
+    <Authors>nuits.jp</Authors>
+    <Copyright>© 2022 nuits.jp</Copyright>
+    <PackageTags>sourcegenerator wpf</PackageTags>
+    <PackageProjectUrl>https://github.com/nuitsjp/Kamishibai</PackageProjectUrl>
+    <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.1-pre</Version>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+  </PropertyGroup>
+	
+  <ItemGroup>
 	  <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
 	</ItemGroup>
 

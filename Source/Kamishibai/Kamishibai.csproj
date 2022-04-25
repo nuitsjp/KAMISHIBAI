@@ -11,7 +11,7 @@
 	<!-- NuGet -->
 	<PropertyGroup>
 		<PackageId>Kamishibai</PackageId>
-		<Description></Description>
+		<Description>MVVM navigation library for Generic Host.</Description>
 		<PackageVersion>$(Version)</PackageVersion>
 		<Authors>nuits.jp</Authors>
 		<Copyright>© 2022 nuits.jp</Copyright>
@@ -21,9 +21,8 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>1.0.0</Version>
+		<Version>0.0.1-pre</Version>
 		<NoPackageAnalysis>true</NoPackageAnalysis>
-
 		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
 	</PropertyGroup>
 
