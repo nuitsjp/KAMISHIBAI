@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
+	<Nullable>disable</Nullable>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;NU1701</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;NU1701</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Codeer.Friendly.Windows.NativeStandardControls" Version="2.16.9" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="RM.Friendly.WPFStandardControls" Version="1.59.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Driver.InTarget\Driver.InTarget.csproj" />
+  </ItemGroup>
+
+</Project>
