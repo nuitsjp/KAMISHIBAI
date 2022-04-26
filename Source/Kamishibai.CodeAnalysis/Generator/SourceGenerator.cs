@@ -37,7 +37,7 @@ public class SourceGenerator : ISourceGenerator
 
         var openDialogInfos =
             syntaxReceiver
-                .OpenWindows
+                .OpenDialogs
                 .SelectMany(type => type.GetConstructors().Select(constructor => new OpenDialogInfo(context, type, constructor)))
                 .ToList();
 
@@ -80,7 +80,7 @@ public class SourceGenerator : ISourceGenerator
                     typeDeclarationSyntax
                         .AttributeLists
                         .SelectMany(x => x.Attributes)
-                        .FirstOrDefault(x => x.Name.ToString() is "OpenWindow" or "OpenWindowAttribute");
+                        .FirstOrDefault(x => x.Name.ToString() is "OpenDialog" or "OpenDialogAttribute");
                 if (openDialogs is not null) OpenDialogs.Add(typeDeclarationSyntax);
             }
         }

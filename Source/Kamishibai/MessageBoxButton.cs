@@ -1,4 +1,5 @@
-﻿namespace Kamishibai;
+﻿// ReSharper disable InconsistentNaming
+namespace Kamishibai;
 
 public enum MessageBoxButton
 {
