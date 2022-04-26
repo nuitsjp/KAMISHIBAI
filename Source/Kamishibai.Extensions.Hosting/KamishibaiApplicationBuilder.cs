@@ -26,6 +26,13 @@ public class KamishibaiApplicationBuilder<TApplication, TWindow> : IWpfApplicati
         var app = _builder.Build();
         app.Startup += async (_, args) =>
         {
+            if (args.Window.DataContext is null)
+            {
+                if (ViewTypeCache.TryGetViewModelType(typeof(TWindow), out var viewModelType))
+                {
+                    args.Window.DataContext = app.Services.GetService(viewModelType);
+                }
+            }
             if (args.Window.DataContext is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
             if (args.Window.DataContext is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
         };

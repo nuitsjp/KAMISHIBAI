@@ -25,7 +25,7 @@ namespace Kamishibai.CodeAnalysis.Generator
         /// </summary>
         public override string TransformText()
         {
-            this.Write("using Kamishibai;\r\n\r\nnamespace ");
+            this.Write("using System;\r\nusing System.Threading.Tasks;\r\nusing Kamishibai;\r\n\r\nnamespace ");
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             this.Write(";\r\n\r\npublic partial interface IPresentationService : IPresentationServiceBase\r\n{\r" +
                     "\n");

@@ -10,10 +10,9 @@ namespace SampleBrowser.View;
 /// </summary>
 public partial class MainWindow
 {
-    public MainWindow(MainViewModel viewModel)
+    public MainWindow()
     {
         InitializeComponent();
-        DataContext = viewModel;
     }
 
     private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)

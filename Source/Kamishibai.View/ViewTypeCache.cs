@@ -15,9 +15,24 @@ public static class ViewTypeCache
         throw new InvalidOperationException($"View matching the {viewModelType} has not been registered.");
     }
 
-
-    public static void SetViewType<TView, TViewType>()
+    public static bool TryGetViewModelType(Type viewType, out Type viewModelType)
     {
-        ViewTypes[typeof(TViewType)] = typeof(TView);
+        foreach (var pair in ViewTypes)
+        {
+            if (pair.Value == viewType)
+            {
+                viewModelType = pair.Key;
+                return true;
+            }
+        }
+
+        viewModelType = typeof(Type);
+        return false;
+    }
+
+
+    public static void SetViewType<TView, TViewModel>()
+    {
+        ViewTypes[typeof(TViewModel)] = typeof(TView);
     }
 }
