@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:KamishibaiApp.ViewModel.Properties;assembly=KamishibaiApp.ViewModel"
+    xmlns:kamishibaiApp="clr-namespace:KamishibaiApp;assembly=KamishibaiApp"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -37,7 +38,7 @@
                     <DataGridTextColumn Binding="{Binding Status}" Header="Status" />
                     <DataGridTemplateColumn Header="Symbol">
                         <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
+                            <DataTemplate DataType="{x:Type kamishibaiApp:Order}">
                                 <TextBlock
                                     Margin="{StaticResource SmallLeftRightMargin}"
                                     HorizontalAlignment="Left"

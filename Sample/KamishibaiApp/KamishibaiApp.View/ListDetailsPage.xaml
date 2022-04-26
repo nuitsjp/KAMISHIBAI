@@ -6,10 +6,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:KamishibaiApp.ViewModel.Properties;assembly=KamishibaiApp.ViewModel"
+    xmlns:kamishibaiApp="clr-namespace:KamishibaiApp;assembly=KamishibaiApp"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <DataTemplate x:Key="ItemTemplate">
+        <DataTemplate x:Key="ItemTemplate" DataType="{x:Type kamishibaiApp:Order}">
             <Grid Height="60">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -31,7 +32,7 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="DetailTemplate">
+        <DataTemplate x:Key="DetailTemplate" DataType="{x:Type kamishibaiApp:Order}">
             <ScrollViewer
                 Name="ForegroundElement"
                 IsTabStop="True"

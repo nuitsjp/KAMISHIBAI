@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using Kamishibai;
+﻿using Kamishibai;
 using Microsoft.Toolkit.Mvvm.Input;
 
 namespace SampleBrowser.ViewModel.Page;

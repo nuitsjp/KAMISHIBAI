@@ -1,11 +1,10 @@
-﻿using System.Windows;
-using SampleBrowser.ViewModel;
+﻿using SampleBrowser.ViewModel;
 
 namespace SampleBrowser.View;
 /// <summary>
 /// ChildWindow.xaml の相互作用ロジック
 /// </summary>
-public partial class ChildWindow : Window
+public partial class ChildWindow
 {
     public ChildWindow()
     {

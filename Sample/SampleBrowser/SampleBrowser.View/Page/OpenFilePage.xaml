@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SampleBrowser.View.Page"
-             xmlns:kamishibai="clr-namespace:Kamishibai;assembly=Kamishibai.View"
              mc:Ignorable="d" 
              d:DesignWidth="1280" d:DesignHeight="1024"
              d:DataContext="{d:DesignInstance Type={x:Type local:DesignOpenFileViewModel}, IsDesignTimeCreatable=True}">

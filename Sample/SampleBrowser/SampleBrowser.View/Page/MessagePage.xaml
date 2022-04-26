@@ -9,8 +9,7 @@
              d:DataContext="{d:DesignInstance Type={x:Type local:DesignMessageViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
-            </Style>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid VerticalAlignment="Top">

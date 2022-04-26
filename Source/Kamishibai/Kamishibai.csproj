@@ -21,13 +21,13 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>0.0.1-pre</Version>
+		<Version>0.0.3-pre</Version>
 		<NoPackageAnalysis>true</NoPackageAnalysis>
 		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Kamishibai.CodeAnalysis\Kamishibai.CodeAnalysis.csproj" />
+		<ProjectReference Include="..\Kamishibai.CodeAnalysis\Kamishibai.CodeAnalysis.csproj" PrivateAssets="All"/>
 	</ItemGroup>
 
 	<Target Name="_AddAnalyzersToOutput">

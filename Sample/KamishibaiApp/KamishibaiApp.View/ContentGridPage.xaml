@@ -7,10 +7,11 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:behaviors="clr-namespace:KamishibaiApp.View.Behaviors"
     xmlns:properties="clr-namespace:KamishibaiApp.ViewModel.Properties;assembly=KamishibaiApp.ViewModel"
+    xmlns:kamishibaiApp="clr-namespace:KamishibaiApp;assembly=KamishibaiApp"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <DataTemplate x:Key="ContentGridItemTemplate">
+        <DataTemplate x:Key="ContentGridItemTemplate" DataType="{x:Type kamishibaiApp:Order}">
             <Grid
                 Width="160"
                 Height="160"

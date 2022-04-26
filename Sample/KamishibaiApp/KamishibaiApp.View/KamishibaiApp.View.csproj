@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Kamishibai.View" Version="0.0.1-pre" />
 	  <PackageReference Include="MahApps.Metro" Version="2.4.9" />
 	</ItemGroup>
 
@@ -16,7 +17,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\Source\Kamishibai.View\Kamishibai.View.csproj" />
 	  <ProjectReference Include="..\KamishibaiApp.ViewModel\KamishibaiApp.ViewModel.csproj" />
 	</ItemGroup>
 
