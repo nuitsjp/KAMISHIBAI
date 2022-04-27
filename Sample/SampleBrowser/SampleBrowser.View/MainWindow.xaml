@@ -29,7 +29,6 @@
                         IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"/>
 
                 <ListBox 
-                        x:Name="DemoItemsListBox" 
                         Margin="0 16 0 16"
                         SelectedItem="{Binding SelectedMenuItem}"
                         ItemsSource="{Binding SampleItems}"

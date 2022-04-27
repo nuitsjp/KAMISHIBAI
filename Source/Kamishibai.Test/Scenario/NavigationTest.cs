@@ -1,31 +1,39 @@
 ﻿using Codeer.Friendly.Windows;
 using Driver.TestController;
 using NUnit.Framework;
-using System.Diagnostics;
 using Driver.Windows;
+using FluentAssertions;
 
-namespace Scenario
+namespace Scenario;
+
+[TestFixture]
+public class NavigationTest
 {
-    [TestFixture]
-    public class NavigationTest
+    WindowsAppFriend _app;
+
+    [SetUp]
+    public void TestInitialize() => _app = ProcessController.Start();
+
+    [TearDown]
+    public void TestCleanup() => _app.Kill();
+
+    [Test]
+    public void NavigateWithCallbackInitializer()
     {
-        WindowsAppFriend _app;
+        var mainWindow = _app.AttachMainWindow();
+        var contentPage = _app.AttachContentPage();
+        var navigationMenuPage = _app.AttachNavigationMenuPage();
 
-        [SetUp]
-        public void TestInitialize() => _app = ProcessController.Start();
+        // Navigate to ContentPage
+        const string message = "Hello, Navigate!";
+        navigationMenuPage.Message2.EmulateChangeText(message);
+        navigationMenuPage.NavigateWithCallbackCommand.EmulateClick();
 
-        [TearDown]
-        public void TestCleanup() => _app.Kill();
+        mainWindow.NavigationFrame.Should().BeOfPage("SampleBrowser.View.Page.ContentPage");
+        contentPage.Message.Text.Should().Be(message);
 
-        [Test]
-        public void NavigateWithCallbackInitializer()
-        {
-            var contentPage = _app.AttachContentPage();
-            var navigationMenuPage = _app.AttachNavigationMenuPage();
-            navigationMenuPage.NavigateWithCallbackCommand.EmulateClick();
-            
-            Assert.AreEqual("Hello, Callback!", contentPage.Message.Text);
-            contentPage.GoBackCommand.EmulateClick();
-        }
+        // Go back
+        contentPage.GoBackCommand.EmulateClick();
+        mainWindow.NavigationFrame.Should().BeOfPage("SampleBrowser.View.Page.NavigationMenuPage");
     }
 }
