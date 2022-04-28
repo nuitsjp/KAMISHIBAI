@@ -39,6 +39,20 @@ public class OpenWindowTest : TestBase
     [Test]
     public void OpenByGenericType()
     {
+        var mainWindow = app.AttachMainWindow();
+        var openWindowPage = app.AttachOpenWindowPage();
+        // Navigate OpenWindowPage
+        mainWindow.SelectedMenuItem.EmulateChangeSelectedIndex(1);
 
+        // Open window
+        openWindowPage.SelectedWindowStartupLocation.EmulateChangeSelectedIndex(1);
+        openWindowPage.OpenByGenericTypeCommand.EmulateClick();
+        var childWindow = app.AttachChildWindow();
+        childWindow.IsLoaded.Should().BeTrue();
+
+        // close window
+        childWindow.Core.Activate();
+        childWindow.CloseSpecifiedWindowCommand.EmulateClick();
+        childWindow.IsLoaded.Should().BeFalse();
     }
 }
