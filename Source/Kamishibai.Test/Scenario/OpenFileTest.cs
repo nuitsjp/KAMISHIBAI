@@ -72,4 +72,24 @@ public class OpenFileTest : TestBase
                 Path.Combine(Directory.GetCurrentDirectory(), FilePath2)));
     }
 
+    [Test]
+    public void CancelOpenSingleFile()
+    {
+        var mainWindow = app.AttachMainWindow();
+        var openFilePage = app.AttachOpenFilePage();
+        mainWindow.SelectedMenuItem.EmulateChangeSelectedIndex(4);
+
+        openFilePage.InitialDirectory.EmulateChangeText(Directory.GetCurrentDirectory());
+
+        var async = new Async();
+        openFilePage.OpenFileCommand.EmulateClick(async);
+        var openFileDialog = app.Attach_OpenFileDialog(@"開く");
+        openFileDialog.ComboBox_FilePath.EmulateChangeEditText(FilePath1);
+        openFileDialog.Button_Cancel.EmulateClick();
+        async.WaitForCompletion();
+
+        openFilePage.OpenFileResult.Text.Should().Be("Cancel");
+        openFilePage.FilePath.Text.Should().BeEmpty();
+    }
+
 }
