@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace Kamishibai;
 
-public class NavigationFrame : Grid, INavigationFrame
+public class NavigationFrame : ContentControl, INavigationFrame
 {
     public static readonly DependencyProperty FrameNameProperty = DependencyProperty.Register(
         "FrameName", typeof(string), typeof(NavigationFrame), new PropertyMetadata(string.Empty));
@@ -85,8 +85,7 @@ public class NavigationFrame : Grid, INavigationFrame
         await NotifyNavigating(sourceViewModel, destinationViewModel);
 
         _pages.Push(view);
-        Children.Clear();
-        Children.Add(view);
+        Content = view;
 
         await NotifyNavigated(sourceViewModel, destinationViewModel);
         await NotifyPaused(sourceViewModel, destinationViewModel);
@@ -114,8 +113,7 @@ public class NavigationFrame : Grid, INavigationFrame
         {
             await NotifyResuming(sourceViewModel, destinationViewModel);
 
-            Children.Clear();
-            Children.Add(destinationView);
+            Content = destinationView;
 
             await NotifyResumed(sourceViewModel, destinationViewModel);
             await NotifyDisposed(sourceViewModel, destinationViewModel);
@@ -125,8 +123,7 @@ public class NavigationFrame : Grid, INavigationFrame
         catch
         {
             _pages.Push(sourceView);
-            Children.Clear();
-            Children.Add(sourceView);
+            Content = sourceView;
             throw;
         }
     }
