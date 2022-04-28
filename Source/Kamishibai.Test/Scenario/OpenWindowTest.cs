@@ -29,6 +29,7 @@ public class OpenWindowTest : TestBase
         childWindow.BlockClosing.EmulateCheck(true);
         childWindow.CloseCommand.EmulateClick();
         childWindow.IsLoaded.Should().BeTrue();
+        childWindow.Message.Text.Should().Be("Closing blocked.");
 
         // close window
         childWindow.BlockClosing.EmulateCheck(false);
@@ -66,11 +67,37 @@ public class OpenWindowTest : TestBase
 
         // Open window
         openWindowPage.SelectedWindowStartupLocation.EmulateChangeSelectedIndex(2);
-        openWindowPage.OpenByInstanceCommand.EmulateClick();
-        var childWindow = app.AttachChildWindow();
         const string windowName = "Hello, Navigate!";
         openWindowPage.WindowName1.EmulateChangeText(windowName);
+
+        openWindowPage.OpenByInstanceCommand.EmulateClick();
+        var childWindow = app.AttachChildWindow();
         childWindow.IsLoaded.Should().BeTrue();
+        childWindow.WindowName.Text.Should().Be(windowName);
+
+
+        // close window
+        childWindow.Core.Activate();
+        childWindow.CloseCommand.EmulateClick();
+        childWindow.IsLoaded.Should().BeFalse();
+    }
+
+    [Test]
+    public void OpenWithCallbackInitializer()
+    {
+        var mainWindow = app.AttachMainWindow();
+        var openWindowPage = app.AttachOpenWindowPage();
+        // Navigate OpenWindowPage
+        mainWindow.SelectedMenuItem.EmulateChangeSelectedIndex(1);
+
+        // Open window
+        const string windowName = "Hello, Navigate!";
+        openWindowPage.WindowName2.EmulateChangeText(windowName);
+
+        openWindowPage.OpenWithCallbackCommand.EmulateClick();
+        var childWindow = app.AttachChildWindow();
+        childWindow.IsLoaded.Should().BeTrue();
+        childWindow.WindowName.Text.Should().Be(windowName);
 
 
         // close window
