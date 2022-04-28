@@ -6,6 +6,7 @@ using FluentAssertions;
 
 namespace Scenario;
 
+[TestFixture]
 public class ShowMessageTest : TestBase
 {
     [Test]
