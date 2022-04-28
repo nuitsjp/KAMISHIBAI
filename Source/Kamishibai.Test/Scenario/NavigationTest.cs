@@ -11,9 +11,9 @@ public class NavigationTest : TestBase
     [Test]
     public void NavigateByType()
     {
-        var mainWindow = _app.AttachMainWindow();
-        var contentPage = _app.AttachContentPage();
-        var navigationMenuPage = _app.AttachNavigationMenuPage();
+        var mainWindow = app.AttachMainWindow();
+        var contentPage = app.AttachContentPage();
+        var navigationMenuPage = app.AttachNavigationMenuPage();
 
         // Navigate to ContentPage
         navigationMenuPage.NavigateByTypeCommand.EmulateClick();
@@ -29,9 +29,9 @@ public class NavigationTest : TestBase
     [Test]
     public void NavigateByGenericType()
     {
-        var mainWindow = _app.AttachMainWindow();
-        var contentPage = _app.AttachContentPage();
-        var navigationMenuPage = _app.AttachNavigationMenuPage();
+        var mainWindow = app.AttachMainWindow();
+        var contentPage = app.AttachContentPage();
+        var navigationMenuPage = app.AttachNavigationMenuPage();
 
         // Navigate to ContentPage
         navigationMenuPage.NavigateByGenericTypeCommand.EmulateClick();
@@ -47,9 +47,9 @@ public class NavigationTest : TestBase
     [Test]
     public void NavigateByViewModelInstance()
     {
-        var mainWindow = _app.AttachMainWindow();
-        var contentPage = _app.AttachContentPage();
-        var navigationMenuPage = _app.AttachNavigationMenuPage();
+        var mainWindow = app.AttachMainWindow();
+        var contentPage = app.AttachContentPage();
+        var navigationMenuPage = app.AttachNavigationMenuPage();
 
         // Navigate to ContentPage
         const string message = "Hello, Navigate!";
@@ -67,9 +67,9 @@ public class NavigationTest : TestBase
     [Test]
     public void NavigateWithCallbackInitializer()
     {
-        var mainWindow = _app.AttachMainWindow();
-        var contentPage = _app.AttachContentPage();
-        var navigationMenuPage = _app.AttachNavigationMenuPage();
+        var mainWindow = app.AttachMainWindow();
+        var contentPage = app.AttachContentPage();
+        var navigationMenuPage = app.AttachNavigationMenuPage();
 
         // Navigate to ContentPage
         const string message = "Hello, Navigate!";
@@ -87,9 +87,9 @@ public class NavigationTest : TestBase
     [Test]
     public void NavigateWithSafeParameter()
     {
-        var mainWindow = _app.AttachMainWindow();
-        var contentPage = _app.AttachContentPage();
-        var navigationMenuPage = _app.AttachNavigationMenuPage();
+        var mainWindow = app.AttachMainWindow();
+        var contentPage = app.AttachContentPage();
+        var navigationMenuPage = app.AttachNavigationMenuPage();
 
         // Navigate to ContentPage
         const string message = "Hello, Navigate!";

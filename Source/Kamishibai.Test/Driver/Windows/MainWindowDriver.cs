@@ -13,7 +13,8 @@ namespace Driver.Windows
     {
         public WindowControl Core { get; }
         public WPFListBox SelectedMenuItem => Core.VisualTree().ByBinding("SelectedMenuItem").FirstOrDefault()?.Dynamic(); 
-        public NavigationFrameDriver NavigationFrame => Core.LogicalTree().ByType("Kamishibai.NavigationFrame").FirstOrDefault()?.Dynamic(); 
+        public NavigationFrameDriver NavigationFrame => Core.LogicalTree().ByType("Kamishibai.NavigationFrame").FirstOrDefault()?.Dynamic();
+        public bool IsLoaded => (bool)((AppVar)Core.Dynamic().IsLoaded).Core;
 
         public MainWindowDriver(WindowControl core)
         {

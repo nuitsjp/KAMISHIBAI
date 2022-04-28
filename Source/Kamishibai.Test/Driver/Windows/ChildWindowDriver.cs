@@ -14,7 +14,8 @@ namespace Driver.Windows
         public WindowControl Core { get; }
         public WPFToggleButton BlockClosing => Core.LogicalTree().ByBinding("BlockClosing").FirstOrDefault()?.Dynamic(); 
         public WPFButtonBase CloseCommand => Core.LogicalTree().ByBinding("CloseCommand").FirstOrDefault()?.Dynamic(); 
-        public WPFButtonBase CloseSpecifiedWindowCommand => Core.LogicalTree().ByBinding("CloseSpecifiedWindowCommand").FirstOrDefault()?.Dynamic(); 
+        public WPFButtonBase CloseSpecifiedWindowCommand => Core.LogicalTree().ByBinding("CloseSpecifiedWindowCommand").FirstOrDefault()?.Dynamic();
+        public bool IsLoaded => (bool)((AppVar)Core.Dynamic().IsLoaded).Core;
 
         public ChildWindowDriver(WindowControl core)
         {
