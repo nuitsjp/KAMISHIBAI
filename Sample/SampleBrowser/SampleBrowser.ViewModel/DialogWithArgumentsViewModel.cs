@@ -2,10 +2,10 @@
 
 namespace SampleBrowser.ViewModel;
 
-[OpenWindow]
-public class OpenWithArgumentsViewModel : ChildViewModel
+[OpenDialog]
+public class DialogWithArgumentsViewModel : ChildViewModel
 {
-    public OpenWithArgumentsViewModel(
+    public DialogWithArgumentsViewModel(
         string windowName,
         [Inject] IPresentationService presentationService) : base(presentationService)
     {

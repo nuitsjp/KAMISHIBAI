@@ -7,8 +7,10 @@ using SampleBrowser.ViewModel.Page;
 var builder = KamishibaiApplication<App, MainWindow>.CreateBuilder();
 
 builder.Services.AddPresentation<MainWindow, MainViewModel>();
-builder.Services.AddPresentation<ChildWindow, OpenWithArgumentsViewModel>();
-builder.Services.AddPresentation<ChildWindow, OpenWithoutArgumentsViewModel>();
+builder.Services.AddPresentation<ChildWindow, WindowWithArgumentsViewModel>();
+builder.Services.AddPresentation<ChildWindow, WindowWithoutArgumentsViewModel>();
+builder.Services.AddPresentation<ChildWindow, DialogWithArgumentsViewModel>();
+builder.Services.AddPresentation<ChildWindow, DialogWithoutArgumentsViewModel>();
 
 builder.Services.AddPresentation<NavigationMenuPage, NavigationMenuViewModel>();
 builder.Services.AddPresentation<WithoutArgumentsPage, WithoutArgumentsViewModel>();

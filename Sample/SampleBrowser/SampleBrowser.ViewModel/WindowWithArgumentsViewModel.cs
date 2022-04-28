@@ -2,13 +2,14 @@
 
 namespace SampleBrowser.ViewModel;
 
-[OpenDialog]
-public class ChildMessageViewModel : ChildViewModel
+[OpenWindow]
+public class WindowWithArgumentsViewModel : ChildViewModel
 {
-    public ChildMessageViewModel(
-        string windowName, 
+    public WindowWithArgumentsViewModel(
+        string windowName,
         [Inject] IPresentationService presentationService) : base(presentationService)
     {
         WindowName = windowName;
     }
+
 }
