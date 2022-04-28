@@ -6,7 +6,7 @@ using PropertyChanged;
 namespace SampleBrowser.ViewModel;
 
 [AddINotifyPropertyChangedInterface]
-public class ChildViewModel : IDisposingAware
+public abstract class ChildViewModel : IDisposingAware
 {
     private readonly IPresentationService _presentationService;
 

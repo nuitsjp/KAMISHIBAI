@@ -55,4 +55,27 @@ public class OpenWindowTest : TestBase
         childWindow.CloseSpecifiedWindowCommand.EmulateClick();
         childWindow.IsLoaded.Should().BeFalse();
     }
+
+    [Test]
+    public void OpenByViewModelInstance()
+    {
+        var mainWindow = app.AttachMainWindow();
+        var openWindowPage = app.AttachOpenWindowPage();
+        // Navigate OpenWindowPage
+        mainWindow.SelectedMenuItem.EmulateChangeSelectedIndex(1);
+
+        // Open window
+        openWindowPage.SelectedWindowStartupLocation.EmulateChangeSelectedIndex(2);
+        openWindowPage.OpenByInstanceCommand.EmulateClick();
+        var childWindow = app.AttachChildWindow();
+        const string windowName = "Hello, Navigate!";
+        openWindowPage.WindowName1.EmulateChangeText(windowName);
+        childWindow.IsLoaded.Should().BeTrue();
+
+
+        // close window
+        childWindow.Core.Activate();
+        childWindow.CloseCommand.EmulateClick();
+        childWindow.IsLoaded.Should().BeFalse();
+    }
 }

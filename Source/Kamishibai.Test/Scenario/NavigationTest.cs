@@ -18,7 +18,7 @@ public class NavigationTest : TestBase
         // Navigate to ContentPage
         navigationMenuPage.NavigateByTypeCommand.EmulateClick();
 
-        mainWindow.NavigationFrame.Should().BeOfPage<DefaultConstructorPage>();
+        mainWindow.NavigationFrame.Should().BeOfPage<WithoutArgumentsPage>();
         contentPage.Message.Text.Should().Be("Default WindowName");
 
         // Go back
@@ -36,7 +36,7 @@ public class NavigationTest : TestBase
         // Navigate to ContentPage
         navigationMenuPage.NavigateByGenericTypeCommand.EmulateClick();
 
-        mainWindow.NavigationFrame.Should().BeOfPage<DefaultConstructorPage>();
+        mainWindow.NavigationFrame.Should().BeOfPage<WithoutArgumentsPage>();
         contentPage.Message.Text.Should().Be("Default WindowName");
 
         // Go back
@@ -56,7 +56,7 @@ public class NavigationTest : TestBase
         navigationMenuPage.Message1.EmulateChangeText(message);
         navigationMenuPage.NavigateByInstanceCommand.EmulateClick();
 
-        mainWindow.NavigationFrame.Should().BeOfPage<ConstructorWithArgumentsPage>();
+        mainWindow.NavigationFrame.Should().BeOfPage<WithArgumentsPage>();
         contentPage.Message.Text.Should().Be(message);
 
         // Go back
@@ -76,7 +76,7 @@ public class NavigationTest : TestBase
         navigationMenuPage.Message2.EmulateChangeText(message);
         navigationMenuPage.NavigateWithCallbackCommand.EmulateClick();
 
-        mainWindow.NavigationFrame.Should().BeOfPage<DefaultConstructorPage>();
+        mainWindow.NavigationFrame.Should().BeOfPage<WithoutArgumentsPage>();
         contentPage.Message.Text.Should().Be(message);
 
         // Go back
@@ -96,7 +96,7 @@ public class NavigationTest : TestBase
         navigationMenuPage.Message3.EmulateChangeText(message);
         navigationMenuPage.NavigateWithSafeParameterCommand.EmulateClick();
 
-        mainWindow.NavigationFrame.Should().BeOfPage<ConstructorWithArgumentsPage>();
+        mainWindow.NavigationFrame.Should().BeOfPage<WithArgumentsPage>();
         contentPage.Message.Text.Should().Be(message);
 
         // Go back

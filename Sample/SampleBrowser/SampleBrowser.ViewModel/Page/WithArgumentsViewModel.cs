@@ -7,11 +7,11 @@ namespace SampleBrowser.ViewModel.Page;
 
 [Navigate]
 [AddINotifyPropertyChangedInterface]
-public class ConstructorWithArgumentsViewModel : IDisposingAware
+public class WithArgumentsViewModel : IDisposingAware
 {
     private readonly IPresentationService _presentationService;
 
-    public ConstructorWithArgumentsViewModel(
+    public WithArgumentsViewModel(
         string message, 
         [Inject] IPresentationService presentationService)
     {
