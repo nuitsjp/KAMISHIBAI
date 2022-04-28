@@ -1,6 +1,4 @@
-﻿using Codeer.Friendly.Windows;
-using Driver.TestController;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Driver.Windows;
 using FluentAssertions;
 using SampleBrowser.View.Page;
@@ -8,16 +6,8 @@ using SampleBrowser.View.Page;
 namespace Scenario;
 
 [TestFixture]
-public class NavigationTest
+public class NavigationTest : TestBase
 {
-    WindowsAppFriend _app;
-
-    [SetUp]
-    public void TestInitialize() => _app = ProcessController.Start();
-
-    [TearDown]
-    public void TestCleanup() => _app.Kill();
-
     [Test]
     public void NavigateByType()
     {
