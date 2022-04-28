@@ -105,4 +105,28 @@ public class OpenWindowTest : TestBase
         childWindow.CloseCommand.EmulateClick();
         childWindow.IsLoaded.Should().BeFalse();
     }
+
+    [Test]
+    public void OpenWithSafeParameter()
+    {
+        var mainWindow = app.AttachMainWindow();
+        var openWindowPage = app.AttachOpenWindowPage();
+        // Navigate OpenWindowPage
+        mainWindow.SelectedMenuItem.EmulateChangeSelectedIndex(1);
+
+        // Open window
+        const string windowName = "Hello, Navigate!";
+        openWindowPage.WindowName3.EmulateChangeText(windowName);
+
+        openWindowPage.OpenWithSafeParameterCommand.EmulateClick();
+        var childWindow = app.AttachChildWindow();
+        childWindow.IsLoaded.Should().BeTrue();
+        childWindow.WindowName.Text.Should().Be(windowName);
+
+
+        // close window
+        childWindow.Core.Activate();
+        childWindow.CloseCommand.EmulateClick();
+        childWindow.IsLoaded.Should().BeFalse();
+    }
 }
