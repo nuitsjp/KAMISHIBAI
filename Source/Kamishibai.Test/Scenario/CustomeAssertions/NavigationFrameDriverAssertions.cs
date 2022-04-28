@@ -1,4 +1,5 @@
-﻿using Driver.Windows;
+﻿using System.Windows;
+using Driver.Windows;
 using FluentAssertions;
 using FluentAssertions.Primitives;
 
@@ -14,9 +15,12 @@ public class NavigationFrameDriverAssertions :
 
     protected override string Identifier => "navigationFrame";
 
-    public AndConstraint<NavigationFrameDriverAssertions> BeOfPage(string page, string because = "", params object[] becauseArgs)
+    public AndConstraint<NavigationFrameDriverAssertions> BeOfPage<TPage>(
+        string because = "", 
+        params object[] becauseArgs)
+        where TPage : FrameworkElement
     {
-        Subject.Current.ToString().Should().Be(page);
+        Subject.Current.ToString().Should().Be(typeof(TPage).FullName, because, becauseArgs);
         return new AndConstraint<NavigationFrameDriverAssertions>(this);
     }
 }

@@ -5,11 +5,11 @@ using PropertyChanged;
 namespace SampleBrowser.ViewModel.Page;
 
 [AddINotifyPropertyChangedInterface]
-public class ContentViewModel
+public class DefaultConstructorViewModel
 {
     private readonly IPresentationService _presentationService;
 
-    public ContentViewModel(IPresentationService presentationService)
+    public DefaultConstructorViewModel(IPresentationService presentationService)
     {
         _presentationService = presentationService;
     }

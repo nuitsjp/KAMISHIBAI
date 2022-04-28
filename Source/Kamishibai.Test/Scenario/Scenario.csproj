@@ -20,6 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\Sample\SampleBrowser\SampleBrowser.View\SampleBrowser.View.csproj" />
 		<ProjectReference Include="..\Driver.InTarget\Driver.InTarget.csproj" />
 		<ProjectReference Include="..\Driver\Driver.csproj" />
 	</ItemGroup>

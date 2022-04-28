@@ -11,8 +11,8 @@ builder.Services.AddPresentation<ChildWindow, ChildViewModel>();
 builder.Services.AddPresentation<ChildWindow, ChildMessageViewModel>();
 
 builder.Services.AddPresentation<NavigationMenuPage, NavigationMenuViewModel>();
-builder.Services.AddPresentation<ContentPage, ContentViewModel>();
-builder.Services.AddPresentation<MessagePage, MessageViewModel>();
+builder.Services.AddPresentation<DefaultConstructorPage, DefaultConstructorViewModel>();
+builder.Services.AddPresentation<ConstructorWithArgumentsPage, ConstructorWithArgumentsViewModel>();
 
 builder.Services.AddPresentation<OpenWindowPage, OpenWindowViewModel>();
 builder.Services.AddPresentation<OpenDialogPage, OpenDialogViewModel>();

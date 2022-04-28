@@ -20,25 +20,25 @@ public class NavigationMenuViewModel : IPausingAware
     public string Message { get; set; } = string.Empty;
 
     public ICommand NavigateByTypeCommand => 
-        new AsyncRelayCommand(() => _presentationService.NavigateAsync(typeof(ContentViewModel)));
+        new AsyncRelayCommand(() => _presentationService.NavigateAsync(typeof(DefaultConstructorViewModel)));
 
     public ICommand NavigateByGenericTypeCommand => 
-        new AsyncRelayCommand(() => _presentationService.NavigateAsync<ContentViewModel>());
+        new AsyncRelayCommand(() => _presentationService.NavigateAsync<DefaultConstructorViewModel>());
 
     public string Message1 { get; set; } = "Hello, Instance!";
 
     public ICommand NavigateByInstanceCommand =>
-        new AsyncRelayCommand(() => _presentationService.NavigateAsync(new MessageViewModel(Message1, _presentationService)));
+        new AsyncRelayCommand(() => _presentationService.NavigateAsync(new ConstructorWithArgumentsViewModel(Message1, _presentationService)));
 
     public string Message2 { get; set; } = "Hello, Callback!";
 
     public ICommand NavigateWithCallbackCommand =>
-        new AsyncRelayCommand(() => _presentationService.NavigateAsync<ContentViewModel>(viewModel => viewModel.Message = Message2));
+        new AsyncRelayCommand(() => _presentationService.NavigateAsync<DefaultConstructorViewModel>(viewModel => viewModel.Message = Message2));
 
     public string Message3 { get; set; } = "Hello, Parameter!";
 
     public ICommand NavigateWithSafeParameterCommand =>
-        new AsyncRelayCommand(() => _presentationService.NavigateToMessageAsync(Message3));
+        new AsyncRelayCommand(() => _presentationService.NavigateToConstructorWithArgumentsAsync(Message3));
 
     public bool OnPausing()
     {
