@@ -27,112 +27,114 @@ namespace Kamishibai.CodeAnalysis.Generator
         {
             this.Write("using System;\r\nusing System.Threading.Tasks;\r\nusing Kamishibai;\r\n\r\nnamespace ");
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
-            this.Write(";\r\n\r\npublic partial interface IPresentationService : IPresentationServiceBase\r\n{\r" +
-                    "\n");
+            this.Write("\r\n{\r\n    public partial interface IPresentationService : IPresentationServiceBase" +
+                    "\r\n    {\r\n    ");
 
-foreach(var navigationInfo in NavigationInfos)
-{
-
-            this.Write("    public Task<bool> NavigateTo");
+    foreach(var navigationInfo in NavigationInfos)
+    {
+    
+            this.Write("        public Task<bool> NavigateTo");
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.NavigationName));
             this.Write("Async(");
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.NavigationParameters));
-            this.Write(");\r\n");
+            this.Write(");\r\n    ");
   
-}
+    }
+    
+            this.Write("\r\n    ");
 
-            this.Write("\r\n");
-
-foreach(var openWindowInfo in OpenWindowInfos)
-{
-
-            this.Write("    public Task Open");
+    foreach(var openWindowInfo in OpenWindowInfos)
+    {
+    
+            this.Write("        public Task Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationName));
             this.Write("WindowAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationParameters));
-            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n");
+            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n    ");
   
-}
+    }
+    
+            this.Write("\r\n    ");
 
-            this.Write("\r\n");
-
-foreach(var openDialogInfo in OpenDialogInfos)
-{
-
-            this.Write("    public Task Open");
+    foreach(var openDialogInfo in OpenDialogInfos)
+    {
+    
+            this.Write("        public Task Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationName));
             this.Write("DialogAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationParameters));
-            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n");
+            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n    ");
   
-}
-
+    }
+    
             this.Write(@"}
 
-public class PresentationService : PresentationServiceBase, IPresentationService
-{
-    private readonly IServiceProvider _serviceProvider;
-
-    public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
-        : base (serviceProvider, navigationFrameProvider, windowService)
+    public class PresentationService : PresentationServiceBase, IPresentationService
     {
-        _serviceProvider = serviceProvider;
-    }
+        private readonly IServiceProvider _serviceProvider;
 
-");
+        public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
+            : base (serviceProvider, navigationFrameProvider, windowService)
+        {
+            _serviceProvider = serviceProvider;
+        }
 
-foreach(var navigationInfo in NavigationInfos)
-{
+    ");
 
-            this.Write("    public Task<bool> NavigateTo");
+    foreach(var navigationInfo in NavigationInfos)
+    {
+    
+            this.Write("        public Task<bool> NavigateTo");
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.NavigationName));
             this.Write("Async(");
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.NavigationParameters));
-            this.Write(")\r\n    {\r\n        return NavigateAsync(\r\n            new ");
+            this.Write(")\r\n        {\r\n            return NavigateAsync(\r\n                new ");
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.ViewModelName));
-            this.Write("(\r\n                ");
+            this.Write("(\r\n                    ");
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.ConstructorParameters));
-            this.Write("\r\n            ), \r\n            frameName);\r\n    }\r\n\r\n");
+            this.Write("\r\n                ), \r\n                frameName);\r\n        }\r\n\r\n    ");
   
-}
+    }
+    
+            this.Write("\r\n    ");
 
-            this.Write("\r\n");
-
-foreach(var openWindowInfo in OpenWindowInfos)
-{
-
-            this.Write("    public Task Open");
+    foreach(var openWindowInfo in OpenWindowInfos)
+    {
+    
+            this.Write("        public Task Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationName));
             this.Write("WindowAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationParameters));
-            this.Write(", object? owner = null, OpenWindowOptions? options = null)\r\n    {\r\n        return" +
-                    " OpenWindowAsync(\r\n            new ");
+            this.Write(", object? owner = null, OpenWindowOptions? options = null)\r\n        {\r\n          " +
+                    "  return OpenWindowAsync(\r\n                new ");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.ViewModelName));
-            this.Write("(\r\n                ");
+            this.Write("(\r\n                    ");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.ConstructorParameters));
-            this.Write("\r\n            ), \r\n            owner,\r\n            options);\r\n    }\r\n\r\n");
+            this.Write("\r\n                ), \r\n                owner,\r\n                options);\r\n       " +
+                    " }\r\n\r\n    ");
   
-}
+    }
+    
+            this.Write("\r\n    ");
 
-            this.Write("\r\n");
-
-foreach(var openDialogInfo in OpenDialogInfos)
-{
-
-            this.Write("    public Task Open");
+    foreach(var openDialogInfo in OpenDialogInfos)
+    {
+    
+            this.Write("        public Task Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationName));
             this.Write("DialogAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationParameters));
-            this.Write(", object? owner = null, OpenWindowOptions? options = null)\r\n    {\r\n        return" +
-                    " OpenDialogAsync(\r\n            new ");
+            this.Write(", object? owner = null, OpenWindowOptions? options = null)\r\n        {\r\n          " +
+                    "  return OpenDialogAsync(\r\n                new ");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.ViewModelName));
-            this.Write("(\r\n                ");
+            this.Write("(\r\n                    ");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.ConstructorParameters));
-            this.Write("\r\n            ), \r\n            owner,\r\n            options);\r\n    }\r\n\r\n");
+            this.Write("\r\n                ), \r\n                owner,\r\n                options);\r\n       " +
+                    " }\r\n\r\n    ");
   
-}
-
-            this.Write("}");
+    }
+    
+            this.Write("}\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

@@ -8,98 +8,99 @@ using System;
 using System.Threading.Tasks;
 using Kamishibai;
 
-namespace <#= Namespace #>;
-
-public partial interface IPresentationService : IPresentationServiceBase
+namespace <#= Namespace #>
 {
-<#
-foreach(var navigationInfo in NavigationInfos)
-{
-#>
-    public Task<bool> NavigateTo<#= navigationInfo.NavigationName #>Async(<#= navigationInfo.NavigationParameters #>);
-<#  
-}
-#>
-
-<#
-foreach(var openWindowInfo in OpenWindowInfos)
-{
-#>
-    public Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null);
-<#  
-}
-#>
-
-<#
-foreach(var openDialogInfo in OpenDialogInfos)
-{
-#>
-    public Task Open<#= openDialogInfo.NavigationName #>DialogAsync(<#= openDialogInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null);
-<#  
-}
-#>
-}
-
-public class PresentationService : PresentationServiceBase, IPresentationService
-{
-    private readonly IServiceProvider _serviceProvider;
-
-    public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
-        : base (serviceProvider, navigationFrameProvider, windowService)
+    public partial interface IPresentationService : IPresentationServiceBase
     {
-        _serviceProvider = serviceProvider;
-    }
-
-<#
-foreach(var navigationInfo in NavigationInfos)
-{
-#>
-    public Task<bool> NavigateTo<#= navigationInfo.NavigationName #>Async(<#= navigationInfo.NavigationParameters #>)
+    <#
+    foreach(var navigationInfo in NavigationInfos)
     {
-        return NavigateAsync(
-            new <#= navigationInfo.ViewModelName #>(
-                <#= navigationInfo.ConstructorParameters #>
-            ), 
-            frameName);
+    #>
+        public Task<bool> NavigateTo<#= navigationInfo.NavigationName #>Async(<#= navigationInfo.NavigationParameters #>);
+    <#  
     }
+    #>
 
-<#  
-}
-#>
-
-<#
-foreach(var openWindowInfo in OpenWindowInfos)
-{
-#>
-    public Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null)
+    <#
+    foreach(var openWindowInfo in OpenWindowInfos)
     {
-        return OpenWindowAsync(
-            new <#= openWindowInfo.ViewModelName #>(
-                <#= openWindowInfo.ConstructorParameters #>
-            ), 
-            owner,
-            options);
+    #>
+        public Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null);
+    <#  
     }
+    #>
 
-<#  
-}
-#>
-
-<#
-foreach(var openDialogInfo in OpenDialogInfos)
-{
-#>
-    public Task Open<#= openDialogInfo.NavigationName #>DialogAsync(<#= openDialogInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null)
+    <#
+    foreach(var openDialogInfo in OpenDialogInfos)
     {
-        return OpenDialogAsync(
-            new <#= openDialogInfo.ViewModelName #>(
-                <#= openDialogInfo.ConstructorParameters #>
-            ), 
-            owner,
-            options);
+    #>
+        public Task Open<#= openDialogInfo.NavigationName #>DialogAsync(<#= openDialogInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null);
+    <#  
     }
-
-<#  
+    #>
 }
-#>
+
+    public class PresentationService : PresentationServiceBase, IPresentationService
+    {
+        private readonly IServiceProvider _serviceProvider;
+
+        public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
+            : base (serviceProvider, navigationFrameProvider, windowService)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+    <#
+    foreach(var navigationInfo in NavigationInfos)
+    {
+    #>
+        public Task<bool> NavigateTo<#= navigationInfo.NavigationName #>Async(<#= navigationInfo.NavigationParameters #>)
+        {
+            return NavigateAsync(
+                new <#= navigationInfo.ViewModelName #>(
+                    <#= navigationInfo.ConstructorParameters #>
+                ), 
+                frameName);
+        }
+
+    <#  
+    }
+    #>
+
+    <#
+    foreach(var openWindowInfo in OpenWindowInfos)
+    {
+    #>
+        public Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null)
+        {
+            return OpenWindowAsync(
+                new <#= openWindowInfo.ViewModelName #>(
+                    <#= openWindowInfo.ConstructorParameters #>
+                ), 
+                owner,
+                options);
+        }
+
+    <#  
+    }
+    #>
+
+    <#
+    foreach(var openDialogInfo in OpenDialogInfos)
+    {
+    #>
+        public Task Open<#= openDialogInfo.NavigationName #>DialogAsync(<#= openDialogInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null)
+        {
+            return OpenDialogAsync(
+                new <#= openDialogInfo.ViewModelName #>(
+                    <#= openDialogInfo.ConstructorParameters #>
+                ), 
+                owner,
+                options);
+        }
+
+    <#  
+    }
+    #>
+}
 }
