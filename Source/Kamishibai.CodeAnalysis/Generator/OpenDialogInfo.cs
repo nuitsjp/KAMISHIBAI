@@ -30,6 +30,8 @@ public class OpenDialogInfo
                     .Where(x => x.IsInjection is false)
                     .Select(x => $"{x.Type} {x.Name}")
                     .ToList();
+            paramStrings.Add("object? owner = null");
+            paramStrings.Add("OpenDialogOptions? options = null");
             return string.Join(", ", paramStrings);
         }
     }

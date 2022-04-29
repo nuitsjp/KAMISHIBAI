@@ -1,6 +1,6 @@
 ﻿namespace Kamishibai;
 
-public class OpenWindowOptions
+public class OpenDialogOptions
 {
     public WindowStartupLocation WindowStartupLocation { get; set; } = WindowStartupLocation.Manual;
 }

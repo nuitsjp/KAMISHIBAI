@@ -46,21 +46,21 @@ public class WindowService : IWindowService
         await NotifyNavigated(viewModel);
     }
 
-    public Task<bool> OpenDialogAsync(Type viewModelType, object? owner, OpenWindowOptions options)
+    public Task<bool> OpenDialogAsync(Type viewModelType, object? owner, OpenDialogOptions options)
     {
         var viewModel = _serviceProvider.GetService(viewModelType)!;
         return OpenDialogAsync(viewModelType, owner, viewModel, options);
     }
 
-    public Task<bool> OpenDialogAsync<TViewModel>(object? owner, OpenWindowOptions options)
+    public Task<bool> OpenDialogAsync<TViewModel>(object? owner, OpenDialogOptions options)
         => OpenDialogAsync(typeof(TViewModel), owner, options);
 
-    public Task<bool> OpenDialogAsync<TViewModel>(TViewModel viewModel, object? owner, OpenWindowOptions options) where TViewModel : notnull
+    public Task<bool> OpenDialogAsync<TViewModel>(TViewModel viewModel, object? owner, OpenDialogOptions options) where TViewModel : notnull
     {
         return OpenDialogAsync(typeof(TViewModel), owner, viewModel, options);
     }
 
-    public Task<bool> OpenDialogAsync<TViewModel>(Action<TViewModel> init, object? owner, OpenWindowOptions options)
+    public Task<bool> OpenDialogAsync<TViewModel>(Action<TViewModel> init, object? owner, OpenDialogOptions options)
     {
         var viewModel = (TViewModel)_serviceProvider.GetService(typeof(TViewModel))!;
         init(viewModel);
@@ -202,7 +202,7 @@ public class WindowService : IWindowService
     private Window? GetActiveWindow()
         => Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
 
-    private async Task<bool> OpenDialogAsync(Type viewModelType, object? owner, object viewModel, OpenWindowOptions options)
+    private async Task<bool> OpenDialogAsync(Type viewModelType, object? owner, object viewModel, OpenDialogOptions options)
     {
         var window = GetWindow(viewModelType);
         window.DataContext = viewModel;

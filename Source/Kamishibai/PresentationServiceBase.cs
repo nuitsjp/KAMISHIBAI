@@ -68,17 +68,17 @@ public class PresentationServiceBase : IPresentationServiceBase
     public Task OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenWindowOptions? options = null)
         => _windowService.OpenWindowAsync(init, owner, options ?? new OpenWindowOptions());
 
-    public Task<bool> OpenDialogAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null)
-        => _windowService.OpenDialogAsync(viewModelType, owner, options ?? new OpenWindowOptions());
+    public Task<bool> OpenDialogAsync(Type viewModelType, object? owner = null, OpenDialogOptions? options = null)
+        => _windowService.OpenDialogAsync(viewModelType, owner, options ?? new OpenDialogOptions());
 
-    public Task<bool> OpenDialogAsync<TViewModel>(object? owner = null, OpenWindowOptions? options = null)
-        => _windowService.OpenDialogAsync<TViewModel>(owner, options ?? new OpenWindowOptions());
+    public Task<bool> OpenDialogAsync<TViewModel>(object? owner = null, OpenDialogOptions? options = null)
+        => _windowService.OpenDialogAsync<TViewModel>(owner, options ?? new OpenDialogOptions());
 
-    public Task<bool> OpenDialogAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenWindowOptions? options = null) where TViewModel : notnull
-        => _windowService.OpenDialogAsync(viewModel, owner, options ?? new OpenWindowOptions());
+    public Task<bool> OpenDialogAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenDialogOptions? options = null) where TViewModel : notnull
+        => _windowService.OpenDialogAsync(viewModel, owner, options ?? new OpenDialogOptions());
 
-    public Task<bool> OpenDialogAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenWindowOptions? options = null)
-        => _windowService.OpenDialogAsync(init, owner, options ?? new OpenWindowOptions());
+    public Task<bool> OpenDialogAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenDialogOptions? options = null)
+        => _windowService.OpenDialogAsync(init, owner, options ?? new OpenDialogOptions());
 
     public Task CloseWindowAsync(object? window = null) => _windowService.CloseWindowAsync(window);
 

@@ -60,7 +60,7 @@ foreach(var openDialogInfo in OpenDialogInfos)
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationName));
             this.Write("DialogAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationParameters));
-            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n");
+            this.Write(");\r\n");
   
 }
 
@@ -116,8 +116,7 @@ foreach(var openDialogInfo in OpenDialogInfos)
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationName));
             this.Write("DialogAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationParameters));
-            this.Write(", object? owner = null, OpenWindowOptions? options = null)\r\n        {\r\n          " +
-                    "  return OpenDialogAsync(\r\n                new ");
+            this.Write(")\r\n        {\r\n            return OpenDialogAsync(\r\n                new ");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.ViewModelName));
             this.Write("(\r\n                    ");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.ConstructorParameters));

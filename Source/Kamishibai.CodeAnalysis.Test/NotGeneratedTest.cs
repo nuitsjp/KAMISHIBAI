@@ -17,7 +17,8 @@ public class Foo
 }";
 
         await code.GenerateSource().Should().BeAsync(
-            @"using System;
+            @"#nullable enable
+using System;
 using System.Threading.Tasks;
 using Kamishibai;
 
@@ -25,7 +26,6 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
