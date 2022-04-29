@@ -25,7 +25,9 @@ public class SourceGenerator : ISourceGenerator
         var navigationInfos =
             syntaxReceiver
                 .Navigates
-                .SelectMany(type => type.GetConstructors().Select(constructor => new NavigationInfo(context, type, constructor)))
+                .SelectMany(type => type.HasConstructors()
+                    ? type.GetConstructors().Select(constructor => new NavigationInfo(context, type, constructor))
+                    : new []{ new NavigationInfo(context, type)})
                 .ToList();
 
         var openWindowInfos =

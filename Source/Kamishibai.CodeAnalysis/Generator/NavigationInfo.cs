@@ -17,6 +17,17 @@ public class NavigationInfo
         Parameters = constructor.CreateNavigationParameters(model).ToList();
     }
 
+    public NavigationInfo(
+        GeneratorExecutionContext context,
+        SyntaxNode type)
+    {
+        var model = context.Compilation.GetSemanticModel(type.SyntaxTree);
+        var symbol = model.GetDeclaredSymbol(type)!;
+        NavigationName = symbol.Name.ToNavigationName();
+        ViewModelName = symbol.ToString();
+        Parameters = new List<NavigationParameter>();
+    }
+
     public string NavigationName { get; }
     public string ViewModelName { get; }
     public IList<NavigationParameter> Parameters { get; }

@@ -11,6 +11,16 @@ public static class SourceGeneratorExtensions
         return 0 <= index ? value.Substring(0, index) : value;
     }
 
+    public static bool HasConstructors(
+        this TypeDeclarationSyntax typeDeclarationSyntax)
+    {
+        return typeDeclarationSyntax
+            .Members
+            .OfType<ConstructorDeclarationSyntax>()
+            .Any();
+    }
+
+
     public static IEnumerable<ConstructorDeclarationSyntax> GetConstructors(
         this TypeDeclarationSyntax typeDeclarationSyntax)
     {

@@ -7,6 +7,52 @@ namespace Kamishibai.CodeAnalysis.Test;
 
 public class GenerateNavigateTest
 {
+    [Fact]
+    public async Task When_constructor_missing()
+    {
+        var code = @"
+using Kamishibai;
+
+[Navigate]
+public class Foo
+{
+}";
+
+        await code.GenerateSource().Should().BeAsync(
+            @"using System;
+using System.Threading.Tasks;
+using Kamishibai;
+
+namespace TestProject
+{
+    public partial interface IPresentationService : IPresentationServiceBase
+    {
+        Task<bool> NavigateToFooAsync(string frameName = """");
+
+    }
+
+    public class PresentationService : PresentationServiceBase, IPresentationService
+    {
+        private readonly IServiceProvider _serviceProvider;
+
+        public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
+            : base (serviceProvider, navigationFrameProvider, windowService)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public Task<bool> NavigateToFooAsync(string frameName = """")
+        {
+            return NavigateAsync(
+                new Foo(
+                    
+                ), 
+                frameName);
+        }
+    }
+}");
+    }
+
 
     [Fact]
     public async Task When_navigate_specified()
