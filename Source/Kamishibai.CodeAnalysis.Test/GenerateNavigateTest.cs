@@ -154,7 +154,7 @@ namespace TestProject
         {
             return NavigateAsync(
                 new Foo.Bar(
-                    number, 
+                    number,
                     argument
                 ), 
                 frameName);
@@ -163,5 +163,63 @@ namespace TestProject
 }");
     }
 
+    [Fact]
+    public async Task When_navigation_with_arguments_include_frameName()
+    {
+        var code = @"
+using Kamishibai;
+
+namespace Foo
+{
+    public class Argument
+    {
+    }
+
+    [Navigate]
+    public class Bar
+    {
+        public Bar(int number, string frameName, Argument argument)
+        {
+        }
+    }
+}
+";
+
+        await code.GenerateSource().Should().BeAsync(
+            @"using System;
+using System.Threading.Tasks;
+using Kamishibai;
+
+namespace TestProject
+{
+    public partial interface IPresentationService : IPresentationServiceBase
+    {
+        Task<bool> NavigateToBarAsync(int number, string frameName, Foo.Argument argument);
+
+    }
+
+    public class PresentationService : PresentationServiceBase, IPresentationService
+    {
+        private readonly IServiceProvider _serviceProvider;
+
+        public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
+            : base (serviceProvider, navigationFrameProvider, windowService)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public Task<bool> NavigateToBarAsync(int number, string frameName, Foo.Argument argument)
+        {
+            return NavigateAsync(
+                new Foo.Bar(
+                    number,
+                    frameName,
+                    argument
+                ), 
+                frameName);
+        }
+    }
+}");
+    }
 
 }

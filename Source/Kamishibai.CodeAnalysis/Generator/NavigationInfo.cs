@@ -44,7 +44,7 @@ public class NavigationInfo
         get
         {
             return string.Join(
-                @", 
+                @",
                     ",
                 Parameters
                     .Select(x => 
