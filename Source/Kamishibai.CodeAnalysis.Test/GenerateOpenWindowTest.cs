@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Kamishibai.CodeAnalysis.Test;
 
-public class GenerateNavigateTest
+public class GenerateOpenWindowTest
 {
     [Fact]
     public async Task When_constructor_missing()
@@ -13,7 +13,7 @@ public class GenerateNavigateTest
         var code = @"
 using Kamishibai;
 
-[Navigate]
+[OpenWindowAttribute]
 public class Foo
 {
 }";
@@ -28,7 +28,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task<bool> NavigateToFooAsync(string frameName = """");
+        Task OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -41,13 +41,14 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task<bool> NavigateToFooAsync(string frameName = """")
+        public Task OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null)
         {
-            return NavigateAsync(
+            return OpenWindowAsync(
                 new Foo(
                     
                 ), 
-                frameName);
+                owner,
+                options);
         }
     }
 }");
@@ -55,7 +56,7 @@ namespace TestProject
 
 
     [Fact]
-    public async Task When_Navigate_specified()
+    public async Task When_OpenWindow_specified()
     {
         var code = @"
 using Kamishibai;
@@ -104,7 +105,7 @@ namespace TestProject
     }
 
     [Fact]
-    public async Task When_NavigateAttribute_specified()
+    public async Task When_navigate_attribute_specified()
     {
         var code = @"
 using Kamishibai;

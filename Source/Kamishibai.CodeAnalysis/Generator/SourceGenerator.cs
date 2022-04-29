@@ -33,7 +33,9 @@ public class SourceGenerator : ISourceGenerator
         var openWindowInfos =
             syntaxReceiver
                 .OpenWindows
-                .SelectMany(type => type.GetConstructors().Select(constructor => new OpenWindowInfo(context, type, constructor)))
+                .SelectMany(type => type.HasConstructors()
+                    ? type.GetConstructors().Select(constructor => new OpenWindowInfo(context, type, constructor))
+                    : new[] { new OpenWindowInfo(context, type) })
                 .ToList();
 
         var openDialogInfos =

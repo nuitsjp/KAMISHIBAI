@@ -25,7 +25,8 @@ namespace Kamishibai.CodeAnalysis.Generator
         /// </summary>
         public override string TransformText()
         {
-            this.Write("using System;\r\nusing System.Threading.Tasks;\r\nusing Kamishibai;\r\n\r\nnamespace ");
+            this.Write("#nullable enable\r\nusing System;\r\nusing System.Threading.Tasks;\r\nusing Kamishibai;" +
+                    "\r\n\r\nnamespace ");
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             this.Write("\r\n{\r\n    public partial interface IPresentationService : IPresentationServiceBase" +
                     "\r\n    {\r\n");
@@ -48,11 +49,9 @@ foreach(var openWindowInfo in OpenWindowInfos)
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationName));
             this.Write("WindowAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationParameters));
-            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n");
+            this.Write(");\r\n");
   
 }
-
-            this.Write("\r\n");
 
 foreach(var openDialogInfo in OpenDialogInfos)
 {
@@ -101,8 +100,7 @@ foreach(var openWindowInfo in OpenWindowInfos)
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationName));
             this.Write("WindowAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationParameters));
-            this.Write(", object? owner = null, OpenWindowOptions? options = null)\r\n        {\r\n          " +
-                    "  return OpenWindowAsync(\r\n                new ");
+            this.Write(")\r\n        {\r\n            return OpenWindowAsync(\r\n                new ");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.ViewModelName));
             this.Write("(\r\n                    ");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.ConstructorParameters));

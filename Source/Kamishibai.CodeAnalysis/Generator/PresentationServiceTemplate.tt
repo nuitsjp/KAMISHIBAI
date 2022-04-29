@@ -4,6 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
+#nullable enable
 using System;
 using System.Threading.Tasks;
 using Kamishibai;
@@ -23,12 +24,10 @@ foreach(var navigationInfo in NavigationInfos)
 foreach(var openWindowInfo in OpenWindowInfos)
 {
 #>
-        Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null);
+        Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>);
 <#  
 }
-#>
 
-<#
 foreach(var openDialogInfo in OpenDialogInfos)
 {
 #>
@@ -66,7 +65,7 @@ foreach(var navigationInfo in NavigationInfos)
 foreach(var openWindowInfo in OpenWindowInfos)
 {
 #>
-        public Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null)
+        public Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>)
         {
             return OpenWindowAsync(
                 new <#= openWindowInfo.ViewModelName #>(

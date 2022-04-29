@@ -5,6 +5,7 @@ using Kamishibai.CodeAnalysis.Generator;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
+// ReSharper disable once CheckNamespace
 namespace Kamishibai.CodeAnalysis.Test;
 
 public class GenerateSourceAssertions :

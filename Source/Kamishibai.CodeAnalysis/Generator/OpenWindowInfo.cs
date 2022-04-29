@@ -17,6 +17,17 @@ public class OpenWindowInfo
         Parameters = constructor.CreateNavigationParameters(model).ToList();
     }
 
+    public OpenWindowInfo(
+        GeneratorExecutionContext context,
+        SyntaxNode type)
+    {
+        var model = context.Compilation.GetSemanticModel(type.SyntaxTree);
+        var symbol = model.GetDeclaredSymbol(type)!;
+        NavigationName = symbol.Name.ToNavigationName();
+        ViewModelName = symbol.ToString();
+        Parameters = new List<NavigationParameter>();
+    }
+
     public string NavigationName { get; }
     public string ViewModelName { get; }
     public IList<NavigationParameter> Parameters { get; }
@@ -30,6 +41,8 @@ public class OpenWindowInfo
                     .Where(x => x.IsInjection is false)
                     .Select(x => $"{x.Type} {x.Name}")
                     .ToList();
+            paramStrings.Add("object? owner = null");
+            paramStrings.Add("OpenWindowOptions? options = null");
             return string.Join(", ", paramStrings);
         }
     }

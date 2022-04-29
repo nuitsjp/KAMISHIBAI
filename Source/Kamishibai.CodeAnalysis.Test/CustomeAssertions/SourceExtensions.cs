@@ -1,3 +1,4 @@
+// ReSharper disable once CheckNamespace
 namespace Kamishibai.CodeAnalysis.Test;
 
 public static class SourceExtensions

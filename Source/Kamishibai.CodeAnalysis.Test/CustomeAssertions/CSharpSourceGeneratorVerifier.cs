@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Testing;
 using Microsoft.CodeAnalysis.Testing.Verifiers;
 
+// ReSharper disable once CheckNamespace
 namespace Kamishibai.CodeAnalysis.Test;
 
 public static class CSharpSourceGeneratorVerifier<TSourceGenerator>
