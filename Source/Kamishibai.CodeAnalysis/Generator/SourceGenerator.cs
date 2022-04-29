@@ -41,7 +41,9 @@ public class SourceGenerator : ISourceGenerator
         var openDialogInfos =
             syntaxReceiver
                 .OpenDialogs
-                .SelectMany(type => type.GetConstructors().Select(constructor => new OpenDialogInfo(context, type, constructor)))
+                .SelectMany(type => type.HasConstructors()
+                    ? type.GetConstructors().Select(constructor => new OpenDialogInfo(context, type, constructor))
+                    : new[] { new OpenDialogInfo(context, type) })
                 .ToList();
 
         var source =
