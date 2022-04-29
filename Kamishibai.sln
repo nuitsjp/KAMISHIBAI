@@ -45,9 +45,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Driver", "Source\Kamishibai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Driver.InTarget", "Source\Kamishibai.Test\Driver.InTarget\Driver.InTarget.csproj", "{DBDD7F1F-3EBD-46F4-BC77-48786A12ADC9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kamishibai.Test", "Kamishibai.Test", "{1B44F0F7-92EB-4744-BDD0-6E66C2F9D0FF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{1B44F0F7-92EB-4744-BDD0-6E66C2F9D0FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.CodeAnalysis.Test", "Source\Kamishibai.CodeAnalysis.Test\Kamishibai.CodeAnalysis.Test.csproj", "{DED328EE-652F-40C4-82F0-FA13CFA06C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.CodeAnalysis.Test", "Source\Kamishibai.CodeAnalysis.Test\Kamishibai.CodeAnalysis.Test.csproj", "{DED328EE-652F-40C4-82F0-FA13CFA06C92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kamishibai.Test", "Kamishibai.Test\Kamishibai.Test.csproj", "{8D8B5C69-D4ED-4185-A4FE-4F174291B201}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{DED328EE-652F-40C4-82F0-FA13CFA06C92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DED328EE-652F-40C4-82F0-FA13CFA06C92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DED328EE-652F-40C4-82F0-FA13CFA06C92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D8B5C69-D4ED-4185-A4FE-4F174291B201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D8B5C69-D4ED-4185-A4FE-4F174291B201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D8B5C69-D4ED-4185-A4FE-4F174291B201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D8B5C69-D4ED-4185-A4FE-4F174291B201}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +155,7 @@ Global
 		{DBDD7F1F-3EBD-46F4-BC77-48786A12ADC9} = {1B44F0F7-92EB-4744-BDD0-6E66C2F9D0FF}
 		{1B44F0F7-92EB-4744-BDD0-6E66C2F9D0FF} = {2133B821-376E-4EC8-B7D9-3EA29DA854EC}
 		{DED328EE-652F-40C4-82F0-FA13CFA06C92} = {2133B821-376E-4EC8-B7D9-3EA29DA854EC}
+		{8D8B5C69-D4ED-4185-A4FE-4F174291B201} = {2133B821-376E-4EC8-B7D9-3EA29DA854EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C276323-7E28-4228-85F8-925F9C3B6FEE}

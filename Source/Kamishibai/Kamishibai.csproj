@@ -21,7 +21,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>0.0.6-pre</Version>
+		<Version>0.0.7-pre</Version>
 		<NoPackageAnalysis>true</NoPackageAnalysis>
 		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
 	</PropertyGroup>

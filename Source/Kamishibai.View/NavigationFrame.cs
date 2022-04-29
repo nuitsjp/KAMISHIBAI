@@ -30,6 +30,8 @@ public class NavigationFrame : ContentControl, INavigationFrame
         set => SetValue(FrameNameProperty, value);
     }
 
+    public int Count => _pages.Count;
+
     public FrameworkElement Current => _pages.Peek;
 
     public bool CanGoBack => _pages.CanPop;
