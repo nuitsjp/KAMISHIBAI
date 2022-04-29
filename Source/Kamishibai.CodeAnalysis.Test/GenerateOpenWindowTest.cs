@@ -277,7 +277,7 @@ namespace TestProject
     }
 
     [Fact]
-    public async Task When_navigation_with_nullable_arguments()
+    public async Task When_open_window_with_nullable_arguments()
     {
         var code = @"
 using Kamishibai;
@@ -288,7 +288,7 @@ namespace Foo
     {
     }
 
-    [Navigate]
+    [OpenWindow]
     public class Bar
     {
         public Bar(int? number, Argument argument)
@@ -308,7 +308,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task<bool> NavigateToBarAsync(int? number, Foo.Argument argument, string frameName = """");
+        Task OpenBarWindowAsync(int? number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -321,16 +321,18 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task<bool> NavigateToBarAsync(int? number, Foo.Argument argument, string frameName = """")
+        public Task OpenBarWindowAsync(int? number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null)
         {
-            return NavigateAsync(
+            return OpenWindowAsync(
                 new Foo.Bar(
                     number,
                     argument
                 ), 
-                frameName);
+                owner,
+                options);
         }
     }
 }");
+
     }
 }
