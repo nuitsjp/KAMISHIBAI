@@ -28,46 +28,44 @@ namespace Kamishibai.CodeAnalysis.Generator
             this.Write("using System;\r\nusing System.Threading.Tasks;\r\nusing Kamishibai;\r\n\r\nnamespace ");
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             this.Write("\r\n{\r\n    public partial interface IPresentationService : IPresentationServiceBase" +
-                    "\r\n    {\r\n    ");
+                    "\r\n    {\r\n");
 
-    foreach(var navigationInfo in NavigationInfos)
-    {
-    
-            this.Write("        public Task<bool> NavigateTo");
+foreach(var navigationInfo in NavigationInfos)
+{
+
+            this.Write("        Task<bool> NavigateTo");
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.NavigationName));
             this.Write("Async(");
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.NavigationParameters));
-            this.Write(");\r\n    ");
+            this.Write(");\r\n");
   
-    }
-    
-            this.Write("\r\n    ");
+}
 
-    foreach(var openWindowInfo in OpenWindowInfos)
-    {
-    
-            this.Write("        public Task Open");
+foreach(var openWindowInfo in OpenWindowInfos)
+{
+
+            this.Write("        Task Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationName));
             this.Write("WindowAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationParameters));
-            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n    ");
+            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n");
   
-    }
-    
-            this.Write("\r\n    ");
+}
 
-    foreach(var openDialogInfo in OpenDialogInfos)
-    {
-    
-            this.Write("        public Task Open");
+            this.Write("\r\n");
+
+foreach(var openDialogInfo in OpenDialogInfos)
+{
+
+            this.Write("        Task Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationName));
             this.Write("DialogAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationParameters));
-            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n    ");
+            this.Write(", object? owner = null, OpenWindowOptions? options = null);\r\n");
   
-    }
-    
-            this.Write(@"}
+}
+
+            this.Write(@"    }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
     {
@@ -79,11 +77,11 @@ namespace Kamishibai.CodeAnalysis.Generator
             _serviceProvider = serviceProvider;
         }
 
-    ");
+");
 
-    foreach(var navigationInfo in NavigationInfos)
-    {
-    
+foreach(var navigationInfo in NavigationInfos)
+{
+
             this.Write("        public Task<bool> NavigateTo");
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.NavigationName));
             this.Write("Async(");
@@ -92,15 +90,13 @@ namespace Kamishibai.CodeAnalysis.Generator
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.ViewModelName));
             this.Write("(\r\n                    ");
             this.Write(this.ToStringHelper.ToStringWithCulture(navigationInfo.ConstructorParameters));
-            this.Write("\r\n                ), \r\n                frameName);\r\n        }\r\n\r\n    ");
+            this.Write("\r\n                ), \r\n                frameName);\r\n        }\r\n");
   
-    }
-    
-            this.Write("\r\n    ");
+}
 
-    foreach(var openWindowInfo in OpenWindowInfos)
-    {
-    
+foreach(var openWindowInfo in OpenWindowInfos)
+{
+
             this.Write("        public Task Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationName));
             this.Write("WindowAsync(");
@@ -111,15 +107,13 @@ namespace Kamishibai.CodeAnalysis.Generator
             this.Write("(\r\n                    ");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.ConstructorParameters));
             this.Write("\r\n                ), \r\n                owner,\r\n                options);\r\n       " +
-                    " }\r\n\r\n    ");
+                    " }\r\n");
   
-    }
-    
-            this.Write("\r\n    ");
+}
 
-    foreach(var openDialogInfo in OpenDialogInfos)
-    {
-    
+foreach(var openDialogInfo in OpenDialogInfos)
+{
+
             this.Write("        public Task Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationName));
             this.Write("DialogAsync(");
@@ -130,11 +124,11 @@ namespace Kamishibai.CodeAnalysis.Generator
             this.Write("(\r\n                    ");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.ConstructorParameters));
             this.Write("\r\n                ), \r\n                owner,\r\n                options);\r\n       " +
-                    " }\r\n\r\n    ");
+                    " }\r\n");
   
-    }
-    
-            this.Write("}\r\n}");
+}
+
+            this.Write("    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }

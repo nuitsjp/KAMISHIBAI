@@ -12,33 +12,31 @@ namespace <#= Namespace #>
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-    <#
-    foreach(var navigationInfo in NavigationInfos)
-    {
-    #>
-        public Task<bool> NavigateTo<#= navigationInfo.NavigationName #>Async(<#= navigationInfo.NavigationParameters #>);
-    <#  
-    }
-    #>
-
-    <#
-    foreach(var openWindowInfo in OpenWindowInfos)
-    {
-    #>
-        public Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null);
-    <#  
-    }
-    #>
-
-    <#
-    foreach(var openDialogInfo in OpenDialogInfos)
-    {
-    #>
-        public Task Open<#= openDialogInfo.NavigationName #>DialogAsync(<#= openDialogInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null);
-    <#  
-    }
-    #>
+<#
+foreach(var navigationInfo in NavigationInfos)
+{
+#>
+        Task<bool> NavigateTo<#= navigationInfo.NavigationName #>Async(<#= navigationInfo.NavigationParameters #>);
+<#  
 }
+
+foreach(var openWindowInfo in OpenWindowInfos)
+{
+#>
+        Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null);
+<#  
+}
+#>
+
+<#
+foreach(var openDialogInfo in OpenDialogInfos)
+{
+#>
+        Task Open<#= openDialogInfo.NavigationName #>DialogAsync(<#= openDialogInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null);
+<#  
+}
+#>
+    }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
     {
@@ -50,10 +48,10 @@ namespace <#= Namespace #>
             _serviceProvider = serviceProvider;
         }
 
-    <#
-    foreach(var navigationInfo in NavigationInfos)
-    {
-    #>
+<#
+foreach(var navigationInfo in NavigationInfos)
+{
+#>
         public Task<bool> NavigateTo<#= navigationInfo.NavigationName #>Async(<#= navigationInfo.NavigationParameters #>)
         {
             return NavigateAsync(
@@ -62,15 +60,12 @@ namespace <#= Namespace #>
                 ), 
                 frameName);
         }
+<#  
+}
 
-    <#  
-    }
-    #>
-
-    <#
-    foreach(var openWindowInfo in OpenWindowInfos)
-    {
-    #>
+foreach(var openWindowInfo in OpenWindowInfos)
+{
+#>
         public Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null)
         {
             return OpenWindowAsync(
@@ -80,15 +75,12 @@ namespace <#= Namespace #>
                 owner,
                 options);
         }
+<#  
+}
 
-    <#  
-    }
-    #>
-
-    <#
-    foreach(var openDialogInfo in OpenDialogInfos)
-    {
-    #>
+foreach(var openDialogInfo in OpenDialogInfos)
+{
+#>
         public Task Open<#= openDialogInfo.NavigationName #>DialogAsync(<#= openDialogInfo.NavigationParameters #>, object? owner = null, OpenWindowOptions? options = null)
         {
             return OpenDialogAsync(
@@ -98,9 +90,8 @@ namespace <#= Namespace #>
                 owner,
                 options);
         }
-
-    <#  
-    }
-    #>
+<#  
 }
+#>
+    }
 }
