@@ -216,66 +216,7 @@ namespace TestProject
     }
 
     [Fact]
-    public async Task When_navigation_with_arguments_include_frameName()
-    {
-        var code = @"
-using Kamishibai;
-
-namespace Foo
-{
-    public class Argument
-    {
-    }
-
-    [Navigate]
-    public class Bar
-    {
-        public Bar(int number, string frameName, Argument argument)
-        {
-        }
-    }
-}
-";
-
-        await code.GenerateSource().Should().BeAsync(
-            @"#nullable enable
-using System;
-using System.Threading.Tasks;
-using Kamishibai;
-
-namespace TestProject
-{
-    public partial interface IPresentationService : IPresentationServiceBase
-    {
-        Task<bool> NavigateToBarAsync(int number, string frameName, Foo.Argument argument);
-    }
-
-    public class PresentationService : PresentationServiceBase, IPresentationService
-    {
-        private readonly IServiceProvider _serviceProvider;
-
-        public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
-            : base (serviceProvider, navigationFrameProvider, windowService)
-        {
-            _serviceProvider = serviceProvider;
-        }
-
-        public Task<bool> NavigateToBarAsync(int number, string frameName, Foo.Argument argument)
-        {
-            return NavigateAsync(
-                new Foo.Bar(
-                    number,
-                    frameName,
-                    argument
-                ), 
-                frameName);
-        }
-    }
-}");
-    }
-
-    [Fact]
-    public async Task When_navigation_with_arguments_include_Inject()
+    public async Task When_open_window_with_arguments_include_Inject()
     {
         var code = @"
 using System.Collections.Generic;
@@ -287,7 +228,7 @@ namespace Foo
     {
     }
 
-    [Navigate]
+    [OpenWindow]
     public class Bar
     {
         public Bar(int number, [Inject]IList<string> items, Argument argument)
@@ -307,7 +248,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task<bool> NavigateToBarAsync(int number, Foo.Argument argument, string frameName = """");
+        Task OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -320,15 +261,16 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task<bool> NavigateToBarAsync(int number, Foo.Argument argument, string frameName = """")
+        public Task OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null)
         {
-            return NavigateAsync(
+            return OpenWindowAsync(
                 new Foo.Bar(
                     number,
                     (System.Collections.Generic.IList<string>)_serviceProvider.GetService(typeof(System.Collections.Generic.IList<string>))!,
                     argument
                 ), 
-                frameName);
+                owner,
+                options);
         }
     }
 }");
