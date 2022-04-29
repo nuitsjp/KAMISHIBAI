@@ -4,44 +4,11 @@ using Xunit;
 
 namespace Kamishibai.CodeAnalysis.Test;
 
-public class SourceGeneratorTest
+public class GenerateNavigateTest
 {
-    [Fact]
-    public async Task Should_not_be_generated_methods_When_attribute_not_specified()
-    {
-        var code = @"
-public class Foo
-{
-}";
-
-        await code.GenerateSource().Should().BeAsync(
-            @"using System;
-using System.Threading.Tasks;
-using Kamishibai;
-
-namespace TestProject
-{
-    public partial interface IPresentationService : IPresentationServiceBase
-    {
-
-    }
-
-    public class PresentationService : PresentationServiceBase, IPresentationService
-    {
-        private readonly IServiceProvider _serviceProvider;
-
-        public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
-            : base (serviceProvider, navigationFrameProvider, windowService)
-        {
-            _serviceProvider = serviceProvider;
-        }
-
-    }
-}");
-    }
 
     [Fact]
-    public async Task Should_be_generated_methods_When_navigate_specified()
+    public async Task When_navigate_specified()
     {
         var code = @"
 using Kamishibai;
@@ -90,7 +57,7 @@ namespace TestProject
     }
 
     [Fact]
-    public async Task Should_be_generated_methods_When_navigate_attribute_specified()
+    public async Task When_navigate_attribute_specified()
     {
         var code = @"
 using Kamishibai;
@@ -137,4 +104,64 @@ namespace TestProject
     }
 }");
     }
+
+    [Fact]
+    public async Task When_navigation_with_arguments()
+    {
+        var code = @"
+using Kamishibai;
+
+namespace Foo
+{
+    public class Argument
+    {
+    }
+
+    [Navigate]
+    public class Bar
+    {
+        public Bar(int number, Argument argument)
+        {
+        }
+    }
+}
+";
+
+        await code.GenerateSource().Should().BeAsync(
+            @"using System;
+using System.Threading.Tasks;
+using Kamishibai;
+
+namespace TestProject
+{
+    public partial interface IPresentationService : IPresentationServiceBase
+    {
+        Task<bool> NavigateToBarAsync(int number, Foo.Argument argument, string frameName = """");
+
+    }
+
+    public class PresentationService : PresentationServiceBase, IPresentationService
+    {
+        private readonly IServiceProvider _serviceProvider;
+
+        public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
+            : base (serviceProvider, navigationFrameProvider, windowService)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public Task<bool> NavigateToBarAsync(int number, Foo.Argument argument, string frameName = """")
+        {
+            return NavigateAsync(
+                new Foo.Bar(
+                    number, 
+                    argument
+                ), 
+                frameName);
+        }
+    }
+}");
+    }
+
+
 }

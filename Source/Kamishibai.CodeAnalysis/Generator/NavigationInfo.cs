@@ -45,7 +45,7 @@ public class NavigationInfo
         {
             return string.Join(
                 @", 
-                ",
+                    ",
                 Parameters
                     .Select(x => 
                         x.Type == "INavigationService" 
