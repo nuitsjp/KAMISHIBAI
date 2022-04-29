@@ -61,7 +61,7 @@ namespace TestProject
         var code = @"
 using Kamishibai;
 
-[Navigate]
+[OpenWindow]
 public class Foo
 {
     public Foo()
@@ -79,7 +79,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task<bool> NavigateToFooAsync(string frameName = """");
+        Task OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -92,25 +92,27 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task<bool> NavigateToFooAsync(string frameName = """")
+        public Task OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null)
         {
-            return NavigateAsync(
+            return OpenWindowAsync(
                 new Foo(
                     
                 ), 
-                frameName);
+                owner,
+                options);
         }
     }
 }");
+
     }
 
     [Fact]
-    public async Task When_navigate_attribute_specified()
+    public async Task When_OpenWindowAttribute_specified()
     {
         var code = @"
 using Kamishibai;
 
-[NavigateAttribute]
+[OpenWindowAttribute]
 public class Foo
 {
     public Foo()
@@ -128,7 +130,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task<bool> NavigateToFooAsync(string frameName = """");
+        Task OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -141,20 +143,21 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task<bool> NavigateToFooAsync(string frameName = """")
+        public Task OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null)
         {
-            return NavigateAsync(
+            return OpenWindowAsync(
                 new Foo(
                     
                 ), 
-                frameName);
+                owner,
+                options);
         }
     }
 }");
     }
 
     [Fact]
-    public async Task When_navigation_with_arguments()
+    public async Task When_open_window_with_arguments()
     {
         var code = @"
 using Kamishibai;
