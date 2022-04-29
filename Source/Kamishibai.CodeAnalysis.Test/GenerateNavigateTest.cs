@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
@@ -222,4 +223,121 @@ namespace TestProject
 }");
     }
 
+    [Fact]
+    public async Task When_navigation_with_arguments_include_Inject()
+    {
+        var code = @"
+using System.Collections.Generic;
+using Kamishibai;
+
+namespace Foo
+{
+    public class Argument
+    {
+    }
+
+    [Navigate]
+    public class Bar
+    {
+        public Bar(int number, [Inject]IList<string> items, Argument argument)
+        {
+        }
+    }
+}
+";
+
+        await code.GenerateSource().Should().BeAsync(
+            @"using System;
+using System.Threading.Tasks;
+using Kamishibai;
+
+namespace TestProject
+{
+    public partial interface IPresentationService : IPresentationServiceBase
+    {
+        Task<bool> NavigateToBarAsync(int number, Foo.Argument argument, string frameName = """");
+
+    }
+
+    public class PresentationService : PresentationServiceBase, IPresentationService
+    {
+        private readonly IServiceProvider _serviceProvider;
+
+        public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
+            : base (serviceProvider, navigationFrameProvider, windowService)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public Task<bool> NavigateToBarAsync(int number, Foo.Argument argument, string frameName = """")
+        {
+            return NavigateAsync(
+                new Foo.Bar(
+                    number,
+                    (System.Collections.Generic.IList<string>)_serviceProvider.GetService(typeof(System.Collections.Generic.IList<string>))!,
+                    argument
+                ), 
+                frameName);
+        }
+    }
+}");
+    }
+
+    [Fact]
+    public async Task When_navigation_with_nullable_arguments()
+    {
+        var code = @"
+using Kamishibai;
+
+namespace Foo
+{
+    public class Argument
+    {
+    }
+
+    [Navigate]
+    public class Bar
+    {
+        public Bar(int? number, Argument argument)
+        {
+        }
+    }
+}
+";
+
+        await code.GenerateSource().Should().BeAsync(
+            @"using System;
+using System.Threading.Tasks;
+using Kamishibai;
+
+namespace TestProject
+{
+    public partial interface IPresentationService : IPresentationServiceBase
+    {
+        Task<bool> NavigateToBarAsync(int? number, Foo.Argument argument, string frameName = """");
+
+    }
+
+    public class PresentationService : PresentationServiceBase, IPresentationService
+    {
+        private readonly IServiceProvider _serviceProvider;
+
+        public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
+            : base (serviceProvider, navigationFrameProvider, windowService)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public Task<bool> NavigateToBarAsync(int? number, Foo.Argument argument, string frameName = """")
+        {
+            return NavigateAsync(
+                new Foo.Bar(
+                    number,
+                    argument
+                ), 
+                frameName);
+        }
+    }
+}");
+    }
 }
