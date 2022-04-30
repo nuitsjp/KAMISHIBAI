@@ -19,8 +19,8 @@ internal static class NativeMethods
     internal struct Rectangle
     {
         public int Left, Top, Right, Bottom;
-        public int Width => this.Right - this.Left;
-        public int Height => this.Bottom - this.Top;
+        public int Width => Right - Left;
+        public int Height => Bottom - Top;
     }
 
     [DllImport("kernel32.dll")]

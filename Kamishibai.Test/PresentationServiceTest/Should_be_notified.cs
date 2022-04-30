@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using FluentAssertions;
-using Microsoft.VisualBasic.Logging;
 using Xunit;
 
 namespace Kamishibai.Test.PresentationServiceTest;
@@ -123,7 +122,7 @@ public class Should_be_notified : PresentationServiceTestBase
         // Disposed
         Logs[9].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IDisposedAsyncAware.OnDisposedAsync)));
         Logs[10].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IDisposedAware.OnDisposed)));
-        Logs[11].Should().Be((null, typeof(SecondViewModel), null, null, nameof(IDisposable.Dispose))!);
+        Logs[11].Should().Be((null, typeof(SecondViewModel), null, null, nameof(IDisposable.Dispose)));
         Logs[12].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(SecondViewModel), typeof(FirstViewModel), nameof(INavigationFrame.Disposed)));
     }
 

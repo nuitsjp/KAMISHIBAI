@@ -4,8 +4,8 @@ using Codeer.Friendly.Windows;
 using Codeer.Friendly.Windows.Grasp;
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls;
-using System.Linq;
 using System.Windows.Controls;
+// ReSharper disable UnusedMember.Global
 
 namespace Driver.Windows
 {
@@ -18,13 +18,13 @@ namespace Driver.Windows
         public WPFButtonBase NavigateByGenericTypeCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("NavigateByGenericTypeCommand").FirstOrDefault()?.Dynamic(); 
         public WPFButtonBase NavigateByInstanceCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("NavigateByInstanceCommand").FirstOrDefault()?.Dynamic(); 
         public WPFTextBox Message1 => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("Message1").FirstOrDefault()?.Dynamic(); 
-        public WPFContextMenu Message1ContextMenu => new WPFContextMenu{Target = Message1.AppVar};
+        public WPFContextMenu Message1ContextMenu => new() {Target = Message1.AppVar};
         public WPFButtonBase NavigateWithCallbackCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("NavigateWithCallbackCommand").FirstOrDefault()?.Dynamic(); 
         public WPFTextBox Message2 => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("Message2").FirstOrDefault()?.Dynamic(); 
-        public WPFContextMenu Message2ContextMenu => new WPFContextMenu{Target = Message2.AppVar};
+        public WPFContextMenu Message2ContextMenu => new() {Target = Message2.AppVar};
         public WPFButtonBase NavigateWithSafeParameterCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("NavigateWithSafeParameterCommand").FirstOrDefault()?.Dynamic(); 
         public WPFTextBox Message3 => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("Message3").FirstOrDefault()?.Dynamic(); 
-        public WPFContextMenu Message3ContextMenu => new WPFContextMenu{Target = Message3.AppVar};
+        public WPFContextMenu Message3ContextMenu => new() {Target = Message3.AppVar};
 
         public NavigationMenuPageDriver(WindowControl core)
         {

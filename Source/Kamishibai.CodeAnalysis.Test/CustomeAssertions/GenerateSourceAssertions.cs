@@ -35,4 +35,19 @@ public class GenerateSourceAssertions :
             },
         }.RunAsync();
     }
+
+    public async Task BeNotGenerated(string because = "", params object[] becauseArgs)
+    {
+        await new CSharpSourceGeneratorVerifier<SourceGenerator>.Test
+        {
+            TestState =
+            {
+                Sources = { Subject.Text },
+                AdditionalReferences =
+                {
+                    MetadataReference.CreateFromFile(typeof(OpenDialogAttribute).Assembly.Location)
+                },
+            },
+        }.RunAsync();
+    }
 }

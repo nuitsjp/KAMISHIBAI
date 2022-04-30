@@ -10,7 +10,7 @@ namespace Driver.TestController
         {
             //target path
             var targetPath = @"..\..\..\..\..\..\Sample\SampleBrowser\SampleBrowser.App\bin\Debug\net6.0-windows\SampleBrowser.App.exe";
-            var info = new ProcessStartInfo(targetPath) { WorkingDirectory = Path.GetDirectoryName(targetPath) };
+            var info = new ProcessStartInfo(targetPath) { WorkingDirectory = Path.GetDirectoryName(targetPath)! };
             var app = new WindowsAppFriend(Process.Start(info));
             app.ResetTimeout();
             return app;
@@ -25,7 +25,10 @@ namespace Driver.TestController
             {
                 Process.GetProcessById(app.ProcessId).Kill();
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
     }
 }

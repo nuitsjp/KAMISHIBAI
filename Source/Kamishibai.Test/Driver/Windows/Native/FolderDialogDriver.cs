@@ -5,15 +5,17 @@ using Codeer.TestAssistant.GeneratorToolKit;
 using System;
 using System.Linq;
 using System.Threading;
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 
 namespace Driver.Windows.Native
 {
     public class FolderDialogDriver
     {
-        public WindowControl Core { get; private set; }
-        public NativeTree Tree => new NativeTree(Core.IdentifyFromWindowClass("SysTreeView32"));
-        public NativeButton Button_OK => new NativeButton(Core.IdentifyFromWindowText("OK"));
-        public NativeButton Button_Cancel => new NativeButton(Core.IdentifyFromWindowText("キャンセル"));
+        public WindowControl Core { get; }
+        public NativeTree Tree => new(Core.IdentifyFromWindowClass("SysTreeView32"));
+        public NativeButton Button_OK => new(Core.IdentifyFromWindowText("OK"));
+        public NativeButton Button_Cancel => new(Core.IdentifyFromWindowText("キャンセル"));
 
         public FolderDialogDriver(WindowControl core)
         {
@@ -45,7 +47,7 @@ namespace Driver.Windows.Native
     {
         [WindowDriverIdentify(CustomMethod = "TryAttach")]
         public static FolderDialogDriver Attach_Dlg_Folder(this WindowsAppFriend app, string text)
-            => new FolderDialogDriver(WindowControl.WaitForIdentifyFromWindowText(app, text));
+            => new(WindowControl.WaitForIdentifyFromWindowText(app, text));
 
         public static bool TryAttach(WindowControl window, out string title)
         {

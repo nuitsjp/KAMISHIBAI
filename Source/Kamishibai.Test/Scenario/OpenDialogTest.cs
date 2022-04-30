@@ -1,6 +1,4 @@
-﻿using Codeer.Friendly.Windows;
-using Driver.TestController;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Driver.Windows;
 using FluentAssertions;
 using Codeer.Friendly;

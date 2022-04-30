@@ -10,7 +10,7 @@ public abstract class ChildViewModel : IDisposingAware
 {
     private readonly IPresentationService _presentationService;
 
-    public ChildViewModel(IPresentationService presentationService)
+    protected ChildViewModel(IPresentationService presentationService)
     {
         _presentationService = presentationService;
     }

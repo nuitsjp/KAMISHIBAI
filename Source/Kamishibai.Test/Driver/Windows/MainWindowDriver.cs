@@ -4,7 +4,6 @@ using Codeer.Friendly.Windows;
 using Codeer.Friendly.Windows.Grasp;
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls;
-using System.Linq;
 
 namespace Driver.Windows
 {
@@ -14,13 +13,16 @@ namespace Driver.Windows
         public WindowControl Core { get; }
         public WPFListBox SelectedMenuItem => Core.VisualTree().ByBinding("SelectedMenuItem").FirstOrDefault()?.Dynamic(); 
         public NavigationFrameDriver NavigationFrame => Core.LogicalTree().ByType("Kamishibai.NavigationFrame").FirstOrDefault()?.Dynamic();
+        // ReSharper disable once UnusedMember.Global
         public bool IsLoaded => (bool)((AppVar)Core.Dynamic().IsLoaded).Core;
 
+        // ReSharper disable once UnusedMember.Global
         public MainWindowDriver(WindowControl core)
         {
             Core = core;
         }
 
+        // ReSharper disable once UnusedMember.Global
         public MainWindowDriver(AppVar core)
         {
             Core = new WindowControl(core);

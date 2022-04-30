@@ -20,7 +20,7 @@ public class SaveFileTest : TestBase
 
         var async = new Async();
         saveFilePage.SaveFileCommand.EmulateClick(async);
-        var saveFileDialog = app.Attach_SaveFileDlialog(@"名前を付けて保存");
+        var saveFileDialog = app.Attach_SaveFileDialog(@"名前を付けて保存");
         saveFileDialog.ComboBox_FileName.EmulateChangeEditText("foo");
         saveFileDialog.Button_Save.EmulateClick();
         async.WaitForCompletion();
@@ -40,7 +40,7 @@ public class SaveFileTest : TestBase
 
         var async = new Async();
         saveFilePage.SaveFileCommand.EmulateClick(async);
-        var saveFileDialog = app.Attach_SaveFileDlialog(@"名前を付けて保存");
+        var saveFileDialog = app.Attach_SaveFileDialog(@"名前を付けて保存");
         saveFileDialog.ComboBox_FileName.EmulateChangeEditText("foo");
         saveFileDialog.Button_Cancel.EmulateClick();
         async.WaitForCompletion();

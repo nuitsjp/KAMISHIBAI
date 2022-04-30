@@ -24,7 +24,7 @@ public class MessageDialog
 
     public MessageDialog(Window ownerWindow)
     {
-        this._ownerWindow = ownerWindow;
+        _ownerWindow = ownerWindow;
         _hHook = IntPtr.Zero;
     }
 

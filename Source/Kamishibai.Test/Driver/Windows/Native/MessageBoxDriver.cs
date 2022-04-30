@@ -4,6 +4,8 @@ using Codeer.Friendly.Windows.NativeStandardControls;
 using Codeer.TestAssistant.GeneratorToolKit;
 using System;
 using System.Runtime.InteropServices;
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 
 namespace Driver.Windows.Native
 {
@@ -13,17 +15,17 @@ namespace Driver.Windows.Native
 
         public MessageBoxDriver(WindowControl core) { Core = core; }
         public string Message => Core.IdentifyFromWindowClass("Static").GetWindowText();
-        public NativeButton Button_Yes => new NativeButton(Core.IdentifyFromWindowText("はい(&Y)"));
-        public NativeButton Button_No => new NativeButton(Core.IdentifyFromWindowText("いいえ(&N)"));
-        public NativeButton Button_OK => new NativeButton(Core.IdentifyFromWindowText("OK"));
-        public NativeButton Button_Cancel => new NativeButton(Core.IdentifyFromWindowText("キャンセル"));
+        public NativeButton Button_Yes => new(Core.IdentifyFromWindowText("はい(&Y)"));
+        public NativeButton Button_No => new(Core.IdentifyFromWindowText("いいえ(&N)"));
+        public NativeButton Button_OK => new(Core.IdentifyFromWindowText("OK"));
+        public NativeButton Button_Cancel => new(Core.IdentifyFromWindowText("キャンセル"));
     }
 
     public static class MessageBoxDriverExtensions
     {
         [WindowDriverIdentify(CustomMethod = "TryAttach")]
         public static MessageBoxDriver Attach_MessageBox(this WindowsAppFriend app, string title)
-            => new MessageBoxDriver(app.WaitForIdentifyFromWindowText(title));
+            => new(app.WaitForIdentifyFromWindowText(title));
 
         public static bool TryAttach(WindowControl window, out string title)
         {
@@ -37,9 +39,15 @@ namespace Driver.Windows.Native
 
             //The message box must consist of buttons and static.
             int childCount = 0;
-            EnumWindowsDelegate emumFunc = (hWnd, param) => { childCount++; return true; };
-            EnumChildWindows(window.Handle, emumFunc, IntPtr.Zero);
-            GC.KeepAlive(emumFunc);
+
+            bool EnumFunc(IntPtr hWnd, IntPtr param)
+            {
+                childCount++;
+                return true;
+            }
+
+            EnumChildWindows(window.Handle, EnumFunc, IntPtr.Zero);
+            GC.KeepAlive((EnumWindowsDelegate) EnumFunc);
             if (buttons.Length + staticCount != childCount) return false;
 
             title = window.GetWindowText();
@@ -50,6 +58,6 @@ namespace Driver.Windows.Native
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private extern static bool EnumChildWindows(IntPtr hWnd, EnumWindowsDelegate lpEnumFunc, IntPtr lparam);
+        private static extern bool EnumChildWindows(IntPtr hWnd, EnumWindowsDelegate lpEnumFunc, IntPtr lparam);
     }
 }

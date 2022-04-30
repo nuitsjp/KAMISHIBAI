@@ -8,7 +8,7 @@ namespace Driver.TestController
 {
     internal static class TimeoutController
     {
-        static TypeFinder _finder = new TypeFinder();
+        static readonly TypeFinder Finder = new();
         static Thread _killer;
         static bool _alive;
 
@@ -17,8 +17,8 @@ namespace Driver.TestController
             app.ClearTimeout();
             if (Debugger.IsAttached) return;
 
-            var type = _finder.GetType(TestContext.CurrentContext.Test.ClassName);
-            var method = type.GetMethod(TestContext.CurrentContext.Test.MethodName);
+            var type = Finder.GetType(TestContext.CurrentContext.Test.ClassName);
+            var method = type.GetMethod(TestContext.CurrentContext.Test.MethodName!)!;
             var attrs = method.GetCustomAttributes(typeof(TimeoutExAttribute), true);
             if (attrs.Length != 1) return;
 
@@ -40,7 +40,11 @@ namespace Driver.TestController
                     {
                         Process.GetProcessById(app.ProcessId).Kill();
                     }
-                    catch { }
+                    catch
+                    {
+                        // ignored
+                    }
+
                     _alive = false;
                     return;
                 }
@@ -57,7 +61,10 @@ namespace Driver.TestController
                 {
                     _killer.Join();
                 }
-                catch { }
+                catch
+                {
+                    // ignored
+                }
             }
             _killer = null;
         }

@@ -23,7 +23,7 @@ namespace Kamishibai.CodeAnalysis.Generator
         /// <summary>
         /// Create the template output
         /// </summary>
-        public override string TransformText()
+        public virtual string TransformText()
         {
             this.Write("#nullable enable\r\nusing System;\r\nusing System.Threading.Tasks;\r\nusing Kamishibai;" +
                     "\r\n\r\nnamespace ");

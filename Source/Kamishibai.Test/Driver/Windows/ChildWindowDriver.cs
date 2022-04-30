@@ -4,7 +4,6 @@ using Codeer.Friendly.Windows;
 using Codeer.Friendly.Windows.Grasp;
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls;
-using System.Linq;
 
 namespace Driver.Windows
 {
@@ -19,11 +18,13 @@ namespace Driver.Windows
         public WPFButtonBase CloseSpecifiedWindowCommand => Core.LogicalTree().ByBinding("CloseSpecifiedWindowCommand").FirstOrDefault()?.Dynamic();
         public bool IsLoaded => (bool)((AppVar)Core.Dynamic().IsLoaded).Core;
 
+        // ReSharper disable once UnusedMember.Global
         public ChildWindowDriver(WindowControl core)
         {
             Core = core;
         }
 
+        // ReSharper disable once UnusedMember.Global
         public ChildWindowDriver(AppVar core)
         {
             Core = new WindowControl(core);

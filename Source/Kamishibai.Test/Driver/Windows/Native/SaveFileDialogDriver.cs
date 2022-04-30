@@ -6,17 +6,19 @@ using Codeer.TestAssistant.GeneratorToolKit;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 
 namespace Driver.Windows.Native
 {
     public class SaveFileDialogDriver
     {
-        public WindowControl Core { get; private set; }
+        public WindowControl Core { get; }
 
         public NativeButton Button_Save { get; set; }
         public NativeButton Button_Cancel { get; set; }
-        public NativeComboBox ComboBox_FileName { get; private set; }
-        public NativeComboBox ComboBox_FileType { get; private set; }
+        public NativeComboBox ComboBox_FileName { get; }
+        public NativeComboBox ComboBox_FileType { get; }
 
         public SaveFileDialogDriver(WindowControl core)
         {
@@ -39,8 +41,7 @@ namespace Driver.Windows.Native
 
         static RECT GetWindowRect(IntPtr hwnd)
         {
-            RECT lpRect;
-            GetWindowRect(hwnd, out lpRect);
+            GetWindowRect(hwnd, out var lpRect);
             return lpRect;
         }
     }
@@ -48,10 +49,10 @@ namespace Driver.Windows.Native
     public static class SaveFileDialogDriverExtensions
     {
         [WindowDriverIdentify(CustomMethod = "TryAttach")]
-        public static SaveFileDialogDriver Attach_SaveFileDlialog(this WindowsAppFriend app, string title)
-            => new SaveFileDialogDriver(WindowControl.WaitForIdentifyFromWindowText(app, title));
+        public static SaveFileDialogDriver Attach_SaveFileDialog(this WindowsAppFriend app, string title)
+            => new(WindowControl.WaitForIdentifyFromWindowText(app, title));
 
-        public static SaveFileDialogDriver Attach_SaveFileDlialog(this WindowsAppFriend app, string title, Async async)
+        public static SaveFileDialogDriver Attach_SaveFileDialog(this WindowsAppFriend app, string title, Async async)
         {
             var core = WindowControl.WaitForIdentifyFromWindowText(app, title, async);
             if (core == null) return null;

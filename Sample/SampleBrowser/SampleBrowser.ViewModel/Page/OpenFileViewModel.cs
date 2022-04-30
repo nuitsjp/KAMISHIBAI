@@ -29,8 +29,6 @@ public class OpenFileViewModel
     public bool EnsurePathExists { get; set; } = true;
     public bool EnsureReadOnly { get; set; } = true;
     public bool EnsureValidNames { get; set; } = false;
-    public string DefaultExt { get; set; } = string.Empty;
-    public bool DereferenceLinks { get; set; } = true;
     public string Filter { get; set; }
     public string InitialDirectory { get; set; } = string.Empty;
     public bool IsFolderPicker { get; set; }

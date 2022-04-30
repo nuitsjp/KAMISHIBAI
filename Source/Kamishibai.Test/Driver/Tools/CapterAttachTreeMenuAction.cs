@@ -8,9 +8,11 @@ using System.Reflection;
 
 namespace Driver.Tools
 {
+    // ReSharper disable once UnusedMember.Global
     public static class CapterAttachTreeMenuAction
     {
         [MenuAction]
+        // ReSharper disable once UnusedMember.Global
         public static void AssertAll(object obj, string accessPath)
         {
             foreach (var e in obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
@@ -88,14 +90,9 @@ namespace Driver.Tools
         [MenuAction]
         public static void Assert(WPFTreeView treeView, string accessPath)
         {
-            if (treeView.SelectedItem.AppVar.IsNull)
-            {
-                CaptureAdaptor.AddCode($"{accessPath}.SelectedItem.AppVar.IsNull.IsTrue();");
-            }
-            else
-            {
-                CaptureAdaptor.AddCode($"{accessPath}.SelectedItem.Text.Is({ToLiteral(treeView.SelectedItem.Text)});");
-            }
+            CaptureAdaptor.AddCode(treeView.SelectedItem.AppVar.IsNull
+                ? $"{accessPath}.SelectedItem.AppVar.IsNull.IsTrue();"
+                : $"{accessPath}.SelectedItem.Text.Is({ToLiteral(treeView.SelectedItem.Text)});");
         }
 
         [MenuAction]
@@ -145,13 +142,11 @@ namespace Driver.Tools
 
         static string ToLiteral(string text)
         {
-            using (var writer = new StringWriter())
-            using (var provider = CodeDomProvider.CreateProvider("CSharp"))
-            {
-                var expression = new CodePrimitiveExpression(text);
-                provider.GenerateCodeFromExpression(expression, writer, options: null);
-                return writer.ToString();
-            }
+            using var writer = new StringWriter();
+            using var provider = CodeDomProvider.CreateProvider("CSharp");
+            var expression = new CodePrimitiveExpression(text);
+            provider.GenerateCodeFromExpression(expression, writer, options: null);
+            return writer.ToString();
         }
     }
 }

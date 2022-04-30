@@ -4,7 +4,7 @@ using Codeer.Friendly.Windows;
 using Codeer.Friendly.Windows.Grasp;
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls;
-using System.Linq;
+// ReSharper disable UnusedMember.Global
 
 namespace Driver.Windows
 {
@@ -17,13 +17,13 @@ namespace Driver.Windows
         public WPFButtonBase OpenByGenericTypeCommand => Core.LogicalTree().ByBinding("OpenByGenericTypeCommand").FirstOrDefault()?.Dynamic(); 
         public WPFButtonBase OpenByInstanceCommand => Core.LogicalTree().ByBinding("OpenByInstanceCommand").FirstOrDefault()?.Dynamic(); 
         public WPFTextBox WindowName1 => Core.LogicalTree().ByBinding("WindowName1").FirstOrDefault()?.Dynamic(); 
-        public WPFContextMenu WindowName1ContextMenu => new WPFContextMenu{Target = WindowName1.AppVar};
+        public WPFContextMenu WindowName1ContextMenu => new() {Target = WindowName1.AppVar};
         public WPFButtonBase OpenWithCallbackCommand => Core.LogicalTree().ByBinding("OpenWithCallbackCommand").FirstOrDefault()?.Dynamic(); 
         public WPFTextBox WindowName2 => Core.LogicalTree().ByBinding("WindowName2").FirstOrDefault()?.Dynamic(); 
-        public WPFContextMenu WindowName2ContextMenu => new WPFContextMenu{Target = WindowName2.AppVar};
+        public WPFContextMenu WindowName2ContextMenu => new() {Target = WindowName2.AppVar};
         public WPFButtonBase OpenWithSafeParameterCommand => Core.LogicalTree().ByBinding("OpenWithSafeParameterCommand").FirstOrDefault()?.Dynamic(); 
         public WPFTextBox WindowName3 => Core.LogicalTree().ByBinding("WindowName3").FirstOrDefault()?.Dynamic(); 
-        public WPFContextMenu WindowName3ContextMenu => new WPFContextMenu{Target = WindowName3.AppVar};
+        public WPFContextMenu WindowName3ContextMenu => new() {Target = WindowName3.AppVar};
 
         public OpenDialogPageDriver(WindowControl core)
         {

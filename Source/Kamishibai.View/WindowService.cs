@@ -215,12 +215,12 @@ public class WindowService : IWindowService
         window.WindowStartupLocation = (System.Windows.WindowStartupLocation)options.WindowStartupLocation;
         window.Owner = (Window?)owner;
 
-        await NotifyNavigating(new(null, null, viewModel));
+        await NotifyNavigating(new PreForwardEventArgs(null, null, viewModel));
 
         Exception? exception = null;
         void WindowOnLoaded(object sender, RoutedEventArgs args)
         {
-            var task = NotifyNavigated(new(null, null, viewModel));
+            var task = NotifyNavigated(new PostForwardEventArgs(null, null, viewModel));
             exception = task.Exception;
         }
 

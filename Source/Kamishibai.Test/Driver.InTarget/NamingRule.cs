@@ -2,6 +2,7 @@
 
 namespace Driver.InTarget
 {
+    // ReSharper disable once UnusedMember.Global
     public class NamingRule : IDriverElementNameGenerator
     {
         public int Priority => 1;

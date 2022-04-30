@@ -4,7 +4,6 @@ using Codeer.Friendly.Windows;
 using Codeer.Friendly.Windows.Grasp;
 using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls;
-using System.Linq;
 using System.Windows.Controls;
 
 namespace Driver.Windows
@@ -16,11 +15,13 @@ namespace Driver.Windows
         public WPFTextBlock Message => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("Message").FirstOrDefault()?.Dynamic(); 
         public WPFButtonBase GoBackCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("GoBackCommand").FirstOrDefault()?.Dynamic(); 
 
+        // ReSharper disable once UnusedMember.Global
         public ContentPageDriver(WindowControl core)
         {
             Core = core;
         }
 
+        // ReSharper disable once UnusedMember.Global
         public ContentPageDriver(AppVar core)
         {
             Core = new WindowControl(core);

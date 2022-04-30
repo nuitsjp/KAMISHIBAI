@@ -8,6 +8,8 @@ namespace Scenario
     [TestFixture]
     public class TestLifeCycleClass
     {
+        // ReSharper disable once ArrangeTypeMemberModifiers
+        // ReSharper disable once NotAccessedField.Local
         WindowsAppFriend _app;
 
         [SetUp]

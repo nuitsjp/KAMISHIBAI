@@ -16,30 +16,7 @@ public class Foo
     }
 }";
 
-        await code.GenerateSource().Should().BeAsync(
-            @"#nullable enable
-using System;
-using System.Threading.Tasks;
-using Kamishibai;
-
-namespace TestProject
-{
-    public partial interface IPresentationService : IPresentationServiceBase
-    {
-    }
-
-    public class PresentationService : PresentationServiceBase, IPresentationService
-    {
-        private readonly IServiceProvider _serviceProvider;
-
-        public PresentationService(IServiceProvider serviceProvider, INavigationFrameProvider navigationFrameProvider, IWindowService windowService)
-            : base (serviceProvider, navigationFrameProvider, windowService)
-        {
-            _serviceProvider = serviceProvider;
-        }
-
-    }
-}");
+        await code.GenerateSource().Should().BeNotGenerated();
     }
 
 }

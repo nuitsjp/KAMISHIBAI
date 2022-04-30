@@ -1,5 +1,4 @@
-﻿using System;
-using Kamishibai;
+﻿using Kamishibai;
 
 namespace GettingStarted.ViewModel;
 

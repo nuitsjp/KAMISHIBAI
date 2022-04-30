@@ -5,18 +5,20 @@ using Codeer.TestAssistant.GeneratorToolKit;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
 
 namespace Driver.Windows.Native
 {
     public class OpenFileDialogDriver
     {
-        public WindowControl Core { get; private set; }
+        public WindowControl Core { get; }
 
-        public NativeListControl ListView => new NativeListControl(Core.IdentifyFromWindowClass("SysListView32"));
+        public NativeListControl ListView => new(Core.IdentifyFromWindowClass("SysListView32"));
         public NativeButton Button_Open { get; set; }
         public NativeButton Button_Cancel { get; set; }
-        public NativeComboBox ComboBox_FilePath { get; private set; }
-        public NativeComboBox ComboBox_FileType { get; private set; }
+        public NativeComboBox ComboBox_FilePath { get; }
+        public NativeComboBox ComboBox_FileType { get; }
 
         public OpenFileDialogDriver(WindowControl window)
         {
@@ -27,7 +29,11 @@ namespace Driver.Windows.Native
             {
                 ComboBox_FileType = new NativeComboBox(Core.GetFromWindowClass("ComboBox").Where(e => e.ParentWindow.Handle == handle).OrderBy(e => GetWindowRect(e.Handle).Top).Last());
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
+
             Button_Open = new NativeButton(Core.IdentifyFromWindowText("開く(&O)"));
             Button_Cancel = new NativeButton(Core.IdentifyFromWindowText("キャンセル"));
         }
@@ -38,8 +44,7 @@ namespace Driver.Windows.Native
 
         static RECT GetWindowRect(IntPtr hwnd)
         {
-            RECT lpRect;
-            GetWindowRect(hwnd, out lpRect);
+            GetWindowRect(hwnd, out var lpRect);
             return lpRect;
         }
     }
@@ -48,7 +53,7 @@ namespace Driver.Windows.Native
     {
         [WindowDriverIdentify(CustomMethod = "TryAttach")]
         public static OpenFileDialogDriver Attach_OpenFileDialog(this WindowsAppFriend app, string title)
-            => new OpenFileDialogDriver(WindowControl.WaitForIdentifyFromWindowText(app, title));
+            => new(WindowControl.WaitForIdentifyFromWindowText(app, title));
 
         public static bool TryAttach(WindowControl window, out string title)
         {
