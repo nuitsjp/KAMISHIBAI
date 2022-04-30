@@ -19,7 +19,7 @@ public class ListDetailsViewModel : ObservableObject, INavigatedAsyncAware
         _sampleDataRepository = sampleDataRepository;
     }
 
-    public async Task OnNavigatedAsync()
+    public async Task OnNavigatedAsync(PostForwardEventArgs args)
     {
         SampleItems.Clear();
 

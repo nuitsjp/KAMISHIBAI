@@ -44,7 +44,7 @@ namespace KamishibaiApp.ViewModel
         private void OnPrivacyStatement()
             => _browserService.OpenInWebBrowser(_appConfig.PrivacyStatement);
 
-        public void OnNavigated()
+        public void OnNavigated(PostForwardEventArgs args)
         {
             VersionDescription = $"{Properties.Resources.AppDisplayName} - {_applicationInfoService.GetVersion()}";
             Theme = _themeSelectorService.GetCurrentTheme();

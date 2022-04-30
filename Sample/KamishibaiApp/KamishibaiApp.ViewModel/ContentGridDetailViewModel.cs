@@ -24,7 +24,7 @@ public class ContentGridDetailViewModel : ObservableObject, INavigatedAsyncAware
         _sampleDataService = sampleDataService;
     }
 
-    public async Task OnNavigatedAsync()
+    public async Task OnNavigatedAsync(PostForwardEventArgs args)
     {
         var data = await _sampleDataService.GetSampleOrdersAsync();
         Item = data.First(i => i.OrderId == _orderId);

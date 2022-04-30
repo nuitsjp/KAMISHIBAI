@@ -15,7 +15,7 @@ namespace KamishibaiApp.ViewModel
             _sampleDataRepository = sampleDataRepository;
         }
 
-        public async Task OnNavigatedAsync()
+        public async Task OnNavigatedAsync(PostForwardEventArgs args)
         {
             Source.Clear();
 

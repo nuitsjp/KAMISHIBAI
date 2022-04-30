@@ -86,7 +86,7 @@ public class ShellWindowViewModel : ViewModelBase, INavigatingAware, INotifyProp
         }
     }
 
-    public void OnNavigating()
+    public void OnNavigating(PreForwardEventArgs _)
     {
         _themeSelectorService.InitializeTheme();
         _presentationService.GetNavigationFrame().Subscribe(viewModel =>

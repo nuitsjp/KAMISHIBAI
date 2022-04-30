@@ -26,7 +26,7 @@ public class ContentGridViewModel : ObservableObject, INavigatedAsyncAware
         return _presentationService.NavigateToContentGridDetailAsync(order!.OrderId);
     }
 
-    public async Task OnNavigatedAsync()
+    public async Task OnNavigatedAsync(PostForwardEventArgs args)
     {
         Source.Clear();
 

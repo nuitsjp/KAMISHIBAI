@@ -22,7 +22,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.7-pre</Version>
+    <Version>0.0.8-pre</Version>
     <NoPackageAnalysis>true</NoPackageAnalysis>
   </PropertyGroup>
 	
