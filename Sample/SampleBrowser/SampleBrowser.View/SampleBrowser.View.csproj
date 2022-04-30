@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	<ProjectReference Include="..\..\..\Source\Kamishibai.CodeAnalysis\Kamishibai.CodeAnalysis.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\..\..\Source\Kamishibai.View\Kamishibai.View.csproj" />
     <ProjectReference Include="..\SampleBrowser.ViewModel\SampleBrowser.ViewModel.csproj" />
   </ItemGroup>

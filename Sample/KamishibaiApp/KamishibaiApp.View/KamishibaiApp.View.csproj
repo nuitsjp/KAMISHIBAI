@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Kamishibai.View" Version="0.0.7-pre" />
+	  <PackageReference Include="Kamishibai.View" Version="0.0.9-pre" />
 	  <PackageReference Include="MahApps.Metro" Version="2.4.9" />
 	</ItemGroup>
 

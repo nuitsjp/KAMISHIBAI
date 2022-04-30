@@ -9,7 +9,7 @@ using KamishibaiApp.ViewModel.Service;
 
 var builder = KamishibaiApplication<App, ShellWindow>.CreateBuilder();
 builder.Services.AddTransient<ShellWindowViewModel>();
-builder.Services.AddTransient<KamishibaiApp.ViewModel.IPresentationService, KamishibaiApp.ViewModel.PresentationService>();
+builder.Services.AddTransient<IPresentationService, PresentationService>();
 
 builder.Services.AddPresentation<MainPage, MainViewModel>();
 builder.Services.AddPresentation<ListDetailsPage, ListDetailsViewModel>();

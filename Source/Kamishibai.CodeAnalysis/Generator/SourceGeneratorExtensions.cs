@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Collections;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Kamishibai.CodeAnalysis.Generator;
@@ -50,4 +51,6 @@ public static class SourceGeneratorExtensions
             yield return new NavigationParameter(typeName, parameterSyntax.Identifier.Text, isInjection);
         }
     }
+
+    public static bool Empty<T>(this IEnumerable<T> enumerable) => enumerable.Any() is false;
 }

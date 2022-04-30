@@ -21,6 +21,12 @@ public class SourceGenerator : ISourceGenerator
     public void Execute(GeneratorExecutionContext context)
     {
         var syntaxReceiver = (SyntaxReceiver)context.SyntaxReceiver!;
+        if (syntaxReceiver.Navigates.Empty()
+            && syntaxReceiver.OpenDialogs.Empty()
+            && syntaxReceiver.OpenWindows.Empty())
+        {
+            return;
+        }
 
         var navigationInfos =
             syntaxReceiver
