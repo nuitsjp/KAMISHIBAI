@@ -13,35 +13,20 @@ public abstract class NotificationViewModel :
     IPausedAware,
     IPausedAsyncAware
 {
-    protected abstract void OnNotify([CallerMemberName] string memberName = "");
+    protected abstract void OnNotify(IForwardEventArgs args, [CallerMemberName] string memberName = "");
 
-    private async Task OnNotifyAsync([CallerMemberName] string memberName = "")
+    protected Task OnNotifyAsync(IForwardEventArgs args, [CallerMemberName] string memberName = "")
     {
-        OnNotify(memberName);
-        await Task.CompletedTask;
+        OnNotify(args, memberName);
+        return Task.CompletedTask;
     }
 
-    public bool OnPausing()
-    {
-        OnNotify();
-        return true;
-    }
-
-    public async Task<bool> OnPausingAsync()
-    {
-        await OnNotifyAsync();
-        return true;
-    }
-
-    public void OnNavigating() => OnNotify();
-
-    public Task OnNavigatingAsync() => OnNotifyAsync();
-
-    public void OnNavigated() => OnNotify();
-
-    public Task OnNavigatedAsync() => OnNotifyAsync();
-
-    public void OnPaused() => OnNotify();
-
-    public Task OnPausedAsync() => OnNotifyAsync();
+    public void OnPausing(PreForwardEventArgs args) => OnNotify(args);
+    public Task OnPausingAsync(PreForwardEventArgs args) => OnNotifyAsync(args);
+    public void OnNavigating(PreForwardEventArgs args) => OnNotify(args);
+    public Task OnNavigatingAsync(PreForwardEventArgs args) => OnNotifyAsync(args);
+    public void OnNavigated(PostForwardEventArgs args) => OnNotify(args);
+    public Task OnNavigatedAsync(PostForwardEventArgs args) => OnNotifyAsync(args);
+    public void OnPaused(PostForwardEventArgs args) => OnNotify(args);
+    public Task OnPausedAsync(PostForwardEventArgs args) => OnNotifyAsync(args);
 }

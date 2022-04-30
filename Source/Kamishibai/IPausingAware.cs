@@ -2,5 +2,5 @@
 
 public interface IPausingAware
 {
-    bool OnPausing();
+    void OnPausing(PreForwardEventArgs args);
 }

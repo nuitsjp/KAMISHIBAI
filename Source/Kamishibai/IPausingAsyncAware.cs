@@ -2,5 +2,5 @@
 
 public interface IPausingAsyncAware
 {
-    Task<bool> OnPausingAsync();
+    Task OnPausingAsync(PreForwardEventArgs args);
 }

@@ -41,9 +41,11 @@ public class WindowService : IWindowService
         window.WindowStartupLocation = (System.Windows.WindowStartupLocation)options.WindowStartupLocation;
         window.Owner = (Window?)owner;
 
-        await NotifyNavigating(viewModel);
+        PreForwardEventArgs preForwardEventArgs = new(null, null, viewModel);
+        await NotifyNavigating(preForwardEventArgs);
         window.Show();
-        await NotifyNavigated(viewModel);
+        PostForwardEventArgs postForwardEventArgs = new(null, null, viewModel);
+        await NotifyNavigated(postForwardEventArgs);
     }
 
     public Task<bool> OpenDialogAsync(Type viewModelType, object? owner, OpenDialogOptions options)
@@ -209,12 +211,12 @@ public class WindowService : IWindowService
         window.WindowStartupLocation = (System.Windows.WindowStartupLocation)options.WindowStartupLocation;
         window.Owner = (Window?)owner;
 
-        await NotifyNavigating(viewModel);
+        await NotifyNavigating(new(null, null, viewModel));
 
         Exception? exception = null;
         void WindowOnLoaded(object sender, RoutedEventArgs args)
         {
-            var task = NotifyNavigated(viewModel);
+            var task = NotifyNavigated(new(null, null, viewModel));
             exception = task.Exception;
         }
 
@@ -240,16 +242,16 @@ public class WindowService : IWindowService
         return (Window)_serviceProvider.GetService(viewType)!;
     }
 
-    private static async Task NotifyNavigating(object destination)
+    private static async Task NotifyNavigating(PreForwardEventArgs args)
     {
-        if (destination is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
-        if (destination is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
+        if (args.DestinationViewModel is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync(args);
+        if (args.DestinationViewModel is INavigatingAware navigatingAware) navigatingAware.OnNavigating(args);
     }
 
-    private static async Task NotifyNavigated(object destination)
+    private static async Task NotifyNavigated(PostForwardEventArgs args)
     {
-        if (destination is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync();
-        if (destination is INavigatedAware navigatedAware) navigatedAware.OnNavigated();
+        if (args.DestinationViewModel is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync(args);
+        if (args.DestinationViewModel is INavigatedAware navigatedAware) navigatedAware.OnNavigated(args);
     }
 
     private async Task<bool> NotifyDisposing(object sourceViewModel)

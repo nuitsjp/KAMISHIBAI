@@ -2,5 +2,5 @@
 
 public interface INavigatingAware
 {
-    void OnNavigating();
+    void OnNavigating(PreForwardEventArgs args);
 }

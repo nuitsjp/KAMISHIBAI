@@ -1,8 +1,8 @@
 ﻿namespace Kamishibai;
 
-public class PausingEventArgs : EventArgs
+public class PausingContext : EventArgs
 {
-    public PausingEventArgs(string frameName, object sourceViewModel, object destinationViewModel)
+    public PausingContext(string frameName, object? sourceViewModel, object destinationViewModel)
     {
         FrameName = frameName;
         SourceViewModel = sourceViewModel;
@@ -10,6 +10,7 @@ public class PausingEventArgs : EventArgs
     }
 
     public string FrameName { get; }
-    public object SourceViewModel { get; }
+    public object? SourceViewModel { get; }
     public object DestinationViewModel { get; }
+    public bool Cancel { get; set; }
 }

@@ -2,5 +2,5 @@
 
 public interface INavigatedAware
 {
-    void OnNavigated();
+    void OnNavigated(PostForwardEventArgs args);
 }

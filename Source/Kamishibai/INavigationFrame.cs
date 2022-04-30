@@ -2,10 +2,10 @@
 
 public interface INavigationFrame : IObservable<object>
 {
-    public event EventHandler<PausingEventArgs>? Pausing;
-    public event EventHandler<NavigatingEventArgs>? Navigating;
-    public event EventHandler<NavigatedEventArgs>? Navigated;
-    public event EventHandler<PausedEventArgs>? Paused;
+    public event EventHandler<PreForwardEventArgs>? Pausing;
+    public event EventHandler<PreForwardEventArgs>? Navigating;
+    public event EventHandler<PostForwardEventArgs>? Navigated;
+    public event EventHandler<PostForwardEventArgs>? Paused;
 
     public event EventHandler<DisposingEventArgs>? Disposing;
     public event EventHandler<ResumingEventArgs>? Resuming;

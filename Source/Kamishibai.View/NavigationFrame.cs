@@ -15,10 +15,10 @@ public class NavigationFrame : ContentControl, INavigationFrame
         NavigationFrameProvider.AddNavigationFrame(this);
     }
 
-    public event EventHandler<PausingEventArgs>? Pausing;
-    public event EventHandler<NavigatingEventArgs>? Navigating;
-    public event EventHandler<NavigatedEventArgs>? Navigated;
-    public event EventHandler<PausedEventArgs>? Paused;
+    public event EventHandler<PreForwardEventArgs>? Pausing;
+    public event EventHandler<PreForwardEventArgs>? Navigating;
+    public event EventHandler<PostForwardEventArgs>? Navigated;
+    public event EventHandler<PostForwardEventArgs>? Paused;
     public event EventHandler<DisposingEventArgs>? Disposing;
     public event EventHandler<ResumingEventArgs>? Resuming;
     public event EventHandler<ResumedEventArgs>? Resumed;
@@ -82,15 +82,16 @@ public class NavigationFrame : ContentControl, INavigationFrame
         _pages.TryPeek(out var  sourceView);
         var sourceViewModel = sourceView?.DataContext;
 
-
-        if (await NotifyPausing(sourceViewModel, destinationViewModel) is false) return false;
-        await NotifyNavigating(sourceViewModel, destinationViewModel);
+        PreForwardEventArgs preForwardEventArgs = new(FrameName, sourceViewModel, destinationViewModel);
+        if (await NotifyPausing(preForwardEventArgs) is false) return false;
+        if (await NotifyNavigating(preForwardEventArgs) is false) return false;
 
         _pages.Push(view);
         Content = view;
 
-        await NotifyNavigated(sourceViewModel, destinationViewModel);
-        await NotifyPaused(sourceViewModel, destinationViewModel);
+        PostForwardEventArgs postForwardEventArgs = new(FrameName, sourceViewModel, destinationViewModel);
+        await NotifyNavigated(postForwardEventArgs);
+        await NotifyPaused(postForwardEventArgs);
 
         return true;
     }
@@ -130,53 +131,73 @@ public class NavigationFrame : ContentControl, INavigationFrame
         }
     }
 
-    private async Task<bool> NotifyPausing(object? source, object destination)
+    private async Task<bool> NotifyPausing(PreForwardEventArgs args)
     {
-        if (source is IPausingAsyncAware pausingAsyncAware)
+        if (args.SourceViewModel is IPausingAsyncAware pausingAsyncAware)
         {
-            if (await pausingAsyncAware.OnPausingAsync() is false)
+            await pausingAsyncAware.OnPausingAsync(args);
+            if (args.Cancel)
             {
                 return false;
             }
         }
 
-        if (source is IPausingAware pausingAware)
+        if (args.SourceViewModel is IPausingAware pausingAware)
         {
-            if (pausingAware.OnPausing() is false)
+            pausingAware.OnPausing(args);
+            if (args.Cancel)
             {
                 return false;
             }
         }
 
-        if (source is not null)
+        if (args.SourceViewModel is not null)
         {
-            Pausing?.Invoke(this, new PausingEventArgs(FrameName, source, destination));
+            Pausing?.Invoke(this, args);
         }
 
         return true;
     }
 
-    private async Task NotifyNavigating(object? source, object destination)
+    private async Task<bool> NotifyNavigating(PreForwardEventArgs args)
     {
-        if (destination is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
-        if (destination is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
-        Navigating?.Invoke(this, new NavigatingEventArgs(FrameName, source, destination));
-    }
-
-    private async Task NotifyNavigated(object? source, object destination)
-    {
-        if (destination is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync();
-        if (destination is INavigatedAware navigatedAware) navigatedAware.OnNavigated();
-        Navigated?.Invoke(this, new NavigatedEventArgs(FrameName, source, destination));
-    }
-
-    private async Task NotifyPaused(object? source, object destination)
-    {
-        if (source is IPausedAsyncAware pausedAsyncAware) await pausedAsyncAware.OnPausedAsync();
-        if (source is IPausedAware pausedAware) pausedAware.OnPaused();
-        if (source is not null)
+        if (args.DestinationViewModel is INavigatingAsyncAware navigatingAsyncAware)
         {
-            Paused?.Invoke(this, new PausedEventArgs(FrameName, source, destination));
+            await navigatingAsyncAware.OnNavigatingAsync(args);
+            if (args.Cancel)
+            {
+                return false;
+            }
+        }
+
+        if (args.DestinationViewModel is INavigatingAware navigatingAware)
+        {
+            navigatingAware.OnNavigating(args);
+            if (args.Cancel)
+            {
+                return false;
+            }
+        }
+
+        Navigating?.Invoke(this, args);
+
+        return true;
+    }
+
+    private async Task NotifyNavigated(PostForwardEventArgs args)
+    {
+        if (args.DestinationViewModel is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync(args);
+        if (args.DestinationViewModel is INavigatedAware navigatedAware) navigatedAware.OnNavigated(args);
+        Navigated?.Invoke(this, args);
+    }
+
+    private async Task NotifyPaused(PostForwardEventArgs args)
+    {
+        if (args.SourceViewModel is IPausedAsyncAware pausedAsyncAware) await pausedAsyncAware.OnPausedAsync(args);
+        if (args.SourceViewModel is IPausedAware pausedAware) pausedAware.OnPaused(args);
+        if (args.SourceViewModel is not null)
+        {
+            Paused?.Invoke(this, args);
         }
     }
 

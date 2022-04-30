@@ -33,13 +33,20 @@ public class KamishibaiApplicationBuilder<TApplication, TWindow> : IWpfApplicati
                     args.Window.DataContext = app.Services.GetService(viewModelType);
                 }
             }
-            if (args.Window.DataContext is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync();
-            if (args.Window.DataContext is INavigatingAware navigatingAware) navigatingAware.OnNavigating();
+
+            if (args.Window.DataContext is null) return;
+
+            PreForwardEventArgs preForwardEventArgs = new(null, null, args.Window.DataContext);
+            if (args.Window.DataContext is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync(preForwardEventArgs);
+            if (args.Window.DataContext is INavigatingAware navigatingAware) navigatingAware.OnNavigating(preForwardEventArgs);
         };
         app.Loaded += async (_, args) =>
         {
-            if (args.Window.DataContext is INavigatedAsyncAware navigationAware) await navigationAware.OnNavigatedAsync();
-            if (args.Window.DataContext is INavigatedAware navigatedAware) navigatedAware.OnNavigated();
+            if (args.Window.DataContext is null) return;
+
+            PostForwardEventArgs postForwardEventArgs = new(null, null, args.Window.DataContext);
+            if (args.Window.DataContext is INavigatedAsyncAware navigationAware) await navigationAware.OnNavigatedAsync(postForwardEventArgs);
+            if (args.Window.DataContext is INavigatedAware navigatedAware) navigatedAware.OnNavigated(postForwardEventArgs);
         };
         return app;
     }

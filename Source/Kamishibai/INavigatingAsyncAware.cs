@@ -2,5 +2,5 @@
 
 public interface INavigatingAsyncAware
 {
-    Task OnNavigatingAsync();
+    Task OnNavigatingAsync(PreForwardEventArgs args);
 }

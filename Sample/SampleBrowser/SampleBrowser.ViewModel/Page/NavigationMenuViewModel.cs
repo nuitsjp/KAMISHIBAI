@@ -40,15 +40,14 @@ public class NavigationMenuViewModel : IPausingAware
     public ICommand NavigateWithSafeParameterCommand =>
         new AsyncRelayCommand(() => _presentationService.NavigateToWithArgumentsAsync(Message3));
 
-    public bool OnPausing()
+    public void OnPausing(PreForwardEventArgs args)
     {
         if (BlockNavigation)
         {
             Message = "Navigation blocked.";
-            return false;
+            args.Cancel = true;
         }
 
         Message = string.Empty;
-        return true;
     }
 }

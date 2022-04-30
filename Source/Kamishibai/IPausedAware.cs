@@ -2,5 +2,5 @@
 
 public interface IPausedAware
 {
-    void OnPaused();
+    void OnPaused(PostForwardEventArgs args);
 }

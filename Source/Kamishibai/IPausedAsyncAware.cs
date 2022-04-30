@@ -2,5 +2,5 @@
 
 public interface IPausedAsyncAware
 {
-    Task OnPausedAsync();
+    Task OnPausedAsync(PostForwardEventArgs args);
 }
