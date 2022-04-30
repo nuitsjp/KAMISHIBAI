@@ -19,10 +19,10 @@ public class NavigationFrame : ContentControl, INavigationFrame
     public event EventHandler<PreForwardEventArgs>? Navigating;
     public event EventHandler<PostForwardEventArgs>? Navigated;
     public event EventHandler<PostForwardEventArgs>? Paused;
-    public event EventHandler<DisposingEventArgs>? Disposing;
-    public event EventHandler<ResumingEventArgs>? Resuming;
-    public event EventHandler<ResumedEventArgs>? Resumed;
-    public event EventHandler<DisposedEventArgs>? Disposed;
+    public event EventHandler<PreBackwardEventArgs>? Disposing;
+    public event EventHandler<PreBackwardEventArgs>? Resuming;
+    public event EventHandler<PostBackwardEventArgs>? Resumed;
+    public event EventHandler<PostBackwardEventArgs>? Disposed;
 
     public string FrameName
     {
@@ -108,18 +108,18 @@ public class NavigationFrame : ContentControl, INavigationFrame
         var destinationView = _pages.Previous;
         var destinationViewModel = destinationView.DataContext;
 
-
-        if (!await NotifyDisposing(sourceViewModel, destinationViewModel)) return false;
+        PreBackwardEventArgs preBackwardEventArgs = new(FrameName, sourceViewModel, destinationViewModel);
+        if (!await NotifyDisposing(preBackwardEventArgs)) return false;
+        if (!await NotifyResuming(preBackwardEventArgs)) return false;
 
         _pages.Pop();
         try
         {
-            await NotifyResuming(sourceViewModel, destinationViewModel);
-
             Content = destinationView;
 
-            await NotifyResumed(sourceViewModel, destinationViewModel);
-            await NotifyDisposed(sourceViewModel, destinationViewModel);
+            PostBackwardEventArgs postBackwardEventArgs = new(FrameName, sourceViewModel, destinationViewModel);
+            await NotifyResumed(postBackwardEventArgs);
+            await NotifyDisposed(postBackwardEventArgs);
 
             return true;
         }
@@ -201,47 +201,67 @@ public class NavigationFrame : ContentControl, INavigationFrame
         }
     }
 
-    private async Task<bool> NotifyDisposing(object sourceViewModel, object destinationViewModel)
+    private async Task<bool> NotifyDisposing(PreBackwardEventArgs args)
     {
-        if (sourceViewModel is IDisposingAsyncAware disposingAsyncAware)
+        if (args.SourceViewModel is IDisposingAsyncAware disposingAsyncAware)
         {
-            if (await disposingAsyncAware.OnDisposingAsync() is false)
+            await disposingAsyncAware.OnDisposingAsync(args);
+            if (args.Cancel)
             {
                 return false;
             }
         }
 
-        if (sourceViewModel is IDisposingAware disposingAware)
+        if (args.SourceViewModel is IDisposingAware disposingAware)
         {
-            if (disposingAware.OnDisposing() is false)
+            disposingAware.OnDisposing(args);
+            if (args.Cancel)
             {
                 return false;
             }
         }
 
-        Disposing?.Invoke(this, new DisposingEventArgs(FrameName, sourceViewModel, destinationViewModel));
+        Disposing?.Invoke(this, args);
         return true;
     }
 
-    private async Task NotifyResuming(object sourceViewModel, object destinationViewModel)
+    private async Task<bool> NotifyResuming(PreBackwardEventArgs args)
     {
-        if (destinationViewModel is IResumingAsyncAware resumingAsyncAware) await resumingAsyncAware.OnResumingAsync();
-        if (destinationViewModel is IResumingAware resumingAware) resumingAware.OnResuming();
-        Resuming?.Invoke(this, new ResumingEventArgs(FrameName, sourceViewModel, destinationViewModel));
+        if (args.DestinationViewModel is IResumingAsyncAware resumingAsyncAware)
+        {
+            await resumingAsyncAware.OnResumingAsync(args);
+            if (args.Cancel)
+            {
+                return false;
+            }
+        }
+
+        if (args.DestinationViewModel is IResumingAware resumingAware)
+        {
+            resumingAware.OnResuming(args);
+            if (args.Cancel)
+            {
+                return false;
+            }
+        }
+
+        Resuming?.Invoke(this, args);
+        return true;
     }
 
-    private async Task NotifyResumed(object sourceViewModel, object destinationViewModel)
+    private async Task NotifyResumed(PostBackwardEventArgs args)
     {
-        if (destinationViewModel is IResumedAsyncAware resumedAsyncAware) await resumedAsyncAware.OnResumedAsync();
-        if (destinationViewModel is IResumedAware resumedAware) resumedAware.OnResumed();
-        Resumed?.Invoke(this, new ResumedEventArgs(FrameName, sourceViewModel, destinationViewModel));
+        if (args.DestinationViewModel is IResumedAsyncAware resumedAsyncAware) await resumedAsyncAware.OnResumedAsync(args);
+        if (args.DestinationViewModel is IResumedAware resumedAware) resumedAware.OnResumed(args);
+        Resumed?.Invoke(this, args);
     }
 
-    private async Task NotifyDisposed(object sourceViewModel, object destinationViewModel)
+    private async Task NotifyDisposed(PostBackwardEventArgs args)
     {
-        if (sourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync();
-        if (sourceViewModel is IDisposable disposable) disposable.Dispose();
-        Disposed?.Invoke(this, new DisposedEventArgs(FrameName, sourceViewModel, destinationViewModel));
+        if (args.SourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync(args);
+        if (args.SourceViewModel is IDisposedAware disposedAware) disposedAware.OnDisposed(args);
+        if (args.SourceViewModel is IDisposable disposable) disposable.Dispose();
+        Disposed?.Invoke(this, args);
     }
 
     public IDisposable Subscribe(IObserver<object> observer)

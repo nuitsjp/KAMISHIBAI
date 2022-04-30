@@ -2,5 +2,5 @@
 
 public interface IDisposingAware
 {
-    bool OnDisposing();
+    void OnDisposing(PreBackwardEventArgs args);
 }

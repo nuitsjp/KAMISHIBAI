@@ -2,5 +2,5 @@
 
 public interface IResumingAsyncAware
 {
-    Task OnResumingAsync();
+    Task OnResumingAsync(PreBackwardEventArgs args);
 }

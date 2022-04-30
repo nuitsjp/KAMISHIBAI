@@ -74,9 +74,11 @@ public class WindowService : IWindowService
         Window? target = (Window?)window ?? GetActiveWindow();
         if (target is null) return;
 
-        if(await NotifyDisposing(target.DataContext) is false) return;
+        PreBackwardEventArgs preBackwardEventArgs = new(null, target.DataContext, null);
+        if(await NotifyDisposing(preBackwardEventArgs) is false) return;
         target.Close();
-        await NotifyDisposed(target.DataContext);
+        PostBackwardEventArgs postBackwardEventArgs = new(null, target.DataContext, null);
+        await NotifyDisposed(postBackwardEventArgs);
     }
 
     public async Task CloseDialogAsync(bool dialogResult, object? window)
@@ -84,9 +86,11 @@ public class WindowService : IWindowService
         Window? target = (Window?)window ?? GetActiveWindow();
         if(target is null) return;
 
-        if (await NotifyDisposing(target.DataContext) is false) return;
+        PreBackwardEventArgs preBackwardEventArgs = new(null, target.DataContext, null);
+        if (await NotifyDisposing(preBackwardEventArgs) is false) return;
         target.DialogResult = dialogResult;
-        await NotifyDisposed(target.DataContext);
+        PostBackwardEventArgs postBackwardEventArgs = new(null, target.DataContext, null);
+        await NotifyDisposed(postBackwardEventArgs);
     }
 
     public MessageBoxResult ShowMessage(
@@ -254,19 +258,21 @@ public class WindowService : IWindowService
         if (args.DestinationViewModel is INavigatedAware navigatedAware) navigatedAware.OnNavigated(args);
     }
 
-    private async Task<bool> NotifyDisposing(object sourceViewModel)
+    private async Task<bool> NotifyDisposing(PreBackwardEventArgs args)
     {
-        if (sourceViewModel is IDisposingAsyncAware disposingAsyncAware)
+        if (args.SourceViewModel is IDisposingAsyncAware disposingAsyncAware)
         {
-            if (await disposingAsyncAware.OnDisposingAsync() is false)
+            await disposingAsyncAware.OnDisposingAsync(args);
+            if (args.Cancel)
             {
                 return false;
             }
         }
 
-        if (sourceViewModel is IDisposingAware disposingAware)
+        if (args.SourceViewModel is IDisposingAware disposingAware)
         {
-            if (disposingAware.OnDisposing() is false)
+            disposingAware.OnDisposing(args);
+            if (args.Cancel)
             {
                 return false;
             }
@@ -274,10 +280,10 @@ public class WindowService : IWindowService
         return true;
     }
 
-    private async Task NotifyDisposed(object sourceViewModel)
+    private async Task NotifyDisposed(PostBackwardEventArgs args)
     {
-        if (sourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync();
-        if (sourceViewModel is IDisposable disposable) disposable.Dispose();
+        if (args.SourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync(args);
+        if (args.SourceViewModel is IDisposable disposable) disposable.Dispose();
     }
 
 }

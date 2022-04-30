@@ -2,5 +2,5 @@
 
 public interface IResumingAware
 {
-    void OnResuming();
+    void OnResuming(PreBackwardEventArgs args);
 }

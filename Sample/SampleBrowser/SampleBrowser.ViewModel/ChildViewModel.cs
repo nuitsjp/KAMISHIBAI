@@ -22,16 +22,16 @@ public abstract class ChildViewModel : IDisposingAware
     public ICommand CloseCommand => new AsyncRelayCommand(() => _presentationService.CloseWindowAsync());
 
     public AsyncRelayCommand<object> CloseSpecifiedWindowCommand => new (window => _presentationService.CloseWindowAsync(window));
-    public bool OnDisposing()
+    public void OnDisposing(PreBackwardEventArgs args)
     {
         if (BlockClosing)
         {
             Message = "Closing blocked.";
-            return false;
+            args.Cancel = true;
         }
-
-        Message = string.Empty;
-        return true;
-
+        else
+        {
+            Message = string.Empty;
+        }
     }
 }

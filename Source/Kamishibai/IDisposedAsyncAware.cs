@@ -2,5 +2,5 @@
 
 public interface IDisposedAsyncAware
 {
-    Task OnDisposedAsync();
+    Task OnDisposedAsync(PostBackwardEventArgs args);
 }

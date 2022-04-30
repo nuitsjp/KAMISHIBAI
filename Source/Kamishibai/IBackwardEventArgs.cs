@@ -2,7 +2,7 @@
 
 public interface IBackwardEventArgs
 {
-    string FrameName { get; }
+    string? FrameName { get; }
     object SourceViewModel { get; }
-    object DestinationViewModel { get; }
+    object? DestinationViewModel { get; }
 }

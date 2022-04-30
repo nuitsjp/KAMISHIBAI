@@ -27,15 +27,14 @@ public class WithArgumentsViewModel : IDisposingAware
 
     public ICommand GoBackCommand => new AsyncRelayCommand(() => _presentationService.GoBackAsync());
 
-    public bool OnDisposing()
+    public void OnDisposing(PreBackwardEventArgs args)
     {
         if (BlockGoBack)
         {
             AlertMessage = "Go back blocked.";
-            return false;
+            args.Cancel = true;
         }
 
         AlertMessage = string.Empty;
-        return true;
     }
 }

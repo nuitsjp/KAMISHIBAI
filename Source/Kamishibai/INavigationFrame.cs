@@ -7,10 +7,10 @@ public interface INavigationFrame : IObservable<object>
     public event EventHandler<PostForwardEventArgs>? Navigated;
     public event EventHandler<PostForwardEventArgs>? Paused;
 
-    public event EventHandler<DisposingEventArgs>? Disposing;
-    public event EventHandler<ResumingEventArgs>? Resuming;
-    public event EventHandler<ResumedEventArgs>? Resumed;
-    public event EventHandler<DisposedEventArgs>? Disposed;
+    public event EventHandler<PreBackwardEventArgs>? Disposing;
+    public event EventHandler<PreBackwardEventArgs>? Resuming;
+    public event EventHandler<PostBackwardEventArgs>? Resumed;
+    public event EventHandler<PostBackwardEventArgs>? Disposed;
 
     public string FrameName { get; }
     public int Count { get; }

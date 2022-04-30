@@ -2,5 +2,5 @@
 
 public interface IResumedAware
 {
-    void OnResumed();
+    void OnResumed(PostBackwardEventArgs args);
 }

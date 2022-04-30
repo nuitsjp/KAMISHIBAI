@@ -2,5 +2,5 @@
 
 public interface IDisposingAsyncAware
 {
-    Task<bool> OnDisposingAsync();
+    Task OnDisposingAsync(PreBackwardEventArgs args);
 }
