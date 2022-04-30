@@ -23,11 +23,13 @@ public class Should_be_go_backed : PresentationServiceTestBase
         DefaultFrame.Count.Should().Be(2);
 
         service.GetNavigationFrame().CanGoBack.Should().BeTrue();
+        service.CanGoBack().Should().BeTrue();
         await service.GoBackAsync();
         DefaultFrame.Current.Should().BeOfType<FirstPage>();
         DefaultFrame.Count.Should().Be(1);
 
         service.GetNavigationFrame().CanGoBack.Should().BeFalse();
+        service.CanGoBack().Should().BeFalse();
         (await service.GoBackAsync()).Should().BeFalse();
     }
 
