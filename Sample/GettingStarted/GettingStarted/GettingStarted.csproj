@@ -12,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Kamishibai.Extensions.Hosting" Version="0.0.9-pre" />
+	  <PackageReference Include="Kamishibai.Extensions.Hosting" Version="0.0.10-pre" />
 	  <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
 	</ItemGroup>
 
