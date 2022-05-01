@@ -1,4 +1,6 @@
 ﻿using Kamishibai;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SampleBrowser.View;
 using SampleBrowser.View.Page;
 using SampleBrowser.ViewModel;

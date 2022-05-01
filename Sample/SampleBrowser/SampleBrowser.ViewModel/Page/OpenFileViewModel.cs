@@ -50,9 +50,9 @@ public class OpenFileViewModel
         List<FileDialogFilter> filters =
             string.IsNullOrWhiteSpace(Filter)
                 ? new List<FileDialogFilter>()
-                : Filter.Split(",")
-                    .Select(x => x.Split("|"))
-                    .Select(x => new FileDialogFilter(x[0], x[1].Split(";")))
+                : Filter.Split(',')
+                    .Select(x => x.Split('|'))
+                    .Select(x => new FileDialogFilter(x[0], x[1].Split(';')))
                     .ToList();
 
         try

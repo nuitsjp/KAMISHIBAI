@@ -1,38 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
+		<TargetFrameworks>net6.0-windows;net462</TargetFrameworks>
 		<UseWPF>true</UseWPF>
-    <RootNamespace>Kamishibai</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<RootNamespace>Kamishibai</RootNamespace>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
-  <!-- NuGet -->
-  <PropertyGroup>
-    <PackageId>Kamishibai.Extensions.Hosting</PackageId>
-    <Description>MVVM navigation library for Generic Host.</Description>
-    <PackageVersion>$(Version)</PackageVersion>
-    <Authors>nuits.jp</Authors>
-    <Copyright>© 2022 nuits.jp</Copyright>
-    <PackageTags>sourcegenerator wpf</PackageTags>
-    <PackageProjectUrl>https://github.com/nuitsjp/Kamishibai</PackageProjectUrl>
-    <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.9-pre</Version>
-    <NoPackageAnalysis>true</NoPackageAnalysis>
-  </PropertyGroup>
-	
-  <ItemGroup>
+	<!-- NuGet -->
+	<PropertyGroup>
+		<PackageId>Kamishibai.Extensions.Hosting</PackageId>
+		<Description>MVVM navigation library for Generic Host.</Description>
+		<PackageVersion>$(Version)</PackageVersion>
+		<Authors>nuits.jp</Authors>
+		<Copyright>© 2022 nuits.jp</Copyright>
+		<PackageTags>sourcegenerator wpf</PackageTags>
+		<PackageProjectUrl>https://github.com/nuitsjp/Kamishibai</PackageProjectUrl>
+		<RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Version>0.0.9-pre</Version>
+		<NoPackageAnalysis>true</NoPackageAnalysis>
+	</PropertyGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
 		<PackageReference Include="Wpf.Extensions.Hosting" Version="1.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Kamishibai.View\Kamishibai.View.csproj" />
+		<ProjectReference Include="..\Kamishibai.View\Kamishibai.View.csproj" />
 	</ItemGroup>
 
 </Project>

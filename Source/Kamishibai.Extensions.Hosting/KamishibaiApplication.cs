@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Wpf.Extensions.Hosting;
 
 namespace Kamishibai;
 

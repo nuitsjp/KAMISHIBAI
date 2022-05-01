@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
+		<TargetFrameworks>net6.0-windows;net462</TargetFrameworks>
 		<UseWpf>true</UseWpf>
 		<RootNamespace>Kamishibai</RootNamespace>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
