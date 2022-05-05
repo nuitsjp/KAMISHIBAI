@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using FluentAssertions;
 using Xunit;
 
-namespace Kamishibai.Test.PresentationServiceTest;
+namespace Kamishibai.View.Test.PresentationServiceTest;
 
 // ReSharper disable once InconsistentNaming
+[Collection("KAMISHIBAI")]
 public class Should_be_go_backed : PresentationServiceTestBase
 {
     [WpfFact]

@@ -1,8 +1,6 @@
-using System;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
-namespace Kamishibai.Test.PresentationServiceTest;
+namespace Kamishibai.View.Test.PresentationServiceTest;
 
 public abstract class NotificationViewModel :
     IPausingAware,

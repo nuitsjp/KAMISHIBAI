@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Xunit;
 
-namespace Kamishibai.Test.PresentationServiceTest;
+namespace Kamishibai.View.Test.PresentationServiceTest;
 
 // ReSharper disable once InconsistentNaming
 [Collection("KAMISHIBAI")]

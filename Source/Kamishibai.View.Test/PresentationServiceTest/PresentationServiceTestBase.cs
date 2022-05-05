@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace Kamishibai.Test.PresentationServiceTest;
+namespace Kamishibai.View.Test.PresentationServiceTest;
 
 public abstract class PresentationServiceTestBase
 {
