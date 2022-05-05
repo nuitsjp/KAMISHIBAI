@@ -28,6 +28,19 @@ public class KamishibaiApplicationBuilder<TApplication, TWindow> : IWpfApplicati
         Services.AddSingleton<INavigationFrameProvider, NavigationFrameProvider>();
         Services.AddTransient<IWindowService, WindowService>();
 
+        // Register IPresentationService to DI Container.
+        var presentationServiceBase = typeof(IPresentationServiceBase);
+        var presentationServiceInterfaces = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(s => s.GetTypes())
+            .Where(p => p != presentationServiceBase && presentationServiceBase.IsAssignableFrom(p) && p.IsInterface);
+        foreach (var presentationServiceInterface in presentationServiceInterfaces)
+        {
+            var implementation = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Single(p => p != presentationServiceInterface && presentationServiceInterface.IsAssignableFrom(p));
+            Services.AddTransient(presentationServiceInterface, implementation);
+        }
+
         var app = _builder.Build();
         app.Startup += async (_, args) =>
         {

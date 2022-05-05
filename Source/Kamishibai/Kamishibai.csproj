@@ -18,7 +18,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>0.0.12-pre</Version>
+		<Version>0.0.13-pre</Version>
 		<NoPackageAnalysis>true</NoPackageAnalysis>
 		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
 		<PackageIcon>nuits.jp.png</PackageIcon>

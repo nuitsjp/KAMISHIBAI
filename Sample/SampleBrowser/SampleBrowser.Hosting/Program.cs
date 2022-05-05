@@ -1,4 +1,6 @@
-﻿using Kamishibai;
+﻿using System.Reflection;
+using System.Windows.Automation;
+using Kamishibai;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SampleBrowser.View;
@@ -23,9 +25,6 @@ builder.Services.AddPresentation<OpenDialogPage, OpenDialogViewModel>();
 builder.Services.AddPresentation<ShowMessagePage, ShowMessageViewModel>();
 builder.Services.AddPresentation<OpenFilePage, OpenFileViewModel>();
 builder.Services.AddPresentation<SaveFilePage, SaveFileViewModel>();
-
-
-builder.Services.AddTransient<IPresentationService, PresentationService>();
 
 var app = builder.Build();
 app.RunAsync();

@@ -1,6 +1,6 @@
 ﻿using Kamishibai;
 
-namespace GettingStarted.ViewModel;
+namespace GettingStarted;
 
 [Navigate]
 public class FirstViewModel
@@ -11,5 +11,4 @@ public class FirstViewModel
     }
 
     public string Message { get; }
-
 }
