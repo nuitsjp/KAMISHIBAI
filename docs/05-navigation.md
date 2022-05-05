@@ -1,22 +1,20 @@
----
-title: "ナヴィゲーション"
----
+# Navigation Details
 
-KAMISHIBAIのナヴィゲーションメソッドには、2種類あります。
+There are two types of KAMISHIBAI navigation methods.
 
-1. ViewModelのコンストラクターから自動生成される安全なメソッド
-2. ViewModelのTypeやインスタンスを渡してナヴィゲーションするメソッド
+1. a safe method that is automatically generated from the ViewModel constructor
+2. a method that navigates by passing a ViewModel Type or instance.
 
-こちらに説明は記載しますが、サンプルアプリケーションも参考にしてください。
+Please also refer to the sample application.
 
 - [KamishibaiApp](https://github.com/nuitsjp/KAMISHIBAI/tree/master/Sample/KamishibaiApp)
 - [SampleBrowser](https://github.com/nuitsjp/KAMISHIBAI/tree/master/Sample/SampleBrowser)
 
-# 自動生成メソッド
+# auto-generated method
 
-ViewModelにNavigate属性を宣言することで、IPresentationServiceに専用のナヴィゲーションメソッドが生成されます。
+By declaring the Navigate attribute on the ViewModel, a dedicated navigation method is created for the IPresentationService.
 
-たとえばつぎのようなViewModelが存在したとします。
+For example, suppose the following ViewModel exists
 
 ```cs
 [Navigate]
@@ -31,48 +29,48 @@ public class FirstViewModel
 }
 ```
 
-この場合、つぎのようなコードが生成されます。
+In this case, the following code is generated
 
 ```cs
 Task<bool> NavigateToFirstAsync(string message, string frameName = "");
 ```
 
-使用例
+Usage examples
 
 ```cs
 await _presentationService.NavigateToFirstAsync("Hello, Navigation Parameter!");
 ```
 
-NavigateTo+ナヴィゲーション名+Asyncという名称のメソッドが作成され、ViewModelのコンストラクターの引数にframeNameを追加した引数が設定されます。
+The method "NavigateTo+NavigationName+Async" is created, and the arguments are set to the ViewModel constructor and frameName.
 
-ナヴィゲーション名はViewModelのクラス名の末尾からつぎの文字列を順にすべて削除したものになります。
+NavigationName is the ViewModel class name with the following strings removed in order.
 
 1. ViewModel
 2. Page
 3. Window
 4. Dialog
 
-たとえばViewModelがFirstPageViewModelだった場合、NavigateToFirstAsyncになります。
+For example, if the ViewModel was FirstPageViewModel, it would be NavigateToFirstAsync.
 
-# 戻る
+# Go Back
 
-IPresentationServiceのつぎのメソッドを利用します。
+Use the following methods of IPresentationService.
 
 ```cs
 Task<bool> GoBackAsync(string frameName = "");
 ```
 
-使用例
+Usage examples
 
 ```cs
 await _presentationService.GoBackAsync();
 ```
 
-# ViewModelへ依存性の注入
+# Injecting Dependencies into ViewModel
 
-ViewModelにナヴィゲーションのパラメーターではなく、DIコンテナーから何らかのオブジェクトを注入したい場合、コンストラクター引数にInject属性を宣言します。
+If you want to inject some object from a DI container into the ViewModel instead of navigation parameters, declare the Inject attribute as a constructor argument.
 
-たとえばロガーを注入したい場合、つぎのように記述します。
+For example, if you want to inject a logger, you would write the following
 
 ```cs
 [Navigate]
@@ -89,19 +87,17 @@ public class FirstViewModel
     }
 ```
 
-この場合に生成されるナヴィゲーションメソッドはつぎのとおりです。
+The navigation method generated in this case is as follows
 
 ```cs
 Task<bool> NavigateToFirstAsync(string message, string frameName = "");
 ```
 
-ロガーの注入がない場合と完全に同一のシグニチャーとなります。
+The signature will be the same as if there were no logger injection.
 
-ナヴィゲーション先のViewModelだけが必要とするサービスなどを注入することで、ViewModel間の依存関係を疎に保つことができます。
+# Pass frameName to constructor
 
-# コンストラクターにframeNameを渡す
-
-ViewModelへ、ナヴィゲーションに用いるフレーム名を渡したい場合があります。
+You may want to pass the frame name used for navigation to the ViewModel.
 
 ```cs
 [Navigate]
@@ -112,17 +108,17 @@ public class FirstViewModel
         ...
 ```
 
-この場合、つぎのようなコードが生成されます。
+In this case, the following code is generated
 
 ```cs
 Task<bool> NavigateToFirstAsync(string frameName, string message);
 ```
 
-通常オプショナルで追加される引数が削除され、コンストラクターのシグニチャーに従います。
+Arguments that are normally added as optional are removed and follow the constructor's signature.
 
-# 複数コンストラクター
+# multiple constructor
 
-KAMISHIBAIではViewModelで複数のコンストラクターを宣言することが可能です。
+KAMISHIBAI allows multiple constructors to be declared in the ViewModel.
 
 ```cs
 [Navigate]
@@ -138,24 +134,25 @@ public class FirstViewModel
     }
 ```
 
-この場合、コンストラクターごとにナヴィゲーションメソッドが生成されます。
+In this case, a navigation method is generated for each constructor.
 
 ```cs
 Task<bool> NavigateToFirstAsync(string frameName = "");
 Task<bool> NavigateToFirstAsync(string message, string frameName = "");
 ```
 
-# Type指定ナヴィゲーション
+# Type-specific navigation
 
-たとえばつぎのようなサイドメニューがある場合。
+For example, if you have the following side menu
 
 ![](/Images/side-menu.png)
 
-メニューをリストで作成しておき、動的にサイドメニューをコントロールしたいということが良くあります。
+It is often the case that a menu is created as a list and you want to dynamically control the side menu.
 
-この場合、ナヴィゲーションにパラメーターは伴いませんし、コード生成されたメソッドではなく、ViewModelのTypeを指定した方がシンプルに実装できることがあります。
+In this case, navigation does not require any parameters, and it is sometimes simpler to specify the ViewModel Type than to use a code-generated method.
 
-そのためKAMISHIBAIではつぎのナヴィゲーションメソッドを用意しています。
+For this reason, KAMISHIBAI provides the following navigation methods.
+
 
 ```cs
 Task<bool> NavigateAsync(Type viewModelType, string frameName = "");
@@ -163,15 +160,14 @@ Task<bool> NavigateAsync<TViewModel>(string frameName = "");
 Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = "");
 ```
 
-Typeを引数や型引数で指定してナヴィゲーションすることが可能です。
+It is possible to navigate by specifying the Type as an argument.
 
-先の例では先頭を利用することになるでしょう。
-
-また少し異なりますが、ViewModelのインスタンスを指定して渡すことも可能です。
+It is also possible, although slightly different, to pass a ViewModel instance by specifying it.
 
 ```cs
 Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = "") where TViewModel : notnull;
 ```
 
-サブ画面などで、表示内容を保持しておきたい場合などに利用できます。
+This can be used when you want to keep the status on a sub-view, for example.
 
+[<< Configuration of Generic Host](04-hosting.md) | [OpenWindow and OpenDialog >>](06-open-window-and-dialog.md)
