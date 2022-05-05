@@ -1,3 +1,5 @@
+[for Japanese](https://zenn.dev/nuits_jp/books/introduction-to-kamishibai)
+
 [for Xamarin](Xamarin/README.md)
 
 [![KAMISHIBAI](https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Images/KAMISHIBAI.png)](https://github.com/nuitsjp/KAMISHIBAI/blob/master/README.md)
@@ -65,3 +67,15 @@ With KAMISHIBAI, the MVVM pattern can be most easily realized in WPF.
 And it can be used with any existing MVVM framework or library. There is one restriction, however.
 
 Please use KAMISHIBAI for navigation.
+
+# Table of Contents
+
+- [Getting Started](/docs/02-getting-started.md)
+- [NuGet Package Structure and Overview](/docs/03-overview.md)
+- [Configuration of Generic Host](/docs/04-hosting.md)
+- [Navigation Details](/docs/05-navigation.md)
+- [OpenWindow and OpenDialog](/docs/06-open-window-and-dialog.md)
+- [Navigation Event Details](/docs/07-navigation-event.md)
+- [Message Dialog](/docs/08-message-dialog.md)
+- [Open File Dialog](/docs/09-open-file-dialog.md)
+- [Save File Dialog](/docs/10-save-file-dialog.md)

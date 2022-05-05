@@ -1,8 +1,4 @@
----
-title: "パッケージ構成と概要"
----
-
-# NuGetパッケージとプロジェクト構造
+# NuGet Package Structure and Overview
 
 KAMISHIBAIはNuGetの3つのパッケージを公開しています。
 
