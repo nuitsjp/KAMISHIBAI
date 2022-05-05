@@ -9,7 +9,7 @@ namespace Driver.TestController
         public static WindowsAppFriend Start()
         {
             //target path
-            var targetPath = @"..\..\..\..\..\..\Sample\SampleBrowser\SampleBrowser.App\bin\Debug\net6.0-windows\SampleBrowser.App.exe";
+            var targetPath = @"..\..\..\..\..\..\Sample\SampleBrowser\SampleBrowser.Hosting\bin\Debug\net6.0-windows\SampleBrowser.Hosting.exe";
             var info = new ProcessStartInfo(targetPath) { WorkingDirectory = Path.GetDirectoryName(targetPath)! };
             var app = new WindowsAppFriend(Process.Start(info));
             app.ResetTimeout();

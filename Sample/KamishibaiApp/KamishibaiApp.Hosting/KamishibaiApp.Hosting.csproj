@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Kamishibai.Extensions.Hosting" Version="0.0.10-pre" />
+		<PackageReference Include="Kamishibai.Hosting" Version="0.0.11-pre" />
 		<PackageReference Include="Wpf.Extensions.Hosting" Version="1.1.0" />
 		<PackageReference Include="OSVersionHelper" Version="1.1.24" />
 	</ItemGroup>
