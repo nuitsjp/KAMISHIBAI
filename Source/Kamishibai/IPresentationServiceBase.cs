@@ -2,27 +2,27 @@
 
 public interface IPresentationServiceBase
 {
-    public Task<bool> NavigateAsync(Type viewModelType, string frameName = "");
-    public Task<bool> NavigateAsync<TViewModel>(string frameName = "") where TViewModel : class;
-    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = "") where TViewModel : class;
-    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = "") where TViewModel : class;
+    Task<bool> NavigateAsync(Type viewModelType, string frameName = "");
+    Task<bool> NavigateAsync<TViewModel>(string frameName = "");
+    Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = "") where TViewModel : notnull;
+    Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = "");
     Task<bool> GoBackAsync(string frameName = "");
-    public bool CanGoBack(string frameName = "");
+    bool CanGoBack(string frameName = "");
     INavigationFrame GetNavigationFrame(string frameName = "");
 
-    public Task OpenWindowAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null);
-    public Task OpenWindowAsync<TViewModel>(object? owner = null, OpenWindowOptions? options = null);
-    public Task OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenWindowOptions? options = null) where TViewModel : notnull;
-    public Task OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenWindowOptions? options = null);
-    public Task CloseWindowAsync(object? window = null);
+    Task OpenWindowAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null);
+    Task OpenWindowAsync<TViewModel>(object? owner = null, OpenWindowOptions? options = null);
+    Task OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenWindowOptions? options = null) where TViewModel : notnull;
+    Task OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenWindowOptions? options = null);
+    Task CloseWindowAsync(object? window = null);
 
-    public Task<bool> OpenDialogAsync(Type viewModelType, object? owner = null, OpenDialogOptions? options = null);
-    public Task<bool> OpenDialogAsync<TViewModel>(object? owner = null, OpenDialogOptions? options = null);
-    public Task<bool> OpenDialogAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenDialogOptions? options = null) where TViewModel : notnull;
-    public Task<bool> OpenDialogAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenDialogOptions? options = null);
-    public Task CloseDialogAsync(bool dialogResult, object? window = null);
+    Task<bool> OpenDialogAsync(Type viewModelType, object? owner = null, OpenDialogOptions? options = null);
+    Task<bool> OpenDialogAsync<TViewModel>(object? owner = null, OpenDialogOptions? options = null);
+    Task<bool> OpenDialogAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenDialogOptions? options = null) where TViewModel : notnull;
+    Task<bool> OpenDialogAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenDialogOptions? options = null);
+    Task CloseDialogAsync(bool dialogResult, object? window = null);
 
-    public MessageBoxResult ShowMessage(
+    MessageBoxResult ShowMessage(
         string messageBoxText,
         string caption = "",
         MessageBoxButton button = MessageBoxButton.OK,
@@ -31,6 +31,6 @@ public interface IPresentationServiceBase
         MessageBoxOptions options = MessageBoxOptions.None,
         object? owner = null);
 
-    public DialogResult OpenFile(OpenFileDialogContext context);
-    public DialogResult SaveFile(SaveFileDialogContext context);
+    DialogResult OpenFile(OpenFileDialogContext context);
+    DialogResult SaveFile(SaveFileDialogContext context);
 }

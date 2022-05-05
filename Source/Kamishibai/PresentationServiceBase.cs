@@ -23,21 +23,21 @@ public class PresentationServiceBase : IPresentationServiceBase
             .NavigateAsync(viewModelType, _serviceProvider);
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(string frameName = "") where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(string frameName = "")
     {
         return _navigationFrameProvider
             .GetNavigationFrame(frameName)
             .NavigateAsync<TViewModel>(_serviceProvider);
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = "") where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = "") where TViewModel : notnull
     {
         return _navigationFrameProvider
             .GetNavigationFrame(frameName)
             .NavigateAsync(viewModel, _serviceProvider);
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = "") where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = "")
     {
         return _navigationFrameProvider
             .GetNavigationFrame(frameName)

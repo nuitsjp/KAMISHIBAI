@@ -45,10 +45,10 @@ public class NavigationFrame : ContentControl, INavigationFrame
         return NavigateAsync(view, viewModel);
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider) where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider)
         => NavigateAsync(typeof(TViewModel), serviceProvider);
 
-    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, IServiceProvider serviceProvider) where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, IServiceProvider serviceProvider) where TViewModel : notnull
     {
         var view = GetPresentation(serviceProvider, typeof(TViewModel));
         view.DataContext = viewModel;
@@ -56,7 +56,7 @@ public class NavigationFrame : ContentControl, INavigationFrame
         return NavigateAsync(view, viewModel);
     }
 
-    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, IServiceProvider serviceProvider) where TViewModel : class
+    public Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, IServiceProvider serviceProvider)
     {
         var view = GetPresentation(serviceProvider, typeof(TViewModel));
         view.DataContext ??= serviceProvider.GetService(typeof(TViewModel));
