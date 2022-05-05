@@ -73,3 +73,4 @@ Please use KAMISHIBAI for navigation.
 - [Message Dialog](/08-message-dialog.md)
 - [Open File Dialog](/09-open-file-dialog.md)
 - [Save File Dialog](/10-save-file-dialog.md)
+- [API Reference](https://nuitsjp.github.io/KAMISHIBAI/Api/annotated.html)
