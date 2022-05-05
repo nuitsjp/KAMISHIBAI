@@ -37,7 +37,9 @@ public FirstViewModel(
     [Inject] ILogger<FirstViewModel> logger)
 ```
 
-コンストラクターの引数にInjectAttributeを宣言することで、messageとはことなり、DIコンテナーから依存性を注入することもできます。先の画面遷移とまったく同じように画面遷移を呼び出すことができます。
+依存性を注入したい引数にInjectAttributeを宣言してください。
+
+loggerはDIコンテナから注入されます。前述の画面遷移の例とまったく同じように、messageだけ渡して画面遷移できます。
 
 KAMISHIBAIでは画面遷移時に型安全が保障され、nullableを最大限に活用した安全な実装が実現できます。
 

@@ -4,11 +4,11 @@
 
 # KAMISHIBAI
 
-KAMISHIBAIは、Generic Host上でMVVMパターンをサポートするWPF用の画面遷移ライブラリです。
+KAMISHIBAI is a navigation library for WPF that supports MVVM pattern on Generic Host.
 
-ViewModelのコンストラクターに引数を宣言することで、専用の画面遷移メソッドが自動的に生成されます。
+By declaring arguments in the ViewModel constructor, a dedicated navigation method is automatically generated.
 
-画面遷移時にstringをわたす場合、つぎのようにViewModelを定義します。
+To pass a string during a navigation, define a ViewModel as follows
 
 ```cs
 [Navigate]
@@ -23,13 +23,13 @@ public class FirstViewModel
 }
 ```
 
-すると専用の画面遷移メソッドが自動生成され、つぎのように呼び出すことができます。
+A dedicated navigation method is then automatically generated and can be called as follows
 
 ```cs
 await _presentationService.NavigateToFirstAsync("Hello, KAMISHIBAI!");
 ```
 
-またはDIを併用することも可能です。
+And you can use DI together.
 
 ```cs
 public FirstViewModel(
@@ -37,28 +37,31 @@ public FirstViewModel(
     [Inject] ILogger<FirstViewModel> logger)
 ```
 
-コンストラクターの引数にInjectAttributeを宣言することで、messageとはことなり、DIコンテナーから依存性を注入することもできます。先の画面遷移とまったく同じように画面遷移を呼び出すことができます。
+Declare an InjectAttribute for the argument you wish to inject a dependency on.
 
-KAMISHIBAIでは画面遷移時に型安全が保障され、nullableを最大限に活用した安全な実装が実現できます。
+The logger is injected from the DI container. Exactly the same as in the navigation example above, only the message can be passed to the navigation.
 
-KAMISHIBAIは、WPFの機能を一切制限せず下記を実現します。
 
-- Generic Hostのサポート
-- MVVMパターンを適用したViewModel起点の画面遷移
-- 型安全性の保証された画面遷移時パラメーター
-- 画面遷移にともなう一貫性あるイベント通知
-- nullableを最大限活用するためのサポート
+KAMISHIBAI guarantees type safety during navigation, allowing for safe implementations that take full advantage of nullable.
 
-Generic Hostをサポートすることで、ほとんどの .NETの最新テクノロジーがWPFで活用できます。
+KAMISHIBAI does not restrict any of the WPF functions and provides the following
 
-KAMISHIBAIは下記の機能を提供します。
-- 画面遷移
-- 新しい画面・ダイアログの表示
-- メッセージダイアログ・ファイル選択・保存ダイアログの表示
+- Generic Host support
+- ViewModel-driven navigation using the MVVM pattern
+- Type-safe navigation parameters
+- Consistent event notifications for navigation
+- Support for maximizing the use of nullable
 
-WPFにおけるMVVMパターンを採用した画面遷移は、KAMISHIBAIを利用することで、より簡単に実現する事ができます。
+Generic Host support enables WPF to take advantage of most of the latest .NET technologies.
 
-そして既存のあらゆるMVVMフレームワークと同居が可能です。ただしひとつだけ制約が発生します。
+KAMISHIBAI provides the following features
 
-画面遷移にはKAMISHIBAIを利用してください。
+- Navigation
+- Display of new screens and user dialogs
+- Display of message dialogs, file selection and save dialogs
 
+With KAMISHIBAI, the MVVM pattern can be most easily realized in WPF.
+
+And it can be used with any existing MVVM framework or library. There is one restriction, however.
+
+Please use KAMISHIBAI for navigation.
