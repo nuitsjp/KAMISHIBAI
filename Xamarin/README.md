@@ -1,6 +1,6 @@
 [Japanese](README-ja.md)
 
-[![KAMISHIBAI for Xamarin.Forms](https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/logo_wide.png)](https://github.com/nuitsjp/KAMISHIBAI/blob/master/README-ja.md)
+[![KAMISHIBAI for Xamarin.Forms](https://raw.githubusercontent.com/nuitsjp/KAMISHIBAI/master/Images/logo_wide.png)](https://github.com/nuitsjp/KAMISHIBAI/blob/master/Xamarin/README.md)
 
 # KAMISHIBAI for Xamarin.Forms
 
