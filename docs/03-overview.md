@@ -1,62 +1,63 @@
 # NuGet Package Structure and Overview
 
-KAMISHIBAIはNuGetの3つのパッケージを公開しています。
+KAMISHIBAI publishes three packages on NuGet.
 
-|Package|役割|
+|Package|Role|
 |--|--|
-|Kamishibai|コアライブラリ。ナヴィゲーションなどを利用するためのインターフェイスなどを含む。|
-|Kamishibai.View|WPFで利用するUI要素など、View層で利用するクラス群を含む。|
-|Kamishibai.Hosting|KAMISHIBAIをGeneric Host上にホストするためのクラスを含む。|
+|Kamishibai|Core library. Includes interfaces for using navigation, etc.|
+|Kamishibai.View|Includes classes used in the View layer, such as UI elements used in WPF.|
+|Kamishibai.Hosting|Contains classes for hosting KAMISHIBAI on Generic Host.|
 
-Kamishibai.Hostingは推移的にすべてのパッケージに依存しています。
+Kamishibai.Hosting is transitively dependent on all packages.
 
-そのため、もっとも簡単な利用方法はKamishibai.Hostingの参照を追加することです。すべての機能が利用可能になります。
+Therefore, the easiest way to use it is to add a reference to Kamishibai.Hosting. All functionality will be available.
 
-しかし実際のアプリケーションを構築する場合、アプリケーション内の役割に応じて、いくつかのプロジェクトに分割することをKAMISHIBAIでは推奨しています。これは単一のプロジェクトにすべてのコードを配置してしまうと、レイヤー間の依存関係を正しく管理しつづけることが難しいからです。
+However, when developing a product, KAMISHIBAI recommends splitting it into several projects, depending on the roles within the application. This is because if all code is placed in a single project, it is difficult to maintain proper management of dependencies between layers.
 
-KAMISHIBAIのサンプル「SampleBrowser」アプリケーションでは、つぎのようにプロジェクトを分割し、それぞれのプロジェクトの依存関係を制限しています。
+In KAMISHIBAI's sample "SampleBrowser" application, the project is divided as follows to limit the dependencies of each project.
 
-![](/images/books/kamishibai/components.png)
+![](/images/components.png)
 
-|Package|役割|
+|Package|Role|
 |--|--|
-|SampleBrowser.ViewModel|Kamishibaiのみ参照する。WPFのクラスも参照していない。ViewModelはテスタビリティやMVVMを厳密に守るためにはWPFのクラスに依存しないほうが好ましいが、必ずしも厳守する必要もない。|
-|SampleBrowser.View|Kamishibai.Viewを参照し、推移的にKamishibaiに依存する。|
-|SampleBrowser.Hosting|アプリケーションをGeneric Host上にホスティングするための初期化処理のみを記載する。すべてのプロジェクト・パッケージに直接または推移的に依存する。|
+|SampleBrowser.ViewModel|Only Kamishibai is referenced; no WPF classes are referenced; ViewModel should not depend on WPF classes for strict adherence to testability and MVVM. However, it is not necessary to strictly adhere to it.|
+|SampleBrowser.View|Referring to Kamishibai.View and transitively dependent on Kamishibai.|
+|SampleBrowser.Hosting|Describe only the initialization process for hosting the application on Generic Host. All project packages directly or transitively dependent.|
 
-もちろん、これらのプロジェクトだけで実現しろという意味ではありません。たとえばドメインプロジェクトなどを必要に応じて追加する必要がるでしょう。また大きなプロジェクトではViewやViewModelも分割する必要があるかもしれません。
+Of course, this does not mean that you should only develop these projects. You may need to add domain projects, for example, as needed. For larger projects, it may be necessary to split the View and ViewModel as well.
 
-あくまで参考としてサンプルコードをご覧ください。
+Please see the sample code for reference.
 
-# ナヴィゲーション概要
+# Navigation Overview
 
-KAMISHIBAIのナヴィゲーションにおいて重要な要素は下記に表します。
+The key elements in KAMISHIBAI's navigation are represented below.
 
-![](/images/books/kamishibai/architecture.png)
+![](/images/architecture.png)
 
-KAMISHIBAIではナヴィゲーションさせたい領域にNavigationFrameを定義します。
+KAMISHIBAI defines a NavigationFrame in the area to be navigated.
 
-NavigationFrameの中に任意のUserControlを表示することでナヴィゲーションを実現します。
+Navigation is achieved by displaying an arbitrary UserControl in the NavigationFrame.
 
-NavigationFrameにはFrameNameを定義することができ、1画面内に複数のNavigationFrameを定義することや、ネストすることが可能です。
+A NavigationFrame can have a FrameName, and multiple NavigationFrames can be defined or nested within a single screen.
 
-ナヴィゲーションはFrameNameを指定します。
+Navigation is achieved by specifying a FrameName.
 
 ```cs
 _presentationService.NavigatePage2Async("FrameA");
 ```
 
-FrameNameはアプリケーション内でユニークである必要があります。デフォルトのFrameNameは空文字列で、省略可能です。
+The FrameName must be unique within the application. The default FrameName is an empty string and is optional.
 
-ナヴィゲーションはIPresentationServiceをViewModelに注入して利用します。
+Navigations are used by injecting an IPresentationService into the ViewModel.
 
-IPresentationServiceは、つぎの属性が宣言されたクラスの存在するプロジェクトにコード生成されます。
+IPresentationService is code-generated in the project where the class with the following attributes is located.
 
 - NavigateAttribute
 - OpenWindowAttribute
 - OpenDialogAttribute
 
-これらの属性がひとつも利用されていない場合、IPresentationServiceが生成されないため注意してください。
+Note that if none of these attributes are used, IPresentationService will not be generated.
 
-では、より具体的な利用方法について説明しましょう。
+Now, let us explain more specifically how to use this service.
 
+[<< Getting Started](02-getting-started.md) | [Configuration of Generic Host >>](04-hosting.md)

@@ -179,7 +179,7 @@ builder.Services.AddPresentation<FirstPage, FirstViewModel>();
 
 Let's run the program. After launching, press the Navigate button to navigate and display the following
 
-![](/images/books/kamishibai/hello-kamishibai.png)
+![](/images/hello-kamishibai.png)
 
 Finally, let's implement parameter passing.
 
@@ -220,8 +220,10 @@ A string message should be added to the Navigate method. This is because the Nav
 
 Now run the code to confirm that it does indeed navigate.
 
-![](/images/books/kamishibai/hello-navigation-parameter.png)
+![](/images/hello-navigation-parameter.png)
 
 What do you think?
 
 I hope you understand that you can realize the MVVM Pattern easily and safely.
+
+[NuGet Package Structure and Overview >>](03-overview.md)
