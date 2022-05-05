@@ -1,8 +1,6 @@
----
-title: "メッセージダイアログ"
----
+# Message Dialog
 
-KAMISHIBAIを利用することでViewModelから簡単にアラートダイアログや確認ダイアログを表示できます。
+KAMISHIBAI makes it easy to display alert and confirmation dialogs from the ViewModel.
 
 ```cs
 MessageBoxResult ShowMessage(
@@ -15,15 +13,15 @@ MessageBoxResult ShowMessage(
     object? owner = null);
 ```
 
-必須引数は1つ目のmessageBoxTextだけです。
+The only required argument is the first messageBoxText.
 
 ```cs
 _presentationService.ShowMessage("Hello, Message!");
 ```
 
-# ダイアログ選択結果の取得
+# Dialog Selection Result
 
-ダイアログで選択された結果を取得できます。
+You can get the result selected in the dialog.
 
 ```cs
 MessageBoxResult result = 
@@ -36,9 +34,9 @@ if (result == MessageBoxResult.OK)
 }
 ```
 
-# 親ウィンドウの中央に表示
+# Displayed in the center of the parent window
 
-CommandParameterでownerを渡すことで簡単に、Windowの中央にダイアログを表示できます。
+By passing owner in CommandParameter, you can easily display the dialog in the center of the Window.
 
 ```xml
 <UserControl ...
@@ -50,12 +48,13 @@ CommandParameterでownerを渡すことで簡単に、Windowの中央にダイ�
         CommandParameter="{kamishibai:Window}"/>
 ```
 
-名前空間「kamishibai」を追加し、CommandParameterに「kamishibai:Window」を渡します。
+Add the namespace "kamishibai" and pass "kamishibai:Window" to CommandParameter.
 
-これをCommandのパラメーターとして受け取り、ShowMessageメソッドに渡します。
+This is received as a Command parameter and passed to the ShowMessage method.
 
 ```cs
 public RelayCommand<object> ShowMessageCommand => new(owner
 => _presentationService.ShowMessage("Hello, Message!", owner: owner);
 ```
 
+[<< Navigation Event Details](07-navigation-event.md) | [Open File Dialog >>](09-open-file-dialog.md)
