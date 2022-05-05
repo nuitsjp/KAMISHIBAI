@@ -1,21 +1,19 @@
----
-title: "ファイル選択ダイアログ"
----
+# Open File Dialog
 
-KAMISHIBAIでは、つぎの3つをサポートしています。
+KAMISHIBAI supports the following three types of dialogs
 
-1. 単一ファイル選択ダイアログ
-2. 複数ファイル選択ダイアログ
-3. フォルダー選択ダイアログ
+1. single file selection dialog
+2. multiple file selection dialog
+3. folder selection dialog
 
-# 単一ファイル選択ダイアログ
+# Single File Selection Dialog
 
-IPresentationServiceのOpenFileメソッドにOpenFileDialogContextを渡します。
+Pass OpenFileDialogContext to the OpenFile method of IPresentationService.
 
 ```cs
 var context = new OpenFileDialogContext
 {
-    Title = "画像を選択してください"
+    Title = "Please select an image"
 };
 context.Filters.Add(new FileDialogFilter("Image", "png", "jpg"));
 context.Filters.Add(new FileDialogFilter("All files", "*"));
@@ -26,21 +24,21 @@ if (_presentationService.OpenFile(context) == DialogResult.Ok)
 }
 ```
 
-選択されたファイルのパスはcontextのFileNameプロパティから取得します。
+The path to the selected file is obtained from the context's FileName property.
 
-詳細は下記のAPIドキュメントを参照してください。
+See the API document below for details.
 
-- [OpenFileDialogContext](https://nuitsjp.github.io/KAMISHIBAI/class_open_file_dialog_context.html#aa1b7a88cbb1cc7cdda0fda274d62266a)
-- [FileDialogContext(OpenFileDialogContextの基底クラス)](https://nuitsjp.github.io/KAMISHIBAI/class_file_dialog_context.html)
+- [OpenFileDialogContext](https://nuitsjp.github.io/KAMISHIBAI/Api/class_open_file_dialog_context.html#aa1b7a88cbb1cc7cdda0fda274d62266a)
+- [FileDialogContext(Base class for OpenFileDialogContext)](https://nuitsjp.github.io/KAMISHIBAI/Api/class_file_dialog_context.html)
 
-# 複数ファイル選択ダイアログ
+# Multiple File Selection Dialog
 
-OpenFileDialogContextのMultiselectにtrueを設定します。
+Set Multiselect to true in OpenFileDialogContext.
 
 ```cs
 var context = new OpenFileDialogContext
 {
-    Title = "画像を選択してください",
+    Title = "Please select an image",
     Multiselect = true
 };
 context.Filters.Add(new FileDialogFilter("Image", "png", "jpg"));
@@ -52,12 +50,12 @@ if (_presentationService.OpenFile(context) == DialogResult.Ok)
 }
 ```
 
-選択されたファイルのパスはcontextのFileNamesプロパティから取得します。
+The path of the selected files is obtained from the context's FileNames property.
 
 
-# フォルダー選択ダイアログ
+# Folder Selection Dialog
 
-OpenFileDialogContextのIsFolderPickerにtrueを設定します。
+Set true to IsFolderPicker in OpenFileDialogContext.
 
 ```cs
 var context = new OpenFileDialogContext
@@ -71,4 +69,6 @@ if (_presentationService.OpenFile(context) == DialogResult.Ok)
 }
 ```
 
-選択されたフォルダーのパスはcontextのFileNameプロパティから取得します。
+The path to the selected folder is obtained from the context's FileName property.
+
+[<< Message Dialog](08-message-dialog.md) | [Save File Dialog >>](10-save-file-dialog.md)

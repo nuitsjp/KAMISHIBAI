@@ -1,13 +1,11 @@
----
-title: "ファイル保存ダイアログ"
----
+# Save File Dialog
 
-IPresentationServiceのSaveFileメソッドにSaveFileDialogContextを渡します。
+Pass the SaveFileDialogContext to the SaveFile method of the IPresentationService.
 
 ```cs
 var context = new SaveFileDialogContext()
 {
-    Title = "画像を選択してください",
+    Title = "Please select an image",
     DefaultExtension = "*.png",
     DefaultFileName = "default.png"
 };
@@ -20,10 +18,10 @@ if (_presentationService.SaveFile(context) == DialogResult.Ok)
 }
 ```
 
-選択されたファイルのパスはcontextのFileNameプロパティから取得します。
+The path to the selected file is obtained from the context's FileName property.
 
-詳細は下記のAPIドキュメントを参照してください。
+See the API document below for details.
 
-- [SaveFileDialogContext](https://nuitsjp.github.io/KAMISHIBAI/class_save_file_dialog_context.html#af09f75b40487c857b4c2dd81e26f9f9a)
-- [FileDialogContext(SaveFileDialogContextの基底クラス)](https://nuitsjp.github.io/KAMISHIBAI/class_file_dialog_context.html)
+- [SaveFileDialogContext](https://nuitsjp.github.io/KAMISHIBAI/Api/class_save_file_dialog_context.html#af09f75b40487c857b4c2dd81e26f9f9a)
+- [FileDialogContext(Base class for SaveFileDialogContext)](https://nuitsjp.github.io/KAMISHIBAI/Api/class_file_dialog_context.html)
 
