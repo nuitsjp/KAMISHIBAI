@@ -1,14 +1,13 @@
----
-title: "Generic Hostの構成"
----
 
-KAMISHIBAIはGeneric Host上でWPFアプリケーションを動作させます。
+# Generic Host Configuration
 
-Generic Hostは .NETにおけるもっとも大切なコアアーキテクチャのひとつであり、多くのモダンなライブラリーがGeneric Hostを前提に提供されています。
+KAMISHIBAI runs WPF applications on Generic Host.
 
-Generic Hostをサポートすることで、KAMISHIBAIでは最新のライブラリーをサポートします。
+Generic Host is the most important architecture in .NET, and many modern libraries are provided on the premise of Generic Host.
 
-もっとも単純なアプリケーションをホストするコードはつぎのようになります。
+By supporting Generic Host, KAMISHIBAI supports modern libraries.
+
+The code to host the simplest application is as follows
 
 ```cs
 using GettingStarted;
@@ -27,9 +26,9 @@ var app = builder.Build();
 app.RunAsync();
 ```
 
-ASP.NET Core 6.0と同様に記載できます。
+It can be described in the same way as ASP.NET Core 6.0.
 
-たとえば環境別の設定ファイルをロードしたい場合はつぎのように設定できます。
+For example, if you want to load environment-specific configuration files, you can do so as follows
 
 ```cs
 var builder = KamishibaiApplication<App, MainWindow>.CreateBuilder();
@@ -38,4 +37,6 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, false);
 ```
 
-詳細な利用方法は、各ライブラリーのドキュメントを参照してください。
+For detailed usage, please refer to the documentation of each library.
+
+[<< NuGet Package Structure and Overview](03-overview.md) | [Navigation Details >>](05-navigation.md)
