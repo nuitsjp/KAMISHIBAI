@@ -1,7 +1,5 @@
 ![](/Images/KAMISHIBAI.png)
 
-# KAMISHIBAI
-
 KAMISHIBAI is a navigation library for WPF that supports MVVM pattern on Generic Host.
 
 By declaring arguments in the ViewModel constructor, a dedicated navigation method is automatically generated.

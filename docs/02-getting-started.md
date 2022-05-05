@@ -1,15 +1,13 @@
----
-title: "Getting Started"
----
+# Getting Started
 
-まずはWPFプロジェクトを作成します。ここでは「GettingStarted」という名称で作成することとします。
+First, create a WPF project named "GettingStarted".
 
-KAMISHIBAIは以下のいずれかのプラットフォームをサポートします。
+KAMISHIBAI supports the following platforms
 
 - .NET 6.0+
 - .NET Framework 4.6.2+
 
-つづいてNuGetからパッケージをインストールします。
+Next, install the package from NuGet.
 
 NuGet :[Kamishibai.Hosting](https://www.nuget.org/packages/Kamishibai.Hosting)
 
@@ -17,15 +15,15 @@ NuGet :[Kamishibai.Hosting](https://www.nuget.org/packages/Kamishibai.Hosting)
 Install-Package Kamishibai.Hosting
 ```
 
-あわせてICommandの非同期実装であるAsyncRelayCommandを利用するため、Microsoft.Toolkit.Mvvmをインストールします。
+In addition, install "Microsoft.Toolkit.Mvvm" to use AsyncRelayCommand, an asynchronous implementation of ICommand.
 
 ```powershell
 Install-Package Microsoft.Toolkit.Mvvm
 ```
 
-必ずしもMicrosoft.Toolkit.Mvvmである必要はありませんが、今回はICommandの実装を避けるために利用します。
+It does not necessarily have to be "Microsoft.Toolkit.Mvvm", but in this case we will use it to avoid the ICommand implementation.
 
-アプリケーションのエントリポイント（Mainメソッド）の自動生成を停止します。.csprojファイルを開き、EnableDefaultApplicationDefinitionをfalseに設定します。
+Stop the generation of the Main method of the application. Open the .csproj file and set EnableDefaultApplicationDefinition to false.
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -40,7 +38,7 @@ Install-Package Microsoft.Toolkit.Mvvm
   </PropertyGroup>
 ```
 
-App.xamlからStartupUriの記述を削除します。
+Remove the StartupUri description from App.xaml.
 
 ```xml
 <Application x:Class="GettingStarted.App"
@@ -52,7 +50,7 @@ App.xamlからStartupUriの記述を削除します。
 </Application>
 ```
 
-App.xaml.csにコンストラクターを追加します。
+Add a constructor to App.xaml.cs.
 
 ```csharp
     public partial class App : Application
@@ -64,7 +62,7 @@ App.xaml.csにコンストラクターを追加します。
     }
 ```
 
-Program.csファイルを作成し、Generic Host上でWPFアプリケーションを起動する処理を実装します。
+Create a Program.cs file and implement the process of launching the WPF application on the Generic Host.
 
 ```csharp
 using GettingStarted;
@@ -79,19 +77,19 @@ var app = builder.Build();
 app.RunAsync();
 ```
 
-ここでいったんアプリケーションを実行し、MainWindowが表示されることを確認してください。
+Now run the application and confirm that the MainWindow is displayed.
 
-確認できたら、つぎのクラスを作成してください。
+Once confirmed, create the following class.
 
-|名前|タイプ|
+|Name|Type|
 |--|--|
 |FirstPage|UserControl|
 |MainViewModel|Class|
 |FirstViewModel|Class|
 
-それではMainWindowの中で、FirstPageに画面遷移するように実装を追加していきましょう。
+Let's implement navigation to FirstPage in MainWindow.
 
-まずFirstPageのViewModelであるFirstViewModelに、Navigate属性を宣言することで遷移可能にします。
+First, we make navigation possible by declaring the Navigate attribute on FirstViewModel, which is the ViewModel of FirstPage.
 
 ```cs
 using Kamishibai;
@@ -105,7 +103,7 @@ public class FirstViewModel
 }
 ```
 
-作成したままのFirstPageだと、遷移したかどうか確認できないため、テキストを表示するようFirstPage.xamlを修正します。
+Since it is not possible to check whether the FirstPage has been navigated or not with the FirstPage as created, modify FirstPage.xaml to display the text.
 
 ```xml
 <UserControl x:Class="GettingStarted.FirstPage"
@@ -121,7 +119,7 @@ public class FirstViewModel
 </UserControl>
 ```
 
-つづいてMainViewModelに、FirstPageへ遷移するICommandを作成します。
+Next, create an ICommand in the MainViewModel that navigates to the FirstPage.
 
 ```cs
 using System.Threading.Tasks;
@@ -145,9 +143,9 @@ public class MainViewModel
 }
 ```
 
-画面遷移にIPresentationServiceを利用するため、コンストラクターで注入します。
+To use IPresentationService for navigation, inject it in the constructor.
 
-MainWindowを開いて、画面遷移を事項するためのButtonと、FirstPageを表示する領域であるNavigationFrameを定義し、ボタンにNavigationCommandをバインドします。
+Open MainWindow, define a Button for navigation and a NavigationFrame for displaying the FirstPage, and bind NavigationCommand to the Button.
 
 ```xml
 <Window x:Class="GettingStarted.MainWindow"
@@ -170,7 +168,7 @@ MainWindowを開いて、画面遷移を事項するためのButtonと、FirstPa
 </Window>
 ```
 
-Program.csを開き、ViewとViewModelをペアリングします。
+Open Program.cs and pair View and ViewModel.
 
 ```cs
 var builder = KamishibaiApplication<App, MainWindow>.CreateBuilder();
@@ -179,15 +177,15 @@ builder.Services.AddPresentation<MainWindow, MainViewModel>();
 builder.Services.AddPresentation<FirstPage, FirstViewModel>();
 ```
 
-それでは実行しましょう。起動後、Navigateボタンを押すと画面遷移し、つぎのように表示されます。
+Let's run the program. After launching, press the Navigate button to navigate and display the following
 
 ![](/images/books/kamishibai/hello-kamishibai.png)
 
-では最後にパラメーター渡しを実装しましょう。
+Finally, let's implement parameter passing.
 
-FirstPageに表示しているテキストをMainViewModelから渡されたものを表示するようにします。
+We want the text displayed in FirstPage to be what is passed from MainViewModel.
 
-まずはFirstViewModelにMessageプロパティを追加し、コンストラクターで受け取るように実装します。
+First, add a Message property to FirstViewModel and receive the initial value in the constructor.
 
 ```cs
 using Kamishibai;
@@ -206,23 +204,24 @@ public class FirstViewModel
 }
 ```
 
-つづいてFirstPageでMessageプロパティをバインドします。
+Next, bind the Message property in FirstPage.
 
 ```xml
 <TextBlock Text="{Binding Message}" FontSize="30"/>
 ```
 
-そしてMainViewModelからメッセージを渡して画面遷移させます。
+Then, pass messages from MainViewModel to navigate.
 
 ```cs
 private Task Navigate() => _presentationService.NavigateToFirstAsync("Hello, Navigation Parameter!");
 ```
 
-画面遷移メソッドにstring messageが追加されているはずです。これはNavigate属性のコンストラクターを解析してコード生成をしているためです。
+A string message should be added to the Navigate method. This is because the Navigate attribute constructor is parsed to generate code.
 
-では実行して確かに画面遷移することを確認してください。
+Now run the code to confirm that it does indeed navigate.
 
 ![](/images/books/kamishibai/hello-navigation-parameter.png)
 
-どうですか？
-「簡単で」「安全に」「MVVMパターンを」実現できることをご理解いただけたのではないでしょうか？
+What do you think?
+
+I hope you understand that you can realize the MVVM Pattern easily and safely.
