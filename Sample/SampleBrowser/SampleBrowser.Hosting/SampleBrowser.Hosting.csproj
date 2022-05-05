@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Source\Kamishibai.Extensions.Hosting\Kamishibai.Extensions.Hosting.csproj" />
+    <ProjectReference Include="..\..\..\Source\Kamishibai.Hosting\Kamishibai.Hosting.csproj" />
     <ProjectReference Include="..\SampleBrowser.ViewModel\SampleBrowser.ViewModel.csproj" />
     <ProjectReference Include="..\SampleBrowser.View\SampleBrowser.View.csproj" />
   </ItemGroup>

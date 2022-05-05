@@ -9,7 +9,7 @@
 
 	<!-- NuGet -->
 	<PropertyGroup>
-		<PackageId>Kamishibai.Extensions.Hosting</PackageId>
+		<PackageId>Kamishibai.Hosting</PackageId>
 		<Description>MVVM navigation library for Generic Host.</Description>
 		<PackageVersion>$(Version)</PackageVersion>
 		<Authors>nuits.jp</Authors>
@@ -20,7 +20,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>0.0.10-pre</Version>
+		<Version>0.0.11-pre</Version>
 		<NoPackageAnalysis>true</NoPackageAnalysis>
 	</PropertyGroup>
 
