@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GettingStarted", "Sample\Ge
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GettingStarted", "GettingStarted", "{49DD3481-35CE-4614-AAFE-1228E4D67A06}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{1B44F0F7-92EB-4744-BDD0-6E66C2F9D0FF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kamishibai.IntegrationTest", "Kamishibai.IntegrationTest", "{1B44F0F7-92EB-4744-BDD0-6E66C2F9D0FF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.CodeAnalysis.Test", "Source\Kamishibai.CodeAnalysis.Test\Kamishibai.CodeAnalysis.Test.csproj", "{DED328EE-652F-40C4-82F0-FA13CFA06C92}"
 EndProject
