@@ -1,26 +1,24 @@
----
-title: "ナヴィゲーションイベント"
----
+# Navigation Event Details
 
-一貫性あるナヴィゲーションイベントは、KAMISHIBAIの強みの1つです。
+Consistent navigation events are one of KAMISHIBAI's strengths.
 
-ナヴィゲーションイベントは2つ要素によって成り立っています。
+A navigation event consists of two elements
 
-1. イベントの通知パターン
-2. イベントの通知タイミング
+1. the pattern of event notification
+2. timing of event notification
 
-# イベントの通知パターン
+# Event notification patterns
 
-KAMISHIBAIではつぎの2つの通知パターンがあります。
+KAMISHIBAI offers the following two notification patterns
 
-1. ViewModelのインターフェイスへの通知
-2. NavigationFrameのイベントハンドラー
+1. notification to the ViewModel interface
+2. event handler of NavigationFrame
 
-## ViewModelのインターフェイスへの通知
+## Notification to ViewModel interface
 
-ViewModelでイベントに対応した各種インターフェイスを実装することでイベント通知を受け取れます。
+You can receive event notifications in the interface corresponding to the event in the ViewModel.
 
-たとえばナヴィゲーション後のViewModelでナヴィゲーション完了の通知を受け取りたい場合は、つぎのように実装します。
+For example, if you want to receive notification of the completion of navigation in the ViewModel after navigation, you can implement the following.
 
 ```cs
 public class MainViewModel : INavigatedAsyncAware
@@ -31,60 +29,65 @@ public class MainViewModel : INavigatedAsyncAware
     }
 ```
 
-各種インターフェイスについては後述します。
+The various interfaces are described below.
 
-## NavigationFrameのイベントハンドラー
+## Event handler for NavigationFrame
 
-イベント通知インターフェイスを利用した場合、基本的にナヴィゲーションにかかわるViewModelで受け取る必要があります。
+If the event notification interface is used, the event must be received by the ViewModel involved in navigation.
 
-ナヴィゲーションに関与しない箇所でイベントを受け取りたい場合などは、INavigationFrameのイベントハンドラーを利用してください。
+If you wish to receive events in a location not involved in navigation, use the INavigationFrame event handler.
 
 ```cs
 INavigationFrame frame = _presentationService.GetNavigationFrame();
 frame.Navigated += FrameOnNavigated;
 ```
 
-IPresentationServiceから対象のNavigationFrameを取得してイベントを受信します。
+Get the target NavigationFrame from IPresentationService and receive events.
 
-# イベントの通知タイミング
+# Event Notification Timing
 
-KAMISHIBAIではナヴィゲーション前後の任意のタイミングで通知を受け取ることができます。
+KAMISHIBAI can receive notifications at any time before or after navigation.
 
 ![](/Images/navigation-event.png)
 
 大まかに上図のタイミングでイベントを受信できます。
 
-Page1からPage2にナヴィゲーションする場合、次の順で処理が行われます。
+Events can be received at the timing shown in the figure.
 
-1. ナヴィゲーション元のOnPausing系の通知
-2. ナヴィゲーション先のOnNavigating系の通知
-3. ナヴィゲーション
-4. ナヴィゲーション先のOnNavigated系の通知
-5. ナヴィゲーション元のOnPaused系の通知
+When navigating from Page1 to Page2, events are notified in the following order.
 
-それぞれの系統にはViewModelへの同期・非同期通知とINavigationServiceのイベントハンドラーの3種類（OnDisposedだけ例外。詳細は後述）が存在します。
 
-戻る場合においても同様です。
+1. "OnPausing" notification to source of navigation
+2. "OnNavigating" notification to source of destination
+3. navigation
+4. "OnNavigated" notification to source of destination
+5. "OnPaused" notification to source of navigation
 
-# イベントの詳細：前進
+For each of these, there are three types of notifications: synchronous and asynchronous notifications to the ViewModel and INavigationFrame event handlers.
+Only OnDisposed has some exceptions. This will be explained later.
 
-|順序|通知先|インターフェイス|メンバー|キャンセル|
+The same is true in the case of return.
+
+
+# Event Details: FORWARD
+
+|Order|Notification|Interface|Member|Cancel|
 |--:|:--|--|--|:-:|
-|1|ナヴィゲーション元ViewModel|IPausingAsyncAware|OnPausingAsync|✅|
-|2|ナヴィゲーション元ViewModel|IPausingAware|OnPausing|✅|
-|3|任意|INavigationFrame|Pausing|✅|
-|4|ナヴィゲーション先ViewModel|INavigatingAsyncAware|OnNavigatingAsync|✅|
-|5|ナヴィゲーション先ViewModel|INavigatingAware|OnNavigating|✅|
-|6|任意|INavigationFrame|Navigating|✅|
-|7|-|ナヴィゲーション|-|-|
-|8|ナヴィゲーション先ViewModel|INavigatedAsyncAware|OnNavigatedAsync|-|
-|9|ナヴィゲーション先ViewModel|INavigatedAware|OnNavigated|-|
-|10|任意|INavigationFrame|Navigated|-|
-|11|ナヴィゲーション元ViewModel|IPausedAsyncAware|OnPausedAsync|-|
-|12|ナヴィゲーション元ViewModel|IPausedAware|OnPaused|-|
-|13|任意|INavigationFrame|Paused|-|
+|1|Source ViewModel|IPausingAsyncAware|OnPausingAsync|✅|
+|2|Source ViewModel|IPausingAware|OnPausing|✅|
+|3|any|INavigationFrame|Pausing|✅|
+|4|Destination ViewModel|INavigatingAsyncAware|OnNavigatingAsync|✅|
+|5|Destination ViewModel|INavigatingAware|OnNavigating|✅|
+|6|any|INavigationFrame|Navigating|✅|
+|7|-|Navigation|-|-|
+|8|Destination ViewModel|INavigatedAsyncAware|OnNavigatedAsync|-|
+|9|Destination ViewModel|INavigatedAware|OnNavigated|-|
+|10|any|INavigationFrame|Navigated|-|
+|11|Source ViewModel|IPausedAsyncAware|OnPausedAsync|-|
+|12|Source ViewModel|IPausedAware|OnPaused|-|
+|13|any|INavigationFrame|Paused|-|
 
-No.1～6ではナヴィゲーションをキャンセルすることが可能です。
+No. 1 to 6 can cancel navigation.
 
 ```cs
 public class MainViewModel : INavigatedAsyncAware
@@ -96,27 +99,29 @@ public class MainViewModel : INavigatedAsyncAware
     }
 ```
 
-キャンセルされた以降のイベントは通知されません。
+Subsequent events that are cancelled will not be notified.
 
-# イベント詳細：後進
+# Event Details: GO BACK
 
-|順序|通知先|インターフェイス|メンバー|キャンセル|
+|Order|Notification|Interface|Member|Cancel|
 |--:|:--|--|--|:-:|
-|1|ナヴィゲーション元ViewModel|IDisposingAsyncAware|OnDisposingAsync|✅|
-|2|ナヴィゲーション元ViewModel|IDisposingAware|OnDisposing|✅|
-|3|任意|INavigationFrame|Disposing|✅|
-|4|ナヴィゲーション先ViewModel|IResumingAsyncAware|OnResumingAsync|✅|
-|5|ナヴィゲーション先ViewModel|IResumingAware|OnResuming|✅|
-|6|任意|INavigationFrame|INavigationFrame|✅|
-|7|-|画面戻し|-|-|
-|8|ナヴィゲーション先ViewModel|IResumedAsyncAware|OnResumedAsync|-|
-|9|ナヴィゲーション先ViewModel|IResumedAware|OnResumed|-|
-|10|任意|INavigationFrame|Resumed|-|
-|11|ナヴィゲーション元ViewModel|IDisposedAsyncAware|OnDisposedAsync|-|
-|12|ナヴィゲーション元ViewModel|IDisposedAware|OnDisposed|-|
-|13|ナヴィゲーション元ViewModel|IDisposable|Dispose|-|
-|14|任意|INavigationFrame|Disposed|-|
+|1|Source ViewModel|IDisposingAsyncAware|OnDisposingAsync|✅|
+|2|Source ViewModel|IDisposingAware|OnDisposing|✅|
+|3|any|INavigationFrame|Disposing|✅|
+|4|Destination ViewModel|IResumingAsyncAware|OnResumingAsync|✅|
+|5|Destination ViewModel|IResumingAware|OnResuming|✅|
+|6|any|INavigationFrame|INavigationFrame|✅|
+|7|-|Go Back|-|-|
+|8|Destination ViewModel|IResumedAsyncAware|OnResumedAsync|-|
+|9|Destination ViewModel|IResumedAware|OnResumed|-|
+|10|any|INavigationFrame|Resumed|-|
+|11|Source ViewModel|IDisposedAsyncAware|OnDisposedAsync|-|
+|12|Source ViewModel|IDisposedAware|OnDisposed|-|
+|13|Source ViewModel|IDisposable|Dispose|-|
+|14|any|INavigationFrame|Disposed|-|
 
-No.1～6ではナヴィゲーションをキャンセルすることが可能です。
+No. 1 to 6 can cancel navigation.
 
-一般的な .NETの実装との相互運用を考慮して、IDisposableインターフェイスでも通知を受け取ることが可能です。
+For interoperability with common .NET implementations, notifications can also be received via the IDisposable interface.
+
+[<< OpenWindow and OpenDialog](06-open-window-and-dialog.md) | [Message Dialog >>](07-navigation-event.md)
