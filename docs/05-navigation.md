@@ -1,11 +1,11 @@
 ---
-title: "画面遷移"
+title: "ナヴィゲーション"
 ---
 
-KAMISHIBAIの画面遷移メソッドには、2種類あります。
+KAMISHIBAIのナヴィゲーションメソッドには、2種類あります。
 
 1. ViewModelのコンストラクターから自動生成される安全なメソッド
-2. ViewModelのTypeやインスタンスを渡して遷移するメソッド
+2. ViewModelのTypeやインスタンスを渡してナヴィゲーションするメソッド
 
 こちらに説明は記載しますが、サンプルアプリケーションも参考にしてください。
 
@@ -14,7 +14,7 @@ KAMISHIBAIの画面遷移メソッドには、2種類あります。
 
 # 自動生成メソッド
 
-ViewModelにNavigate属性を宣言することで、IPresentationServiceに専用の画面遷移メソッドが生成されます。
+ViewModelにNavigate属性を宣言することで、IPresentationServiceに専用のナヴィゲーションメソッドが生成されます。
 
 たとえばつぎのようなViewModelが存在したとします。
 
@@ -43,9 +43,9 @@ Task<bool> NavigateToFirstAsync(string message, string frameName = "");
 await _presentationService.NavigateToFirstAsync("Hello, Navigation Parameter!");
 ```
 
-NavigateTo+遷移名+Asyncという名称のメソッドが作成され、ViewModelのコンストラクターの引数にframeNameを追加した引数が設定されます。
+NavigateTo+ナヴィゲーション名+Asyncという名称のメソッドが作成され、ViewModelのコンストラクターの引数にframeNameを追加した引数が設定されます。
 
-遷移名はViewModelのクラス名の末尾からつぎの文字列を順にすべて削除したものになります。
+ナヴィゲーション名はViewModelのクラス名の末尾からつぎの文字列を順にすべて削除したものになります。
 
 1. ViewModel
 2. Page
@@ -70,7 +70,7 @@ await _presentationService.GoBackAsync();
 
 # ViewModelへ依存性の注入
 
-ViewModelに画面遷移のパラメーターではなく、DIコンテナーから何らかのオブジェクトを注入したい場合、コンストラクター引数にInject属性を宣言します。
+ViewModelにナヴィゲーションのパラメーターではなく、DIコンテナーから何らかのオブジェクトを注入したい場合、コンストラクター引数にInject属性を宣言します。
 
 たとえばロガーを注入したい場合、つぎのように記述します。
 
@@ -89,7 +89,7 @@ public class FirstViewModel
     }
 ```
 
-この場合に生成される画面遷移メソッドはつぎのとおりです。
+この場合に生成されるナヴィゲーションメソッドはつぎのとおりです。
 
 ```cs
 Task<bool> NavigateToFirstAsync(string message, string frameName = "");
@@ -97,11 +97,11 @@ Task<bool> NavigateToFirstAsync(string message, string frameName = "");
 
 ロガーの注入がない場合と完全に同一のシグニチャーとなります。
 
-遷移先のViewModelだけが必要とするサービスなどを注入することで、ViewModel間の依存関係を疎に保つことができます。
+ナヴィゲーション先のViewModelだけが必要とするサービスなどを注入することで、ViewModel間の依存関係を疎に保つことができます。
 
 # コンストラクターにframeNameを渡す
 
-ViewModelへ、画面遷移に用いるフレーム名を渡したい場合があります。
+ViewModelへ、ナヴィゲーションに用いるフレーム名を渡したい場合があります。
 
 ```cs
 [Navigate]
@@ -138,14 +138,14 @@ public class FirstViewModel
     }
 ```
 
-この場合、コンストラクターごとに画面遷移メソッドが生成されます。
+この場合、コンストラクターごとにナヴィゲーションメソッドが生成されます。
 
 ```cs
 Task<bool> NavigateToFirstAsync(string frameName = "");
 Task<bool> NavigateToFirstAsync(string message, string frameName = "");
 ```
 
-# Type指定遷移
+# Type指定ナヴィゲーション
 
 たとえばつぎのようなサイドメニューがある場合。
 
@@ -153,9 +153,9 @@ Task<bool> NavigateToFirstAsync(string message, string frameName = "");
 
 メニューをリストで作成しておき、動的にサイドメニューをコントロールしたいということが良くあります。
 
-この場合、画面遷移にパラメーターは伴いませんし、コード生成されたメソッドではなく、ViewModelのTypeを指定した方がシンプルに実装できることがあります。
+この場合、ナヴィゲーションにパラメーターは伴いませんし、コード生成されたメソッドではなく、ViewModelのTypeを指定した方がシンプルに実装できることがあります。
 
-そのためKAMISHIBAIではつぎの遷移メソッドを用意しています。
+そのためKAMISHIBAIではつぎのナヴィゲーションメソッドを用意しています。
 
 ```cs
 Task<bool> NavigateAsync(Type viewModelType, string frameName = "");
@@ -163,7 +163,7 @@ Task<bool> NavigateAsync<TViewModel>(string frameName = "");
 Task<bool> NavigateAsync<TViewModel>(Action<TViewModel> init, string frameName = "");
 ```
 
-Typeを引数や型引数で指定して遷移することが可能です。
+Typeを引数や型引数で指定してナヴィゲーションすることが可能です。
 
 先の例では先頭を利用することになるでしょう。
 

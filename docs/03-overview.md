@@ -4,7 +4,7 @@ KAMISHIBAIはNuGetの3つのパッケージを公開しています。
 
 |Package|役割|
 |--|--|
-|Kamishibai|コアライブラリ。画面遷移などを利用するためのインターフェイスなどを含む。|
+|Kamishibai|コアライブラリ。ナヴィゲーションなどを利用するためのインターフェイスなどを含む。|
 |Kamishibai.View|WPFで利用するUI要素など、View層で利用するクラス群を含む。|
 |Kamishibai.Hosting|KAMISHIBAIをGeneric Host上にホストするためのクラスを含む。|
 
@@ -28,19 +28,19 @@ KAMISHIBAIのサンプル「SampleBrowser」アプリケーションでは、つ
 
 あくまで参考としてサンプルコードをご覧ください。
 
-# 画面遷移概要
+# ナヴィゲーション概要
 
-KAMISHIBAIの画面遷移において重要な要素は下記に表します。
+KAMISHIBAIのナヴィゲーションにおいて重要な要素は下記に表します。
 
 ![](/images/books/kamishibai/architecture.png)
 
-KAMISHIBAIでは画面遷移させたい領域にNavigationFrameを定義します。
+KAMISHIBAIではナヴィゲーションさせたい領域にNavigationFrameを定義します。
 
-NavigationFrameの中に任意のUserControlを表示することで画面遷移を実現します。
+NavigationFrameの中に任意のUserControlを表示することでナヴィゲーションを実現します。
 
 NavigationFrameにはFrameNameを定義することができ、1画面内に複数のNavigationFrameを定義することや、ネストすることが可能です。
 
-画面遷移はFrameNameを指定します。
+ナヴィゲーションはFrameNameを指定します。
 
 ```cs
 _presentationService.NavigatePage2Async("FrameA");
@@ -48,7 +48,7 @@ _presentationService.NavigatePage2Async("FrameA");
 
 FrameNameはアプリケーション内でユニークである必要があります。デフォルトのFrameNameは空文字列で、省略可能です。
 
-画面遷移はIPresentationServiceをViewModelに注入して利用します。
+ナヴィゲーションはIPresentationServiceをViewModelに注入して利用します。
 
 IPresentationServiceは、つぎの属性が宣言されたクラスの存在するプロジェクトにコード生成されます。
 

@@ -9,7 +9,7 @@ OpenWindowとOpenDialogはよく似ていますが、OpenWindowではモード�
 新しくウィンドウを開くメソッドも、2種類の方法があります。
 
 1. ViewModelのコンストラクターから自動生成される安全なメソッド
-2. ViewModelのTypeやインスタンスを渡して遷移するメソッド
+2. ViewModelのTypeやインスタンスを渡してナヴィゲーションするメソッド
 
 こちらに説明は記載しますが、サンプルアプリケーションも参考にしてください。
 
@@ -48,7 +48,7 @@ await _presentationService.OpenChildWindowAsync("New Window!");
 
 Open+画面名+WindowAsync（またはDialogAsync）という名称のメソッドが作成され、ViewModelのコンストラクターの引数にownerとoptionsを追加した引数が設定されます。
 
-遷移名はViewModelのクラス名の末尾からつぎの文字列を順にすべて削除したものになります。
+ナヴィゲーション名はViewModelのクラス名の末尾からつぎの文字列を順にすべて削除したものになります。
 
 1. ViewModel
 2. Page
@@ -73,7 +73,7 @@ await _presentationService.CloseWindowAsync();
 
 # ViewModelへ依存性の注入
 
-ViewModelに画面遷移のパラメーターではなく、DIコンテナーから何らかのオブジェクトを注入したい場合、コンストラクター引数にInject属性を宣言します。
+ViewModelにナヴィゲーションのパラメーターではなく、DIコンテナーから何らかのオブジェクトを注入したい場合、コンストラクター引数にInject属性を宣言します。
 
 たとえばロガーを注入したい場合、つぎのように記述します。
 
@@ -92,7 +92,7 @@ public class ChildViewModel
     }
 ```
 
-この場合に生成される画面遷移メソッドはつぎのとおりです。
+この場合に生成されるナヴィゲーションメソッドはつぎのとおりです。
 
 ```cs
 Task OpenChildWindowAsync(string windowName, object? owner = null, OpenWindowOptions? options = null);
@@ -100,7 +100,7 @@ Task OpenChildWindowAsync(string windowName, object? owner = null, OpenWindowOpt
 
 ロガーの注入がない場合と完全に同一のシグニチャーとなります。
 
-遷移先のViewModelだけが必要とするサービスなどを注入することで、ViewModel間の依存関係を疎に保つことができます。
+ナヴィゲーション先のViewModelだけが必要とするサービスなどを注入することで、ViewModel間の依存関係を疎に保つことができます。
 
 # OpenWindowOptions
 
@@ -138,9 +138,9 @@ ViewModelのプロジェクトではWPFクラスを参照していない場合�
 
 CommandParameterでownerを受け取り、OpenWindowOptionsで親画面の中央に子画面を開いています。
 
-# Type指定遷移
+# Type指定ナヴィゲーション
 
-画面遷移と同様に、OpenWindow・OpenDialogでもTypeなどを指定した操作も可能です。
+ナヴィゲーションと同様に、OpenWindow・OpenDialogでもTypeなどを指定した操作も可能です。
 
 ```cs
 Task OpenWindowAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null);
