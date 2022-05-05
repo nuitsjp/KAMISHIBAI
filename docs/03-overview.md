@@ -16,7 +16,7 @@ However, when developing a product, KAMISHIBAI recommends splitting it into seve
 
 In KAMISHIBAI's sample "SampleBrowser" application, the project is divided as follows to limit the dependencies of each project.
 
-![](/images/components.png)
+![](/Images/components.png)
 
 |Package|Role|
 |--|--|
@@ -32,7 +32,7 @@ Please see the sample code for reference.
 
 The key elements in KAMISHIBAI's navigation are represented below.
 
-![](/images/architecture.png)
+![](/Images/architecture.png)
 
 KAMISHIBAI defines a NavigationFrame in the area to be navigated.
 

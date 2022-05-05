@@ -179,7 +179,7 @@ builder.Services.AddPresentation<FirstPage, FirstViewModel>();
 
 Let's run the program. After launching, press the Navigate button to navigate and display the following
 
-![](/images/hello-kamishibai.png)
+![](/Images/hello-kamishibai.png)
 
 Finally, let's implement parameter passing.
 
@@ -220,7 +220,7 @@ A string message should be added to the Navigate method. This is because the Nav
 
 Now run the code to confirm that it does indeed navigate.
 
-![](/images/hello-navigation-parameter.png)
+![](/Images/hello-navigation-parameter.png)
 
 What do you think?
 

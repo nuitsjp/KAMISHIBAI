@@ -50,7 +50,7 @@ IPresentationServiceから対象のNavigationFrameを取得してイベントを
 
 KAMISHIBAIではナヴィゲーション前後の任意のタイミングで通知を受け取ることができます。
 
-![](/images/navigation-event.png)
+![](/Images/navigation-event.png)
 
 大まかに上図のタイミングでイベントを受信できます。
 

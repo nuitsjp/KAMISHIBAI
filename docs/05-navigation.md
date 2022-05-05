@@ -149,7 +149,7 @@ Task<bool> NavigateToFirstAsync(string message, string frameName = "");
 
 たとえばつぎのようなサイドメニューがある場合。
 
-![](/images/side-menu.png)
+![](/Images/side-menu.png)
 
 メニューをリストで作成しておき、動的にサイドメニューをコントロールしたいということが良くあります。
 
