@@ -6,6 +6,7 @@ KAMISHIBAI supports the following platforms
 
 - .NET 6.0+
 - .NET Framework 4.6.2+
+- Visual Studio 2022 17.1+
 
 Next, install the package from NuGet.
 
