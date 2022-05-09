@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32427.441
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Maui", "Kamishibai.Maui\Kamishibai.Maui.csproj", "{49F7E542-39C7-4DC4-9850-D64C9630FDF4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kamishibai.Maui.Tests", "Kamishibai.Maui.Tests\Kamishibai.Maui.Tests.csproj", "{196D3B31-AEB4-41F8-A14A-A6FCE07F197D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49F7E542-39C7-4DC4-9850-D64C9630FDF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49F7E542-39C7-4DC4-9850-D64C9630FDF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49F7E542-39C7-4DC4-9850-D64C9630FDF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49F7E542-39C7-4DC4-9850-D64C9630FDF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{196D3B31-AEB4-41F8-A14A-A6FCE07F197D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{196D3B31-AEB4-41F8-A14A-A6FCE07F197D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{196D3B31-AEB4-41F8-A14A-A6FCE07F197D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{196D3B31-AEB4-41F8-A14A-A6FCE07F197D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40D533CD-8191-460A-8156-415FABD11AC3}
+	EndGlobalSection
+EndGlobal
