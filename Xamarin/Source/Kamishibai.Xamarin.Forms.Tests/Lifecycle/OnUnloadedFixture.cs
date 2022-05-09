@@ -5,6 +5,13 @@ namespace Kamishibai.Xamarin.Forms.Tests.Lifecycle
 {
     public class OnUnloadedFixture
     {
+        public OnUnloadedFixture()
+        {
+            // Initializes Xamarin.Forms services.
+            var platformServicesFake = FakeItEasy.A.Fake<global::Xamarin.Forms.Internals.IPlatformServices>();
+            global::Xamarin.Forms.Device.PlatformServices = platformServicesFake;
+        }
+
         [Fact]
         public void ContentPage()
         {
