@@ -17,9 +17,10 @@
     <PackageTags>Xamarin Forms Xamarin.Forms Navigation Xamarin.Forms.Navigation Kamishibai Kamishibai.Xamarin.Forms</PackageTags>
     <Description>KAMISHIBAI for Xamarin.Forms is the most flexible page navigation framework. KAMISHIBAI for Xamarin.Forms supports MVVM Pattern.</Description>
     <Summary>KAMISHIBAI for Xamarin.Forms is the most flexible page navigation framework. KAMISHIBAI for Xamarin.Forms supports MVVM Pattern.</Summary>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.2.0</Version>
+    <PackageReleaseNotes>https://github.com/nuitsjp/KAMISHIBAI/releases</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
