@@ -2,6 +2,7 @@
 using Moq;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Internals;
+using Microsoft.Maui;
 
 namespace Kamishibai.Maui.Tests.Mocks
 {
@@ -10,6 +11,13 @@ namespace Kamishibai.Maui.Tests.Mocks
         static ApplicationMock()
         {
             DependencyService.Register<ISystemResourcesProvider, SystemResourcesProvider>();
+        }
+
+        public ApplicationMock()
+        {
+            // Create fake main page to make CreateWindow happy.
+            this.MainPage = new Page();
+            ((IApplication)this).CreateWindow(null);
         }
 
         // ReSharper disable once ClassNeverInstantiated.Local
