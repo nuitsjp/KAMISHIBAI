@@ -2,6 +2,7 @@
 using Moq;
 using Microsoft.Maui.Controls;
 using Xunit;
+using Microsoft.Maui;
 
 namespace Kamishibai.Maui.Tests
 {
@@ -128,16 +129,17 @@ namespace Kamishibai.Maui.Tests
         [Fact]
         public void ApplicationAdapter_ModalPopped()
         {
-            var mock = new ApplicationMock();
-            var adapter = (ApplicationService.IApplication)new ApplicationService.ApplicationAdapter(mock);
+            var app = new Application();
             var page1 = new ContentPage();
-            adapter.MainPage = page1;
-            
+            app.MainPage = page1;
+            ((IApplication)app).CreateWindow(null);
+
+
             var page2 = new ContentPage();
             page1.Navigation.PushModalAsync(page2);
 
             bool popped = false;
-            adapter.ModalPopped += (sender, args) =>
+            app.ModalPopped += (sender, args) =>
             {
                 popped = true;
                 Assert.NotNull(sender);
