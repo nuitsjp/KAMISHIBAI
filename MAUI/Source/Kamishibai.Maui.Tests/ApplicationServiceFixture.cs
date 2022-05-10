@@ -130,8 +130,9 @@ namespace Kamishibai.Maui.Tests
         public void ApplicationAdapter_ModalPopped()
         {
             var app = new Application();
+            var adapter = (ApplicationService.IApplication)new ApplicationService.ApplicationAdapter(app);
             var page1 = new ContentPage();
-            app.MainPage = page1;
+            adapter.MainPage = page1;
             ((IApplication)app).CreateWindow(null);
 
 
@@ -139,7 +140,7 @@ namespace Kamishibai.Maui.Tests
             page1.Navigation.PushModalAsync(page2);
 
             bool popped = false;
-            app.ModalPopped += (sender, args) =>
+            adapter.ModalPopped += (sender, args) =>
             {
                 popped = true;
                 Assert.NotNull(sender);
