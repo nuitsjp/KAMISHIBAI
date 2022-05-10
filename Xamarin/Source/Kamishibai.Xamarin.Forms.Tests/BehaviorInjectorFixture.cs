@@ -7,6 +7,13 @@ namespace Kamishibai.Xamarin.Forms.Tests
 {
     public class BehaviorInjectorFixture
     {
+        public BehaviorInjectorFixture()
+        {
+            // Initializes Xamarin.Forms services.
+            var platformServicesFake = FakeItEasy.A.Fake<global::Xamarin.Forms.Internals.IPlatformServices>();
+            Device.PlatformServices = platformServicesFake;
+        }
+
         [Fact]
         public async void RecursiveInject()
         {
