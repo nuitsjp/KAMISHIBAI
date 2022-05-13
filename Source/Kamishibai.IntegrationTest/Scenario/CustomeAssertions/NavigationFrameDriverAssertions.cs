@@ -20,6 +20,9 @@ public class NavigationFrameDriverAssertions :
         params object[] becauseArgs)
         where TPage : FrameworkElement
     {
+        // Wait for animation to end.
+        Thread.Sleep(TimeSpan.FromSeconds(0.3));
+
         Subject.Current.ToString().Should().Be(typeof(TPage).FullName, because, becauseArgs);
         return new AndConstraint<NavigationFrameDriverAssertions>(this);
     }

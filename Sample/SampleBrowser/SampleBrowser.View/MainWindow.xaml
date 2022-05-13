@@ -17,6 +17,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="1024" Width="1280"
         d:DataContext="{d:DesignInstance {x:Type local:DesignMainViewModel}, IsDesignTimeCreatable=True}">
+    <Window.Resources>
+        <Storyboard x:Key="EntryStoryboard">
+            <DoubleAnimation 
+                Storyboard.TargetName="MainFrame"
+                Storyboard.TargetProperty="(kamishibai:NavigationFrame.Opacity)" 
+                From="0" To="1" Duration="0:0:0.1"/>
+        </Storyboard>
+    </Window.Resources>
     <materialDesign:DrawerHost
             IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
         <materialDesign:DrawerHost.LeftDrawerContent>
@@ -73,8 +81,9 @@
             </materialDesign:ColorZone>
 
             <Grid Margin="16">
-                <kamishibai:NavigationFrame/>
-
+                <kamishibai:NavigationFrame x:Name="MainFrame"
+                                            EntryForwardStoryboard="{StaticResource EntryStoryboard}"
+                                            EntryBackwardStoryboard="{StaticResource EntryStoryboard}"/>
                 <materialDesign:Snackbar
                         x:Name="MainSnackbar"
                         MessageQueue="{materialDesign:MessageQueue}"/>
