@@ -1,10 +1,23 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 
 namespace Kamishibai;
 
 public class NavigationFrame : ContentControl, INavigationFrame
 {
+    public static readonly DependencyProperty ExitForwardStoryboardProperty = DependencyProperty.Register(
+        "ExitForwardStoryboard", typeof(Storyboard), typeof(NavigationFrame), new PropertyMetadata(default(Storyboard)));
+
+    public static readonly DependencyProperty EntryForwardStoryboardProperty = DependencyProperty.Register(
+        "EntryForwardStoryboard", typeof(Storyboard), typeof(NavigationFrame), new PropertyMetadata(default(Storyboard)));
+
+    public static readonly DependencyProperty ExitBackwardStoryboardProperty = DependencyProperty.Register(
+        "ExitBackwardStoryboard", typeof(Storyboard), typeof(NavigationFrame), new PropertyMetadata(default(Storyboard?)));
+
+    public static readonly DependencyProperty EntryBackwardStoryboardProperty = DependencyProperty.Register(
+        "EntryBackwardStoryboard", typeof(Storyboard), typeof(NavigationFrame), new PropertyMetadata(default(Storyboard)));
+
     public static readonly DependencyProperty FrameNameProperty = DependencyProperty.Register(
         "FrameName", typeof(string), typeof(NavigationFrame), new PropertyMetadata(string.Empty));
 
@@ -23,6 +36,30 @@ public class NavigationFrame : ContentControl, INavigationFrame
     public event EventHandler<PreBackwardEventArgs>? Resuming;
     public event EventHandler<PostBackwardEventArgs>? Resumed;
     public event EventHandler<PostBackwardEventArgs>? Disposed;
+
+    public Storyboard? ExitForwardStoryboard
+    {
+        get => (Storyboard?) GetValue(ExitForwardStoryboardProperty);
+        set => SetValue(ExitForwardStoryboardProperty, value);
+    }
+
+    public Storyboard? EntryForwardStoryboard
+    {
+        get => (Storyboard?) GetValue(EntryForwardStoryboardProperty);
+        set => SetValue(EntryForwardStoryboardProperty, value);
+    }
+
+    public Storyboard? ExitBackwardStoryboard
+    {
+        get => (Storyboard?) GetValue(ExitBackwardStoryboardProperty);
+        set => SetValue(ExitBackwardStoryboardProperty, value);
+    }
+
+    public Storyboard? EntryBackwardStoryboard
+    {
+        get => (Storyboard) GetValue(EntryBackwardStoryboardProperty);
+        set => SetValue(EntryBackwardStoryboardProperty, value);
+    }
 
     public string FrameName
     {
@@ -79,19 +116,31 @@ public class NavigationFrame : ContentControl, INavigationFrame
 
     private async Task<bool> NavigateAsync(FrameworkElement view, object destinationViewModel)
     {
-        _pages.TryPeek(out var  sourceView);
+        _pages.TryPeek(out var sourceView);
         var sourceViewModel = sourceView?.DataContext;
+
+        Task? exitTask = null;
+        if (sourceView is not null)
+        {
+            exitTask = ExitForwardStoryboard?.BeginAsync();
+        }
 
         PreForwardEventArgs preForwardEventArgs = new(FrameName, sourceViewModel, destinationViewModel);
         if (await NotifyPausing(preForwardEventArgs) is false) return false;
         if (await NotifyNavigating(preForwardEventArgs) is false) return false;
 
+        if (exitTask is not null) await exitTask;
+
         _pages.Push(view);
         Content = view;
+
+        Task? entryTask = EntryForwardStoryboard?.BeginAsync();
 
         PostForwardEventArgs postForwardEventArgs = new(FrameName, sourceViewModel, destinationViewModel);
         await NotifyNavigated(postForwardEventArgs);
         await NotifyPaused(postForwardEventArgs);
+
+        if (entryTask is not null) await entryTask;
 
         return true;
     }
@@ -103,6 +152,8 @@ public class NavigationFrame : ContentControl, INavigationFrame
             return false;
         }
 
+        Task? exitTask = ExitBackwardStoryboard?.BeginAsync();
+
         var sourceView = _pages.Peek;
         var sourceViewModel = sourceView.DataContext;
         var destinationView = _pages.Previous;
@@ -112,14 +163,20 @@ public class NavigationFrame : ContentControl, INavigationFrame
         if (!await NotifyDisposing(preBackwardEventArgs)) return false;
         if (!await NotifyResuming(preBackwardEventArgs)) return false;
 
+        if (exitTask is not null) await exitTask;
+
         _pages.Pop();
         try
         {
             Content = destinationView;
 
+            Task? entryTask = EntryBackwardStoryboard?.BeginAsync();
+
             PostBackwardEventArgs postBackwardEventArgs = new(FrameName, sourceViewModel, destinationViewModel);
             await NotifyResumed(postBackwardEventArgs);
             await NotifyDisposed(postBackwardEventArgs);
+
+            if (entryTask is not null) await entryTask;
 
             return true;
         }
