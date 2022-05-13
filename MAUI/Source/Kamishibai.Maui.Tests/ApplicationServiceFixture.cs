@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests
 {
-    public class ApplicationServiceFixture
+    public class ApplicationServiceFixture : TestFixture
     {
         internal static Mock<ApplicationService.IApplication> ApplicationMock = new Mock<ApplicationService.IApplication>();
         static ApplicationServiceFixture()

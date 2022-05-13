@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests
 {
-    public class BehaviorBaseFixture
+    public class BehaviorBaseFixture : TestFixture
     {
         [Fact]
         public void FromAttachToDettach()

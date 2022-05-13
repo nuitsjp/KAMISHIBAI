@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests
 {
-	public class NavigatorFixture
+	public class NavigatorFixture : TestFixture
 	{
 	    [Fact]
 	    public void ModalStack()

@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests.Mvvm
 {
-    public class ServiceLocatorFixture
+    public class ServiceLocatorFixture : TestFixture
     {
         [Fact]
         public void SetLocator()

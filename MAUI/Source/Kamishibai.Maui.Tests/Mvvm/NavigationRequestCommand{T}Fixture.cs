@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests.Mvvm
 {
-	public class NavigationRequestCommandTFixture
+	public class NavigationRequestCommandTFixture : TestFixture
 	{
 		[Fact]
 		public void DefaultConstructor()

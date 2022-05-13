@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests
 {
-    public class BehaviorInjectorFixture
+    public class BehaviorInjectorFixture : TestFixture
     {
         [Fact]
         public async void RecursiveInject()

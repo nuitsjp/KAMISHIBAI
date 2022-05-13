@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests
 {
-    public class LifecycleNoticeServiceFixture
+    public class LifecycleNoticeServiceFixture : TestFixture
     {
         [Fact]
         public void OnInitialize()

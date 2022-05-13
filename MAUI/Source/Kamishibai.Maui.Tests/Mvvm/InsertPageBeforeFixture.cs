@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests.Mvvm
 {
-    public class InsertPageBeforeFixture
+    public class InsertPageBeforeFixture : TestFixture
     {
         [Fact]
         public void Navigate()

@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests.Mvvm
 {
-	public class PopAsyncFixture
+	public class PopAsyncFixture : TestFixture
 	{
 		[Fact]
 		public void Navigate()

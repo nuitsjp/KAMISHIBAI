@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests.Mvvm
 {
-	public class RemovePageFixture
+	public class RemovePageFixture : TestFixture
 	{
 		[Fact]
 		public void Navigate()

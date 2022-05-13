@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests
 {
-	public class MultiPageBehaviorFixture
+	public class MultiPageBehaviorFixture : TestFixture
 	{
 		[Fact]
 		public void OnCurrentPageChanged()

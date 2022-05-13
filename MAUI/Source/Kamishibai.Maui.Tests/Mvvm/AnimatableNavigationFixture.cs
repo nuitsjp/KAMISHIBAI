@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests.Mvvm
 {
-	public class AnimatableNavigationFixture
+	public class AnimatableNavigationFixture : TestFixture
 	{
 		[Fact]
 		public void Animated()

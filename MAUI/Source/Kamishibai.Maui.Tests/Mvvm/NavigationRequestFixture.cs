@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests.Mvvm
 {
-	public class NavigationRequestFixture
+	public class NavigationRequestFixture : TestFixture
 	{
 		[Fact]
 		public void RaiseAsync()

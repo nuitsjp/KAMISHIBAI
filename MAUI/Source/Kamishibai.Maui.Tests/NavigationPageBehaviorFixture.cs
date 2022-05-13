@@ -3,8 +3,8 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests
 {
-    public class NavigationPageBehaviorFixture
-    {
+    public class NavigationPageBehaviorFixture : TestFixture
+	{
         [Fact]
 		public void OnCurrentPageChanged()
 		{

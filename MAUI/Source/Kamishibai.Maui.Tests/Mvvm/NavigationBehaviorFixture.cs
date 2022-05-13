@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Kamishibai.Maui.Tests.Mvvm
 {
-	public class NavigationBehaviorFixture
+	public class NavigationBehaviorFixture : TestFixture
 	{
 		[Fact]
 		public void OnAttachedTo()
