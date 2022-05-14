@@ -170,4 +170,4 @@ Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, string frameName = ""
 
 This can be used when you want to keep the status on a sub-view, for example.
 
-[<< Configuration of Generic Host](04-hosting.md) | [OpenWindow and OpenDialog >>](06-open-window-and-dialog.md)
+[<< Configuration of Generic Host](04-hosting.md) | [Menu](01-table-of-contents.md) | [OpenWindow and OpenDialog >>](06-open-window-and-dialog.md)

@@ -124,4 +124,4 @@ No. 1 to 6 can cancel navigation.
 
 For interoperability with common .NET implementations, notifications can also be received via the IDisposable interface.
 
-[<< OpenWindow and OpenDialog](06-open-window-and-dialog.md) | [Message Dialog >>](08-message-dialog.md)
+[<< OpenWindow and OpenDialog](06-open-window-and-dialog.md) | [Menu](01-table-of-contents.md) | [Message Dialog >>](08-message-dialog.md)

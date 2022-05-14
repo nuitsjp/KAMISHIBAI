@@ -227,4 +227,4 @@ What do you think?
 
 I hope you understand that you can realize the MVVM Pattern easily and safely.
 
-[NuGet Package Structure and Overview >>](03-overview.md)
+[Menu](01-table-of-contents.md) | [NuGet Package Structure and Overview >>](03-overview.md)

@@ -71,4 +71,4 @@ if (_presentationService.OpenFile(context) == DialogResult.Ok)
 
 The path to the selected folder is obtained from the context's FileName property.
 
-[<< Message Dialog](08-message-dialog.md) | [Save File Dialog >>](10-save-file-dialog.md)
+[<< Message Dialog](08-message-dialog.md) | [Menu](01-table-of-contents.md) | [Save File Dialog >>](10-save-file-dialog.md)

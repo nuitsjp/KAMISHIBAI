@@ -150,4 +150,4 @@ Task<bool> OpenDialogAsync<TViewModel>(TViewModel viewModel, object? owner = nul
 Task<bool> OpenDialogAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenDialogOptions? options = null);
 ```
 
-[<< Navigation Details](05-navigation.md) | [Navigation Event Details >>](07-navigation-event.md)
+[<< Navigation Details](05-navigation.md) | [Menu](01-table-of-contents.md) | [Navigation Event Details >>](07-navigation-event.md)

@@ -60,4 +60,4 @@ Note that if none of these attributes are used, IPresentationService will not be
 
 Now, let us explain more specifically how to use this service.
 
-[<< Getting Started](02-getting-started.md) | [Configuration of Generic Host >>](04-hosting.md)
+[<< Getting Started](02-getting-started.md) | [Menu](01-table-of-contents.md) | [Configuration of Generic Host >>](04-hosting.md)

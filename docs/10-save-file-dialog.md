@@ -25,4 +25,4 @@ See the API document below for details.
 - [SaveFileDialogContext](https://nuitsjp.github.io/KAMISHIBAI/Api/class_save_file_dialog_context.html#af09f75b40487c857b4c2dd81e26f9f9a)
 - [FileDialogContext(Base class for SaveFileDialogContext)](https://nuitsjp.github.io/KAMISHIBAI/Api/class_file_dialog_context.html)
 
-[<< Open File Dialog](09-open-file-dialog.md) | [Animation of navigation >>](11-animation-of-navigation.md)
+[<< Open File Dialog](09-open-file-dialog.md) | [Menu](01-table-of-contents.md) | [Animation of navigation >>](11-animation-of-navigation.md)

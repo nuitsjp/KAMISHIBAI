@@ -57,4 +57,4 @@ public RelayCommand<object> ShowMessageCommand => new(owner
 => _presentationService.ShowMessage("Hello, Message!", owner: owner);
 ```
 
-[<< Navigation Event Details](07-navigation-event.md) | [Open File Dialog >>](09-open-file-dialog.md)
+[<< Navigation Event Details](07-navigation-event.md) | [Menu](01-table-of-contents.md) | [Open File Dialog >>](09-open-file-dialog.md)

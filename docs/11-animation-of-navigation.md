@@ -59,4 +59,4 @@ Navigation events are executed during the animation. The details are as follows
 16. INavigationFramework#Paused
 17. **Wait EntryForwardStoryboard**
 
-[<< Save File Dialog](10-save-file-dialog.md)
+[<< Save File Dialog](10-save-file-dialog.md) | [Menu](01-table-of-contents.md)

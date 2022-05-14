@@ -39,4 +39,4 @@ builder.Configuration
 
 For detailed usage, please refer to the documentation of each library.
 
-[<< NuGet Package Structure and Overview](03-overview.md) | [Navigation Details >>](05-navigation.md)
+[<< NuGet Package Structure and Overview](03-overview.md) | [Menu](01-table-of-contents.md) | [Navigation Details >>](05-navigation.md)
