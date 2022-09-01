@@ -75,7 +75,7 @@ var builder = KamishibaiApplication<App, MainWindow>.CreateBuilder();
 
 // Build and run the application.
 var app = builder.Build();
-app.RunAsync();
+await app.RunAsync();
 ```
 
 Now run the application and confirm that the MainWindow is displayed.

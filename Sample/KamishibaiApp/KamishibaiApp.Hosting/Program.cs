@@ -26,4 +26,4 @@ builder.Services.Configure<AppConfig>(builder.Configuration.GetSection("AppConfi
 
 
 var app = builder.Build();
-app.RunAsync();
+await app.RunAsync();

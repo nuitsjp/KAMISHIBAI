@@ -23,7 +23,7 @@ builder.Services.AddPresentation<FirstPage, FirstViewModel>();
 
 // Build and run the application.
 var app = builder.Build();
-app.RunAsync();
+await app.RunAsync();
 ```
 
 It can be described in the same way as ASP.NET Core 6.0.

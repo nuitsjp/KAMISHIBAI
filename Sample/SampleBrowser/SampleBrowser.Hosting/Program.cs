@@ -27,4 +27,4 @@ builder.Services.AddPresentation<OpenFilePage, OpenFileViewModel>();
 builder.Services.AddPresentation<SaveFilePage, SaveFileViewModel>();
 
 var app = builder.Build();
-app.RunAsync();
+await app.RunAsync();

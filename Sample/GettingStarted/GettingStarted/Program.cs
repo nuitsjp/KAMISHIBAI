@@ -11,4 +11,4 @@ builder.Services.AddPresentation<FirstPage, FirstViewModel>();
 
 // Build and run the application.
 var app = builder.Build();
-app.RunAsync();
+await app.RunAsync();
