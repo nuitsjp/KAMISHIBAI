@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Wpf.Extensions.Hosting" Version="1.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\Source\Kamishibai.Hosting\Kamishibai.Hosting.csproj" />
     <ProjectReference Include="..\SampleBrowser.ViewModel\SampleBrowser.ViewModel.csproj" />
     <ProjectReference Include="..\SampleBrowser.View\SampleBrowser.View.csproj" />
