@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kamishibai.Hosting" Version="1.0.0" />
+    <PackageReference Include="Kamishibai.Hosting" Version="1.1.1" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
   </ItemGroup>
 
