@@ -87,11 +87,12 @@
             </materialDesign:ColorZone>
 
             <Grid Margin="16">
-                <kamishibai:NavigationFrame x:Name="MainFrame"
+                <!--<kamishibai:NavigationFrame x:Name="MainFrame"
                                             ExitForwardStoryboard="{StaticResource ExitStoryboard}"
                                             EntryForwardStoryboard="{StaticResource EntryStoryboard}"
                                             ExitBackwardStoryboard="{StaticResource ExitStoryboard}"
-                                            EntryBackwardStoryboard="{StaticResource EntryStoryboard}"/>
+                                            EntryBackwardStoryboard="{StaticResource EntryStoryboard}"/>-->
+                <kamishibai:NavigationFrame x:Name="MainFrame"/>
                 <materialDesign:Snackbar
                         x:Name="MainSnackbar"
                         MessageQueue="{materialDesign:MessageQueue}"/>
