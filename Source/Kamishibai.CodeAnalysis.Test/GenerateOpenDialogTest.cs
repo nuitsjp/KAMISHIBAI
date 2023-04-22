@@ -28,7 +28,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null);
+        Task<bool> OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -41,7 +41,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null)
+        public Task<bool> OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null)
         {
             return OpenDialogAsync(
                 new Foo(
@@ -81,7 +81,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null);
+        Task<bool> OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -94,7 +94,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null)
+        public Task<bool> OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null)
         {
             return OpenDialogAsync(
                 new Foo(
@@ -134,7 +134,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null);
+        Task<bool> OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -147,7 +147,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null)
+        public Task<bool> OpenFooDialogAsync(object? owner = null, OpenDialogOptions? options = null)
         {
             return OpenDialogAsync(
                 new Foo(
@@ -194,7 +194,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task OpenBarDialogAsync(int number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null);
+        Task<bool> OpenBarDialogAsync(int number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -207,7 +207,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task OpenBarDialogAsync(int number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null)
+        public Task<bool> OpenBarDialogAsync(int number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null)
         {
             return OpenDialogAsync(
                 new Foo.Bar(
@@ -256,7 +256,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task OpenBarDialogAsync(int number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null);
+        Task<bool> OpenBarDialogAsync(int number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -269,7 +269,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task OpenBarDialogAsync(int number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null)
+        public Task<bool> OpenBarDialogAsync(int number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null)
         {
             return OpenDialogAsync(
                 new Foo.Bar(
@@ -318,7 +318,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task OpenBarDialogAsync(int? number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null);
+        Task<bool> OpenBarDialogAsync(int? number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -331,7 +331,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task OpenBarDialogAsync(int? number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null)
+        public Task<bool> OpenBarDialogAsync(int? number, Foo.Argument argument, object? owner = null, OpenDialogOptions? options = null)
         {
             return OpenDialogAsync(
                 new Foo.Bar(

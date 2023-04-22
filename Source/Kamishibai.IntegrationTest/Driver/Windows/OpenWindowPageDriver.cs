@@ -13,17 +13,17 @@ namespace Driver.Windows
     public class OpenWindowPageDriver
     {
         public WindowControl Core { get; }
-        public WPFComboBox SelectedWindowStartupLocation => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("SelectedWindowStartupLocation").FirstOrDefault()?.Dynamic(); 
-        public WPFButtonBase OpenByTypeCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("OpenByTypeCommand").FirstOrDefault()?.Dynamic(); 
-        public WPFButtonBase OpenByGenericTypeCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("OpenByGenericTypeCommand").FirstOrDefault()?.Dynamic(); 
-        public WPFButtonBase OpenByInstanceCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("OpenByInstanceCommand").FirstOrDefault()?.Dynamic(); 
-        public WPFTextBox WindowName1 => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("WindowName1").FirstOrDefault()?.Dynamic(); 
+        public WPFComboBox SelectedWindowStartupLocation => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("SelectedWindowStartupLocation").FirstOrDefault()?.Dynamic()!; 
+        public WPFButtonBase OpenByTypeCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("OpenByTypeCommand").FirstOrDefault()?.Dynamic()!; 
+        public WPFButtonBase OpenByGenericTypeCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("OpenByGenericTypeCommand").FirstOrDefault()?.Dynamic()!; 
+        public WPFButtonBase OpenByInstanceCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("OpenByInstanceCommand").FirstOrDefault()?.Dynamic()!; 
+        public WPFTextBox WindowName1 => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("WindowName1").FirstOrDefault()?.Dynamic()!; 
         public WPFContextMenu WindowName1ContextMenu => new() {Target = WindowName1.AppVar};
-        public WPFButtonBase OpenWithCallbackCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("OpenWithCallbackCommand").FirstOrDefault()?.Dynamic(); 
-        public WPFTextBox WindowName2 => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("WindowName2").FirstOrDefault()?.Dynamic(); 
+        public WPFButtonBase OpenWithCallbackCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("OpenWithCallbackCommand").FirstOrDefault()?.Dynamic()!; 
+        public WPFTextBox WindowName2 => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("WindowName2").FirstOrDefault()?.Dynamic()!; 
         public WPFContextMenu WindowName2ContextMenu => new() {Target = WindowName2.AppVar};
-        public WPFButtonBase OpenWithSafeParameterCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("OpenWithSafeParameterCommand").FirstOrDefault()?.Dynamic(); 
-        public WPFTextBox WindowName3 => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("WindowName3").FirstOrDefault()?.Dynamic(); 
+        public WPFButtonBase OpenWithSafeParameterCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("OpenWithSafeParameterCommand").FirstOrDefault()?.Dynamic()!; 
+        public WPFTextBox WindowName3 => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.Grid").Single().LogicalTree().ByBinding("WindowName3").FirstOrDefault()?.Dynamic()!;
         public WPFContextMenu WindowName3ContextMenu => new() {Target = WindowName3.AppVar};
 
         public OpenWindowPageDriver(WindowControl core)
