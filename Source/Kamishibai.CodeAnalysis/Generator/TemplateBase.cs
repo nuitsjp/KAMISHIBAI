@@ -20,5 +20,7 @@ namespace Kamishibai.CodeAnalysis.Generator
         }
 
         public ToStringInstanceHelper ToStringHelper { get; } = new();
+
+        public abstract string TransformText();
     }
 }
