@@ -25,13 +25,13 @@ public class OpenWindowTest : TestBase
 
         // check blocking
         childWindow.BlockClosing.EmulateCheck(true);
-        childWindow.CloseCommand.EmulateClick();
+        childWindow.CloseWindowCommand.EmulateClick();
         childWindow.IsLoaded.Should().BeTrue();
         childWindow.Message.Text.Should().Be("Closing blocked.");
 
         // close window
         childWindow.BlockClosing.EmulateCheck(false);
-        childWindow.CloseCommand.EmulateClick();
+        childWindow.CloseWindowCommand.EmulateClick();
         childWindow.IsLoaded.Should().BeFalse();
     }
 
@@ -76,7 +76,7 @@ public class OpenWindowTest : TestBase
 
         // close window
         childWindow.Core.Activate();
-        childWindow.CloseCommand.EmulateClick();
+        childWindow.CloseWindowCommand.EmulateClick();
         childWindow.IsLoaded.Should().BeFalse();
     }
 
@@ -100,7 +100,7 @@ public class OpenWindowTest : TestBase
 
         // close window
         childWindow.Core.Activate();
-        childWindow.CloseCommand.EmulateClick();
+        childWindow.CloseWindowCommand.EmulateClick();
         childWindow.IsLoaded.Should().BeFalse();
     }
 
@@ -124,7 +124,7 @@ public class OpenWindowTest : TestBase
 
         // close window
         childWindow.Core.Activate();
-        childWindow.CloseCommand.EmulateClick();
+        childWindow.CloseWindowCommand.EmulateClick();
         childWindow.IsLoaded.Should().BeFalse();
     }
 }

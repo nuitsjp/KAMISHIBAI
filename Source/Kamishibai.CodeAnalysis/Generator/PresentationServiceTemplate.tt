@@ -33,7 +33,7 @@ foreach(var openWindowInfo in OpenWindowInfos)
 foreach(var openDialogInfo in OpenDialogInfos)
 {
 #>
-        Task Open<#= openDialogInfo.NavigationName #>DialogAsync(<#= openDialogInfo.NavigationParameters #>);
+        Task<bool> Open<#= openDialogInfo.NavigationName #>DialogAsync(<#= openDialogInfo.NavigationParameters #>);
 <#  
 }
 #>
@@ -82,7 +82,7 @@ foreach(var openWindowInfo in OpenWindowInfos)
 foreach(var openDialogInfo in OpenDialogInfos)
 {
 #>
-        public Task Open<#= openDialogInfo.NavigationName #>DialogAsync(<#= openDialogInfo.NavigationParameters #>)
+        public Task<bool> Open<#= openDialogInfo.NavigationName #>DialogAsync(<#= openDialogInfo.NavigationParameters #>)
         {
             return OpenDialogAsync(
                 new <#= openDialogInfo.ViewModelName #>(

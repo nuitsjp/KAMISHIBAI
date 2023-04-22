@@ -56,7 +56,7 @@ foreach(var openWindowInfo in OpenWindowInfos)
 foreach(var openDialogInfo in OpenDialogInfos)
 {
 
-            this.Write("        Task Open");
+            this.Write("        Task<bool> Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationName));
             this.Write("DialogAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationParameters));
@@ -112,7 +112,7 @@ foreach(var openWindowInfo in OpenWindowInfos)
 foreach(var openDialogInfo in OpenDialogInfos)
 {
 
-            this.Write("        public Task Open");
+            this.Write("        public Task<bool> Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationName));
             this.Write("DialogAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openDialogInfo.NavigationParameters));

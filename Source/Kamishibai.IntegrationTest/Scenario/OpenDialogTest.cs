@@ -10,7 +10,9 @@ namespace Scenario;
 public class OpenDialogTest : TestBase
 {
     [Test]
-    public void OpenByType()
+    [TestCase(true, ExpectedResult = "True")]
+    [TestCase(false, ExpectedResult = "False")]
+    public string OpenByType(bool dialogResult)
     {
         var mainWindow = app.AttachMainWindow();
         var openDialogPage = app.AttachOpenDialogPage();
@@ -25,19 +27,26 @@ public class OpenDialogTest : TestBase
 
         // check blocking
         childWindow.BlockClosing.EmulateCheck(true);
-        childWindow.CloseCommand.EmulateClick();
+        childWindow.CloseWindowCommand.EmulateClick();
         childWindow.IsLoaded.Should().BeTrue();
         childWindow.Message.Text.Should().Be("Closing blocked.");
 
+        // Set dialog result
+        childWindow.DialogResult.EmulateCheck(dialogResult);
+
         // close window
         childWindow.BlockClosing.EmulateCheck(false);
-        childWindow.CloseCommand.EmulateClick();
+        childWindow.CloseDialogCommand.EmulateClick();
         async.WaitForCompletion();
         childWindow.IsLoaded.Should().BeFalse();
+
+        return openDialogPage.DialogResult.Text;
     }
 
     [Test]
-    public void OpenByGenericType()
+    [TestCase(true, ExpectedResult = "True")]
+    [TestCase(false, ExpectedResult = "False")]
+    public string OpenByGenericType(bool dialogResult)
     {
         var mainWindow = app.AttachMainWindow();
         var openDialogPage = app.AttachOpenDialogPage();
@@ -51,15 +60,22 @@ public class OpenDialogTest : TestBase
         var childWindow = app.AttachChildWindow();
         childWindow.IsLoaded.Should().BeTrue();
 
+        // Set dialog result
+        childWindow.DialogResult.EmulateCheck(dialogResult);
+
         // close window
         childWindow.Core.Activate();
-        childWindow.CloseSpecifiedWindowCommand.EmulateClick();
+        childWindow.CloseDialogCommand.EmulateClick();
         async.WaitForCompletion();
         childWindow.IsLoaded.Should().BeFalse();
+
+        return openDialogPage.DialogResult.Text;
     }
 
     [Test]
-    public void OpenByViewModelInstance()
+    [TestCase(true, ExpectedResult = "True")]
+    [TestCase(false, ExpectedResult = "False")]
+    public string OpenByViewModelInstance(bool dialogResult)
     {
         var mainWindow = app.AttachMainWindow();
         var openDialogPage = app.AttachOpenDialogPage();
@@ -77,16 +93,23 @@ public class OpenDialogTest : TestBase
         childWindow.IsLoaded.Should().BeTrue();
         childWindow.WindowName.Text.Should().Be(windowName);
 
+        // Set dialog result
+        childWindow.DialogResult.EmulateCheck(dialogResult);
+
 
         // close window
         childWindow.Core.Activate();
-        childWindow.CloseCommand.EmulateClick();
+        childWindow.CloseDialogCommand.EmulateClick();
         async.WaitForCompletion();
         childWindow.IsLoaded.Should().BeFalse();
+
+        return openDialogPage.DialogResult.Text;
     }
 
     [Test]
-    public void OpenWithCallbackInitializer()
+    [TestCase(true, ExpectedResult = "True")]
+    [TestCase(false, ExpectedResult = "False")]
+    public string OpenWithCallbackInitializer(bool dialogResult)
     {
         var mainWindow = app.AttachMainWindow();
         var openDialogPage = app.AttachOpenDialogPage();
@@ -103,16 +126,22 @@ public class OpenDialogTest : TestBase
         childWindow.IsLoaded.Should().BeTrue();
         childWindow.WindowName.Text.Should().Be(windowName);
 
+        // Set dialog result
+        childWindow.DialogResult.EmulateCheck(dialogResult);
 
         // close window
         childWindow.Core.Activate();
-        childWindow.CloseCommand.EmulateClick();
+        childWindow.CloseDialogCommand.EmulateClick();
         async.WaitForCompletion();
         childWindow.IsLoaded.Should().BeFalse();
+
+        return openDialogPage.DialogResult.Text;
     }
 
     [Test]
-    public void OpenWithSafeParameter()
+    [TestCase(true, ExpectedResult = "True")]
+    [TestCase(false, ExpectedResult = "False")]
+    public string OpenWithSafeParameter(bool dialogResult)
     {
         var mainWindow = app.AttachMainWindow();
         var openDialogPage = app.AttachOpenDialogPage();
@@ -129,11 +158,15 @@ public class OpenDialogTest : TestBase
         childWindow.IsLoaded.Should().BeTrue();
         childWindow.WindowName.Text.Should().Be(windowName);
 
+        // Set dialog result
+        childWindow.DialogResult.EmulateCheck(dialogResult);
 
         // close window
         childWindow.Core.Activate();
-        childWindow.CloseCommand.EmulateClick();
+        childWindow.CloseDialogCommand.EmulateClick();
         async.WaitForCompletion();
         childWindow.IsLoaded.Should().BeFalse();
+
+        return openDialogPage.DialogResult.Text;
     }
 }

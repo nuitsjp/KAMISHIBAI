@@ -18,10 +18,15 @@ public abstract class ChildViewModel : IDisposingAware
     public bool BlockClosing { get; set; }
     public string Message { get; set; } = string.Empty;
     public string WindowName { get; set; } = "Child Window";
+    public bool DialogResult { get; set; }
 
-    public ICommand CloseCommand => new AsyncRelayCommand(() => _presentationService.CloseWindowAsync());
+    public ICommand CloseWindowCommand => new AsyncRelayCommand(() => _presentationService.CloseWindowAsync());
 
     public AsyncRelayCommand<object> CloseSpecifiedWindowCommand => new (window => _presentationService.CloseWindowAsync(window));
+
+    public ICommand CloseDialogCommand => new AsyncRelayCommand(() => _presentationService.CloseDialogAsync(DialogResult));
+
+
     public void OnDisposing(PreBackwardEventArgs args)
     {
         if (BlockClosing)
