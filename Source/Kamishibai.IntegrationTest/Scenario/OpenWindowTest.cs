@@ -32,6 +32,10 @@ public class OpenWindowTest : TestBase
         // close window
         childWindow.BlockClosing.EmulateCheck(false);
         childWindow.CloseWindowCommand.EmulateClick();
+
+        // Since the window is closed internally and asynchronously,
+        // the window will not be terminated until it waits.
+        Thread.Sleep(TimeSpan.FromMilliseconds(50));
         childWindow.IsLoaded.Should().BeFalse();
     }
 
@@ -52,6 +56,10 @@ public class OpenWindowTest : TestBase
         // close window
         childWindow.Core.Activate();
         childWindow.CloseSpecifiedWindowCommand.EmulateClick();
+
+        // Since the window is closed internally and asynchronously,
+        // the window will not be terminated until it waits.
+        Thread.Sleep(TimeSpan.FromMilliseconds(50));
         childWindow.IsLoaded.Should().BeFalse();
     }
 
@@ -77,6 +85,10 @@ public class OpenWindowTest : TestBase
         // close window
         childWindow.Core.Activate();
         childWindow.CloseWindowCommand.EmulateClick();
+
+        // Since the window is closed internally and asynchronously,
+        // the window will not be terminated until it waits.
+        Thread.Sleep(TimeSpan.FromMilliseconds(50));
         childWindow.IsLoaded.Should().BeFalse();
     }
 
@@ -101,6 +113,10 @@ public class OpenWindowTest : TestBase
         // close window
         childWindow.Core.Activate();
         childWindow.CloseWindowCommand.EmulateClick();
+
+        // Since the window is closed internally and asynchronously,
+        // the window will not be terminated until it waits.
+        Thread.Sleep(TimeSpan.FromMilliseconds(50));
         childWindow.IsLoaded.Should().BeFalse();
     }
 
@@ -125,6 +141,10 @@ public class OpenWindowTest : TestBase
         // close window
         childWindow.Core.Activate();
         childWindow.CloseWindowCommand.EmulateClick();
+
+        // Since the window is closed internally and asynchronously,
+        // the window will not be terminated until it waits.
+        Thread.Sleep(TimeSpan.FromMilliseconds(50));
         childWindow.IsLoaded.Should().BeFalse();
     }
 }

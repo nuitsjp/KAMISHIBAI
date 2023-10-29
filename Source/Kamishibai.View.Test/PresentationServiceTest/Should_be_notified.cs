@@ -1,6 +1,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic.Logging;
 using Xunit;
 
 namespace Kamishibai.View.Test.PresentationServiceTest;
@@ -146,31 +148,92 @@ public class Should_be_notified : PresentationServiceTestBase
         Logs[3].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatedAware.OnNavigated)));
     }
 
-
     [WpfFact]
     public async Task When_close_window()
     {
         #region Setup
+
+        Services.AddSingleton(DefaultFrame);
         Services.AddPresentation<FirstPage, FirstViewModel>();
-        Services.AddPresentation<SecondWindow, SecondViewModel>();
+        Services.AddPresentation<SecondPage, SecondViewModel>();
+        Services.AddPresentation<MainWindow, MainWindowViewModel>();
+        DefaultFrame.Pausing += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Pausing));
+        DefaultFrame.Navigating += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Navigating));
+        DefaultFrame.Navigated += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Navigated));
+        DefaultFrame.Paused += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Paused));
+        DefaultFrame.Disposing += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Disposing));
+        DefaultFrame.Resuming += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Resuming));
+        DefaultFrame.Resumed += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Resumed));
+        DefaultFrame.Disposed += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Disposed));
+        NamedFrame.Pausing += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Pausing));
+        NamedFrame.Navigating += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Navigating));
+        NamedFrame.Navigated += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Navigated));
+        NamedFrame.Paused += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Paused));
+        NamedFrame.Disposing += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Disposing));
+        NamedFrame.Resuming += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Resuming));
+        NamedFrame.Resumed += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Resumed));
+        NamedFrame.Disposed += (sender, args) => AddLog(args.FrameName, sender!, args.SourceViewModel, args.DestinationViewModel, nameof(INavigationFrame.Disposed));
         var service = BuildService();
         #endregion
 
 
-        await service.NavigateAsync<FirstViewModel>(NamedFrame.FrameName);
-        await service.OpenWindowAsync<SecondViewModel>();
+        await service.OpenWindowAsync<MainWindowViewModel>();
+        await service.NavigateAsync<FirstViewModel>();
+        await service.NavigateAsync<SecondViewModel>();
+        Logs.Should().NotBeEmpty();
         Logs.Clear();
-        await service.CloseWindowAsync(SecondWindow.LatestInstance);
+
+        MainWindow.Instance.Should().NotBeNull();
+
+        //If await, the Closed event will be called after the test case ends, so do not await, but wait in Sleep.
+        await service.CloseWindowAsync(MainWindow.Instance);
+        Logs.Should().NotBeEmpty();
+
+        //await service.GoBackAsync(NamedFrame.FrameName);
+
+        await Task.Delay(TimeSpan.FromMilliseconds(50));
 
         // Disposing
-        Logs[0].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposingAsyncAware.OnDisposingAsync)));
-        Logs[1].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposingAware.OnDisposing)));
+        var index = -1;
+        Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposingAsyncAware.OnDisposingAsync)));
+        Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposingAware.OnDisposing)));
+
+        Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposingAsyncAware.OnDisposingAsync)));
+        Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposingAware.OnDisposing)));
+
         // Disposed
-        Logs[2].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposedAsyncAware.OnDisposedAsync)));
-        Logs[3].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposedAware.OnDisposed)));
-        Logs[4].Should().Be((null, typeof(SecondViewModel), null, null, nameof(IDisposable.Dispose)));
+        Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposedAsyncAware.OnDisposedAsync)));
+        Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposedAware.OnDisposed)));
+        Logs[++index].Should().Be((null, typeof(SecondViewModel), null, null, nameof(IDisposable.Dispose)));
+
+        Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposedAsyncAware.OnDisposedAsync)));
+        Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposedAware.OnDisposed)));
+        Logs[++index].Should().Be((null, typeof(MainWindowViewModel), null, null, nameof(IDisposable.Dispose)));
     }
 
+    public class MainWindowViewModel : NotificationViewModel
+    {
+        protected override void OnNotify(IForwardEventArgs args, string memberName = "")
+            => AddLog(args.FrameName, this, args.SourceViewModel, args.DestinationViewModel, memberName);
+
+        protected override void OnNotify(IBackwardEventArgs args, string memberName = "")
+            => AddLog(args.FrameName, this, args.SourceViewModel, args.DestinationViewModel, memberName);
+    }
+    public class MainWindow : Window
+    {
+        public static MainWindow? Instance { get; private set; }
+
+        public MainWindow(
+            NavigationFrame navigationFrame)
+        {
+            Content = navigationFrame;
+            Instance = this;
+            Closed += (sender, args) =>
+            {
+
+            };
+        }
+    }
 
     public class FirstViewModel : NotificationViewModel
     {

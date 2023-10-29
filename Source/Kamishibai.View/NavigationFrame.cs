@@ -71,6 +71,8 @@ public class NavigationFrame : ContentControl, INavigationFrame
 
     public FrameworkElement Current => _pages.Peek;
 
+    public object CurrentDataContext => Current.DataContext;
+
     public bool CanGoBack => _pages.CanPop;
 
     public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider)

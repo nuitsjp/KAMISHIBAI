@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -44,6 +45,8 @@ public class KamishibaiApplicationBuilder<TApplication, TWindow> : IWpfApplicati
         var app = _builder.Build();
         app.Startup += async (_, args) =>
         {
+            WindowService.SetupCloseEvents(args.Window);
+
             if (args.Window.DataContext is null)
             {
                 if (ViewTypeCache.TryGetViewModelType(typeof(TWindow), out var viewModelType))

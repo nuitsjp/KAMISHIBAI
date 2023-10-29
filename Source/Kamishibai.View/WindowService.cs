@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
+using System.Windows.Media;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Application = System.Windows.Application;
 
@@ -46,6 +48,8 @@ public class WindowService : IWindowService
         window.Show();
         PostForwardEventArgs postForwardEventArgs = new(null, null, viewModel);
         await NotifyNavigated(postForwardEventArgs);
+
+        SetupCloseEvents(window);
     }
 
     public Task<bool> OpenDialogAsync(Type viewModelType, object? owner, OpenDialogOptions options)
@@ -69,16 +73,13 @@ public class WindowService : IWindowService
         return OpenDialogAsync(typeof(TViewModel), owner, viewModel, options);
     }
 
-    public async Task CloseWindowAsync(object? window)
+    public Task CloseWindowAsync(object? window)
     {
         Window? target = (Window?)window ?? GetActiveWindow();
-        if (target is null) return;
+        if (target is null) return Task.CompletedTask;
 
-        PreBackwardEventArgs preBackwardEventArgs = new(null, target.DataContext, null);
-        if(await NotifyDisposing(preBackwardEventArgs) is false) return;
         target.Close();
-        PostBackwardEventArgs postBackwardEventArgs = new(null, target.DataContext, null);
-        await NotifyDisposed(postBackwardEventArgs);
+        return Task.CompletedTask;
     }
 
     public async Task CloseDialogAsync(bool dialogResult, object? window)
@@ -86,11 +87,11 @@ public class WindowService : IWindowService
         Window? target = (Window?)window ?? GetActiveWindow();
         if(target is null) return;
 
-        PreBackwardEventArgs preBackwardEventArgs = new(null, target.DataContext, null);
-        if (await NotifyDisposing(preBackwardEventArgs) is false) return;
+        if (await NotifyDisposing(target) is false) return;
+
         target.DialogResult = dialogResult;
-        PostBackwardEventArgs postBackwardEventArgs = new(null, target.DataContext, null);
-        await NotifyDisposed(postBackwardEventArgs);
+
+        await NotifyDisposed(target);
     }
 
     public MessageBoxResult ShowMessage(
@@ -216,6 +217,7 @@ public class WindowService : IWindowService
         window.Owner = (Window?)owner;
 
         await NotifyNavigating(new PreForwardEventArgs(null, null, viewModel));
+        SetupCloseEvents(window);
 
         Exception? exception = null;
         void WindowOnLoaded(object sender, RoutedEventArgs args)
@@ -258,8 +260,62 @@ public class WindowService : IWindowService
         if (args.DestinationViewModel is INavigatedAware navigatedAware) navigatedAware.OnNavigated(args);
     }
 
-    private async Task<bool> NotifyDisposing(PreBackwardEventArgs args)
+    public static void SetupCloseEvents(Window window)
     {
+        window.Closing += Window_Closing;
+        window.Closed += Window_Closed;
+    }
+
+    private static async void Window_Closing(object? sender, CancelEventArgs e)
+    {
+        if (sender is not Window window) return;
+
+        var dialogResult = window.DialogResult;
+
+        // Cancel window closing once
+        e.Cancel = true;
+
+        // If the return value is false, it has already been canceled and returns as is.
+        if (await NotifyDisposing(window) is false) return;
+
+        // Detach this event handler to prevent recursive calls.
+        window.Closing -= Window_Closing;
+
+        // Close the window manually.
+        window.Dispatcher.InvokeAsync(() =>
+        {
+            if (dialogResult != null)
+            {
+                window.DialogResult = dialogResult;
+            }
+            else
+            {
+                window.Close();
+            }
+        });
+    }
+
+    private static async void Window_Closed(object? sender, EventArgs e)
+    {
+        if (sender is not Window window) return;
+
+        await NotifyDisposed(window);
+    }
+
+    private static async Task<bool> NotifyDisposing(Window window)
+    {
+        var navigationFrames = FindNavigationFrame(window);
+        foreach (var navigationFrame in navigationFrames)
+        {
+            if(await NotifyDisposing(navigationFrame.CurrentDataContext) is false) return false;
+        }
+
+        return await NotifyDisposing(window.DataContext);
+    }
+
+    private static async Task<bool> NotifyDisposing(object viewModel)
+    {
+        PreBackwardEventArgs args = new(null, viewModel, null);
         if (args.SourceViewModel is IDisposingAsyncAware disposingAsyncAware)
         {
             await disposingAsyncAware.OnDisposingAsync(args);
@@ -280,11 +336,43 @@ public class WindowService : IWindowService
         return true;
     }
 
-    private async Task NotifyDisposed(PostBackwardEventArgs args)
+    private static async Task NotifyDisposed(Window window)
     {
+        var navigationFrames = FindNavigationFrame(window);
+        foreach (var navigationFrame in navigationFrames)
+        {
+            await NotifyDisposed(navigationFrame.CurrentDataContext);
+        }
+
+        await NotifyDisposed(window.DataContext);
+    }
+
+    private static async Task NotifyDisposed(object viewModel)
+    {
+        PostBackwardEventArgs args = new(null, viewModel, null);
         if (args.SourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync(args);
         if (args.SourceViewModel is IDisposedAware disposedAware) disposedAware.OnDisposed(args);
         if (args.SourceViewModel is IDisposable disposable) disposable.Dispose();
     }
 
+    private static IEnumerable<INavigationFrame> FindNavigationFrame(DependencyObject? startNode)
+    {
+        if (startNode == null)
+            yield break;
+
+        for (var i = 0; i < VisualTreeHelper.GetChildrenCount(startNode); i++)
+        {
+            var child = VisualTreeHelper.GetChild(startNode, i);
+
+            if (child is INavigationFrame navigationFrame)
+            {
+                yield return navigationFrame;
+            }
+
+            foreach (var childOfChild in FindNavigationFrame(child))
+            {
+                yield return childOfChild;
+            }
+        }
+    }
 }
