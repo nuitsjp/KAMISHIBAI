@@ -351,6 +351,7 @@ public class WindowService : IWindowService
     {
         PostBackwardEventArgs args = new(null, viewModel, null);
         if (args.SourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync(args);
+        if (args.SourceViewModel is IDisposedAware disposedAware) disposedAware.OnDisposed(args);
         if (args.SourceViewModel is IDisposable disposable) disposable.Dispose();
     }
 

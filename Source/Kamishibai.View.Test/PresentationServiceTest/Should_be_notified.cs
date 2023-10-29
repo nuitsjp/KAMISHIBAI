@@ -127,6 +127,28 @@ public class Should_be_notified : PresentationServiceTestBase
     }
 
     [WpfFact]
+    public async Task When_open_window()
+    {
+        #region Setup
+        Services.AddPresentation<FirstPage, FirstViewModel>();
+        Services.AddPresentation<SecondWindow, SecondViewModel>();
+        var service = BuildService();
+        #endregion
+
+
+        await service.NavigateAsync<FirstViewModel>(NamedFrame.FrameName);
+        Logs.Clear();
+        await service.OpenWindowAsync<SecondViewModel>();
+
+        // Navigating
+        Logs[0].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatingAsyncAware.OnNavigatingAsync)));
+        Logs[1].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatingAware.OnNavigating)));
+        // Navigated
+        Logs[2].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatedAsyncAware.OnNavigatedAsync)));
+        Logs[3].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatedAware.OnNavigated)));
+    }
+
+    [WpfFact]
     public async Task When_close_window()
     {
         #region Setup
@@ -169,8 +191,8 @@ public class Should_be_notified : PresentationServiceTestBase
 
         //await service.GoBackAsync(NamedFrame.FrameName);
 
-        await Task.Delay(TimeSpan.FromMilliseconds(1000));
-        //Thread.Sleep(TimeSpan.FromMilliseconds(5000));
+        await Task.Delay(TimeSpan.FromMilliseconds(50));
+
         // Disposing
         var index = -1;
         Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposingAsyncAware.OnDisposingAsync)));
@@ -181,9 +203,11 @@ public class Should_be_notified : PresentationServiceTestBase
 
         // Disposed
         Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposedAsyncAware.OnDisposedAsync)));
+        Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposedAware.OnDisposed)));
         Logs[++index].Should().Be((null, typeof(SecondViewModel), null, null, nameof(IDisposable.Dispose)));
 
         Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposedAsyncAware.OnDisposedAsync)));
+        Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposedAware.OnDisposed)));
         Logs[++index].Should().Be((null, typeof(MainWindowViewModel), null, null, nameof(IDisposable.Dispose)));
     }
 
@@ -229,4 +253,14 @@ public class Should_be_notified : PresentationServiceTestBase
             => AddLog(args.FrameName, this, args.SourceViewModel, args.DestinationViewModel, memberName);
     }
     public class SecondPage : UserControl { }
+
+    public class SecondWindow : Window
+    {
+        public static SecondWindow? LatestInstance { get; private set; }
+
+        public SecondWindow()
+        {
+            LatestInstance = this;
+        }
+    }
 }
