@@ -27,7 +27,7 @@ public class OpenDialogTest : TestBase
 
         // check blocking
         childWindow.BlockClosing.EmulateCheck(true);
-        childWindow.CloseWindowCommand.EmulateClick();
+        childWindow.CloseDialogCommand.EmulateClick();
         childWindow.IsLoaded.Should().BeTrue();
         childWindow.Message.Text.Should().Be("Closing blocked.");
 
@@ -69,6 +69,9 @@ public class OpenDialogTest : TestBase
         async.WaitForCompletion();
         childWindow.IsLoaded.Should().BeFalse();
 
+        // Since the window is closed internally and asynchronously,
+        // the window will not be terminated until it waits.
+        Thread.Sleep(TimeSpan.FromMilliseconds(500));
         return openDialogPage.DialogResult.Text;
     }
 

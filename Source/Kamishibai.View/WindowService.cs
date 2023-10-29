@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Application = System.Windows.Application;
 
@@ -46,6 +47,8 @@ public class WindowService : IWindowService
         window.Show();
         PostForwardEventArgs postForwardEventArgs = new(null, null, viewModel);
         await NotifyNavigated(postForwardEventArgs);
+
+        SetupCloseEvents(window);
     }
 
     public Task<bool> OpenDialogAsync(Type viewModelType, object? owner, OpenDialogOptions options)
@@ -69,16 +72,13 @@ public class WindowService : IWindowService
         return OpenDialogAsync(typeof(TViewModel), owner, viewModel, options);
     }
 
-    public async Task CloseWindowAsync(object? window)
+    public Task CloseWindowAsync(object? window)
     {
         Window? target = (Window?)window ?? GetActiveWindow();
-        if (target is null) return;
+        if (target is null) return Task.CompletedTask;
 
-        PreBackwardEventArgs preBackwardEventArgs = new(null, target.DataContext, null);
-        if(await NotifyDisposing(preBackwardEventArgs) is false) return;
         target.Close();
-        PostBackwardEventArgs postBackwardEventArgs = new(null, target.DataContext, null);
-        await NotifyDisposed(postBackwardEventArgs);
+        return Task.CompletedTask;
     }
 
     public async Task CloseDialogAsync(bool dialogResult, object? window)
@@ -216,6 +216,7 @@ public class WindowService : IWindowService
         window.Owner = (Window?)owner;
 
         await NotifyNavigating(new PreForwardEventArgs(null, null, viewModel));
+        SetupCloseEvents(window);
 
         Exception? exception = null;
         void WindowOnLoaded(object sender, RoutedEventArgs args)
@@ -258,7 +259,50 @@ public class WindowService : IWindowService
         if (args.DestinationViewModel is INavigatedAware navigatedAware) navigatedAware.OnNavigated(args);
     }
 
-    private async Task<bool> NotifyDisposing(PreBackwardEventArgs args)
+    public static void SetupCloseEvents(Window window)
+    {
+        window.Closing += Window_Closing;
+        window.Closed += Window_Closed;
+    }
+
+    private static async void Window_Closing(object? sender, CancelEventArgs e)
+    {
+        if (sender is not Window window) return;
+
+        var dialogResult = window.DialogResult;
+
+        // Cancel window closing once
+        e.Cancel = true;
+
+        PreBackwardEventArgs preBackwardEventArgs = new(null, window.DataContext, null);
+        // If the return value is false, it has already been canceled and returns as is.
+        if (await NotifyDisposing(preBackwardEventArgs) is false) return;
+
+        // Detach this event handler to prevent recursive calls.
+        window.Closing -= Window_Closing;
+
+        // Close the window manually.
+        window.Dispatcher.InvokeAsync(() =>
+        {
+            if (dialogResult != null)
+            {
+                window.DialogResult = dialogResult;
+            }
+            else
+            {
+                window.Close();
+            }
+        });
+    }
+
+    private static async void Window_Closed(object? sender, EventArgs e)
+    {
+        if (sender is not Window window) return;
+
+        await NotifyDisposed(new PostBackwardEventArgs(null, window.DataContext, null));
+    }
+
+    private static async Task<bool> NotifyDisposing(PreBackwardEventArgs args)
     {
         if (args.SourceViewModel is IDisposingAsyncAware disposingAsyncAware)
         {
@@ -280,7 +324,7 @@ public class WindowService : IWindowService
         return true;
     }
 
-    private async Task NotifyDisposed(PostBackwardEventArgs args)
+    private static async Task NotifyDisposed(PostBackwardEventArgs args)
     {
         if (args.SourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync(args);
         if (args.SourceViewModel is IDisposable disposable) disposable.Dispose();
