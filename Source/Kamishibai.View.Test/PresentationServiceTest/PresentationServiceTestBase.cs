@@ -12,9 +12,10 @@ public abstract class PresentationServiceTestBase
     protected Mock<IWindowService> WindowService { get; } = new();
     protected IPresentationService BuildService()
     {
+        var serviceProvider = Services.BuildServiceProvider();
         return new PresentationService(
-            Services.BuildServiceProvider(),
+            serviceProvider,
             NavigationFrameProvider,
-            WindowService.Object);
+            new WindowService(serviceProvider));
     }
 }

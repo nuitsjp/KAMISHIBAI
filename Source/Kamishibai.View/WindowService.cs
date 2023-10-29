@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Media;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Application = System.Windows.Application;
 
@@ -86,11 +87,11 @@ public class WindowService : IWindowService
         Window? target = (Window?)window ?? GetActiveWindow();
         if(target is null) return;
 
-        PreBackwardEventArgs preBackwardEventArgs = new(null, target.DataContext, null);
-        if (await NotifyDisposing(preBackwardEventArgs) is false) return;
+        if (await NotifyDisposing(target) is false) return;
+
         target.DialogResult = dialogResult;
-        PostBackwardEventArgs postBackwardEventArgs = new(null, target.DataContext, null);
-        await NotifyDisposed(postBackwardEventArgs);
+
+        await NotifyDisposed(target);
     }
 
     public MessageBoxResult ShowMessage(
@@ -274,9 +275,8 @@ public class WindowService : IWindowService
         // Cancel window closing once
         e.Cancel = true;
 
-        PreBackwardEventArgs preBackwardEventArgs = new(null, window.DataContext, null);
         // If the return value is false, it has already been canceled and returns as is.
-        if (await NotifyDisposing(preBackwardEventArgs) is false) return;
+        if (await NotifyDisposing(window) is false) return;
 
         // Detach this event handler to prevent recursive calls.
         window.Closing -= Window_Closing;
@@ -299,11 +299,23 @@ public class WindowService : IWindowService
     {
         if (sender is not Window window) return;
 
-        await NotifyDisposed(new PostBackwardEventArgs(null, window.DataContext, null));
+        await NotifyDisposed(window);
     }
 
-    private static async Task<bool> NotifyDisposing(PreBackwardEventArgs args)
+    private static async Task<bool> NotifyDisposing(Window window)
     {
+        var navigationFrames = FindNavigationFrame(window);
+        foreach (var navigationFrame in navigationFrames)
+        {
+            if(await NotifyDisposing(navigationFrame.CurrentDataContext) is false) return false;
+        }
+
+        return await NotifyDisposing(window.DataContext);
+    }
+
+    private static async Task<bool> NotifyDisposing(object viewModel)
+    {
+        PreBackwardEventArgs args = new(null, viewModel, null);
         if (args.SourceViewModel is IDisposingAsyncAware disposingAsyncAware)
         {
             await disposingAsyncAware.OnDisposingAsync(args);
@@ -324,10 +336,42 @@ public class WindowService : IWindowService
         return true;
     }
 
-    private static async Task NotifyDisposed(PostBackwardEventArgs args)
+    private static async Task NotifyDisposed(Window window)
     {
+        var navigationFrames = FindNavigationFrame(window);
+        foreach (var navigationFrame in navigationFrames)
+        {
+            await NotifyDisposed(navigationFrame.CurrentDataContext);
+        }
+
+        await NotifyDisposed(window.DataContext);
+    }
+
+    private static async Task NotifyDisposed(object viewModel)
+    {
+        PostBackwardEventArgs args = new(null, viewModel, null);
         if (args.SourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync(args);
         if (args.SourceViewModel is IDisposable disposable) disposable.Dispose();
     }
 
+    private static IEnumerable<INavigationFrame> FindNavigationFrame(DependencyObject? startNode)
+    {
+        if (startNode == null)
+            yield break;
+
+        for (var i = 0; i < VisualTreeHelper.GetChildrenCount(startNode); i++)
+        {
+            var child = VisualTreeHelper.GetChild(startNode, i);
+
+            if (child is INavigationFrame navigationFrame)
+            {
+                yield return navigationFrame;
+            }
+
+            foreach (var childOfChild in FindNavigationFrame(child))
+            {
+                yield return childOfChild;
+            }
+        }
+    }
 }
