@@ -3,7 +3,7 @@
 /// <summary>
 /// WindowHandle is a wrapper class for Window.
 /// </summary>
-public interface IWindowHandle : IDisposable
+public interface IWindow : IDisposable
 {
     /// <summary>
     /// Windows is closed.

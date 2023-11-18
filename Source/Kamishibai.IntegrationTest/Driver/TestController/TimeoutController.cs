@@ -2,7 +2,6 @@
 using Codeer.Friendly.Windows;
 using NUnit.Framework;
 using System.Diagnostics;
-using System.Threading;
 
 namespace Driver.TestController
 {

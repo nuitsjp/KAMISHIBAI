@@ -3,9 +3,9 @@
 namespace Kamishibai;
 
 /// <summary>
-/// WindowHandle is a wrapper class for <see cref="Window"/> to implement <see cref="IWindowHandle"/>.
+/// WindowHandle is a wrapper class for <see cref="Window"/> to implement <see cref="IWindow"/>.
 /// </summary>
-public class WindowHandle : IWindowHandle
+public class WindowHandle : IWindow
 {
     /// <summary>
     /// Window instance.

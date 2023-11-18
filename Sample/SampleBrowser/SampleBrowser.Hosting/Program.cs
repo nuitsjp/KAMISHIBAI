@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using System.Windows.Automation;
-using Kamishibai;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Kamishibai;
 using Microsoft.Extensions.Hosting;
 using SampleBrowser.View;
 using SampleBrowser.View.Page;

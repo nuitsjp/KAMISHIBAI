@@ -1,6 +1,5 @@
 ﻿using GettingStarted;
 using Kamishibai;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 // Create a builder by specifying the application and main window.

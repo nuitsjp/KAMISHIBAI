@@ -1,5 +1,4 @@
 ﻿using Codeer.TestAssistant.GeneratorToolKit;
-using System.Collections.Generic;
 
 namespace Driver.InTarget
 {

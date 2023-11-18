@@ -2,10 +2,10 @@
 
 public interface IWindowService
 {
-    Task<IWindowHandle> OpenWindowAsync(Type viewModelType, object? owner, OpenWindowOptions options);
-    Task<IWindowHandle> OpenWindowAsync<TViewModel>(object? owner, OpenWindowOptions options);
-    Task<IWindowHandle> OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner, OpenWindowOptions options) where TViewModel : notnull;
-    Task<IWindowHandle> OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner, OpenWindowOptions options);
+    Task<IWindow> OpenWindowAsync(Type viewModelType, object? owner, OpenWindowOptions options);
+    Task<IWindow> OpenWindowAsync<TViewModel>(object? owner, OpenWindowOptions options);
+    Task<IWindow> OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner, OpenWindowOptions options) where TViewModel : notnull;
+    Task<IWindow> OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner, OpenWindowOptions options);
     Task<bool> OpenDialogAsync(Type viewModelType, object? owner, OpenDialogOptions options);
     Task<bool> OpenDialogAsync<TViewModel>(object? owner, OpenDialogOptions options);
     Task<bool> OpenDialogAsync<TViewModel>(TViewModel viewModel, object? owner, OpenDialogOptions options) where TViewModel : notnull;

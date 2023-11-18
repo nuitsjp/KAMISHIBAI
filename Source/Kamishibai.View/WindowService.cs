@@ -15,28 +15,28 @@ public class WindowService : IWindowService
         _serviceProvider = serviceProvider;
     }
 
-    public Task<IWindowHandle> OpenWindowAsync(Type viewModelType, object? owner, OpenWindowOptions options)
+    public Task<IWindow> OpenWindowAsync(Type viewModelType, object? owner, OpenWindowOptions options)
     {
         var viewModel = _serviceProvider.GetService(viewModelType)!;
         return OpenWindowAsync(viewModelType, owner, viewModel, options);
     }
 
-    public Task<IWindowHandle> OpenWindowAsync<TViewModel>(object? owner, OpenWindowOptions options)
+    public Task<IWindow> OpenWindowAsync<TViewModel>(object? owner, OpenWindowOptions options)
         => OpenWindowAsync(typeof(TViewModel), owner, options);
 
-    public Task<IWindowHandle> OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner, OpenWindowOptions options) where TViewModel : notnull
+    public Task<IWindow> OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner, OpenWindowOptions options) where TViewModel : notnull
     {
         return OpenWindowAsync(typeof(TViewModel), owner, viewModel, options);
     }
 
-    public Task<IWindowHandle> OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner, OpenWindowOptions options)
+    public Task<IWindow> OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner, OpenWindowOptions options)
     {
         var viewModel = (TViewModel)_serviceProvider.GetService(typeof(TViewModel))!;
         init(viewModel);
         return OpenWindowAsync(typeof(TViewModel), owner, viewModel, options);
     }
 
-    public async Task<IWindowHandle> OpenWindowAsync(Type viewModelType, object? owner, object viewModel, OpenWindowOptions options)
+    public async Task<IWindow> OpenWindowAsync(Type viewModelType, object? owner, object viewModel, OpenWindowOptions options)
     {
         var window = GetWindow(viewModelType);
         window.DataContext = viewModel;

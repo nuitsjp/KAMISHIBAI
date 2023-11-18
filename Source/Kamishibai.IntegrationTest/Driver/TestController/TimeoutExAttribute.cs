@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Driver.TestController
+﻿namespace Driver.TestController
 {
     public class TimeoutExAttribute : Attribute
     {

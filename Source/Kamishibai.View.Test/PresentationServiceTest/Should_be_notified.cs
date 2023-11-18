@@ -2,7 +2,6 @@ using System.Windows;
 using System.Windows.Controls;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualBasic.Logging;
 using Xunit;
 
 namespace Kamishibai.View.Test.PresentationServiceTest;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using ControlzEx.Theming;
 using KamishibaiApp.ViewModel.Service;
 using MahApps.Metro.Theming;

@@ -1,7 +1,6 @@
 ﻿using Codeer.Friendly.Windows;
 using Driver.TestController;
 using NUnit.Framework;
-using System.Threading;
 
 namespace Scenario
 {

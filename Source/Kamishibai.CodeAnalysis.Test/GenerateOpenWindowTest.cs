@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Kamishibai.CodeAnalysis.Test;
@@ -28,7 +27,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task<IWindowHandle> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
+        Task<IWindow> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -41,7 +40,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task<IWindowHandle> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null)
+        public Task<IWindow> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null)
         {
             return OpenWindowAsync(
                 new Foo(
@@ -81,7 +80,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task<IWindowHandle> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
+        Task<IWindow> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -94,7 +93,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task<IWindowHandle> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null)
+        public Task<IWindow> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null)
         {
             return OpenWindowAsync(
                 new Foo(
@@ -134,7 +133,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task<IWindowHandle> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
+        Task<IWindow> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -147,7 +146,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task<IWindowHandle> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null)
+        public Task<IWindow> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null)
         {
             return OpenWindowAsync(
                 new Foo(
@@ -194,7 +193,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task<IWindowHandle> OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
+        Task<IWindow> OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -207,7 +206,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task<IWindowHandle> OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null)
+        public Task<IWindow> OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null)
         {
             return OpenWindowAsync(
                 new Foo.Bar(
@@ -256,7 +255,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task<IWindowHandle> OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
+        Task<IWindow> OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -269,7 +268,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task<IWindowHandle> OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null)
+        public Task<IWindow> OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null)
         {
             return OpenWindowAsync(
                 new Foo.Bar(
@@ -318,7 +317,7 @@ namespace TestProject
 {
     public partial interface IPresentationService : IPresentationServiceBase
     {
-        Task<IWindowHandle> OpenBarWindowAsync(int? number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
+        Task<IWindow> OpenBarWindowAsync(int? number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
     }
 
     public class PresentationService : PresentationServiceBase, IPresentationService
@@ -331,7 +330,7 @@ namespace TestProject
             _serviceProvider = serviceProvider;
         }
 
-        public Task<IWindowHandle> OpenBarWindowAsync(int? number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null)
+        public Task<IWindow> OpenBarWindowAsync(int? number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null)
         {
             return OpenWindowAsync(
                 new Foo.Bar(

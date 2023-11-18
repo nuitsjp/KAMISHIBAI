@@ -1,6 +1,5 @@
 ﻿using Codeer.TestAssistant.GeneratorToolKit;
 using RM.Friendly.WPFStandardControls;
-using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;

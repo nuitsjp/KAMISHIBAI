@@ -26,7 +26,7 @@ foreach(var navigationInfo in NavigationInfos)
 foreach(var openWindowInfo in OpenWindowInfos)
 {
 #>
-        Task<IWindowHandle> Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>);
+        Task<IWindow> Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>);
 <#  
 }
 
@@ -67,7 +67,7 @@ foreach(var navigationInfo in NavigationInfos)
 foreach(var openWindowInfo in OpenWindowInfos)
 {
 #>
-        public Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>)
+        public Task<IWindow> Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>)
         {
             return OpenWindowAsync(
                 new <#= openWindowInfo.ViewModelName #>(

@@ -2,9 +2,7 @@
 using Codeer.Friendly.Windows.Grasp;
 using Codeer.Friendly.Windows.NativeStandardControls;
 using Codeer.TestAssistant.GeneratorToolKit;
-using System;
-using System.Linq;
-using System.Threading;
+
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
 
