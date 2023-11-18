@@ -10,10 +10,10 @@ public interface IPresentationServiceBase
     bool CanGoBack(string frameName = "");
     INavigationFrame GetNavigationFrame(string frameName = "");
 
-    Task OpenWindowAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null);
-    Task OpenWindowAsync<TViewModel>(object? owner = null, OpenWindowOptions? options = null);
-    Task OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenWindowOptions? options = null) where TViewModel : notnull;
-    Task OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenWindowOptions? options = null);
+    Task<IWindowHandle> OpenWindowAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null);
+    Task<IWindowHandle> OpenWindowAsync<TViewModel>(object? owner = null, OpenWindowOptions? options = null);
+    Task<IWindowHandle> OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenWindowOptions? options = null) where TViewModel : notnull;
+    Task<IWindowHandle> OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenWindowOptions? options = null);
     Task CloseWindowAsync(object? window = null);
 
     Task<bool> OpenDialogAsync(Type viewModelType, object? owner = null, OpenDialogOptions? options = null);

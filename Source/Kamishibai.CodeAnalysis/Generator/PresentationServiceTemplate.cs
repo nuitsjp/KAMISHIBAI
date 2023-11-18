@@ -45,7 +45,7 @@ foreach(var navigationInfo in NavigationInfos)
 foreach(var openWindowInfo in OpenWindowInfos)
 {
 
-            this.Write("        Task Open");
+            this.Write("        Task<IWindowHandle> Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationName));
             this.Write("WindowAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationParameters));
@@ -96,7 +96,7 @@ foreach(var navigationInfo in NavigationInfos)
 foreach(var openWindowInfo in OpenWindowInfos)
 {
 
-            this.Write("        public Task Open");
+            this.Write("        public Task<IWindowHandle> Open");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationName));
             this.Write("WindowAsync(");
             this.Write(this.ToStringHelper.ToStringWithCulture(openWindowInfo.NavigationParameters));

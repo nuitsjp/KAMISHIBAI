@@ -26,7 +26,7 @@ foreach(var navigationInfo in NavigationInfos)
 foreach(var openWindowInfo in OpenWindowInfos)
 {
 #>
-        Task Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>);
+        Task<IWindowHandle> Open<#= openWindowInfo.NavigationName #>WindowAsync(<#= openWindowInfo.NavigationParameters #>);
 <#  
 }
 

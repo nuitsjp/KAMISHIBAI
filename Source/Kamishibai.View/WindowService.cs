@@ -15,28 +15,28 @@ public class WindowService : IWindowService
         _serviceProvider = serviceProvider;
     }
 
-    public Task OpenWindowAsync(Type viewModelType, object? owner, OpenWindowOptions options)
+    public Task<IWindowHandle> OpenWindowAsync(Type viewModelType, object? owner, OpenWindowOptions options)
     {
         var viewModel = _serviceProvider.GetService(viewModelType)!;
         return OpenWindowAsync(viewModelType, owner, viewModel, options);
     }
 
-    public Task OpenWindowAsync<TViewModel>(object? owner, OpenWindowOptions options)
+    public Task<IWindowHandle> OpenWindowAsync<TViewModel>(object? owner, OpenWindowOptions options)
         => OpenWindowAsync(typeof(TViewModel), owner, options);
 
-    public Task OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner, OpenWindowOptions options) where TViewModel : notnull
+    public Task<IWindowHandle> OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner, OpenWindowOptions options) where TViewModel : notnull
     {
         return OpenWindowAsync(typeof(TViewModel), owner, viewModel, options);
     }
 
-    public Task OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner, OpenWindowOptions options)
+    public Task<IWindowHandle> OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner, OpenWindowOptions options)
     {
         var viewModel = (TViewModel)_serviceProvider.GetService(typeof(TViewModel))!;
         init(viewModel);
         return OpenWindowAsync(typeof(TViewModel), owner, viewModel, options);
     }
 
-    public async Task OpenWindowAsync(Type viewModelType, object? owner, object viewModel, OpenWindowOptions options)
+    public async Task<IWindowHandle> OpenWindowAsync(Type viewModelType, object? owner, object viewModel, OpenWindowOptions options)
     {
         var window = GetWindow(viewModelType);
         window.DataContext = viewModel;
@@ -50,6 +50,8 @@ public class WindowService : IWindowService
         await NotifyNavigated(postForwardEventArgs);
 
         SetupCloseEvents(window);
+
+        return new WindowHandle(window);
     }
 
     public Task<bool> OpenDialogAsync(Type viewModelType, object? owner, OpenDialogOptions options)

@@ -56,16 +56,16 @@ public class PresentationServiceBase : IPresentationServiceBase
     public INavigationFrame GetNavigationFrame(string frameName = "") =>
         _navigationFrameProvider.GetNavigationFrame(frameName);
 
-    public Task OpenWindowAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null)
+    public Task<IWindowHandle> OpenWindowAsync(Type viewModelType, object? owner = null, OpenWindowOptions? options = null)
         => _windowService.OpenWindowAsync(viewModelType, owner, options ?? new OpenWindowOptions());
 
-    public Task OpenWindowAsync<TViewModel>(object? owner = null, OpenWindowOptions? options = null)
+    public Task<IWindowHandle> OpenWindowAsync<TViewModel>(object? owner = null, OpenWindowOptions? options = null)
         => _windowService.OpenWindowAsync<TViewModel>(owner, options ?? new OpenWindowOptions());
 
-    public Task OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenWindowOptions? options = null) where TViewModel : notnull
+    public Task<IWindowHandle> OpenWindowAsync<TViewModel>(TViewModel viewModel, object? owner = null, OpenWindowOptions? options = null) where TViewModel : notnull
         => _windowService.OpenWindowAsync(viewModel, owner, options ?? new OpenWindowOptions());
 
-    public Task OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenWindowOptions? options = null)
+    public Task<IWindowHandle> OpenWindowAsync<TViewModel>(Action<TViewModel> init, object? owner = null, OpenWindowOptions? options = null)
         => _windowService.OpenWindowAsync(init, owner, options ?? new OpenWindowOptions());
 
     public Task<bool> OpenDialogAsync(Type viewModelType, object? owner = null, OpenDialogOptions? options = null)
