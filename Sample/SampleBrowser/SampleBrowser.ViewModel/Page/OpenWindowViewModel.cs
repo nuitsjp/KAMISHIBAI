@@ -49,6 +49,25 @@ public class OpenWindowViewModel : IDisposingAware, IPausingAware
         new(owner => _presentationService.OpenWindowWithArgumentsWindowAsync(WindowName3, owner, new OpenWindowOptions { WindowStartupLocation = SelectedWindowStartupLocation })
             .AddTo(_disposable));
 
+    public RelayCommand ActivateCommand => new(() => InvokeWindowAction(x => x.Activate()));
+    public RelayCommand HideCommand => new(() => InvokeWindowAction(x => x.Hide()));
+    public RelayCommand ShowCommand => new(() => InvokeWindowAction(x => x.Show()));
+    public RelayCommand MinimizeCommand => new(() => InvokeWindowAction(x => x.Minimize()));
+    public RelayCommand MaximizeCommand => new(() => InvokeWindowAction(x => x.Maximize()));
+    public RelayCommand RestoreCommand => new(() => InvokeWindowAction(x => x.Restore()));
+    public RelayCommand CloseCommand => new(() => InvokeWindowAction(x => x.Close()));
+
+    private void InvokeWindowAction(Action<IWindow> action)
+    {
+        foreach (var disposable in _disposable)
+        {
+            if (disposable is IWindow { IsClosed: false } window)
+            {
+                action(window);
+            }
+        }
+    }
+
     public void OnDisposing(PreBackwardEventArgs args)
     {
         _disposable.Dispose();

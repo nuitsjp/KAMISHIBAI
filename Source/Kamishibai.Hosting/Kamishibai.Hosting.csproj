@@ -20,7 +20,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>2.3.0</Version>
+		<Version>2.4.0</Version>
 		<NoPackageAnalysis>true</NoPackageAnalysis>
 		<PackageIcon>nuits.jp.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

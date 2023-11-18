@@ -41,6 +41,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -65,6 +66,16 @@
                 <Button Grid.Row="4" Grid.Column="0" Content="Open" Command="{Binding OpenWithSafeParameterCommand}" CommandParameter="{kamishibai:Window}"/>
                 <TextBlock Grid.Row="4" Grid.Column="1"  Text="with Safe Parameter."/>
                 <TextBox Grid.Row="4" Grid.Column="2"  Text="{Binding WindowName3}" Cursor="Arrow"/>
+
+                <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="20">
+                    <Button Content="Activate" Command="{Binding ActivateCommand}"/>
+                    <Button Content="Hide" Command="{Binding HideCommand}"/>
+                    <Button Content="Show" Command="{Binding ShowCommand}"/>
+                    <Button Content="Minimize" Command="{Binding MinimizeCommand}"/>
+                    <Button Content="Maximize" Command="{Binding MaximizeCommand}"/>
+                    <Button Content="Restore" Command="{Binding RestoreCommand}"/>
+                    <Button Content="Close" Command="{Binding CloseCommand}"/>
+                </StackPanel>
             </Grid>
         </Border>
     </Grid>
