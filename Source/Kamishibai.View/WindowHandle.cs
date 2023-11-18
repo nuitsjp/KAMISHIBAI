@@ -13,11 +13,6 @@ public class WindowHandle : IWindowHandle
     private readonly Window _window;
 
     /// <summary>
-    /// Window is closed.
-    /// </summary>
-    private bool _closed;
-
-    /// <summary>
     /// Constructor.
     /// </summary>
     /// <param name="window"></param>
@@ -32,9 +27,9 @@ public class WindowHandle : IWindowHandle
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void OnClosed(object sender, EventArgs e)
+    private void OnClosed(object? sender, EventArgs e)
     {
-        _closed = true;
+        IsClosed = true;
     }
 
 
@@ -47,11 +42,16 @@ public class WindowHandle : IWindowHandle
     }
 
     /// <summary>
+    /// Window is closed.
+    /// </summary>
+    public bool IsClosed { get; private set; }
+
+    /// <summary>
     /// Close window.
     /// </summary>
     public void Close()
     {
-        if (_closed)
+        if (IsClosed)
         {
             return;
         }
