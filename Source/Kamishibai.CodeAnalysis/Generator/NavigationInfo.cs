@@ -25,7 +25,7 @@ public class NavigationInfo
         var symbol = model.GetDeclaredSymbol(type)!;
         NavigationName = symbol.Name.ToNavigationName();
         ViewModelName = symbol.ToString();
-        Parameters = new List<NavigationParameter>();
+        Parameters = type is ClassDeclarationSyntax c && c.HasPrimaryConstructor() ? c.CreateNavigationParameters(model).ToList() : [];
     }
 
     public string NavigationName { get; }
