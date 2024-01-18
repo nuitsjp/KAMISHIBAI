@@ -11,6 +11,10 @@ public static class SourceGeneratorExtensions
         return 0 <= index ? value.Substring(0, index) : value;
     }
 
+    public static bool HasPrimaryConstructor(
+        this ClassDeclarationSyntax classDeclarationSyntax)
+        => classDeclarationSyntax.ParameterList is not null;
+
     public static bool HasConstructors(
         this TypeDeclarationSyntax typeDeclarationSyntax)
     {
@@ -39,16 +43,22 @@ public static class SourceGeneratorExtensions
     }
 
     public static IEnumerable<NavigationParameter> CreateNavigationParameters(this ConstructorDeclarationSyntax constructorDeclarationSyntax, SemanticModel semanticModel)
+        => constructorDeclarationSyntax.ParameterList.Parameters.Select(p => CreateNavigationParameter(p, semanticModel));
+
+    public static IEnumerable<NavigationParameter> CreateNavigationParameters(this ClassDeclarationSyntax classDeclarationSyntax, SemanticModel semanticModel)
     {
-        foreach (var parameterSyntax in constructorDeclarationSyntax.ParameterList.Parameters)
-        {
-            var info = semanticModel.GetSymbolInfo(parameterSyntax.Type!).Symbol;
-            var typeName = info?.ToString() ?? ((IdentifierNameSyntax)parameterSyntax.Type!).Identifier.Text;
-            var isInjection = parameterSyntax.AttributeLists
-                .SelectMany(x => x.Attributes)
-                .Any(x => x.Name.ToString() is "Inject" or "InjectAttribute");
-            yield return new NavigationParameter(typeName, parameterSyntax.Identifier.Text, isInjection);
-        }
+        var parameters = classDeclarationSyntax.ParameterList?.Parameters ?? throw new ArgumentException($"Class '{classDeclarationSyntax.Identifier.ValueText}' does not have a primary constructor");
+        return parameters.Select(p => CreateNavigationParameter(p, semanticModel));
+    }
+
+    private static NavigationParameter CreateNavigationParameter(this ParameterSyntax parameterSyntax, SemanticModel semanticModel)
+    {
+        var info = semanticModel.GetSymbolInfo(parameterSyntax.Type!).Symbol;
+        var typeName = info?.ToString() ?? ((IdentifierNameSyntax)parameterSyntax.Type!).Identifier.Text;
+        var isInjection = parameterSyntax.AttributeLists
+            .SelectMany(x => x.Attributes)
+            .Any(x => x.Name.ToString() is "Inject" or "InjectAttribute");
+        return new NavigationParameter(typeName, parameterSyntax.Identifier.Text, isInjection);
     }
 
     public static bool Empty<T>(this IEnumerable<T> enumerable) => enumerable.Any() is false;
