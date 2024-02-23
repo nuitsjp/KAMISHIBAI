@@ -7,22 +7,17 @@ using Wpf.Extensions.Hosting;
 
 namespace Kamishibai;
 
-public class KamishibaiApplicationBuilder<TApplication, TWindow> : IWpfApplicationBuilder<TApplication, TWindow>
-    where TApplication : Application 
+public class KamishibaiApplicationBuilder<TApplication, TWindow>(IWpfApplicationBuilder<TApplication, TWindow> builder)
+    : IWpfApplicationBuilder<TApplication, TWindow>
+    where TApplication : Application
     where TWindow : Window
 {
-    private readonly IWpfApplicationBuilder<TApplication, TWindow> _builder;
-
-    public KamishibaiApplicationBuilder(IWpfApplicationBuilder<TApplication, TWindow> builder)
-    {
-        _builder = builder;
-    }
-
-    public IHostEnvironment Environment => _builder.Environment;
-    public IServiceCollection Services => _builder.Services;
-    public ConfigurationManager Configuration => _builder.Configuration;
-    public ILoggingBuilder Logging => _builder.Logging;
-    public ConfigureHostBuilder Host => _builder.Host;
+    public HostBuilder HostBuilder => builder.HostBuilder;
+    public IHostEnvironment Environment => builder.Environment;
+    public IServiceCollection Services => builder.Services;
+    public ConfigurationManager Configuration => builder.Configuration;
+    public ILoggingBuilder Logging => builder.Logging;
+    public ConfigureHostBuilder Host => builder.Host;
     public WpfApplication<TApplication, TWindow> Build()
     {
         Services.AddSingleton<INavigationFrameProvider, NavigationFrameProvider>();
@@ -41,7 +36,7 @@ public class KamishibaiApplicationBuilder<TApplication, TWindow> : IWpfApplicati
             Services.AddTransient(presentationServiceInterface, implementation);
         }
 
-        var app = _builder.Build();
+        var app = builder.Build();
         app.Startup += async (_, args) =>
         {
             WindowService.SetupCloseEvents(args.Window);
