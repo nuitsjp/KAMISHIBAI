@@ -108,17 +108,17 @@ Subsequent events that are cancelled will not be notified.
 |1|any|INavigationFrame|Disposing|✅|
 |2|Source ViewModel|IDisposingAware|OnDisposing|✅|
 |3|Source ViewModel|IDisposingAsyncAware|OnDisposingAsync|✅|
-|4|any|INavigationFrame|INavigationFrame|✅|
+|4|any|INavigationFrame|Resuming|✅|
 |5|Destination ViewModel|IResumingAware|OnResuming|✅|
 |6|Destination ViewModel|IResumingAsyncAware|OnResumingAsync|✅|
 |7|-|Go Back|-|-|
 |8|any|INavigationFrame|Resumed|-|
 |9|Destination ViewModel|IResumedAware|OnResumed|-|
 |10|Destination ViewModel|IResumedAsyncAware|OnResumedAsync|-|
-|11|Source ViewModel|IDisposable|Dispose|-|
+|11|any|INavigationFrame|Disposed|-|
 |12|Source ViewModel|IDisposedAware|OnDisposed|-|
 |13|Source ViewModel|IDisposedAsyncAware|OnDisposedAsync|-|
-|14|any|INavigationFrame|Disposed|-|
+|14|Source ViewModel|IDisposable|Dispose|-|
 
 No. 1 to 6 can cancel navigation.
 
