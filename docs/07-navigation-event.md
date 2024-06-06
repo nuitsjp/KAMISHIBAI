@@ -73,19 +73,19 @@ The same is true in the case of return.
 
 |Order|Notification|Interface|Member|Cancel|
 |--:|:--|--|--|:-:|
-|1|Source ViewModel|IPausingAsyncAware|OnPausingAsync|✅|
+|1|any|INavigationFrame|Pausing|✅|
 |2|Source ViewModel|IPausingAware|OnPausing|✅|
-|3|any|INavigationFrame|Pausing|✅|
-|4|Destination ViewModel|INavigatingAsyncAware|OnNavigatingAsync|✅|
+|3|Source ViewModel|IPausingAsyncAware|OnPausingAsync|✅|
+|4|any|INavigationFrame|Navigating|✅|
 |5|Destination ViewModel|INavigatingAware|OnNavigating|✅|
-|6|any|INavigationFrame|Navigating|✅|
+|6|Destination ViewModel|INavigatingAsyncAware|OnNavigatingAsync|✅|
 |7|-|Navigation|-|-|
-|8|Destination ViewModel|INavigatedAsyncAware|OnNavigatedAsync|-|
+|8|any|INavigationFrame|Navigated|-|
 |9|Destination ViewModel|INavigatedAware|OnNavigated|-|
-|10|any|INavigationFrame|Navigated|-|
-|11|Source ViewModel|IPausedAsyncAware|OnPausedAsync|-|
+|10|Destination ViewModel|INavigatedAsyncAware|OnNavigatedAsync|-|
+|11|any|INavigationFrame|Paused|-|
 |12|Source ViewModel|IPausedAware|OnPaused|-|
-|13|any|INavigationFrame|Paused|-|
+|13|Source ViewModel|IPausedAsyncAware|OnPausedAsync|-|
 
 No. 1 to 6 can cancel navigation.
 
@@ -105,19 +105,19 @@ Subsequent events that are cancelled will not be notified.
 
 |Order|Notification|Interface|Member|Cancel|
 |--:|:--|--|--|:-:|
-|1|Source ViewModel|IDisposingAsyncAware|OnDisposingAsync|✅|
+|1|any|INavigationFrame|Disposing|✅|
 |2|Source ViewModel|IDisposingAware|OnDisposing|✅|
-|3|any|INavigationFrame|Disposing|✅|
-|4|Destination ViewModel|IResumingAsyncAware|OnResumingAsync|✅|
+|3|Source ViewModel|IDisposingAsyncAware|OnDisposingAsync|✅|
+|4|any|INavigationFrame|INavigationFrame|✅|
 |5|Destination ViewModel|IResumingAware|OnResuming|✅|
-|6|any|INavigationFrame|INavigationFrame|✅|
+|6|Destination ViewModel|IResumingAsyncAware|OnResumingAsync|✅|
 |7|-|Go Back|-|-|
-|8|Destination ViewModel|IResumedAsyncAware|OnResumedAsync|-|
+|8|any|INavigationFrame|Resumed|-|
 |9|Destination ViewModel|IResumedAware|OnResumed|-|
-|10|any|INavigationFrame|Resumed|-|
-|11|Source ViewModel|IDisposedAsyncAware|OnDisposedAsync|-|
+|10|Destination ViewModel|IResumedAsyncAware|OnResumedAsync|-|
+|11|Source ViewModel|IDisposable|Dispose|-|
 |12|Source ViewModel|IDisposedAware|OnDisposed|-|
-|13|Source ViewModel|IDisposable|Dispose|-|
+|13|Source ViewModel|IDisposedAsyncAware|OnDisposedAsync|-|
 |14|any|INavigationFrame|Disposed|-|
 
 No. 1 to 6 can cancel navigation.
