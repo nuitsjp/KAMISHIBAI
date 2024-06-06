@@ -51,17 +51,27 @@ public class KamishibaiApplicationBuilder<TApplication, TWindow>(IWpfApplication
 
             if (args.Window.DataContext is null) return;
 
+            // Synchronous event notifications precede asynchronous event notifications
+            // This is because asynchronous notifications must be processed in order to perform screen transitions during event notifications.
+            // If synchronous notifications are not made first, they will be executed in reverse order after screen transitions when screen transitions occur.
+            // By performing synchronous notifications first, notifications will be performed in the proper order even when screen transitions occur.
+
             PreForwardEventArgs preForwardEventArgs = new(null, null, args.Window.DataContext);
-            if (args.Window.DataContext is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync(preForwardEventArgs);
             if (args.Window.DataContext is INavigatingAware navigatingAware) navigatingAware.OnNavigating(preForwardEventArgs);
+            if (args.Window.DataContext is INavigatingAsyncAware navigatingAsyncAware) await navigatingAsyncAware.OnNavigatingAsync(preForwardEventArgs);
         };
         app.Loaded += async (_, args) =>
         {
             if (args.Window.DataContext is null) return;
 
+            // Synchronous event notifications precede asynchronous event notifications
+            // This is because asynchronous notifications must be processed in order to perform screen transitions during event notifications.
+            // If synchronous notifications are not made first, they will be executed in reverse order after screen transitions when screen transitions occur.
+            // By performing synchronous notifications first, notifications will be performed in the proper order even when screen transitions occur.
+
             PostForwardEventArgs postForwardEventArgs = new(null, null, args.Window.DataContext);
-            if (args.Window.DataContext is INavigatedAsyncAware navigationAware) await navigationAware.OnNavigatedAsync(postForwardEventArgs);
             if (args.Window.DataContext is INavigatedAware navigatedAware) navigatedAware.OnNavigated(postForwardEventArgs);
+            if (args.Window.DataContext is INavigatedAsyncAware navigationAware) await navigationAware.OnNavigatedAsync(postForwardEventArgs);
         };
         return app;
     }

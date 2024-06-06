@@ -46,33 +46,33 @@ public class Should_be_notified : PresentationServiceTestBase
         await service.NavigateAsync<FirstViewModel>(NamedFrame.FrameName);
 
         // Navigating
-        Logs[0].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), null, typeof(FirstViewModel), nameof(INavigatingAsyncAware.OnNavigatingAsync)));
+        Logs[0].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), null, typeof(FirstViewModel), nameof(INavigationFrame.Navigating)));
         Logs[1].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), null, typeof(FirstViewModel), nameof(INavigatingAware.OnNavigating)));
-        Logs[2].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), null, typeof(FirstViewModel), nameof(INavigationFrame.Navigating)));
+        Logs[2].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), null, typeof(FirstViewModel), nameof(INavigatingAsyncAware.OnNavigatingAsync)));
         // Navigated
-        Logs[3].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), null, typeof(FirstViewModel), nameof(INavigatedAsyncAware.OnNavigatedAsync)));
+        Logs[3].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), null, typeof(FirstViewModel), nameof(INavigationFrame.Navigated)));
         Logs[4].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), null, typeof(FirstViewModel), nameof(INavigatedAware.OnNavigated)));
-        Logs[5].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), null, typeof(FirstViewModel), nameof(INavigationFrame.Navigated)));
+        Logs[5].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), null, typeof(FirstViewModel), nameof(INavigatedAsyncAware.OnNavigatedAsync)));
 
         Logs.Clear();
         await service.NavigateAsync<SecondViewModel>(NamedFrame.FrameName);
 
         // Pausing
-        Logs[0].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(IPausingAsyncAware.OnPausingAsync)));
+        Logs[0].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigationFrame.Pausing)));
         Logs[1].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(IPausingAware.OnPausing)));
-        Logs[2].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigationFrame.Pausing)));
+        Logs[2].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(IPausingAsyncAware.OnPausingAsync)));
         // Navigating
-        Logs[3].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigatingAsyncAware.OnNavigatingAsync)));
+        Logs[3].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigationFrame.Navigating)));
         Logs[4].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigatingAware.OnNavigating)));
-        Logs[5].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigationFrame.Navigating)));
+        Logs[5].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigatingAsyncAware.OnNavigatingAsync)));
         // Navigating
-        Logs[6].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigatedAsyncAware.OnNavigatedAsync)));
+        Logs[6].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigationFrame.Navigated)));
         Logs[7].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigatedAware.OnNavigated)));
-        Logs[8].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigationFrame.Navigated)));
+        Logs[8].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigatedAsyncAware.OnNavigatedAsync)));
         // Paused
-        Logs[9].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(IPausedAsyncAware.OnPausedAsync)));
+        Logs[9].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigationFrame.Paused)));
         Logs[10].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(IPausedAware.OnPaused)));
-        Logs[11].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(FirstViewModel), typeof(SecondViewModel), nameof(INavigationFrame.Paused)));
+        Logs[11].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(FirstViewModel), typeof(SecondViewModel), nameof(IPausedAsyncAware.OnPausedAsync)));
     }
 
     [WpfFact]
@@ -107,22 +107,22 @@ public class Should_be_notified : PresentationServiceTestBase
         await service.GoBackAsync(NamedFrame.FrameName);
 
         // Disposing
-        Logs[0].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IDisposingAsyncAware.OnDisposingAsync)));
+        Logs[0].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(SecondViewModel), typeof(FirstViewModel), nameof(INavigationFrame.Disposing)));
         Logs[1].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IDisposingAware.OnDisposing)));
-        Logs[2].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(SecondViewModel), typeof(FirstViewModel), nameof(INavigationFrame.Disposing)));
+        Logs[2].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IDisposingAsyncAware.OnDisposingAsync)));
         // Resuming
-        Logs[3].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IResumingAsyncAware.OnResumingAsync)));
+        Logs[3].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(SecondViewModel), typeof(FirstViewModel), nameof(INavigationFrame.Resuming)));
         Logs[4].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IResumingAware.OnResuming)));
-        Logs[5].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(SecondViewModel), typeof(FirstViewModel), nameof(INavigationFrame.Resuming)));
+        Logs[5].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IResumingAsyncAware.OnResumingAsync)));
         // Resumed
-        Logs[6].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IResumedAsyncAware.OnResumedAsync)));
+        Logs[6].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(SecondViewModel), typeof(FirstViewModel), nameof(INavigationFrame.Resumed)));
         Logs[7].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IResumedAware.OnResumed)));
-        Logs[8].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(SecondViewModel), typeof(FirstViewModel), nameof(INavigationFrame.Resumed)));
+        Logs[8].Should().Be((NamedFrame.FrameName, typeof(FirstViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IResumedAsyncAware.OnResumedAsync)));
         // Disposed
-        Logs[9].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IDisposedAsyncAware.OnDisposedAsync)));
+        Logs[9].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(SecondViewModel), typeof(FirstViewModel), nameof(INavigationFrame.Disposed)));
         Logs[10].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IDisposedAware.OnDisposed)));
-        Logs[11].Should().Be((null, typeof(SecondViewModel), null, null, nameof(IDisposable.Dispose)));
-        Logs[12].Should().Be((NamedFrame.FrameName, typeof(NavigationFrame), typeof(SecondViewModel), typeof(FirstViewModel), nameof(INavigationFrame.Disposed)));
+        Logs[11].Should().Be((NamedFrame.FrameName, typeof(SecondViewModel), typeof(SecondViewModel), typeof(FirstViewModel), nameof(IDisposedAsyncAware.OnDisposedAsync)));
+        Logs[12].Should().Be((null, typeof(SecondViewModel), null, null, nameof(IDisposable.Dispose)));
     }
 
     [WpfFact]
@@ -140,11 +140,11 @@ public class Should_be_notified : PresentationServiceTestBase
         await service.OpenWindowAsync<SecondViewModel>();
 
         // Navigating
-        Logs[0].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatingAsyncAware.OnNavigatingAsync)));
-        Logs[1].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatingAware.OnNavigating)));
+        Logs[0].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatingAware.OnNavigating)));
+        Logs[1].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatingAsyncAware.OnNavigatingAsync)));
         // Navigated
-        Logs[2].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatedAsyncAware.OnNavigatedAsync)));
-        Logs[3].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatedAware.OnNavigated)));
+        Logs[2].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatedAware.OnNavigated)));
+        Logs[3].Should().Be((null, typeof(SecondViewModel), null, typeof(SecondViewModel), nameof(INavigatedAsyncAware.OnNavigatedAsync)));
     }
 
     [WpfFact]
@@ -194,19 +194,19 @@ public class Should_be_notified : PresentationServiceTestBase
 
         // Disposing
         var index = -1;
-        Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposingAsyncAware.OnDisposingAsync)));
         Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposingAware.OnDisposing)));
+        Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposingAsyncAware.OnDisposingAsync)));
 
-        Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposingAsyncAware.OnDisposingAsync)));
         Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposingAware.OnDisposing)));
+        Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposingAsyncAware.OnDisposingAsync)));
 
         // Disposed
-        Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposedAsyncAware.OnDisposedAsync)));
         Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposedAware.OnDisposed)));
+        Logs[++index].Should().Be((null, typeof(SecondViewModel), typeof(SecondViewModel), null, nameof(IDisposedAsyncAware.OnDisposedAsync)));
         Logs[++index].Should().Be((null, typeof(SecondViewModel), null, null, nameof(IDisposable.Dispose)));
 
-        Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposedAsyncAware.OnDisposedAsync)));
         Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposedAware.OnDisposed)));
+        Logs[++index].Should().Be((null, typeof(MainWindowViewModel), typeof(MainWindowViewModel), null, nameof(IDisposedAsyncAware.OnDisposedAsync)));
         Logs[++index].Should().Be((null, typeof(MainWindowViewModel), null, null, nameof(IDisposable.Dispose)));
     }
 

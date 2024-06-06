@@ -192,13 +192,14 @@ public class NavigationFrame : ContentControl, INavigationFrame
 
     private async Task<bool> NotifyPausing(PreForwardEventArgs args)
     {
-        if (args.SourceViewModel is IPausingAsyncAware pausingAsyncAware)
+        // Synchronous event notifications precede asynchronous event notifications
+        // This is because asynchronous notifications must be processed in order to perform screen transitions during event notifications.
+        // If synchronous notifications are not made first, they will be executed in reverse order after screen transitions when screen transitions occur.
+        // By performing synchronous notifications first, notifications will be performed in the proper order even when screen transitions occur.
+
+        if (args.SourceViewModel is not null)
         {
-            await pausingAsyncAware.OnPausingAsync(args);
-            if (args.Cancel)
-            {
-                return false;
-            }
+            Pausing?.Invoke(this, args);
         }
 
         if (args.SourceViewModel is IPausingAware pausingAware)
@@ -210,9 +211,13 @@ public class NavigationFrame : ContentControl, INavigationFrame
             }
         }
 
-        if (args.SourceViewModel is not null)
+        if (args.SourceViewModel is IPausingAsyncAware pausingAsyncAware)
         {
-            Pausing?.Invoke(this, args);
+            await pausingAsyncAware.OnPausingAsync(args);
+            if (args.Cancel)
+            {
+                return false;
+            }
         }
 
         return true;
@@ -220,14 +225,12 @@ public class NavigationFrame : ContentControl, INavigationFrame
 
     private async Task<bool> NotifyNavigating(PreForwardEventArgs args)
     {
-        if (args.DestinationViewModel is INavigatingAsyncAware navigatingAsyncAware)
-        {
-            await navigatingAsyncAware.OnNavigatingAsync(args);
-            if (args.Cancel)
-            {
-                return false;
-            }
-        }
+        // Synchronous event notifications precede asynchronous event notifications
+        // This is because asynchronous notifications must be processed in order to perform screen transitions during event notifications.
+        // If synchronous notifications are not made first, they will be executed in reverse order after screen transitions when screen transitions occur.
+        // By performing synchronous notifications first, notifications will be performed in the proper order even when screen transitions occur.
+
+        Navigating?.Invoke(this, args);
 
         if (args.DestinationViewModel is INavigatingAware navigatingAware)
         {
@@ -238,38 +241,53 @@ public class NavigationFrame : ContentControl, INavigationFrame
             }
         }
 
-        Navigating?.Invoke(this, args);
+        if (args.DestinationViewModel is INavigatingAsyncAware navigatingAsyncAware)
+        {
+            await navigatingAsyncAware.OnNavigatingAsync(args);
+            if (args.Cancel)
+            {
+                return false;
+            }
+        }
 
         return true;
     }
 
     private async Task NotifyNavigated(PostForwardEventArgs args)
     {
-        if (args.DestinationViewModel is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync(args);
-        if (args.DestinationViewModel is INavigatedAware navigatedAware) navigatedAware.OnNavigated(args);
+        // Synchronous event notifications precede asynchronous event notifications
+        // This is because asynchronous notifications must be processed in order to perform screen transitions during event notifications.
+        // If synchronous notifications are not made first, they will be executed in reverse order after screen transitions when screen transitions occur.
+        // By performing synchronous notifications first, notifications will be performed in the proper order even when screen transitions occur.
+
         Navigated?.Invoke(this, args);
+        if (args.DestinationViewModel is INavigatedAware navigatedAware) navigatedAware.OnNavigated(args);
+        if (args.DestinationViewModel is INavigatedAsyncAware navigatedAsyncAware) await navigatedAsyncAware.OnNavigatedAsync(args);
     }
 
     private async Task NotifyPaused(PostForwardEventArgs args)
     {
-        if (args.SourceViewModel is IPausedAsyncAware pausedAsyncAware) await pausedAsyncAware.OnPausedAsync(args);
-        if (args.SourceViewModel is IPausedAware pausedAware) pausedAware.OnPaused(args);
+        // Synchronous event notifications precede asynchronous event notifications
+        // This is because asynchronous notifications must be processed in order to perform screen transitions during event notifications.
+        // If synchronous notifications are not made first, they will be executed in reverse order after screen transitions when screen transitions occur.
+        // By performing synchronous notifications first, notifications will be performed in the proper order even when screen transitions occur.
+
         if (args.SourceViewModel is not null)
         {
             Paused?.Invoke(this, args);
         }
+        if (args.SourceViewModel is IPausedAware pausedAware) pausedAware.OnPaused(args);
+        if (args.SourceViewModel is IPausedAsyncAware pausedAsyncAware) await pausedAsyncAware.OnPausedAsync(args);
     }
 
     private async Task<bool> NotifyDisposing(PreBackwardEventArgs args)
     {
-        if (args.SourceViewModel is IDisposingAsyncAware disposingAsyncAware)
-        {
-            await disposingAsyncAware.OnDisposingAsync(args);
-            if (args.Cancel)
-            {
-                return false;
-            }
-        }
+        // Synchronous event notifications precede asynchronous event notifications
+        // This is because asynchronous notifications must be processed in order to perform screen transitions during event notifications.
+        // If synchronous notifications are not made first, they will be executed in reverse order after screen transitions when screen transitions occur.
+        // By performing synchronous notifications first, notifications will be performed in the proper order even when screen transitions occur.
+
+        Disposing?.Invoke(this, args);
 
         if (args.SourceViewModel is IDisposingAware disposingAware)
         {
@@ -280,20 +298,26 @@ public class NavigationFrame : ContentControl, INavigationFrame
             }
         }
 
-        Disposing?.Invoke(this, args);
-        return true;
-    }
-
-    private async Task<bool> NotifyResuming(PreBackwardEventArgs args)
-    {
-        if (args.DestinationViewModel is IResumingAsyncAware resumingAsyncAware)
+        if (args.SourceViewModel is IDisposingAsyncAware disposingAsyncAware)
         {
-            await resumingAsyncAware.OnResumingAsync(args);
+            await disposingAsyncAware.OnDisposingAsync(args);
             if (args.Cancel)
             {
                 return false;
             }
         }
+
+        return true;
+    }
+
+    private async Task<bool> NotifyResuming(PreBackwardEventArgs args)
+    {
+        // Synchronous event notifications precede asynchronous event notifications
+        // This is because asynchronous notifications must be processed in order to perform screen transitions during event notifications.
+        // If synchronous notifications are not made first, they will be executed in reverse order after screen transitions when screen transitions occur.
+        // By performing synchronous notifications first, notifications will be performed in the proper order even when screen transitions occur.
+
+        Resuming?.Invoke(this, args);
 
         if (args.DestinationViewModel is IResumingAware resumingAware)
         {
@@ -304,23 +328,41 @@ public class NavigationFrame : ContentControl, INavigationFrame
             }
         }
 
-        Resuming?.Invoke(this, args);
+        if (args.DestinationViewModel is IResumingAsyncAware resumingAsyncAware)
+        {
+            await resumingAsyncAware.OnResumingAsync(args);
+            if (args.Cancel)
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 
     private async Task NotifyResumed(PostBackwardEventArgs args)
     {
-        if (args.DestinationViewModel is IResumedAsyncAware resumedAsyncAware) await resumedAsyncAware.OnResumedAsync(args);
-        if (args.DestinationViewModel is IResumedAware resumedAware) resumedAware.OnResumed(args);
+        // Synchronous event notifications precede asynchronous event notifications
+        // This is because asynchronous notifications must be processed in order to perform screen transitions during event notifications.
+        // If synchronous notifications are not made first, they will be executed in reverse order after screen transitions when screen transitions occur.
+        // By performing synchronous notifications first, notifications will be performed in the proper order even when screen transitions occur.
+
         Resumed?.Invoke(this, args);
+        if (args.DestinationViewModel is IResumedAware resumedAware) resumedAware.OnResumed(args);
+        if (args.DestinationViewModel is IResumedAsyncAware resumedAsyncAware) await resumedAsyncAware.OnResumedAsync(args);
     }
 
     private async Task NotifyDisposed(PostBackwardEventArgs args)
     {
-        if (args.SourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync(args);
-        if (args.SourceViewModel is IDisposedAware disposedAware) disposedAware.OnDisposed(args);
-        if (args.SourceViewModel is IDisposable disposable) disposable.Dispose();
+        // Synchronous event notifications precede asynchronous event notifications
+        // This is because asynchronous notifications must be processed in order to perform screen transitions during event notifications.
+        // If synchronous notifications are not made first, they will be executed in reverse order after screen transitions when screen transitions occur.
+        // By performing synchronous notifications first, notifications will be performed in the proper order even when screen transitions occur.
+
         Disposed?.Invoke(this, args);
+        if (args.SourceViewModel is IDisposedAware disposedAware) disposedAware.OnDisposed(args);
+        if (args.SourceViewModel is IDisposedAsyncAware disposedAsyncAware) await disposedAsyncAware.OnDisposedAsync(args);
+        if (args.SourceViewModel is IDisposable disposable) disposable.Dispose();
     }
 
     public IDisposable Subscribe(IObserver<object> observer)

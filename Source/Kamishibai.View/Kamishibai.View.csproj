@@ -7,6 +7,10 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
+  <PropertyGroup>
+    <Version>3.0.0</Version>
+  </PropertyGroup>
+
   <!-- NuGet -->
   <PropertyGroup>
     <PackageId>Kamishibai.View</PackageId>
@@ -20,7 +24,6 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <Version>2.6.0</Version>
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <PackageIcon>nuits.jp.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
