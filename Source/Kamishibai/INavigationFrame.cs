@@ -16,6 +16,7 @@ public interface INavigationFrame : IObservable<object>
     int Count { get; }
     bool CanGoBack { get; }
     object CurrentDataContext { get; }
+    bool HasPages { get; }
     Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider);
     Task<bool> NavigateAsync<TViewModel>(IServiceProvider serviceProvider);
     Task<bool> NavigateAsync<TViewModel>(TViewModel viewModel, IServiceProvider serviceProvider) where TViewModel : notnull;

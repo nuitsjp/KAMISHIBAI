@@ -73,6 +73,7 @@ public class NavigationFrame : ContentControl, INavigationFrame
 
     public object CurrentDataContext => Current.DataContext;
 
+    public bool HasPages => 0 < _pages.Count;
     public bool CanGoBack => _pages.CanPop;
 
     public Task<bool> NavigateAsync(Type viewModelType, IServiceProvider serviceProvider)

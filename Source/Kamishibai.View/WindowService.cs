@@ -319,7 +319,10 @@ public class WindowService : IWindowService
         var navigationFrames = FindNavigationFrame(window);
         foreach (var navigationFrame in navigationFrames)
         {
-            if(await NotifyDisposing(navigationFrame.CurrentDataContext) is false) return false;
+            if (navigationFrame.HasPages is false) continue;
+
+            // Disposing
+            if (await NotifyDisposing(navigationFrame.CurrentDataContext) is false) return false;
         }
 
         return await NotifyDisposing(window.DataContext);
@@ -360,6 +363,8 @@ public class WindowService : IWindowService
         var navigationFrames = FindNavigationFrame(window);
         foreach (var navigationFrame in navigationFrames)
         {
+            if (navigationFrame.HasPages is false) continue;
+
             await NotifyDisposed(navigationFrame.CurrentDataContext);
         }
 

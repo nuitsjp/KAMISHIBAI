@@ -36,8 +36,8 @@ public class MainViewModel : INavigatedAsyncAware
         }
     }
 
-    public Task OnNavigatedAsync(PostForwardEventArgs args)
+    public async Task OnNavigatedAsync(PostForwardEventArgs args)
     {
-        return _presentationService.NavigateAsync(_selectedMenuItem.ViewModel);
+        //return _presentationService.NavigateAsync(_selectedMenuItem.ViewModel);
     }
 }
