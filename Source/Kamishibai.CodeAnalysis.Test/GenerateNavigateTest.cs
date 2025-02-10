@@ -30,7 +30,7 @@ namespace TestProject
         Task<bool> NavigateToFooAsync(string frameName = """");
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -82,7 +82,7 @@ namespace TestProject
         Task<bool> NavigateToFooAsync(string frameName = """");
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -133,7 +133,7 @@ namespace TestProject
         Task<bool> NavigateToFooAsync(string frameName = """");
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -192,7 +192,7 @@ namespace TestProject
         Task<bool> NavigateToBarAsync(int number, Foo.Argument argument, string frameName = """");
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -252,7 +252,7 @@ namespace TestProject
         Task<bool> NavigateToBarAsync(int number, string frameName, Foo.Argument argument);
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -314,7 +314,7 @@ namespace TestProject
         Task<bool> NavigateToBarAsync(int number, Foo.Argument argument, string frameName = """");
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -375,7 +375,7 @@ namespace TestProject
         Task<bool> NavigateToBarAsync(int? number, Foo.Argument argument, string frameName = """");
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -432,7 +432,7 @@ namespace TestProject
         Task<bool> NavigateToBarAsync(int number, Foo.Argument argument, string frameName = """");
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
