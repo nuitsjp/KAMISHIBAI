@@ -49,6 +49,12 @@ public class OpenWindowViewModel : IDisposingAware, IPausingAware
         new(owner => _presentationService.OpenWindowWithArgumentsWindowAsync(WindowName3, owner, new OpenWindowOptions { WindowStartupLocation = SelectedWindowStartupLocation })
             .AddTo(_disposable));
 
+    public string WindowName4 { get; set; } = "Hello, Singleton (App-specific)";
+
+    public AsyncRelayCommand<object> OpenSingletonCommand =>
+        new(owner => _presentationService.OpenSingletonWindowWithArgumentsWindowAsync(WindowName4, owner, new OpenWindowOptions { WindowStartupLocation = SelectedWindowStartupLocation })
+            .AddTo(_disposable));
+
     public RelayCommand ActivateCommand => new(() => InvokeWindowAction(x => x.Activate()));
     public RelayCommand HideCommand => new(() => InvokeWindowAction(x => x.Hide()));
     public RelayCommand ShowCommand => new(() => InvokeWindowAction(x => x.Show()));
