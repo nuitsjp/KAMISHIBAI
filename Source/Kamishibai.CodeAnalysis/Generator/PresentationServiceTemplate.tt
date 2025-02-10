@@ -39,7 +39,7 @@ foreach(var openDialogInfo in OpenDialogInfos)
 #>
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
