@@ -7,44 +7,44 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
-  <PropertyGroup>
-	  <Version>3.0.1</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Version>3.1.0</Version>
+	</PropertyGroup>
 
-  <!-- NuGet -->
-  <PropertyGroup>
-    <PackageId>Kamishibai.View</PackageId>
-    <Description>MVVM navigation library for Generic Host.</Description>
-    <PackageVersion>$(Version)</PackageVersion>
-    <Authors>nuits.jp</Authors>
-    <Copyright>© 2022 nuits.jp</Copyright>
-    <PackageTags>sourcegenerator wpf</PackageTags>
-    <PackageProjectUrl>https://github.com/nuitsjp/Kamishibai</PackageProjectUrl>
-    <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <NoPackageAnalysis>true</NoPackageAnalysis>
-    <PackageIcon>nuits.jp.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="..\..\Images\nuits.jp.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<!-- NuGet -->
+	<PropertyGroup>
+		<PackageId>Kamishibai.View</PackageId>
+		<Description>MVVM navigation library for Generic Host.</Description>
+		<PackageVersion>$(Version)</PackageVersion>
+		<Authors>nuits.jp</Authors>
+		<Copyright>© 2022 nuits.jp</Copyright>
+		<PackageTags>sourcegenerator wpf</PackageTags>
+		<PackageProjectUrl>https://github.com/nuitsjp/Kamishibai</PackageProjectUrl>
+		<RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<NoPackageAnalysis>true</NoPackageAnalysis>
+		<PackageIcon>nuits.jp.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\..\Images\nuits.jp.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 	
-  <ItemGroup>
-	  <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
+	<ItemGroup>
+		<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Kamishibai\Kamishibai.csproj" />
+		<ProjectReference Include="..\Kamishibai\Kamishibai.csproj" />
 	</ItemGroup>
 
 </Project>
