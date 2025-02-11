@@ -113,6 +113,11 @@ public class WindowHandle : IWindow
     public WindowState WindowState => (WindowState)_window.WindowState;
 
     /// <summary>
+    /// Window vidwModel.
+    /// </summary>
+    public object ViewModel => _window.DataContext;
+
+    /// <summary>
     /// Close window.
     /// </summary>
     public void Close()

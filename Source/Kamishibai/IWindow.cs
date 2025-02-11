@@ -37,6 +37,11 @@ public interface IWindow : IDisposable
     WindowState WindowState { get; }
 
     /// <summary>
+    /// Window vidwModel.
+    /// </summary>
+    object ViewModel { get; }
+
+    /// <summary>
     /// Close window.
     /// </summary>
     void Close();
