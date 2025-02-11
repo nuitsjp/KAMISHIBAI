@@ -66,7 +66,7 @@ foreach(var openDialogInfo in OpenDialogInfos)
 
             this.Write(@"    }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 

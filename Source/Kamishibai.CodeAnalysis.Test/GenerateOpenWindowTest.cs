@@ -30,7 +30,7 @@ namespace TestProject
         Task<IWindow> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -83,7 +83,7 @@ namespace TestProject
         Task<IWindow> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -136,7 +136,7 @@ namespace TestProject
         Task<IWindow> OpenFooWindowAsync(object? owner = null, OpenWindowOptions? options = null);
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -196,7 +196,7 @@ namespace TestProject
         Task<IWindow> OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -258,7 +258,7 @@ namespace TestProject
         Task<IWindow> OpenBarWindowAsync(int number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -320,7 +320,7 @@ namespace TestProject
         Task<IWindow> OpenBarWindowAsync(int? number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -379,7 +379,7 @@ namespace TestProject
         Task<IWindow> OpenBarWindowAsync(int? number, Foo.Argument argument, object? owner = null, OpenWindowOptions? options = null);
     }
 
-    public class PresentationService : PresentationServiceBase, IPresentationService
+    public partial class PresentationService : PresentationServiceBase, IPresentationService
     {
         private readonly IServiceProvider _serviceProvider;
 
