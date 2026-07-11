@@ -38,6 +38,8 @@ public class OpenFileTest : TestBase
 
         var async = new Async();
         openFilePage.OpenFileCommand.EmulateClick(async);
+        Thread.Sleep(500);
+        openFilePage.ErrorMessage.Text.Should().BeEmpty();
         var openFileDialog = app.Attach_OpenFileDialog(@"開く");
         openFileDialog.ComboBox_FilePath.EmulateChangeEditText(FilePath1);
         openFileDialog.Button_Open.EmulateClick();
@@ -59,6 +61,8 @@ public class OpenFileTest : TestBase
 
         var async = new Async();
         openFilePage.OpenFileCommand.EmulateClick(async);
+        Thread.Sleep(500);
+        openFilePage.ErrorMessage.Text.Should().BeEmpty();
         var openFileDialog = app.Attach_OpenFileDialog(@"開く");
         openFileDialog.ComboBox_FilePath.EmulateChangeEditText($@"""{FilePath1}"" ""{FilePath2}""");
         openFileDialog.Button_Open.EmulateClick();
@@ -83,6 +87,8 @@ public class OpenFileTest : TestBase
 
         var async = new Async();
         openFilePage.OpenFileCommand.EmulateClick(async);
+        Thread.Sleep(500);
+        openFilePage.ErrorMessage.Text.Should().BeEmpty();
         var openFileDialog = app.Attach_OpenFileDialog(@"開く");
         openFileDialog.ComboBox_FilePath.EmulateChangeEditText(FilePath1);
         openFileDialog.Button_Cancel.EmulateClick();

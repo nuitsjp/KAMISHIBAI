@@ -11,4 +11,5 @@
 - [Open File Dialog](/09-open-file-dialog.md)
 - [Save File Dialog](/10-save-file-dialog.md)
 - [Animation of navigation](/11-animation-of-navigation.md)
+- [Migrating from 3.x to 4.0](/12-migrating-to-4.0.md)
 - [API Reference](https://nuitsjp.github.io/KAMISHIBAI/Api/annotated.html)

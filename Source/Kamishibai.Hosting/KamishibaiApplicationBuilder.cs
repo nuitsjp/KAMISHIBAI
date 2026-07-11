@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Wpf.Extensions.Hosting;
@@ -21,6 +22,7 @@ public class KamishibaiApplicationBuilder<TApplication, TWindow>(IWpfApplication
     public WpfApplication<TApplication, TWindow> Build()
     {
         Services.AddSingleton<INavigationFrameProvider, NavigationFrameProvider>();
+        Services.TryAddSingleton<IFileDialogService, Win32FileDialogService>();
         Services.AddTransient<IWindowService, WindowService>();
 
         // Register IPresentationService to DI Container.

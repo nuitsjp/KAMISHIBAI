@@ -1,14 +1,17 @@
 # NuGet Package Structure and Overview
 
-KAMISHIBAI publishes three packages on NuGet.
+KAMISHIBAI publishes four packages on NuGet.
 
 |Package|Role|
 |--|--|
 |Kamishibai|Core library. Includes interfaces for using navigation, etc.|
 |Kamishibai.View|Includes classes used in the View layer, such as UI elements used in WPF.|
 |Kamishibai.Hosting|Contains classes for hosting KAMISHIBAI on Generic Host.|
+|Kamishibai.FileDialogs.WindowsApiCodePack|Optional compatibility implementation that preserves the file dialog behavior from KAMISHIBAI 3.x.|
 
-Kamishibai.Hosting is transitively dependent on all packages.
+Kamishibai.Hosting is transitively dependent on Kamishibai and Kamishibai.View. The Windows API Code Pack compatibility package is optional.
+
+KAMISHIBAI 4.0 changes the default file dialog implementation and dependency injection setup. Existing applications should review [Migrating from 3.x to 4.0](12-migrating-to-4.0.md) before upgrading.
 
 Therefore, the easiest way to use it is to add a reference to Kamishibai.Hosting. All functionality will be available.
 

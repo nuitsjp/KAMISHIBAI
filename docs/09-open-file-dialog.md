@@ -6,6 +6,19 @@ KAMISHIBAI supports the following three types of dialogs
 2. multiple file selection dialog
 3. folder selection dialog
 
+KAMISHIBAI 4 uses a direct Win32 Common Item Dialog implementation by default. To preserve the file dialog implementation and behavior from KAMISHIBAI 3.x, install `Kamishibai.FileDialogs.WindowsApiCodePack` and register it before building the application.
+
+```cs
+builder.Services.AddWindowsApiCodePackFileDialogs();
+var app = builder.Build();
+```
+
+The `IPresentationService`, `IWindowService`, and dialog context APIs are unchanged. Applications can also replace `IFileDialogService` with their own implementation through dependency injection.
+
+The direct Win32 implementation does not apply `AllowPropertyEditing` because the public Common Item Dialog API has no corresponding switch. `IsExpandedMode` is mapped to `FOS_DEFAULTNOMINIMODE`, which Windows 7 and later do not support. Use the compatibility package when the KAMISHIBAI 3.x behavior of these options is required.
+
+See [Migrating from KAMISHIBAI 3.x to 4.0](12-migrating-to-4.0.md) for all compatibility considerations.
+
 # Single File Selection Dialog
 
 Pass OpenFileDialogContext to the OpenFile method of IPresentationService.

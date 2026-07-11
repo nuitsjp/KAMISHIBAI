@@ -43,6 +43,7 @@ namespace Driver.Windows
         public WPFButtonBase SaveFileCommand => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.ScrollViewer").Single().LogicalTree().ByBinding("SaveFileCommand").FirstOrDefault()?.Dynamic(); 
         public WPFTextBlock OpenFileResult => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.ScrollViewer").Single().LogicalTree().ByBinding("OpenFileResult").FirstOrDefault()?.Dynamic(); 
         public WPFTextBlock FilePath => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.ScrollViewer").Single().LogicalTree().ByBinding("FilePath").FirstOrDefault()?.Dynamic(); 
+        public WPFTextBlock ErrorMessage => Core.LogicalTree().ByType<ContentControl>().ByContentText("System.Windows.Controls.ScrollViewer").Single().LogicalTree().ByBinding("ErrorMessage").FirstOrDefault()?.Dynamic();
 
         public SaveFilePageDriver(WindowControl core)
         {

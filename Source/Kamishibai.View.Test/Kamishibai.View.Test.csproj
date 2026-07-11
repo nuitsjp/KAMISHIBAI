@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Kamishibai.CodeAnalysis\Kamishibai.CodeAnalysis.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Kamishibai.FileDialogs.WindowsApiCodePack\Kamishibai.FileDialogs.WindowsApiCodePack.csproj" />
     <ProjectReference Include="..\Kamishibai.Hosting\Kamishibai.Hosting.csproj" />
   </ItemGroup>
 
